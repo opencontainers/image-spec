@@ -54,16 +54,6 @@ A: Existing formats can continue to be a proving ground for technologies, as nee
 * June ??? v1.0.0
   * Release initial version of spec with two independent non-experimental implementations from OCI members
 
-## Maintainers
-
-* Vincent Batts, Red Hat
-* Brandon Philips, CoreOS
-* Brendan Burns, Google
-* Jason Bouzane, Google
-* John Starks, Microsoft
-* Jonathan Boulle, CoreOS
-* Stephen Day, Docker
-
 # Contributing
 
 Development happens on GitHub for the spec.
