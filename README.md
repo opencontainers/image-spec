@@ -1,4 +1,4 @@
-# Open Container - Distributable Image Specification
+# Open Container Distributable Image Specification
 
 The [Open Container Initiative](http://www.opencontainers.org/) develops specifications for standards on Operating System process and application containers.
 
