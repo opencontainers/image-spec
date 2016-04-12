@@ -1,0 +1,52 @@
+{
+  "description": "Definitions particular to OpenContainer Image Specification",
+  "definitions": {
+    "mediaType": {
+      "id": "https://opencontainers.org/schema/image/mediaType",
+      "type": "string",
+      "pattern": "^[a-z]+/[0-9a-zA-Z.+]+$"
+    },
+    "blobObject": {
+      "id": "https://opencontainers.org/schema/image/blobObject",
+      "type": "object",
+      "required": [
+        "mediaType",
+        "size",
+        "digest"
+      ],
+      "properties": {
+        "mediaType": {
+          "description": "the mediatype of the referenced object",
+          "$ref": "#definitions/mediaType"
+        },
+        "size": {
+          "description": "the size in bytes of the referenced object",
+          "type": "integer"
+        },
+        "digest": {
+          "description": "the cryptographic checksum digest of this object, in the pattern '<hash>:<hexadecimal digest>'",
+          "type": "string",
+          "pattern": "^[a-z0-9]+:[a-fA-F0-9]+$"
+        }
+      }
+    },
+    "platform": {
+      "id": "https://opencontainers.org/schema/image/platform",
+      "type": "object",
+      "required": [
+        "arch",
+        "os"
+      ],
+      "properties": {
+        "arch": {
+          "id": "https://opencontainers.org/schema/image/platform/arch",
+          "type": "string"
+        },
+        "os": {
+          "id": "https://opencontainers.org/schema/image/platform/os",
+          "type": "string"
+        }
+      }
+    }
+  }
+}
