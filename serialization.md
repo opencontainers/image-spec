@@ -1,10 +1,7 @@
-# Docker Image Specification v1.0.0
+# OpenContainers Image Serialization Specification
 
-An *Image* is an ordered collection of root filesystem changes and the
-corresponding execution parameters for use within a container runtime. This
-specification outlines the format of these filesystem changes and corresponding
-parameters and describes how to create and use them for use with a container
-runtime and execution tool.
+An *Image* is an ordered collection of root filesystem changes and the corresponding execution parameters for use within a container runtime.
+This specification outlines the format of these filesystem changes and corresponding parameters and describes how to create and use them for use with a container runtime and execution tool.
 
 ## Terminology
 
@@ -15,102 +12,70 @@ This specification uses the following terms:
         Layer
     </dt>
     <dd>
-        Images are composed of <i>layers</i>. <i>Image layer</i> is a general
-        term which may be used to refer to one or both of the following:
+        Images are composed of <i>layers</i>.
+	<i>Image layer</i> is a general term which may be used to refer to one or both of the following:
 
         <ol>
             <li>The metadata for the layer, described in the JSON format.</li>
             <li>The filesystem changes described by a layer.</li>
         </ol>
 
-        To refer to the former you may use the term <i>Layer JSON</i> or
-        <i>Layer Metadata</i>. To refer to the latter you may use the term
-        <i>Image Filesystem Changeset</i> or <i>Image Diff</i>.
+        To refer to the former you may use the term <i>Layer JSON</i> or <i>Layer Metadata</i>.
+	To refer to the latter you may use the term <i>Image Filesystem Changeset</i> or <i>Image Diff</i>.
     </dd>
     <dt>
         Image JSON
     </dt>
     <dd>
-        Each layer has an associated JSON structure which describes some
-        basic information about the image such as date created, author, and the
-        ID of its parent image as well as execution/runtime configuration like
-        its entry point, default arguments, CPU/memory shares, networking, and
-        volumes.
+        Each layer has an associated JSON structure which describes some basic information about the image such as date created, author, and the ID of its parent image as well as execution/runtime configuration like its entry point, default arguments, CPU/memory shares, networking, and volumes.
     </dd>
     <dt>
         Image Filesystem Changeset
     </dt>
     <dd>
-        Each layer has an archive of the files which have been added, changed,
-        or deleted relative to its parent layer. Using a layer-based or union
-        filesystem such as AUFS, or by computing the diff from filesystem
-        snapshots, the filesystem changeset can be used to present a series of
-        image layers as if they were one cohesive filesystem.
+        Each layer has an archive of the files which have been added, changed, or deleted relative to its parent layer.
+	Using a layer-based or union filesystem such as AUFS, or by computing the diff from filesystem snapshots, the filesystem changeset can be used to present a series of image layers as if they were one cohesive filesystem.
     </dd>
     <dt>
         Image ID <a name="id_desc"></a>
     </dt>
     <dd>
-        Each layer is given an ID upon its creation. It is 
-        represented as a hexadecimal encoding of 256 bits, e.g.,
-        <code>a9561eb1b190625c9adb5a9513e72c4dedafc1cb2d4c5236c9a6957ec7dfd5a9</code>.
+        Each layer is given an ID upon its creation.
+	It is represented as a hexadecimal encoding of 256 bits, e.g., <code>a9561eb1b190625c9adb5a9513e72c4dedafc1cb2d4c5236c9a6957ec7dfd5a9</code>.
         Image IDs should be sufficiently random so as to be globally unique.
-        32 bytes read from <code>/dev/urandom</code> is sufficient for all
-        practical purposes. Alternatively, an image ID may be derived as a
-        cryptographic hash of image contents as the result is considered
-        indistinguishable from random. The choice is left up to implementors.
+        32 bytes read from <code>/dev/urandom</code> is sufficient for all practical purposes.
+	Alternatively, an image ID may be derived as a cryptographic hash of image contents as the result is considered indistinguishable from random.
+	The choice is left up to implementors.
     </dd>
     <dt>
         Image Parent
     </dt>
     <dd>
-        Most layer metadata structs contain a <code>parent</code> field which
-        refers to the Image from which another directly descends. An image
-        contains a separate JSON metadata file and set of changes relative to
-        the filesystem of its parent image. <i>Image Ancestor</i> and
-        <i>Image Descendant</i> are also common terms.
+        Most layer metadata structs contain a <code>parent</code> field which refers to the Image from which another directly descends.
+	An image contains a separate JSON metadata file and set of changes relative to the filesystem of its parent image.
+	<i>Image Ancestor</i> and <i>Image Descendant</i> are also common terms.
     </dd>
     <dt>
         Image Checksum
     </dt>
     <dd>
-        Layer metadata structs contain a cryptographic hash of the contents of
-        the layer's filesystem changeset. Though the set of changes exists as a
-        simple Tar archive, two archives with identical filenames and content
-        will have different SHA digests if the last-access or last-modified
-        times of any entries differ. For this reason, image checksums are
-        generated using the TarSum algorithm which produces a cryptographic
-        hash of file contents and selected headers only. Details of this
-        algorithm are described in the separate <a href="https://github.com/docker/docker/blob/master/pkg/tarsum/tarsum_spec.md">TarSum specification</a>.
+        The checksum is a cryptographic digest of the artifact.
     </dd>
     <dt>
         Tag
     </dt>
     <dd>
-        A tag serves to map a descriptive, user-given name to any single image
-        ID. An image name suffix (the name component after <code>:</code>) is
-        often referred to as a tag as well, though it strictly refers to the
-        full name of an image. Acceptable values for a tag suffix are
-        implementation specific, but they SHOULD be limited to the set of
-        alphanumeric characters <code>[a-zA-z0-9]</code>, punctuation
-        characters <code>[._-]</code>, and MUST NOT contain a <code>:</code>
-        character.
+        A tag serves to map a descriptive, user-given name to any single image ID.
+	An image name suffix (the name component after <code>:</code>) is often referred to as a tag as well, though it strictly refers to the full name of an image.
+	Acceptable values for a tag suffix are implementation specific, but they SHOULD be limited to the set of alphanumeric characters <code>[a-zA-z0-9]</code>, punctuation characters <code>[._-]</code>, and MUST NOT contain a <code>:</code> character.
     </dd>
     <dt>
         Repository
     </dt>
     <dd>
-        A collection of tags grouped under a common prefix (the name component
-        before <code>:</code>). For example, in an image tagged with the name
-        <code>my-app:3.1.4</code>, <code>my-app</code> is the <i>Repository</i>
-        component of the name. Acceptable values for repository name are
-        implementation specific, but they SHOULD be limited to the set of
-        alphanumeric characters <code>[a-zA-z0-9]</code>, and punctuation
-        characters <code>[._-]</code>, however it MAY contain additional
-        <code>/</code> and <code>:</code> characters for organizational
-        purposes, with the last <code>:</code> character being interpreted
-        dividing the repository component of the name from the tag suffix
-        component.
+        A collection of tags grouped under a common prefix (the name component before <code>:</code>).
+	For example, in an image tagged with the name <code>my-app:3.1.4</code>, <code>my-app</code> is the <i>Repository</i> component of the name.
+	Acceptable values for repository name are implementation specific, but they SHOULD be limited to the set of alphanumeric characters <code>[a-zA-z0-9]</code>, and punctuation characters <code>[._-]</code>, however it MAY contain additional <code>/</code> and <code>:</code> characters for organizational purposes, with the last <code>:</code> character being interpreted dividing the repository component of the name from the tag suffix component.
     </dd>
 </dl>
 
@@ -165,27 +130,24 @@ Here is an example image JSON file:
         id <code>string</code>
     </dt>
     <dd>
-        Randomly generated, 256-bit, hexadecimal encoded. Uniquely identifies
-        the image.
+        Randomly generated, 256-bit, hexadecimal encoded.
+	Uniquely identifies the image.
     </dd>
     <dt>
         parent <code>string</code>
     </dt>
     <dd>
-        ID of the parent image. If there is no parent image then this field
-        should be omitted. A collection of images may share many of the same
-        ancestor layers. This organizational structure is strictly a tree with
-        any one layer having either no parent or a single parent and zero or
-        more descendant layers. Cycles are not allowed and implementations
-        should be careful to avoid creating them or iterating through a cycle
-        indefinitely.
+        ID of the parent image.
+	If there is no parent image then this field should be omitted.
+	A collection of images may share many of the same ancestor layers.
+	This organizational structure is strictly a tree with any one layer having either no parent or a single parent and zero or more descendant layers.
+	Cycles are not allowed and implementations should be careful to avoid creating them or iterating through a cycle indefinitely.
     </dd>
     <dt>
         created <code>string</code>
     </dt>
     <dd>
-        ISO-8601 formatted combined date and time at which the image was
-        created.
+        ISO-8601 formatted combined date and time at which the image was created.
     </dd>
     <dt>
         author <code>string</code>
@@ -198,15 +160,14 @@ Here is an example image JSON file:
         architecture <code>string</code>
     </dt>
     <dd>
-        The CPU architecture which the binaries in this image are built to run
-        on. Possible values include:
+        The CPU architecture which the binaries in this image are built to run on.
+	Possible values include:
         <ul>
             <li>386</li>
             <li>amd64</li>
             <li>arm</li>
         </ul>
-        More values may be supported in the future and any of these may or may
-        not be supported by a given container runtime implementation.
+        More values may be supported in the future and any of these may or may not be supported by a given container runtime implementation.
     </dd>
     <dt>
         os <code>string</code>
@@ -226,24 +187,20 @@ Here is an example image JSON file:
         checksum <code>string</code>
     </dt>
     <dd>
-        Image Checksum of the filesystem changeset associated with the image
-        layer.
+        Image Checksum of the filesystem changeset associated with the image layer.
     </dd>
     <dt>
         Size <code>integer</code>
     </dt>
     <dd>
-        The size in bytes of the filesystem changeset associated with the image
-        layer.
+        The size in bytes of the filesystem changeset associated with the image layer.
     </dd>
     <dt>
         config <code>struct</code>
     </dt>
     <dd>
-        The execution parameters which should be used as a base when running a
-        container using the image. This field can be <code>null</code>, in
-        which case any execution parameters should be specified at creation of
-        the container.
+        The execution parameters which should be used as a base when running a container using the image.
+	This field can be <code>null</code>, in which case any execution parameters should be specified at creation of the container.
 
         <h4>Container RunConfig Field Descriptions</h4>
 
@@ -252,9 +209,10 @@ Here is an example image JSON file:
                 User <code>string</code>
             </dt>
             <dd>
-                <p>The username or UID which the process in the container should
-                run as. This acts as a default value to use when the value is
-                not specified when creating a container.</p>
+                <p>
+		The username or UID which the process in the container should run as.
+		This acts as a default value to use when the value is not specified when creating a container.
+		</p>
 
                 <p>All of the following are valid:</p>
 
@@ -267,44 +225,38 @@ Here is an example image JSON file:
                     <li><code>user:gid</code></li>
                 </ul>
 
-                <p>If <code>group</code>/<code>gid</code> is not specified, the
-                default group and supplementary groups of the given
-                <code>user</code>/<code>uid</code> in <code>/etc/passwd</code>
-                from the container are applied.</p>
+                <p>
+		If <code>group</code>/<code>gid</code> is not specified, the default group and supplementary groups of the given <code>user</code>/<code>uid</code> in <code>/etc/passwd</code> from the container are applied.
+		</p>
             </dd>
             <dt>
                 Memory <code>integer</code>
             </dt>
             <dd>
-                Memory limit (in bytes). This acts as a default value to use
-                when the value is not specified when creating a container.
+                Memory limit (in bytes).
+		This acts as a default value to use when the value is not specified when creating a container.
             </dd>
             <dt>
                 MemorySwap <code>integer</code>
             </dt>
             <dd>
-                Total memory usage (memory + swap); set to <code>-1</code> to
-                disable swap. This acts as a default value to use when the
-                value is not specified when creating a container.
+                Total memory usage (memory + swap); set to <code>-1</code> to disable swap.
+		This acts as a default value to use when the value is not specified when creating a container.
             </dd>
             <dt>
                 CpuShares <code>integer</code>
             </dt>
             <dd>
-                CPU shares (relative weight vs. other containers). This acts as
-                a default value to use when the value is not specified when
-                creating a container.
+                CPU shares (relative weight vs. other containers).
+		This acts as a default value to use when the value is not specified when creating a container.
             </dd>
             <dt>
                 ExposedPorts <code>struct</code>
             </dt>
             <dd>
                 A set of ports to expose from a container running this image.
-                This JSON structure value is unusual because it is a direct
-                JSON serialization of the Go type
-                <code>map[string]struct{}</code> and is represented in JSON as
-                an object mapping its keys to an empty object. Here is an
-                example:
+                This JSON structure value is unusual because it is a direct JSON serialization of the Go type <code>map[string]struct{}</code> and is represented in JSON as an object mapping its keys to an empty object.
+		Here is an example:
 
 <pre>{
     "8080": {},
@@ -324,48 +276,39 @@ Here is an example image JSON file:
                         <code>"port"</code>
                     </li>
                 </ul>
-                with the default protocol being <code>"tcp"</code> if not
-                specified.
+                with the default protocol being <code>"tcp"</code> if not specified.
 
-                These values act as defaults and are merged with any specified
-                when creating a container.
+                These values act as defaults and are merged with any specified when creating a container.
             </dd>
             <dt>
                 Env <code>array of strings</code>
             </dt>
             <dd>
                 Entries are in the format of <code>VARNAME="var value"</code>.
-                These values act as defaults and are merged with any specified
-                when creating a container.
+                These values act as defaults and are merged with any specified when creating a container.
             </dd>
             <dt>
                 Entrypoint <code>array of strings</code>
             </dt>
             <dd>
-                A list of arguments to use as the command to execute when the
-                container starts. This value acts as a  default and is replaced
-                by an entrypoint specified when creating a container.
+                A list of arguments to use as the command to execute when the container starts.
+		This value acts as a  default and is replaced by an entrypoint specified when creating a container.
             </dd>
             <dt>
                 Cmd <code>array of strings</code>
             </dt>
             <dd>
-                Default arguments to the entry point of the container. These
-                values act as defaults and are replaced with any specified when
-                creating a container. If an <code>Entrypoint</code> value is
-                not specified, then the first entry of the <code>Cmd</code>
-                array should be interpreted as the executable to run.
+                Default arguments to the entry point of the container.
+		These values act as defaults and are replaced with any specified when creating a container.
+		If an <code>Entrypoint</code> value is not specified, then the first entry of the <code>Cmd</code> array should be interpreted as the executable to run.
             </dd>
             <dt>
                 Volumes <code>struct</code>
             </dt>
             <dd>
-                A set of directories which should be created as data volumes in
-                a container running this image. This JSON structure value is
-                unusual because it is a direct JSON serialization of the Go
-                type <code>map[string]struct{}</code> and is represented in
-                JSON as an object mapping its keys to an empty object. Here is
-                an example:
+                A set of directories which should be created as data volumes in a container running this image.
+		This JSON structure value is unusual because it is a direct JSON serialization of the Go type <code>map[string]struct{}</code> and is represented in JSON as an object mapping its keys to an empty object.
+		Here is an example:
 <pre>{
     "/var/my-app-data/": {},
     "/etc/some-config.d/": {},
@@ -375,28 +318,22 @@ Here is an example image JSON file:
                 WorkingDir <code>string</code>
             </dt>
             <dd>
-                Sets the current working directory of the entry point process
-                in the container. This value acts as a default and is replaced
-                by a working directory specified when creating a container.
+                Sets the current working directory of the entry point process in the container.
+		This value acts as a default and is replaced by a working directory specified when creating a container.
             </dd>
         </dl>
     </dd>
 </dl>
 
-Any extra fields in the Image JSON struct are considered implementation
-specific and should be ignored by any implementations which are unable to
-interpret them.
+Any extra fields in the Image JSON struct are considered implementation specific and should be ignored by any implementations which are unable to interpret them.
 
 ## Creating an Image Filesystem Changeset
 
 An example of creating an Image Filesystem Changeset follows.
 
-An image root filesystem is first created as an empty directory named with the
-ID of the image being created. Here is the initial empty directory structure
-for the changeset for an image with ID `c3167915dc9d` ([real IDs are much
-longer](#id_desc), but this example use a truncated one here for brevity.
-Implementations need not name the rootfs directory in this way but it may be
-convenient for keeping record of a large number of image layers.):
+An image root filesystem is first created as an empty directory named with the ID of the image being created.
+Here is the initial empty directory structure for the changeset for an image with ID `c3167915dc9d` ([real IDs are much longer](#id_desc), but this example use a truncated one here for brevity.
+Implementations need not name the rootfs directory in this way but it may be convenient for keeping record of a large number of image layers.):
 
 ```
 c3167915dc9d/
@@ -422,14 +359,13 @@ bin/my-app-binary
 bin/my-app-tools
 ```
 
-The TarSum checksum for the archive file is then computed and placed in the
-JSON metadata along with the execution parameters.
+The digest checksum for the archive file is then computed and placed in the JSON metadata along with the execution parameters.
 
 To make changes to the filesystem of this container image, create a new
 directory named with a new ID, such as `f60c56784b83`, and initialize it with
 a snapshot of the parent image's root filesystem, so that the directory is
-identical to that of `c3167915dc9d`. NOTE: a copy-on-write or union filesystem
-can make this very efficient:
+identical to that of `c3167915dc9d`.
+NOTE: a copy-on-write or union filesystem can make this very efficient:
 
 ```
 f60c56784b83/
@@ -440,10 +376,9 @@ f60c56784b83/
         my-app-tools
 ```
 
-This example change is going add a configuration directory at `/etc/my-app.d`
-which contains a default config file. There's also a change to the
-`my-app-tools` binary to handle the config layout change. The `f60c56784b83`
-directory then looks like this:
+This example change is going add a configuration directory at `/etc/my-app.d` which contains a default config file.
+There's also a change to the `my-app-tools` binary to handle the config layout change.
+The `f60c56784b83` directory then looks like this:
 
 ```
 f60c56784b83/
@@ -455,13 +390,10 @@ f60c56784b83/
         my-app-tools
 ```
 
-This reflects the removal of `/etc/my-app-config` and creation of a file and
-directory at `/etc/my-app.d/default.cfg`. `/bin/my-app-tools` has also been
-replaced with an updated version. Before committing this directory to a
-changeset, because it has a parent image, it is first compared with the
-directory tree of the parent snapshot, `f60c56784b83`, looking for files and
-directories that have been added, modified, or removed. The following changeset
-is found:
+This reflects the removal of `/etc/my-app-config` and creation of a file and directory at `/etc/my-app.d/default.cfg`.
+`/bin/my-app-tools` has also been replaced with an updated version.
+Before committing this directory to a changeset, because it has a parent image, it is first compared with the directory tree of the parent snapshot, `f60c56784b83`, looking for files and directories that have been added, modified, or removed.
+The following changeset is found:
 
 ```
 Added:      /etc/my-app.d/default.cfg
@@ -472,11 +404,10 @@ Deleted:    /etc/my-app-config
 A Tar Archive is then created which contains *only* this changeset: The added
 and modified files and directories in their entirety, and for each deleted item
 an entry for an empty file at the same location but with the basename of the
-deleted file or directory prefixed with `.wh.`. The filenames prefixed with
-`.wh.` are known as "whiteout" files. NOTE: For this reason, it is not possible
-to create an image root filesystem which contains a file or directory with a
-name beginning with `.wh.`. The resulting Tar archive for `f60c56784b83` has
-the following entries:
+deleted file or directory prefixed with `.wh.`.
+The filenames prefixed with `.wh.` are known as "whiteout" files.
+NOTE: For this reason, it is not possible to create an image root filesystem which contains a file or directory with a name beginning with `.wh.`.
+The resulting Tar archive for `f60c56784b83` has the following entries:
 
 ```
 /etc/my-app.d/default.cfg
@@ -484,20 +415,17 @@ the following entries:
 /etc/.wh.my-app-config
 ```
 
-Any given image is likely to be composed of several of these Image Filesystem
-Changeset tar archives.
+Any given image is likely to be composed of several of these Image Filesystem Changeset tar archives.
 
 ## Combined Image JSON + Filesystem Changeset Format
 
-There is also a format for a single archive which contains complete information
-about an image, including:
+There is also a format for a single archive which contains complete information about an image, including:
 
  - repository names/tags
  - all image layer JSON files
  - all tar archives of each layer filesystem changesets
 
-For example, here's what the full archive of `library/busybox` is (displayed in
-`tree` format):
+For example, here's what the full archive of `library/busybox` is (displayed in `tree` format):
 
 ```
 .
@@ -520,13 +448,12 @@ For example, here's what the full archive of `library/busybox` is (displayed in
 └── repositories
 ```
 
-There are one or more directories named with the ID for each layer in a full
-image. Each of these directories contains 3 files:
+There are one or more directories named with the ID for each layer in a full image.
+Each of these directories contains 3 files:
 
  * `VERSION` - The schema version of the `json` file
  * `json` - The JSON metadata for an image layer
- * `layer.tar` - The Tar archive of the filesystem changeset for an image
-   layer.
+ * `layer.tar` - The Tar archive of the filesystem changeset for an image layer.
 
 The content of the `VERSION` files is simply the semantic version of the JSON
 metadata schema:
@@ -545,29 +472,14 @@ And the `repositories` file is another JSON file which describes names/tags:
 }
 ```
 
-Every key in this object is the name of a repository, and maps to a collection
-of tag suffixes. Each tag maps to the ID of the image represented by that tag.
+Every key in this object is the name of a repository, and maps to a collection of tag suffixes. Each tag maps to the ID of the image represented by that tag.
 
 ## Loading an Image Filesystem Changeset
 
-Unpacking a bundle of image layer JSON files and their corresponding filesystem
-changesets can be done using a series of steps:
+Unpacking a bundle of image layer JSON files and their corresponding filesystem changesets can be done using a series of steps:
 
-1. Follow the parent IDs of image layers to find the root ancestor (an image
-with no parent ID specified).
-2. For every image layer, in order from root ancestor and descending down,
-extract the contents of that layer's filesystem changeset archive into a
-directory which will be used as the root of a container filesystem.
+1. Follow the parent IDs of image layers to find the root ancestor (an image with no parent ID specified).
+2. For every image layer, in order from root ancestor and descending down, extract the contents of that layer's filesystem changeset archive into a directory which will be used as the root of a container filesystem.
 
     - Extract all contents of each archive.
-    - Walk the directory tree once more, removing any files with the prefix
-    `.wh.` and the corresponding file or directory named without this prefix.
-
-
-## Implementations
-
-This specification is an admittedly imperfect description of an
-imperfectly-understood problem. The Docker project is, in turn, an attempt to
-implement this specification. Our goal and our execution toward it will evolve
-over time, but our primary concern in this specification and in our
-implementation is compatibility and interoperability.
+    - Walk the directory tree once more, removing any files with the prefix `.wh.` and the corresponding file or directory named without this prefix.
