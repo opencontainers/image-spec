@@ -173,6 +173,7 @@ It has been added to this example for clarity.
             <li>arm</li>
         </ul>
         More values may be supported in the future and any of these may or may not be supported by a given container runtime implementation.
+        New entries SHOULD be submitted to this specification for standardization and be inspired by the <a href=https://golang.org/doc/install/source#environment>Go language documentation for $GOOS and $GOARCH</a>.
     </dd>
     <dt>
         os <code>string</code>
@@ -186,6 +187,7 @@ It has been added to this example for clarity.
             <li>linux</li>
         </ul>
         More values may be supported in the future and any of these may or may not be supported by a given container runtime implementation.
+        New entries SHOULD be submitted to this specification for standardization and be inspired by the <a href=https://golang.org/doc/install/source#environment>Go language documentation for $GOOS and $GOARCH</a>.
     </dd>
     <dt>
         config <code>struct</code>
