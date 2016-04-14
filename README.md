@@ -40,18 +40,20 @@ A: We are seeing many independent implementations of container image handling in
 
 A: Existing formats can continue to be a proving ground for technologies, as needed. The OCI Image Format project should strive to provide a dependable open specification that can be shared between different tools and be evolved for years or decades of compatibility; as the deb and rpm format have.
 
-## Proposed Roadmap
+## Roadmap
 
-* April ??? v0.0.0
+The current roadmap can be found in the [GitHub milestones](https://github.com/opencontainers/image-spec/milestones)
+
+* April v0.0.0
   * Import Docker v2.2 format
-* April ??? v0.1.0
+* April v0.1.0
   * Spec factored for top to bottom reading with three audiences in-mind:
     * Build system creators
     * Image registry creators
     * Container engine creators
-* May ??? v0.2.0
+* May v0.2.0
   * Release version of spec with improvements from two independent experimental implementations from OCI members e.g. Amazon Container Registry and rkt
-* June ??? v1.0.0
+* June v1.0.0
   * Release initial version of spec with two independent non-experimental implementations from OCI members
 
 # Contributing
