@@ -383,6 +383,7 @@ The `f60c56784b83` directory then looks like this:
 ```
 f60c56784b83/
     etc/
+        .wh.my-app.cfg
         my-app.d/
             default.cfg
     bin/
