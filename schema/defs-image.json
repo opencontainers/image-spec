@@ -1,0 +1,99 @@
+{
+  "description": "Definitions particular to OpenContainer Image Specification",
+  "definitions": {
+    "mediaType": {
+      "id": "https://opencontainers.org/schema/image/mediaType",
+      "type": "string",
+      "pattern": "^[a-z]+/[0-9a-zA-Z.+]+$"
+    },
+    "digest": {
+      "description": "the cryptographic checksum digest of the object, in the pattern '<hash>:<hexadecimal digest>'",
+      "type": "string",
+      "pattern": "^[a-z0-9]+:[a-fA-F0-9]+$"
+    },
+    "blobObject": {
+      "id": "https://opencontainers.org/schema/image/blobObject",
+      "type": "object",
+      "required": [
+        "mediaType",
+        "size",
+        "digest"
+      ],
+      "properties": {
+        "mediaType": {
+          "description": "the mediatype of the referenced object",
+          "$ref": "#definitions/mediaType"
+        },
+        "size": {
+          "description": "the size in bytes of the referenced object",
+          "type": "integer"
+        },
+        "digest": {
+          "$ref": "#definitions/digest"
+        }
+      }
+    },
+    "manifestObject": {
+      "id": "https://opencontainers.org/schema/image/manifestObject",
+      "type": "object",
+      "required": [
+        "mediaType",
+        "size",
+        "digest",
+        "platform"
+      ],
+      "properties": {
+        "mediaType": {
+          "description": "the mediatype of the referenced object",
+          "$ref": "#definitions/mediaType"
+        },
+        "size": {
+          "description": "the size in bytes of the referenced object",
+          "type": "integer"
+        },
+        "digest": {
+          "$ref": "#definitions/digest"
+        },
+        "platform": {
+          "id": "https://opencontainers.org/schema/image/platform",
+          "type": "object",
+          "required": [
+            "architecture",
+            "os"
+          ],
+          "properties": {
+            "architecture": {
+              "id": "https://opencontainers.org/schema/image/platform/architecture",
+              "type": "string"
+            },
+            "os": {
+              "id": "https://opencontainers.org/schema/image/platform/os",
+              "type": "string"
+            },
+            "os.version": {
+              "id": "https://opencontainers.org/schema/image/platform/os.version",
+              "type": "string"
+            },
+            "os.features": {
+              "id": "https://opencontainers.org/schema/image/platform/os.features",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "variant": {
+              "type": "string"
+            },
+            "features": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    }
+  }
+}
