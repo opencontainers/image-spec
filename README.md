@@ -47,7 +47,7 @@ The current roadmap can be found in the [GitHub milestones](https://github.com/o
 * April v0.0.0
   * Import Docker v2.2 format
 * April v0.1.0
-  * Spec factored for top to bottom reading with three audiences in-mind:
+  * Spec factored for top to bottom reading with three audiences in mind:
     * Build system creators
     * Image registry creators
     * Container engine creators
