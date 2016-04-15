@@ -21,17 +21,6 @@
       "items": {
         "$ref": "defs-image.json#/definitions/blobObject"
       }
-    },
-    "annotations": {
-      "id": "https://opencontainers.org/schema/image/manifest/annotations",
-      "oneOf": [
-        {
-          "$ref": "defs.json#/definitions/mapStringString"
-        },
-        {
-          "type": "null"
-        }
-      ]
     }
   },
   "required": [
