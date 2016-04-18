@@ -307,6 +307,9 @@ Here is an example image JSON file:
             </dt>
             <dd>
                 A set of directories which should be created as data volumes in a container running this image.
+                <p>
+                If a file or folder exists within the image with the same path as a data volume, that file or folder is replaced with the data volume and is never merged.
+                </p>
 		This JSON structure value is unusual because it is a direct JSON serialization of the Go type <code>map[string]struct{}</code> and is represented in JSON as an object mapping its keys to an empty object.
 		Here is an example:
 <pre>{
