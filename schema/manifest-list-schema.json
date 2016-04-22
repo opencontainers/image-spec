@@ -16,7 +16,7 @@
     "manifests": {
       "type": "array",
       "items": {
-        "$ref": "defs-image.json#/definitions/manifestObject"
+        "$ref": "defs-image.json#/definitions/manifestDescriptor"
       }
     }
   },
