@@ -4,23 +4,15 @@ draft = true
 +++
 <![end-metadata]-->
 
-# Image Manifest
+# OpenContainers Image Manifest Specification
 
 There are three main goals of the Image Manifest Specification.
 The first goal is content-addressable images, by supporting an image model where the image's configuration can be hashed to generate a unique ID for the image and its components.
 The second goal is to allow multi-architecture images, through a "fat manifest" which references image manifests for platform-specific versions of an image.
 The third goal is to be translatable to the [OpenContainers/runtime-spec](https://github.com/opencontainers/runtime-spec)
 
-# Media Types
 
-The following media types are used by the manifest formats described here, and the resources they reference:
-
-- `application/vnd.oci.image.manifest.list.v1+json`: Manifest list, aka "fat manifest"
-- `application/vnd.oci.image.manifest.v1+json`: Image manifest format
-- `application/vnd.oci.image.rootfs.tar.gzip`: "Layer", as a gzipped tar archive
-- `application/vnd.oci.image.serialization.v1+json`: Container config JSON
-
-## Manifest List
+# Manifest List
 
 The manifest list is the "fat manifest" which points to specific image manifests for one or more platforms.
 While the use of a manifest list is OPTIONAL for image providers, image consumers SHOULD be prepared to process them.
