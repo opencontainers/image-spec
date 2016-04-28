@@ -59,7 +59,7 @@ This specification uses the following terms:
         Image Checksum
     </dt>
     <dd>
-        The checksum is a cryptographic digest of the artifact.
+        The checksum is a sha256 cryptographic digest of the layer.tar file. This is a unicode string of the format "tarsum.v1+sha256:<checksum>".
     </dd>
     <dt>
         Tag
