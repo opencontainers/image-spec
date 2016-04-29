@@ -81,6 +81,18 @@ A client will distinguish a manifest list from an image manifest based on the Co
 
         This OPTIONAL property specifies an array of strings, each specifying a mandatory CPU feature (for example `sse4` or `aes`).
 
+- **`annotations`** *string-string hashmap*
+
+    This OPTIONAL property contains arbitrary metadata for the manifest list.
+    Annotations is a key-value, unordered hashmap.
+    Keys are unique, and best practice is to namespace the keys.
+    Common annotation keys include:
+    * **created** date on which the image was built (string, timestamps type)
+    * **authors** contact details of the people or organization responsible for the image (freeform string)
+    * **homepage** URL to find more information on the image (string, must be a URL with scheme HTTP or HTTPS)
+    * **documentation** URL to get documentation on the image (string, must be a URL with scheme HTTP or HTTPS)
+
+
 ## Example Manifest List
 
 *Example showing a simple manifest list pointing to image manifests for two platforms:*
@@ -110,7 +122,11 @@ A client will distinguish a manifest list from an image manifest based on the Co
         ]
       }
     }
-  ]
+  ],
+  "annotations": {
+    "key1": "value1",
+    "key2": "value2",
+  }
 }
 ```
 
@@ -174,6 +190,18 @@ The image manifest provides a configuration and a set of layers for a container 
 
         The digest of the content, as defined by the [Registry V2 HTTP API Specificiation](https://docs.docker.com/registry/spec/api/#digest-parameter).
 
+- **`annotations`** *hashmap*
+
+    This OPTIONAL property contains arbitrary metadata for the manifest list.
+    Annotations is a key-value, unordered hashmap.
+    Keys are unique, and best practice is to namespace the keys.
+    Common annotation keys include:
+    * **created** date on which the image was built (string, timestamps type)
+    * **authors** contact details of the people or organization responsible for the image (freeform string)
+    * **homepage** URL to find more information on the image (string, must be a URL with scheme HTTP or HTTPS)
+    * **documentation** URL to get documentation on the image (string, must be a URL with scheme HTTP or HTTPS)
+
+
 ## Example Image Manifest
 
 *Example showing an image manifest:*
@@ -202,7 +230,11 @@ The image manifest provides a configuration and a set of layers for a container 
       "size": 73109,
       "digest": "sha256:ec4b8955958665577945c89419d1af06b5f7636b4ac3da7f12184802ad867736"
     }
-  ]
+  ],
+  "annotations": {
+    "key1": "value1",
+    "key2": "value2",
+  }
 }
 ```
 
