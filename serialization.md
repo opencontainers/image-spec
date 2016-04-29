@@ -167,7 +167,9 @@ Here is an example image JSON file:
             <li>amd64</li>
             <li>arm</li>
         </ul>
-        More values may be supported in the future and any of these may or may not be supported by a given container runtime implementation.
+        A full list of possible values can be found in the <a href=https://golang.org/doc/install/source#environment>Go language documentation for $GOOS and $GOARCH</a>.
+        Any of these may or may not be supported by a given container runtime
+        implementation.
     </dd>
     <dt>
         os <code>string</code>
@@ -180,8 +182,9 @@ Here is an example image JSON file:
             <li>freebsd</li>
             <li>linux</li>
         </ul>
-        More values may be supported in the future and any of these may or may
-        not be supported by a given container runtime implementation.
+        A full list of values can be found in the <a href=https://golang.org/doc/install/source#environment>Go language documentation for $GOOS and $GOARCH</a>.
+        Any of these may or may not be supported by a given container runtime
+	implementation.
     </dd>
     <dt>
         checksum <code>string</code>
