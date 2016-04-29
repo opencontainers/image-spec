@@ -6,9 +6,11 @@ sudo: false
 
 before_install:
   - go get github.com/vbatts/git-validation
+  - go get -d ./cmd/...
 
 install: true
 
 script:
   - $HOME/gopath/bin/git-validation -run DCO,short-subject -v -range ${TRAVIS_COMMIT_RANGE}
+  - make validate-examples
   
