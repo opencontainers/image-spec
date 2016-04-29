@@ -125,7 +125,7 @@ A client will distinguish a manifest list from an image manifest based on the Co
   ],
   "annotations": {
     "key1": "value1",
-    "key2": "value2",
+    "key2": "value2"
   }
 }
 ```
@@ -233,7 +233,7 @@ The image manifest provides a configuration and a set of layers for a container 
   ],
   "annotations": {
     "key1": "value1",
-    "key2": "value2",
+    "key2": "value2"
   }
 }
 ```
