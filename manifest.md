@@ -84,7 +84,7 @@ A client will distinguish a manifest list from an image manifest based on the Co
 ## Example Manifest List
 
 *Example showing a simple manifest list pointing to image manifests for two platforms:*
-```json
+```json,title=Manifest%20List&mediatype=application/vnd.oci.image.manifest.list.v1%2Bjson
 {
   "schemaVersion": 2,
   "mediaType": "application/vnd.oci.image.manifest.list.v1+json",
@@ -177,7 +177,7 @@ The image manifest provides a configuration and a set of layers for a container 
 ## Example Image Manifest
 
 *Example showing an image manifest:*
-```json
+```json,title=Manifest&mediatype=application/vnd.oci.image.manifest.v1%2Bjson
 {
   "schemaVersion": 2,
   "mediaType": "application/vnd.oci.image.manifest.v1+json",
