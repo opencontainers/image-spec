@@ -171,7 +171,8 @@ The image manifest provides a configuration and a set of layers for a container 
 
 - **`layers`** *array*
 
-    The layer list is ordered starting from the base image (opposite order of schema1).
+    The layer list has the base image at index 0.
+    The algorithm to create the final unpacked filesystem layout is to first unpack the layer at index 0, then index 1, and so on.
 
     Fields of an item in the layers list are:
 
