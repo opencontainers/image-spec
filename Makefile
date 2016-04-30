@@ -1,4 +1,14 @@
 
+DOCKER ?= $(shell which docker)
+# These docs are in an order that determines how they show up in the PDF/HTML docs.
+DOC_FILES := \
+	README.md \
+	code-of-conduct.md \
+	project.md \
+	media-types.md \
+	manifest.md \
+	serialization.md
+
 default: help
 
 help:
@@ -9,6 +19,34 @@ help:
 
 fmt:
 	for i in *.json ; do jq --indent 2 -M . "$${i}" > xx && cat xx > "$${i}" && rm xx ; done
+
+docs: output/docs.pdf output/docs.html
+.PHONY: docs
+
+output/docs.pdf: $(DOC_FILES)
+	@mkdir -p output/ && \
+	$(DOCKER) run \
+	-it \
+	--rm \
+	-v $(shell pwd)/:/input/:ro \
+	-v $(shell pwd)/output/:/output/ \
+	-u $(shell id -u) \
+	vbatts/pandoc -f markdown_github -t latex -o /output/docs.pdf $(patsubst %,/input/%,$(DOC_FILES)) && \
+	ls -sh $(shell readlink -f $@)
+
+output/docs.html: $(DOC_FILES)
+	@mkdir -p output/ && \
+	$(DOCKER) run \
+	-it \
+	--rm \
+	-v $(shell pwd)/:/input/:ro \
+	-v $(shell pwd)/output/:/output/ \
+	-u $(shell id -u) \
+	vbatts/pandoc -f markdown_github -t html5 -o /output/docs.html $(patsubst %,/input/%,$(DOC_FILES)) && \
+	ls -sh $(shell readlink -f $@)
+
+code-of-conduct.md:
+	curl -o $@ https://raw.githubusercontent.com/opencontainers/tob/d2f9d68c1332870e40693fe077d311e0742bc73d/code-of-conduct.md
 
 .PHONY: validate-examples
 validate-examples: oci-validate-examples

@@ -486,17 +486,23 @@ For example, here's what the full archive of `library/busybox` is (displayed in 
 
 ```
 .
-├── 47bcc53f74dc94b1920f0b34f6036096526296767650f223433fe65c35f149eb.json
-├── 5f29f704785248ddb9d06b90a11b5ea36c534865e9035e4022bb2e71d4ecbb9a
-│   ├── VERSION
-│   ├── json
-│   └── layer.tar
-├── a65da33792c5187473faa80fa3e1b975acba06712852d1dea860692ccddf3198
-│   ├── VERSION
-│   ├── json
-│   └── layer.tar
-├── manifest.json
-└── repositories
+|-- 5785b62b697b99a5af6cd5d0aabc804d5748abbb6d3d07da5d1d3795f2dcc83e
+|	|-- VERSION
+|	|-- json
+|	|-- layer.tar
+|-- a7b8b41220991bfc754d7ad445ad27b7f272ab8b4a2c175b9512b97471d02a8a
+|	|-- VERSION
+|	|-- json
+|	|-- layer.tar
+|-- a936027c5ca8bf8f517923169a233e391cbb38469a75de8383b5228dc2d26ceb
+|	|-- VERSION
+|	|-- json
+|	|-- layer.tar
+|-- f60c56784b832dd990022afc120b8136ab3da9528094752ae13fe63a2d28dc8c
+|	|-- VERSION
+|	|-- json
+|	|-- layer.tar
+|-- repositories
 ```
 
 There are one or more directories named with the ChainID for each layer in a full image.
