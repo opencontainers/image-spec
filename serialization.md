@@ -486,6 +486,7 @@ For example, here's what the full archive of `library/busybox` is (displayed in 
 
 ```
 .
+|-- 88ecdbb5a908bd1bdbb921110a6134d6916f962680da0c4628102ff0691b38b3.json
 |-- 5785b62b697b99a5af6cd5d0aabc804d5748abbb6d3d07da5d1d3795f2dcc83e
 |	|-- VERSION
 |	|-- json
@@ -502,6 +503,7 @@ For example, here's what the full archive of `library/busybox` is (displayed in 
 |	|-- VERSION
 |	|-- json
 |	|-- layer.tar
+|-- manifest.json
 |-- repositories
 ```
 
