@@ -1,124 +1,68 @@
-package main
+package schema_test
 
 import (
 	"bytes"
-	"errors"
-	"flag"
 	"fmt"
 	"io"
 	"io/ioutil"
-	"log"
 	"net/url"
 	"os"
-	"path/filepath"
 	"strings"
+	"testing"
 
+	"github.com/opencontainers/image-spec/schema"
+	"github.com/pkg/errors"
 	"github.com/russross/blackfriday"
-	"github.com/xeipuuv/gojsonschema"
 )
 
 var (
-	verbose    bool
-	skipped    bool
-	schemaPath string
+	errFormatInvalid = errors.New("format: invalid")
 )
 
-func init() {
-	flag.BoolVar(&verbose, "verbose", false, "display examples no matter what")
-	flag.BoolVar(&skipped, "skipped", false, "show skipped examples")
-	flag.StringVar(&schemaPath, "schema", "./schema", "specify location of schema directory")
-}
-
-func main() {
-	flag.Parse()
-
-	examples, err := extractExamples(os.Stdin)
+// TODO(sur): include examples from all specification files
+func TestSpecExamples(t *testing.T) {
+	m, err := os.Open("../manifest.md")
 	if err != nil {
-		log.Fatalln(err)
+		t.Fatal(err)
 	}
-	var fail bool
+
+	examples, err := extractExamples(m)
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	for _, example := range examples {
 		if example.Err != nil {
-			printFields("error", example.Mediatype, example.Title, example.Err)
-			fail = true
+			printFields(t, "error", example.Mediatype, example.Title, example.Err)
+			t.Error(err)
 			continue
 		}
 
-		schema, err := schemaByMediatype(schemaPath, example.Mediatype)
-		if err != nil {
-			if err == errSchemaNotFound {
-				if skipped {
-					printFields("skip", example.Mediatype, example.Title)
-
-					if verbose {
-						fmt.Println(example.Body, "---")
-					}
-				}
-				continue
-			}
-		}
-
-		// BUG(stevvooe): Recursive validation is not working. Need to
-		// investigate. Will use this code as information for bug.
-		document := gojsonschema.NewStringLoader(example.Body)
-		result, err := gojsonschema.Validate(schema, document)
-
-		if err != nil {
-			printFields("error", example.Mediatype, example.Title, err)
-			fmt.Println(example.Body, "---")
-			fail = true
+		err = schema.Validator(example.Mediatype).Validate(strings.NewReader(example.Body))
+		if err == nil {
+			printFields(t, "ok", example.Mediatype, example.Title)
+			t.Log(example.Body, "---")
 			continue
 		}
 
-		if !result.Valid() {
+		var errs []error
+		if verr, ok := errors.Cause(err).(schema.ValidationError); ok {
+			errs = verr.Errs
+		} else {
+			printFields(t, "error", example.Mediatype, example.Title, err)
+			t.Error(err)
+			t.Log(example.Body, "---")
+			continue
+		}
+
+		for _, err := range errs {
 			// TOOD(stevvooe): This is nearly useless without file, line no.
-			printFields("invalid", example.Mediatype, example.Title)
-			for _, desc := range result.Errors() {
-				printFields("reason", example.Mediatype, example.Title, desc)
-			}
+			printFields(t, "invalid", example.Mediatype, example.Title)
+			t.Error(err)
 			fmt.Println(example.Body, "---")
-			fail = true
 			continue
 		}
-
-		printFields("ok", example.Mediatype, example.Title)
-		if verbose {
-			fmt.Println(example.Body, "---")
-		}
 	}
-
-	if fail {
-		os.Exit(1)
-	}
-}
-
-var (
-	specsByMediaType = map[string]string{
-		"application/vnd.oci.image.manifest.v1+json":      "image-manifest-schema.json",
-		"application/vnd.oci.image.manifest.list.v1+json": "manifest-list-schema.json",
-	}
-
-	errSchemaNotFound = errors.New("schema: not found")
-	errFormatInvalid  = errors.New("format: invalid")
-)
-
-func schemaByMediatype(root, mediatype string) (gojsonschema.JSONLoader, error) {
-	name, ok := specsByMediaType[mediatype]
-	if !ok {
-		return nil, errSchemaNotFound
-	}
-
-	if !filepath.IsAbs(root) {
-		wd, err := os.Getwd()
-		if err != nil {
-			return nil, err
-		}
-		root = filepath.Join(wd, root)
-	}
-
-	// lookup path
-	path := filepath.Join(root, name)
-	return gojsonschema.NewReferenceLoader("file://" + path), nil
 }
 
 // renderer allows one to incercept fenced blocks in markdown documents.
@@ -199,10 +143,10 @@ func extractExamples(rd io.Reader) ([]example, error) {
 }
 
 // printFields prints each value tab separated.
-func printFields(vs ...interface{}) {
+func printFields(t *testing.T, vs ...interface{}) {
 	var ss []string
 	for _, f := range vs {
 		ss = append(ss, fmt.Sprint(f))
 	}
-	fmt.Println(strings.Join(ss, "\t"))
+	t.Log(strings.Join(ss, "\t"))
 }
