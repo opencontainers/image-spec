@@ -9,6 +9,9 @@ DOC_FILES := \
 	manifest.md \
 	serialization.md
 
+FIGURE_FILES := \
+	media-types.png
+
 default: help
 
 help:
@@ -23,8 +26,9 @@ fmt:
 docs: output/docs.pdf output/docs.html
 .PHONY: docs
 
-output/docs.pdf: $(DOC_FILES)
+output/docs.pdf: $(DOC_FILES) $(FIGURE_FILES)
 	@mkdir -p output/ && \
+	cp *.png $(shell pwd)/output && \
 	$(DOCKER) run \
 	-it \
 	--rm \
@@ -34,8 +38,9 @@ output/docs.pdf: $(DOC_FILES)
 	vbatts/pandoc -f markdown_github -t latex -o /output/docs.pdf $(patsubst %,/input/%,$(DOC_FILES)) && \
 	ls -sh $(shell readlink -f $@)
 
-output/docs.html: $(DOC_FILES)
+output/docs.html: $(DOC_FILES) $(FIGURE_FILES)
 	@mkdir -p output/ && \
+	cp *.png $(shell pwd)/output && \
 	$(DOCKER) run \
 	-it \
 	--rm \
@@ -48,7 +53,6 @@ output/docs.html: $(DOC_FILES)
 code-of-conduct.md:
 	curl -o $@ https://raw.githubusercontent.com/opencontainers/tob/d2f9d68c1332870e40693fe077d311e0742bc73d/code-of-conduct.md
 
-.PHONY: validate-examples
 validate-examples: oci-validate-examples
 	./oci-validate-examples < manifest.md
 
@@ -58,3 +62,9 @@ oci-validate-json: validate.go
 oci-validate-examples: cmd/oci-validate-examples/main.go
 	go build ./cmd/oci-validate-examples
 
+media-types.png: media-types.dot
+
+%.png: %.dot
+	dot -Tpng $^ > $@
+
+.PHONY: validate-examples
