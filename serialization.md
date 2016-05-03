@@ -1,9 +1,7 @@
-# Docker Image Specification v1.1.0
+# OCI Image Serialization
 
 An *Image* is an ordered collection of root filesystem changes and the corresponding execution parameters for use within a container runtime.
 This specification outlines the format of these filesystem changes and corresponding parameters and describes how to create and use them for use with a container runtime and execution tool.
-
-This version of the image specification was adopted starting in Docker 1.10.
 
 ## Terminology
 
@@ -105,8 +103,8 @@ Here is an example image JSON file:
         },
         "Env": [  
             "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
-            "FOO=docker_is_a_really",
-            "BAR=great_tool_you_know"
+            "FOO=oci_is_a",
+            "BAR=well_written_spec"
         ],
         "Entrypoint": [
             "/bin/my-app-binary"
@@ -143,8 +141,7 @@ Here is an example image JSON file:
 }
 ```
 
-Note that image JSON files produced by Docker don't contain formatting whitespace.
-It has been added to this example for clarity.
+Note: whitespace has been added to this example for clarity. Whitespace is OPTIONAL and implementations MAY have compact JSON with no whitespace.
 
 ### Image JSON Field Descriptions
 
