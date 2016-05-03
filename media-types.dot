@@ -1,0 +1,14 @@
+digraph G {
+  {
+    manifestList [shape=note, label="Manifest list\n<<optional>>\napplication/vnd.oci.image.manifest.list.v1+json"]
+    manifest [shape=note, label="Image manifest\napplication/vnd.oci.image.manifest.v1+json"]
+    config [shape=note, label="Image JSON\napplication/vnd.oci.image.serialization.config.v1+json"]
+    layer [shape=note, label="Layer tar+gzip\napplication/vnd.oci.image.serialization.rootfs.tar.gzip"]
+    combined [shape=note, label="Combined image JSON and filesystem changesets\n<<optional>>\napplication/vnd.oci.image.serialization.combined.v1+json"]
+  }
+
+  manifestList -> manifest [label="1..*"]
+  manifest -> config [label="1..1"]
+  manifest -> layer [label="1..*"]
+  combined
+}
