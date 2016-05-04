@@ -118,9 +118,9 @@ Here is an example image JSON file:
         ],
         "Volumes": {
             "/var/job-result-data": {},
-            "/var/log/my-app-logs": {},
+            "/var/log/my-app-logs": {}
         },
-        "WorkingDir": "/home/alice",
+        "WorkingDir": "/home/alice"
     },
     "rootfs": {
       "diff_ids": [
