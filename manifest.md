@@ -18,7 +18,7 @@ The manifest list is the "fat manifest" which points to specific image manifests
 While the use of a manifest list is OPTIONAL for image providers, image consumers SHOULD be prepared to process them.
 A client will distinguish a manifest list from an image manifest based on the Content-Type returned in the HTTP response.
 
-## *Manifest List* Field Descriptions
+## *Manifest List* Property Descriptions
 
 - **`schemaVersion`** *int*
 
@@ -35,7 +35,7 @@ A client will distinguish a manifest list from an image manifest based on the Co
   This REQUIRED property contains a list of manifests for specific platforms.
   While the property MUST be present, the size of the array MAY be zero.
 
-  Fields of each object in the manifests list are:
+  Properties of each object in the manifests list are:
 
   - **`mediaType`** *string*
 
@@ -45,7 +45,7 @@ A client will distinguish a manifest list from an image manifest based on the Co
   - **`size`** *int*
 
     This REQUIRED property specifies the size in bytes of the object.
-    This field exists so that a client will have an expected size for the content before validating.
+    This property exists so that a client will have an expected size for the content before validating.
     If the length of the retrieved content does not match the specified length, the content should not be trusted.
 
   - **`digest`** *string*
@@ -67,7 +67,7 @@ A client will distinguish a manifest list from an image manifest based on the Co
 
     - **`os.version`** *string*
 
-        This optional property specifies the operating system version, for example `10.0.10586`.
+        This OPTIONAL property specifies the operating system version, for example `10.0.10586`.
 
     - **`os.features`** *array*
 
@@ -132,14 +132,14 @@ A client will distinguish a manifest list from an image manifest based on the Co
 
 # Image Manifest
 
-The image manifest provides a configuration and a set of layers for a container image.
+Unlike the [Manifest List](#manifest-list), which contains information about a set of images that can span a variety of architectures and operating systems, an image manifest provides a configuration and set of layers for a single container image for a specific architecture and operating system.
 
-## *Image Manifest* Field Descriptions
+## *Image Manifest* Property Descriptions
 
 - **`schemaVersion`** *int*
 
   This REQUIRED property specifies the image manifest schema version.
-  This schema uses version `2`.
+  For this version of the specification, this MUST be `2`.
 
 - **`mediaType`** *string*
 
@@ -148,11 +148,10 @@ The image manifest provides a configuration and a set of layers for a container 
 
 - **`config`** *object*
 
-    The config field references a configuration object for a container, by digest.
-    This configuration item is a JSON blob that the runtime uses to set up the container.
-    This new schema uses a tweaked version of this configuration to allow image content-addressability on the daemon side.
+    The `config` property references a configuration object for a container, by digest.
+    The referenced configuration object is a JSON blob that the runtime uses to set up the container, see [Image JSON Description](serialization.md#image-json-description).
 
-    Fields of a config object are:
+    Properties of `config` are:
 
     - **`mediaType`** *string*
 
@@ -162,7 +161,7 @@ The image manifest provides a configuration and a set of layers for a container 
     - **`size`** *int*
 
         This REQUIRED property specifies the size in bytes of the object.
-	This field exists so that a client will have an expected size for the content before validating.
+	This property exists so that a client will have an expected size for the content before validating.
 	If the length of the retrieved content does not match the specified length, the content should not be trusted.
 
     - **`digest`** *string*
@@ -171,10 +170,11 @@ The image manifest provides a configuration and a set of layers for a container 
 
 - **`layers`** *array*
 
-    The layer list has the base image at index 0.
-    The algorithm to create the final unpacked filesystem layout is to first unpack the layer at index 0, then index 1, and so on.
+    The layer list MUST have the base image at index 0.
+	Subsequent layers MUST then follow in the order in which they are to be layered on top of each other.
+    The algorithm to create the final unpacked filesystem layout MUST be to first unpack the layer at index 0, then index 1, and so on.
 
-    Fields of an item in the layers list are:
+    Properties of an item in the layers list are:
 
     - **`mediaType`** *string*
 
@@ -184,7 +184,7 @@ The image manifest provides a configuration and a set of layers for a container 
     - **`size`** *int*
 
         This REQUIRED property specifies the size in bytes of the object.
-	This field exists so that a client will have an expected size for the content before validating.
+	This property exists so that a client will have an expected size for the content before validating.
 	If the length of the retrieved content does not match the specified length, the content should not be trusted.
 
     - **`digest`** *string*
@@ -195,7 +195,7 @@ The image manifest provides a configuration and a set of layers for a container 
 
     This OPTIONAL property contains arbitrary metadata for the manifest list.
     Annotations is a key-value, unordered hashmap.
-    Keys are unique, and best practice is to namespace the keys.
+    Keys MUST be unique within the hashmap, and best practice is to namespace the keys.
     Common annotation keys include:
     * **created** date on which the image was built (string, timestamps type)
     * **authors** contact details of the people or organization responsible for the image (freeform string)
@@ -243,20 +243,20 @@ The image manifest provides a configuration and a set of layers for a container 
 
 The registry will continue to accept uploads of manifests in both the old and new formats.
 
-When pushing images, clients which support the new manifest format should first construct a manifest in the new format.
-If uploading this manifest fails, presumably because the registry only supports the old format, the client may fall back to uploading a manifest in the old format.
+When pushing images, clients which support the new manifest format SHOULD first construct a manifest in the new format.
+If uploading this manifest fails, presumably because the registry only supports the old format, the client MAY fall back to uploading a manifest in the old format.
 
 When pulling images, clients indicate support for this new version of the manifest format by sending the
 `application/vnd.oci.image.manifest.v1+json` and
 `application/vnd.oci.image.manifest.list.v1+json` media types in an `Accept` header when making a request to the `manifests` endpoint.
-Updated clients should check the `Content-Type` header to see whether the manifest returned from the endpoint is in the old format, or is an image manifest or manifest list in the new format.
+Updated clients SHOULD check the `Content-Type` header to see whether the manifest returned from the endpoint is in the old format, or is an image manifest or manifest list in the new format.
 
-If the manifest being requested uses the new format, and the appropriate media type is not present in an `Accept` header, the registry will assume that the client cannot handle the manifest as-is, and rewrite it on the fly into the old format.
-If the object that would otherwise be returned is a manifest list, the registry will look up the appropriate manifest for the amd64 platform and linux OS, rewrite that manifest into the old format if necessary, and return the result to the client.
+If the manifest being requested uses the new format, and the appropriate media type is not present in an `Accept` header, the registry MUST assume that the client cannot handle the manifest as-is, and MUST rewrite it on the fly into the old format.
+If the object that would otherwise be returned is a manifest list, the registry MUST look up the appropriate manifest for the amd64 platform and linux OS, rewrite that manifest into the old format if necessary, and return the result to the client.
 If no suitable manifest is found in the manifest list, the registry will return a 404 error.
 
 One of the challenges in rewriting manifests to the old format is that the old format involves an image configuration for each layer in the manifest, but the new format only provides one image configuration.
-To work around this, the registry will create synthetic image configurations for all layers except the top layer.
+To work around this, the registry MUST create synthetic image configurations for all layers except the top layer.
 These image configurations will not result in runnable images on their own, but only serve to fill in the parent chain in a compatible way.
 The IDs in these synthetic configurations will be derived from hashes of their respective blobs.
-The registry will create these configurations and their IDs using the same scheme as Docker 1.10 when it creates a legacy manifest to push to a registry which doesn't support the new format.
+The registry MUST create these configurations and their IDs using the same scheme as Docker 1.10 when it creates a legacy manifest to push to a registry which doesn't support the new format.
