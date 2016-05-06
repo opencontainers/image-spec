@@ -13,6 +13,11 @@ This new OCI project intends to start with the Docker v2.2 specification, improv
 * Signatures that are based on signing image content address (optional layer)
 * Naming that is federated based on DNS and can be delegated (optional layer)
 
+## The Specification
+
+The Distributable Image Specification is made up of several different components and documents.
+It is recommended to begin with the [Media Types](media-types.md) document as a starting point to understanding the overall structure of the specification.
+
 ## Cooperation with OCI Runtime Project
 
 The [OCI Runtime Spec project](https://github.com/opencontainers/runtime-spec) is developing a specification for the lifecycle of a running container. The OCI Image Format Spec project should work with the OCI Runtime Spec project so that the image can support the UX that users have come to expect from container engines like Docker and rkt: primarily, the ability to run an image with no additional arguments:
