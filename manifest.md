@@ -201,6 +201,7 @@ Unlike the [Manifest List](#manifest-list), which contains information about a s
     * **authors** contact details of the people or organization responsible for the image (freeform string)
     * **homepage** URL to find more information on the image (string, must be a URL with scheme HTTP or HTTPS)
     * **documentation** URL to get documentation on the image (string, must be a URL with scheme HTTP or HTTPS)
+    * **source** URL to get the source code for the binary files in the image (string, must be a URL with scheme HTTP or HTTPS)
 
 
 ## Example Image Manifest
