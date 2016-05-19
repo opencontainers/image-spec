@@ -6,6 +6,7 @@ DOC_FILES := \
 	code-of-conduct.md \
 	project.md \
 	media-types.md \
+	inline-png-media-types.md \
 	manifest.md \
 	serialization.md
 
@@ -70,10 +71,11 @@ lint:
 test:
 	go test -race ./...
 
-media-types.png: media-types.dot
-
 %.png: %.dot
 	dot -Tpng $^ > $@
+
+inline-png-%.md: %.png
+	@printf '<img src="data:image/png;base64,%s" alt="$*"/>\n' "$(shell base64 $^)" > $@
 
 .PHONY: \
 	validate-examples \

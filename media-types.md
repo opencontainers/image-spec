@@ -46,6 +46,4 @@ This section shows where the OCI Image Specification is compatible with formats 
 
 The following figure shows how the above media types reference each other:
 
-![Media Types](media-types.png)
-
 A reference is defined as the target content digest, as defined by the [Registry V2 HTTP API Specificiation](https://docs.docker.com/registry/spec/api/#digest-parameter). The manifest list being a "fat manifest" references one or more image manifests per target platform. An image manifest references exactly one target configuration and possibly many layers.
