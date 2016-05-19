@@ -4,13 +4,19 @@ go:
 
 sudo: false
 
+before_script:
+  - export PATH=$HOME/gopath/bin:$PATH
+
 before_install:
   - go get github.com/vbatts/git-validation
-  - go get -d ./cmd/...
+  - go get github.com/alecthomas/gometalinter
+  - gometalinter --install --update
+  - go get -t -d ./...
 
 install: true
 
 script:
-  - $HOME/gopath/bin/git-validation -run DCO,short-subject -v -range ${TRAVIS_COMMIT_RANGE}
-  - make validate-examples
-  
+  - git-validation -run DCO,short-subject -v -range ${TRAVIS_COMMIT_RANGE}
+  - make lint
+  - make test
+  - make oci-image-tool

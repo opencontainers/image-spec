@@ -24,7 +24,6 @@ fmt:
 	for i in *.json ; do jq --indent 2 -M . "$${i}" > xx && cat xx > "$${i}" && rm xx ; done
 
 docs: output/docs.pdf output/docs.html
-.PHONY: docs
 
 output/docs.pdf: $(DOC_FILES) $(FIGURE_FILES)
 	@mkdir -p output/ && \
@@ -62,9 +61,23 @@ oci-validate-json: validate.go
 oci-validate-examples: cmd/oci-validate-examples/main.go
 	go build ./cmd/oci-validate-examples
 
+oci-image-tool:
+	go build ./cmd/oci-image-tool
+
+lint:
+	for d in $(shell find . -type d -not -iwholename '*.git*'); do echo "$${d}" && ./lint "$${d}"; done
+
+test:
+	go test -race ./...
+
 media-types.png: media-types.dot
 
 %.png: %.dot
 	dot -Tpng $^ > $@
 
-.PHONY: validate-examples
+.PHONY: \
+	validate-examples \
+	oci-image-tool \
+	lint \
+	docs \
+	test
