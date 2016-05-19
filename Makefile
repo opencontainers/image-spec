@@ -64,8 +64,17 @@ oci-validate-examples: cmd/oci-validate-examples/main.go
 oci-image-tool:
 	go build ./cmd/oci-image-tool
 
+schema-fs:
+	@echo "generating schema fs"
+	@cd schema && echo -e "$$(cat ../.header)\n\n$$(go generate)" > fs.go
+
+check-license:
+	@echo "checking license headers"
+	@./.tool/check-license
+
 lint:
-	for d in $(shell find . -type d -not -iwholename '*.git*'); do echo "$${d}" && ./lint "$${d}"; done
+	@echo "checking lint"
+	@./.tool/lint
 
 test:
 	go test -race ./...
@@ -78,6 +87,7 @@ media-types.png: media-types.dot
 .PHONY: \
 	validate-examples \
 	oci-image-tool \
+	check-license \
 	lint \
 	docs \
 	test
