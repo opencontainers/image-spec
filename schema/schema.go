@@ -21,7 +21,7 @@ const (
 	MediaTypeManifest                   Validator     = `application/vnd.oci.image.manifest.v1+json`
 	MediaTypeManifestList               Validator     = `application/vnd.oci.image.manifest.list.v1+json`
 	MediaTypeImageSerialization         unimplemented = `application/vnd.oci.image.serialization.rootfs.tar.gzip`
-	MediaTypeImageSerializationConfig   unimplemented = `application/vnd.oci.image.serialization.config.v1+json`
+	MediaTypeImageSerializationConfig   Validator     = `application/vnd.oci.image.serialization.config.v1+json`
 	MediaTypeImageSerializationCombined unimplemented = `application/vnd.oci.image.serialization.combined.v1+json`
 )
 
@@ -32,8 +32,9 @@ var (
 
 	// specs maps OCI schema media types to schema files.
 	specs = map[Validator]string{
-		MediaTypeManifest:     "image-manifest-schema.json",
-		MediaTypeManifestList: "manifest-list-schema.json",
+		MediaTypeManifest:                 "image-manifest-schema.json",
+		MediaTypeManifestList:             "manifest-list-schema.json",
+		MediaTypeImageSerializationConfig: "config-schema.json",
 	}
 )
 
