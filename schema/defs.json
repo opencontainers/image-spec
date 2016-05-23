@@ -79,6 +79,14 @@
         }
       }
     },
+    "mapStringObject": {
+      "type": "object",
+      "patternProperties": {
+        ".{1,}": {
+          "type": "object"
+        }
+      }
+    },
     "UID": {
       "$ref": "#/definitions/uint32"
     },

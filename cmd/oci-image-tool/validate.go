@@ -141,6 +141,12 @@ func (v *validateCmd) validatePath(name string) error {
 		}
 
 		return nil
+	case typeConfig:
+		if err := schema.MediaTypeImageSerializationConfig.Validate(f); err != nil {
+			return err
+		}
+
+		return nil
 	}
 
 	return fmt.Errorf("type %q unimplemented", typ)

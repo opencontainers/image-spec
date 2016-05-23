@@ -33,9 +33,17 @@ var (
 	errFormatInvalid = errors.New("format: invalid")
 )
 
+func TestValidateManifest(t *testing.T) {
+	validate(t, "../manifest.md")
+}
+
+func TestValidateSerialization(t *testing.T) {
+	validate(t, "../serialization.md")
+}
+
 // TODO(sur): include examples from all specification files
-func TestSpecExamples(t *testing.T) {
-	m, err := os.Open("../manifest.md")
+func validate(t *testing.T, name string) {
+	m, err := os.Open(name)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -46,6 +54,10 @@ func TestSpecExamples(t *testing.T) {
 	}
 
 	for _, example := range examples {
+		if example.Err == errFormatInvalid && example.Mediatype == "" { // ignore
+			continue
+		}
+
 		if example.Err != nil {
 			printFields(t, "error", example.Mediatype, example.Title, example.Err)
 			t.Error(err)
