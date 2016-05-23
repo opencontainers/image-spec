@@ -54,7 +54,7 @@ func validate(t *testing.T, name string) {
 	}
 
 	for _, example := range examples {
-		if example.Err == errFormatInvalid { // ignore
+		if example.Err == errFormatInvalid && example.Mediatype == "" { // ignore
 			continue
 		}
 
