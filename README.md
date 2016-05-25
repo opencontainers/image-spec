@@ -1,31 +1,36 @@
-# Open Container Distributable Image Specification
+# Open Container Initiative Image Format Specification
 
-The [Open Container Initiative](http://www.opencontainers.org/) develops specifications for standards on Operating System process and application containers.
+The OCI Image Format project creates and maintains the software shipping container image format spec (OCI Image Format). The goal of this specification is to enable the creation of interoperable tools for building, transporting, and preparing a container image to run.
 
-This OCI project is tasked with creating a software shipping container image format spec (OCI Image Format) with security and naming as components.
+This specification defines how to create an OCI Image, which will generally be done by a build system, and output an [image manifest](manifest.md), a [filesystem serialization](serialization.md), and an [image configuration](serialization.md#image-json-description). At a high level the image manifest contains metadata about the contents and dependencies of the image including the content-addressable identity of one or more filesystem serialization archives that will be unpacked to make up the final runnable filesystem. The image configuration includes information such as application arguments, environments, etc. The combination of the image manifest, image configuration, and one or more filesystem serializations is called the "OCI Image".
 
-## Initial Proposal
+![](img/build-diagram.png)
 
-This new OCI project intends to start with the Docker v2.2 specification, improve any remaining technical concerns, and standardize and improve the understood properties of a container image format. This new project will have the objectives of:
+Once built the OCI Image can then discovered by name, downloaded, verified by hash, trusted through a signature, and unpacked into an [OCI Runtime Bundle](https://github.com/opencontainers/runtime-spec/blob/master/bundle.md).
 
-* A serialized image format (base layer)
+![](img/run-diagram.png)
+
+## Understanding the Specification
+
+The [Media Types](media-types.md) document is a starting point to understanding the overall structure of the specification. This document outlines the OCI Image file format specifications, including the critical filesystem serialization and image manifest described above.
+
+The high level components of the spec include:
+
+* An [image manifest](manifest.md) and [filesystem serialization](serialization.md) (base layer)
 * A process of hashing the image format for integrity and content-addressing (base layer)
 * Signatures that are based on signing image content address (optional layer)
 * Naming that is federated based on DNS and can be delegated (optional layer)
 
-## The Specification
+## Running an OCI Image
 
-The Distributable Image Specification is made up of several different components and documents.
-It is recommended to begin with the [Media Types](media-types.md) document as a starting point to understanding the overall structure of the specification.
+The OCI Image Format partner project is the [OCI Runtime Spec project](https://github.com/opencontainers/runtime-spec). The Runtime Specification outlines how to run a "[filesystem bundle](https://github.com/opencontainers/runtime-spec/blob/master/bundle.md)" that is unpacked on disk. At a high-level an OCI implementation would download an OCI Image then unpack that image into an OCI Runtime filesystem bundle. At this point the OCI Runtime Bundle would be run by an OCI Runtime.
 
-## Cooperation with OCI Runtime Project
-
-The [OCI Runtime Spec project](https://github.com/opencontainers/runtime-spec) is developing a specification for the lifecycle of a running container. The OCI Image Format Spec project should work with the OCI Runtime Spec project so that the image can support the UX that users have come to expect from container engines like Docker and rkt: primarily, the ability to run an image with no additional arguments:
+This entire workflow should support the UX that users have come to expect from container engines like Docker and rkt: primarily, the ability to run an image with no additional arguments:
 
 * docker run example.com/org/app:v1.0.0
 * rkt run example.com/org/app,version=v1.0.0
 
-This implies that the OCI Image Format must contain sufficient information to launch the application on the target platform (e.g. command, arguments, environment variables, etc).
+To support this UX the OCI Image Format contains sufficient information to launch the application on the target platform (e.g. command, arguments, environment variables, etc).
 
 ## FAQ
 
