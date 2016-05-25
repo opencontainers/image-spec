@@ -53,14 +53,8 @@ output/docs.html: $(DOC_FILES) $(FIGURE_FILES)
 code-of-conduct.md:
 	curl -o $@ https://raw.githubusercontent.com/opencontainers/tob/d2f9d68c1332870e40693fe077d311e0742bc73d/code-of-conduct.md
 
-validate-examples: oci-validate-examples
-	./oci-validate-examples < manifest.md
-
-oci-validate-json: validate.go
-	go build ./cmd/oci-validate-json
-
-oci-validate-examples: cmd/oci-validate-examples/main.go
-	go build ./cmd/oci-validate-examples
+validate-examples:
+	go test -run TestValidate ./schema
 
 oci-image-tool:
 	go build ./cmd/oci-image-tool
