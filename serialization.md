@@ -507,7 +507,9 @@ For example, here's what the full archive of `library/busybox` is (displayed in 
 |-- repositories
 ```
 
-There are one or more directories named with the ChainID for each layer in a full image.
+There is a directory for each layer in the image.
+Each directory is named with 64 character hex name that is deterministically generated from the layer information.
+These names are not necessarily layer DiffIDs or ChainIDs.
 Each of these directories contains 3 files:
 
  * `VERSION` - The schema version of the `json` file
