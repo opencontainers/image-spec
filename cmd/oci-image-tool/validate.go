@@ -15,29 +15,18 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
-	"io"
-	"io/ioutil"
 	"log"
-	"net/http"
 	"os"
 	"strings"
 
+	"github.com/opencontainers/image-spec/image"
 	"github.com/opencontainers/image-spec/schema"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 )
 
 // supported validation types
-const (
-	typeImageLayout  = "imageLayout"
-	typeImage        = "image"
-	typeManifest     = "manifest"
-	typeManifestList = "manifestList"
-	typeConfig       = "config"
-)
-
 var validateTypes = []string{
 	typeImageLayout,
 	typeImage,
@@ -50,6 +39,7 @@ type validateCmd struct {
 	stdout *log.Logger
 	stderr *log.Logger
 	typ    string // the type to validate, can be empty string
+	ref    string
 }
 
 func newValidateCmd(stdout, stderr *log.Logger) *cobra.Command {
@@ -67,9 +57,14 @@ func newValidateCmd(stdout, stderr *log.Logger) *cobra.Command {
 	cmd.Flags().StringVar(
 		&v.typ, "type", "",
 		fmt.Sprintf(
-			`Type of the file to validate. If unset, oci-image-tool will try to auto-detect the type. One of "%s"`,
+			`Type of the file to validate. If unset, oci-image-tool will try to auto-detect the type. One of "%s".`,
 			strings.Join(validateTypes, ","),
 		),
+	)
+
+	cmd.Flags().StringVar(
+		&v.ref, "ref", "v1.0",
+		`The ref pointing to the manifest to be validated. This must be present in the "refs" subdirectory of the image. Only applicable if type is image or imageLayout.`,
 	)
 
 	return cmd
@@ -89,7 +84,7 @@ func (v *validateCmd) Run(cmd *cobra.Command, args []string) {
 		err := v.validatePath(arg)
 
 		if err == nil {
-			v.stdout.Printf("file %s: OK", arg)
+			v.stdout.Printf("%s: OK", arg)
 			continue
 		}
 
@@ -97,13 +92,13 @@ func (v *validateCmd) Run(cmd *cobra.Command, args []string) {
 		if verr, ok := errors.Cause(err).(schema.ValidationError); ok {
 			errs = verr.Errs
 		} else {
-			v.stderr.Printf("file %s: validation failed: %v", arg, err)
+			v.stderr.Printf("%s: validation failed: %v", arg, err)
 			exitcode = 1
 			continue
 		}
 
 		for _, err := range errs {
-			v.stderr.Printf("file %s: validation failed: %v", arg, err)
+			v.stderr.Printf("%s: validation failed: %v", arg, err)
 		}
 
 		exitcode = 1
@@ -122,6 +117,13 @@ func (v *validateCmd) validatePath(name string) error {
 		}
 	}
 
+	switch typ {
+	case typeImageLayout:
+		return image.ValidateLayout(name, v.ref)
+	case typeImage:
+		return image.Validate(name, v.ref)
+	}
+
 	f, err := os.Open(name)
 	if err != nil {
 		return errors.Wrap(err, "unable to open file")
@@ -130,92 +132,14 @@ func (v *validateCmd) validatePath(name string) error {
 
 	switch typ {
 	case typeManifest:
-		if err := schema.MediaTypeManifest.Validate(f); err != nil {
-			return err
-		}
+		return schema.MediaTypeManifest.Validate(f)
 
-		return nil
 	case typeManifestList:
-		if err := schema.MediaTypeManifestList.Validate(f); err != nil {
-			return err
-		}
+		return schema.MediaTypeManifestList.Validate(f)
 
-		return nil
 	case typeConfig:
-		if err := schema.MediaTypeImageSerializationConfig.Validate(f); err != nil {
-			return err
-		}
-
-		return nil
+		return schema.MediaTypeImageSerializationConfig.Validate(f)
 	}
 
 	return fmt.Errorf("type %q unimplemented", typ)
-}
-
-// autodetect detects the validation type for the given path
-// or an error if the validation type could not be resolved.
-func autodetect(path string) (string, error) {
-	fi, err := os.Stat(path)
-	if err != nil {
-		return "", errors.Wrapf(err, "unable to access path") // err from os.Stat includes path name
-	}
-
-	if fi.IsDir() {
-		return typeImageLayout, nil
-	}
-
-	f, err := os.Open(path)
-	if err != nil {
-		return "", errors.Wrap(err, "unable to open file") // os.Open includes the filename
-	}
-	defer f.Close()
-
-	buf, err := ioutil.ReadAll(io.LimitReader(f, 512)) // read some initial bytes to detect content
-	if err != nil {
-		return "", errors.Wrap(err, "unable to read")
-	}
-
-	mimeType := http.DetectContentType(buf)
-
-	switch mimeType {
-	case "application/x-gzip":
-		return typeImage, nil
-
-	case "application/octet-stream":
-		return typeImage, nil
-
-	case "text/plain; charset=utf-8":
-		// might be a JSON file, will be handled below
-
-	default:
-		return "", errors.New("unknown file type")
-	}
-
-	if _, err := f.Seek(0, os.SEEK_SET); err != nil {
-		return "", errors.Wrap(err, "unable to seek")
-	}
-
-	header := struct {
-		SchemaVersion int         `json:"schemaVersion"`
-		MediaType     string      `json:"mediaType"`
-		Config        interface{} `json:"config"`
-	}{}
-
-	if err := json.NewDecoder(f).Decode(&header); err != nil {
-		return "", errors.Wrap(err, "unable to parse JSON")
-	}
-
-	switch {
-	case header.MediaType == string(schema.MediaTypeManifest):
-		return typeManifest, nil
-
-	case header.MediaType == string(schema.MediaTypeManifestList):
-		return typeManifestList, nil
-
-	case header.MediaType == "" && header.SchemaVersion == 0 && header.Config != nil:
-		// config files don't have mediaType/schemaVersion header
-		return typeConfig, nil
-	}
-
-	return "", errors.New("unknown media type")
 }
