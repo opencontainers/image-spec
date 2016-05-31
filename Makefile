@@ -12,42 +12,46 @@ DOC_FILES := \
 
 FIGURE_FILES := \
 	img/media-types.png
+OUTPUT ?= output/
 
 default: help
 
 help:
 	@echo "Usage: make <target>"
 	@echo
+	@echo " * 'docs' - produce document in the $(OUTPUT) directory"
 	@echo " * 'fmt' - format the json with indentation"
 	@echo " * 'validate' - build the validation tool"
 
 fmt:
 	for i in *.json ; do jq --indent 2 -M . "$${i}" > xx && cat xx > "$${i}" && rm xx ; done
 
-docs: output/docs.pdf output/docs.html
+docs: $(OUTPUT)/docs.pdf $(OUTPUT)/docs.html
 
-output/docs.pdf: $(DOC_FILES) $(FIGURE_FILES)
-	@mkdir -p output/ && \
-	cp *.png $(shell pwd)/output && \
+$(OUTPUT)/docs.pdf: $(DOC_FILES) $(FIGURE_FILES)
+	@mkdir -p $(OUTPUT)/ && \
+	cp -ap img/ $(shell pwd)/$(OUTPUT)/&& \
 	$(DOCKER) run \
 	-it \
 	--rm \
 	-v $(shell pwd)/:/input/:ro \
-	-v $(shell pwd)/output/:/output/ \
+	-v $(shell pwd)/$(OUTPUT)/:/$(OUTPUT)/ \
 	-u $(shell id -u) \
-	vbatts/pandoc -f markdown_github -t latex -o /output/docs.pdf $(patsubst %,/input/%,$(DOC_FILES)) && \
+	--workdir /input \
+	vbatts/pandoc -f markdown_github -t latex -o /$(OUTPUT)/docs.pdf $(patsubst %,/input/%,$(DOC_FILES)) && \
 	ls -sh $(shell readlink -f $@)
 
-output/docs.html: $(DOC_FILES) $(FIGURE_FILES)
-	@mkdir -p output/ && \
-	cp *.png $(shell pwd)/output && \
+$(OUTPUT)/docs.html: $(DOC_FILES) $(FIGURE_FILES)
+	@mkdir -p $(OUTPUT)/ && \
+	cp -ap img/ $(shell pwd)/$(OUTPUT)/&& \
 	$(DOCKER) run \
 	-it \
 	--rm \
 	-v $(shell pwd)/:/input/:ro \
-	-v $(shell pwd)/output/:/output/ \
+	-v $(shell pwd)/$(OUTPUT)/:/$(OUTPUT)/ \
 	-u $(shell id -u) \
-	vbatts/pandoc -f markdown_github -t html5 -o /output/docs.html $(patsubst %,/input/%,$(DOC_FILES)) && \
+	--workdir /input \
+	vbatts/pandoc -f markdown_github -t html5 -o /$(OUTPUT)/docs.html $(patsubst %,/input/%,$(DOC_FILES)) && \
 	ls -sh $(shell readlink -f $@)
 
 code-of-conduct.md:
@@ -74,16 +78,19 @@ lint:
 test:
 	go test -race ./...
 
-%.png: %.dot
+img/%.png: %.dot
 	dot -Tpng $^ > $@
 
-inline-png-%.md: %.png
+inline-png-%.md: img/%.png
 	@printf '<img src="data:image/png;base64,%s" alt="$*"/>\n' "$(shell base64 $^)" > $@
 
+clean:
+	rm -rf *~ $(OUTPUT)
 .PHONY: \
 	validate-examples \
 	oci-image-tool \
 	check-license \
+	clean \
 	lint \
 	docs \
 	test
