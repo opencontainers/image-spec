@@ -11,7 +11,7 @@ DOC_FILES := \
 	serialization.md
 
 FIGURE_FILES := \
-	media-types.png
+	img/media-types.png
 
 default: help
 
