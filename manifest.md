@@ -50,7 +50,7 @@ A client will distinguish a manifest list from an image manifest based on the Co
 
   - **`digest`** *string*
 
-    The digest of the content, as defined by the [Registry V2 HTTP API Specificiation](https://docs.docker.com/registry/spec/api/#digest-parameter).
+    The digest of the content, as defined by the [Registry V2 HTTP API Specification](https://docs.docker.com/registry/spec/api/#digest-parameter).
 
   - **`platform`** *object*
 
