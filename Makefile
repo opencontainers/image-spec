@@ -6,13 +6,14 @@ DOC_FILES := \
 	code-of-conduct.md \
 	project.md \
 	media-types.md \
-	inline-png-media-types.md \
 	manifest.md \
 	serialization.md
 
 FIGURE_FILES := \
 	img/media-types.png
-OUTPUT ?= output/
+
+OUTPUT		?= output/
+DOC_FILENAME	?= oci-image-spec
 
 default: help
 
@@ -26,9 +27,9 @@ help:
 fmt:
 	for i in *.json ; do jq --indent 2 -M . "$${i}" > xx && cat xx > "$${i}" && rm xx ; done
 
-docs: $(OUTPUT)/docs.pdf $(OUTPUT)/docs.html
+docs: $(OUTPUT)/$(DOC_FILENAME).pdf $(OUTPUT)/$(DOC_FILENAME).html
 
-$(OUTPUT)/docs.pdf: $(DOC_FILES) $(FIGURE_FILES)
+$(OUTPUT)/$(DOC_FILENAME).pdf: $(DOC_FILES) $(FIGURE_FILES)
 	@mkdir -p $(OUTPUT)/ && \
 	cp -ap img/ $(shell pwd)/$(OUTPUT)/&& \
 	$(DOCKER) run \
@@ -38,10 +39,10 @@ $(OUTPUT)/docs.pdf: $(DOC_FILES) $(FIGURE_FILES)
 	-v $(shell pwd)/$(OUTPUT)/:/$(OUTPUT)/ \
 	-u $(shell id -u) \
 	--workdir /input \
-	vbatts/pandoc -f markdown_github -t latex -o /$(OUTPUT)/docs.pdf $(patsubst %,/input/%,$(DOC_FILES)) && \
+	vbatts/pandoc -f markdown_github -t latex -o /$(OUTPUT)/$(DOC_FILENAME).pdf $(patsubst %,/input/%,$(DOC_FILES)) && \
 	ls -sh $(shell readlink -f $@)
 
-$(OUTPUT)/docs.html: $(DOC_FILES) $(FIGURE_FILES)
+$(OUTPUT)/$(DOC_FILENAME).html: $(DOC_FILES) $(FIGURE_FILES)
 	@mkdir -p $(OUTPUT)/ && \
 	cp -ap img/ $(shell pwd)/$(OUTPUT)/&& \
 	$(DOCKER) run \
@@ -51,7 +52,7 @@ $(OUTPUT)/docs.html: $(DOC_FILES) $(FIGURE_FILES)
 	-v $(shell pwd)/$(OUTPUT)/:/$(OUTPUT)/ \
 	-u $(shell id -u) \
 	--workdir /input \
-	vbatts/pandoc -f markdown_github -t html5 -o /$(OUTPUT)/docs.html $(patsubst %,/input/%,$(DOC_FILES)) && \
+	vbatts/pandoc -f markdown_github -t html5 -o /$(OUTPUT)/$(DOC_FILENAME).html $(patsubst %,/input/%,$(DOC_FILES)) && \
 	ls -sh $(shell readlink -f $@)
 
 code-of-conduct.md:
@@ -80,9 +81,6 @@ test:
 
 img/%.png: %.dot
 	dot -Tpng $^ > $@
-
-inline-png-%.md: img/%.png
-	@printf '<img src="data:image/png;base64,%s" alt="$*"/>\n' "$(shell base64 $^)" > $@
 
 clean:
 	rm -rf *~ $(OUTPUT)
