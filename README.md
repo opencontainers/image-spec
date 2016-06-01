@@ -48,7 +48,7 @@ A: We are seeing many independent implementations of container image handling in
 
 **Q: What happens to AppC or Docker Image Formats?**
 
-A: Existing formats can continue to be a proving ground for technologies, as needed. The OCI Image Format project should strive to provide a dependable open specification that can be shared between different tools and be evolved for years or decades of compatibility; as the deb and rpm format have.
+A: Existing formats can continue to be a proving ground for technologies, as needed. The OCI Image Format project strives to provide a dependable open specification that can be shared between different tools and be evolved for years or decades of compatibility; as the deb and rpm format have.
 
 ## Roadmap
 
