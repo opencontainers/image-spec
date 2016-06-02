@@ -15,7 +15,9 @@
 package image
 
 import (
+	"encoding/json"
 	"os"
+	"path/filepath"
 
 	"github.com/pkg/errors"
 )
@@ -100,4 +102,67 @@ func unpack(w walker, dest, refName string) error {
 	}
 
 	return m.unpack(w, dest)
+}
+
+// CreateRuntimeBundleLayout walks through the file tree given given by src and
+// creates an OCI runtime bundle in the given destination dest
+// or returns an error if the unpacking failed.
+func CreateRuntimeBundleLayout(src, dest, ref, root string) error {
+	return createRuntimeBundle(newPathWalker(src), dest, ref, root)
+}
+
+// CreateRuntimeBundle walks through the given .tar file and
+// creates an OCI runtime bundle in the given destination dest
+// or returns an error if the unpacking failed.
+func CreateRuntimeBundle(tarFile, dest, ref, root string) error {
+	f, err := os.Open(tarFile)
+	if err != nil {
+		return errors.Wrap(err, "unable to open file")
+	}
+	defer f.Close()
+
+	return createRuntimeBundle(newTarWalker(f), dest, ref, root)
+}
+
+func createRuntimeBundle(w walker, dest, refName, rootfs string) error {
+	ref, err := findDescriptor(w, refName)
+	if err != nil {
+		return err
+	}
+
+	if err = ref.validate(w); err != nil {
+		return err
+	}
+
+	m, err := findManifest(w, ref)
+	if err != nil {
+		return err
+	}
+
+	if err = m.validate(w); err != nil {
+		return err
+	}
+
+	c, err := findConfig(w, &m.Config)
+	if err != nil {
+		return err
+	}
+
+	err = m.unpack(w, filepath.Join(dest, rootfs))
+	if err != nil {
+		return err
+	}
+
+	spec, err := c.runtimeSpec(rootfs)
+	if err != nil {
+		return err
+	}
+
+	f, err := os.Create(filepath.Join(dest, "config.json"))
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	return json.NewEncoder(f).Encode(spec)
 }
