@@ -15,6 +15,8 @@ FIGURE_FILES := \
 OUTPUT		?= output/
 DOC_FILENAME	?= oci-image-spec
 
+EPOCH_TEST_COMMIT ?= v0.2.0
+
 default: help
 
 help:
@@ -81,6 +83,23 @@ test:
 
 img/%.png: %.dot
 	dot -Tpng $^ > $@
+
+.PHONY: .gitvalidation
+
+# When this is running in travis, it will only check the travis commit range
+.gitvalidation:
+	@which git-validation > /dev/null 2>/dev/null || (echo "ERROR: git-validation not found. Consider 'make install.tools' target" && false)
+ifeq ($(TRAVIS),true)
+	git-validation -q -run DCO,short-subject,dangling-whitespace
+else
+	git-validation -v -run DCO,short-subject,dangling-whitespace -range $(EPOCH_TEST_COMMIT)..HEAD
+endif
+
+.PHONY: install.tools
+install.tools: .install.gitvalidation
+
+.install.gitvalidation:
+	go get github.com/vbatts/git-validation
 
 clean:
 	rm -rf *~ $(OUTPUT)

@@ -12,7 +12,7 @@ before_script:
 
 before_install:
   - docker pull vbatts/pandoc
-  - go get github.com/vbatts/git-validation
+  - make install.tools
   - go get github.com/alecthomas/gometalinter
   - gometalinter --install --update
   - go get -t -d ./...
@@ -20,7 +20,7 @@ before_install:
 install: true
 
 script:
-  - git-validation -run DCO,short-subject -v -range ${TRAVIS_COMMIT_RANGE}
+  - make .gitvalidation
   - make lint
   - make check-license
   - make test
