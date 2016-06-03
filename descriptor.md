@@ -1,9 +1,3 @@
-<!--[metadata]>
-+++
-draft = true
-+++
-<![end-metadata]-->
-
 # OpenContainers Content Descriptors
 
 OCI have several components that come to together to describe an image.
@@ -77,7 +71,7 @@ digest                                                                          
 sha256:6c3c624b58dbbcd3c0dd82b4c53f04194d1247c6eebdaab7c610cf7d66709b3b           | Common sha256 based digest                    |
 
 Before consuming content targeted by a descriptor from untrusted sources, the byte content SHOULD be verified against the _digest_.
-The size of the content SHOULD be verified, as well, to protect against [Length Extension Attacks](https://en.wikipedia.org/wiki/Length_extension_attack).
+The size of the content SHOULD be verified to reduce hash collision space.
 Heavy processing of before calculating a hash SHOULD be avoided.
 Implementations MAY employ some canonicalization to ensure stable content identifiers.
 

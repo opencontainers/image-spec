@@ -33,6 +33,10 @@ var (
 	errFormatInvalid = errors.New("format: invalid")
 )
 
+func TestValidateDescriptor(t *testing.T) {
+	validate(t, "../descriptor.md")
+}
+
 func TestValidateManifest(t *testing.T) {
 	validate(t, "../manifest.md")
 }

@@ -14,12 +14,12 @@
       "$ref": "defs-image.json#/definitions/mediaType"
     },
     "config": {
-      "$ref": "defs-image.json#/definitions/descriptor"
+      "$ref": "content-descriptor.json"
     },
     "layers": {
       "type": "array",
       "items": {
-        "$ref": "defs-image.json#/definitions/descriptor"
+        "$ref": "content-descriptor.json"
       }
     },
     "annotations": {
