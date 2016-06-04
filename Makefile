@@ -68,7 +68,7 @@ oci-image-tool:
 
 schema-fs:
 	@echo "generating schema fs"
-	@cd schema && echo -e "$$(cat ../.header)\n\n$$(go generate)" > fs.go
+	@cd schema && printf "%s\n\n%s\n" "$$(cat ../.header)" "$$(go generate)" > fs.go
 
 check-license:
 	@echo "checking license headers"
