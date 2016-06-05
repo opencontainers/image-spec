@@ -84,7 +84,16 @@ func autodetect(path string) (string, error) {
 	}{}
 
 	if err := json.NewDecoder(f).Decode(&header); err != nil {
-		return "", errors.Wrap(err, "unable to parse JSON")
+		if _, errSeek := f.Seek(0, os.SEEK_SET); errSeek != nil {
+			return "", errors.Wrap(err, "unable to seek")
+		}
+
+		e := errors.Wrap(
+			schema.WrapSyntaxError(f, err),
+			"unable to parse JSON",
+		)
+
+		return "", e
 	}
 
 	switch {

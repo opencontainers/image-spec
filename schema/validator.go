@@ -15,6 +15,7 @@
 package schema
 
 import (
+	"bytes"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -48,7 +49,9 @@ func (v Validator) Validate(src io.Reader) error {
 
 	result, err := gojsonschema.Validate(sl, ml)
 	if err != nil {
-		return errors.Wrapf(err, "schema %s: unable to validate manifest", v)
+		return errors.Wrapf(
+			WrapSyntaxError(bytes.NewReader(buf), err),
+			"schema %s: unable to validate", v)
 	}
 
 	if result.Valid() {
