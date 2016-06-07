@@ -239,25 +239,3 @@ Unlike the [Manifest List](#manifest-list), which contains information about a s
   }
 }
 ```
-
-# Backward compatibility
-
-The registry will continue to accept uploads of manifests in both the old and new formats.
-
-When pushing images, clients which support the new manifest format SHOULD first construct a manifest in the new format.
-If uploading this manifest fails, presumably because the registry only supports the old format, the client MAY fall back to uploading a manifest in the old format.
-
-When pulling images, clients indicate support for this new version of the manifest format by sending the
-`application/vnd.oci.image.manifest.v1+json` and
-`application/vnd.oci.image.manifest.list.v1+json` media types in an `Accept` header when making a request to the `manifests` endpoint.
-Updated clients SHOULD check the `Content-Type` header to see whether the manifest returned from the endpoint is in the old format, or is an image manifest or manifest list in the new format.
-
-If the manifest being requested uses the new format, and the appropriate media type is not present in an `Accept` header, the registry MUST assume that the client cannot handle the manifest as-is, and MUST rewrite it on the fly into the old format.
-If the object that would otherwise be returned is a manifest list, the registry MUST look up the appropriate manifest for the amd64 platform and linux OS, rewrite that manifest into the old format if necessary, and return the result to the client.
-If no suitable manifest is found in the manifest list, the registry will return a 404 error.
-
-One of the challenges in rewriting manifests to the old format is that the old format involves an image configuration for each layer in the manifest, but the new format only provides one image configuration.
-To work around this, the registry MUST create synthetic image configurations for all layers except the top layer.
-These image configurations will not result in runnable images on their own, but only serve to fill in the parent chain in a compatible way.
-The IDs in these synthetic configurations will be derived from hashes of their respective blobs.
-The registry MUST create these configurations and their IDs using the same scheme as Docker 1.10 when it creates a legacy manifest to push to a registry which doesn't support the new format.
