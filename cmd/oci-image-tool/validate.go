@@ -91,6 +91,10 @@ func (v *validateCmd) Run(cmd *cobra.Command, args []string) {
 		var errs []error
 		if verr, ok := errors.Cause(err).(schema.ValidationError); ok {
 			errs = verr.Errs
+		} else if serr, ok := errors.Cause(err).(*schema.SyntaxError); ok {
+			v.stderr.Printf("%s:%d:%d: validation failed: %v", arg, serr.Line, serr.Col, err)
+			exitcode = 1
+			continue
 		} else {
 			v.stderr.Printf("%s: validation failed: %v", arg, err)
 			exitcode = 1
