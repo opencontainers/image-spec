@@ -21,6 +21,8 @@ The high level components of the spec include:
 * Signatures that are based on signing image content address (optional layer)
 * Naming that is federated based on DNS and can be delegated (optional layer)
 
+The optional and base layers of all OCI projects are tracked in the [OCI Scope Table](https://www.opencontainers.org/governance/oci-scope-table).
+
 ## Running an OCI Image
 
 The OCI Image Format partner project is the [OCI Runtime Spec project](https://github.com/opencontainers/runtime-spec). The Runtime Specification outlines how to run a "[filesystem bundle](https://github.com/opencontainers/runtime-spec/blob/master/bundle.md)" that is unpacked on disk. At a high-level an OCI implementation would download an OCI Image then unpack that image into an OCI Runtime filesystem bundle. At this point the OCI Runtime Bundle would be run by an OCI Runtime.
