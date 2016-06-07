@@ -148,7 +148,7 @@ Unlike the [Manifest List](#manifest-list), which contains information about a s
 
 - **`config`** *object*
 
-    The `config` property references a configuration object for a container, by digest.
+    This REQUIRED property references a configuration object for a container, by digest.
     The referenced configuration object is a JSON blob that the runtime uses to set up the container, see [Image JSON Description](serialization.md#image-json-description).
 
     Properties of `config` are:
