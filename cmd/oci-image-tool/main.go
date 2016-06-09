@@ -32,6 +32,7 @@ func main() {
 
 	cmd.AddCommand(newValidateCmd(stdout, stderr))
 	cmd.AddCommand(newUnpackCmd(stdout, stderr))
+	cmd.AddCommand(newBundleCmd(stdout, stderr))
 
 	if err := cmd.Execute(); err != nil {
 		stderr.Println(err)
