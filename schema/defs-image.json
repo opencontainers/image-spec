@@ -11,28 +11,6 @@
       "type": "string",
       "pattern": "^[a-z0-9]+:[a-fA-F0-9]+$"
     },
-    "descriptor": {
-      "id": "https://opencontainers.org/schema/image/descriptor",
-      "type": "object",
-      "required": [
-        "mediaType",
-        "size",
-        "digest"
-      ],
-      "properties": {
-        "mediaType": {
-          "description": "the mediatype of the referenced object",
-          "$ref": "#definitions/mediaType"
-        },
-        "size": {
-          "description": "the size in bytes of the referenced object",
-          "type": "integer"
-        },
-        "digest": {
-          "$ref": "#definitions/digest"
-        }
-      }
-    },
     "manifestDescriptor": {
       "id": "https://opencontainers.org/schema/image/manifestDescriptor",
       "type": "object",
