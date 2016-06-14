@@ -42,21 +42,39 @@ For example `sha256:5b` will map to the layout `blobs/sha256-5b`.
 The blobs directory MAY contain blobs which are not referenced by any of the refs.
 The blobs directory MAY be missing referenced blobs, in which case the missing blobs SHOULD be fulfilled by an external blob store.
 
-Each object in the refs subdirectory MUST be of type `application/vnd.oci.descriptor.v1+json`.
+Each object in the `refs` subdirectory MUST be of type `application/vnd.oci.descriptor.v1+json`.
 In general the `mediatype` of this descriptor object will be either `application/vnd.oci.image.manifest.list.v1+json` or `application/vnd.oci.image.manifest.v1+json` although future versions of the spec MAY use a different mediatype.
 
-This illustrates the expected contents of a given ref and the manifest list it points to.
+This illustrates the expected contents of a given ref, the manifest list it points to and the blobs the manifest references.
 
 ```
 $ cat ./refs/v1.0
-{"size": 4096, "digest": "sha256:afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1f2d51", "mediatype": "application/vnd.oci.image.manifest.list.v1+json"}
+{"size": 4096, "digest": "sha256:afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1f2d51", "mediatype": "application/vnd.oci.image.manifest.v1+json"}
 ```
 ```
 $ cat ./blobs/sha256-afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1f2d51
 {
   "schemaVersion": 2,
-  "mediaType": "application/vnd.oci.image.manifest.list.v1+json",
-  "manifests": [
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "config": [
+    "mediaType": "application/vnd.oci.image.serialization.config.v1+json",
+    "size": 7023,
+    "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270"
+  },
+  "layers": [
     {
+      "mediaType": "application/vnd.oci.image.serialization.rootfs.tar.gzip",
+      "size": 32654,
+      "digest": "sha256:e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f"
+    },
 ...
+```
+```
+$ cat ./blobs/sha256-5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270
+{"architecture":"amd64","author":"Antonio Murdaca \u003eruncom@redhat.com\u003e","config":{"Hostname":"8dfe43d80430","Domainname":"","User":"","AttachStdin":false,"AttachStdout":false,"AttachStderr":false,"Tty":false,"OpenStdin":false,"StdinOnce":false,"Env":["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"],"Cmd":null,"Image":"sha256:6986ae504bbf843512d680cc959484452034965db15f75ee8bdd1b107f61500b",
+...
+```
+```
+$ cat ./blobs/sha256-e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f
+[tar stream]
 ```
