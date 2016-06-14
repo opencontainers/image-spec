@@ -7,7 +7,6 @@ The following `mediaType` MIME types are used by the formats described here, and
 - `application/vnd.oci.image.manifest.v1+json`: [Image manifest format](manifest.md#image-manifest)
 - `application/vnd.oci.image.serialization.rootfs.tar.gzip`: ["Layer", as a gzipped tar archive](serialization.md#creating-an-image-filesystem-changeset)
 - `application/vnd.oci.image.serialization.config.v1+json`: [Container config JSON](serialization.md#image-json-description)
-- `application/vnd.oci.image.serialization.combined.v1+json`: [Combined image JSON and filesystem changesets](serialization.md#combined-image-json--filesystem-changeset-format)
 
 ## Compatibility Matrix
 
@@ -38,10 +37,6 @@ This section shows where the OCI Image Specification is compatible with formats 
 **Similar/related schema**
 
 - [application/vnd.docker.container.image.v1+json](https://github.com/docker/docker/blob/master/image/spec/v1.md#image-json-description)
-
-### application/vnd.oci.image.serialization.combined.v1+json
-
-- [layout compatible with docker save/load format](https://github.com/opencontainers/image-spec/blob/master/serialization.md#combined-image-json--filesystem-changeset-format)
 
 ## Relations
 
