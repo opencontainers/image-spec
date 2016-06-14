@@ -26,7 +26,7 @@ $ find .
 ./oci-layout
 ./refs
 ./refs/v1.0
-./refs/v1.1
+./refs/stable-release
 ```
 
 Blobs are named by their contents:
@@ -36,12 +36,13 @@ $ shasum -a 256 ./blobs/sha256-afff3924849e458c5ef237db5f89539274d5e609db5db935e
 afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1f2d51 ./blobs/sha256-afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1f2d51
 ```
 
-Object names in the refs and blobs MUST NOT include characters outside of the set of "A" to "Z", "a" to "z", the hyphen `-`, the dot `.`, and the underscore `_`.
+Object names in the `refs` and `blobs` MUST NOT include characters outside of the set of "A" to "Z", "a" to "z", the hyphen `-`, the dot `.`, and the underscore `_`.
 Hash algorithm identifiers containing the colon `:` will be converted to the hyphen `-`.
 For example `sha256:5b` will map to the layout `blobs/sha256-5b`.
 The blobs directory MAY contain blobs which are not referenced by any of the refs.
 The blobs directory MAY be missing referenced blobs, in which case the missing blobs SHOULD be fulfilled by an external blob store.
 
+No semantic restriction is given for object names in the `refs` subdirectory.
 Each object in the `refs` subdirectory MUST be of type `application/vnd.oci.descriptor.v1+json`.
 In general the `mediatype` of this descriptor object will be either `application/vnd.oci.image.manifest.list.v1+json` or `application/vnd.oci.image.manifest.v1+json` although future versions of the spec MAY use a different mediatype.
 
