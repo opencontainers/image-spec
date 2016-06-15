@@ -7,7 +7,7 @@ Given an image layout a tool can convert a given ref into a runnable OCI Image F
 The image layout has two top level directories:
 
 - "blobs" contains content-addressable blobs. A blob has no schema and should be considered opaque.
-- "refs" contains descriptors pointing to an image manifest list
+- "refs" contains descriptors pointing to an image manifest
 
 It also contains a file that is used to identify the layout version:
 
