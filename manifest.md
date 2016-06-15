@@ -50,7 +50,7 @@ A client will distinguish a manifest list from an image manifest based on the Co
 
   - **`digest`** *string*
 
-    This REQUIRED property is the digest of the content, as defined by the [Registry V2 HTTP API Specification](https://docs.docker.com/registry/spec/api/#digest-parameter).
+    This REQUIRED property is the digest of the content, as defined by the [Descriptor](descriptor.md) digest format.
 
   - **`platform`** *object*
 
@@ -166,7 +166,7 @@ Unlike the [Manifest List](#manifest-list), which contains information about a s
 
     - **`digest`** *string*
 
-        The digest of the content, as defined by the [Registry V2 HTTP API Specificiation](https://docs.docker.com/registry/spec/api/#digest-parameter).
+        This REQUIRED property is the digest of the content, as defined by the [Descriptor](descriptor.md) digest format.
 
 - **`layers`** *array*
 
@@ -189,7 +189,7 @@ Unlike the [Manifest List](#manifest-list), which contains information about a s
 
     - **`digest`** *string*
 
-        The digest of the content, as defined by the [Registry V2 HTTP API Specificiation](https://docs.docker.com/registry/spec/api/#digest-parameter).
+        This REQUIRED property is the digest of the content, as defined by the [Descriptor](descriptor.md) digest format.
 
 - **`annotations`** *hashmap*
 
