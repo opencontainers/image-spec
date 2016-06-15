@@ -36,7 +36,7 @@ $ shasum -a 256 ./blobs/sha256-afff3924849e458c5ef237db5f89539274d5e609db5db935e
 afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1f2d51 ./blobs/sha256-afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1f2d51
 ```
 
-Object names in the `refs` and `blobs` MUST NOT include characters outside of the set of "A" to "Z", "a" to "z", the hyphen `-`, the dot `.`, and the underscore `_`.
+Object names in the `refs` and `blobs` subdirectories MUST NOT include characters outside of the set of "A" to "Z", "a" to "z", "0" to "9", the hyphen `-`, the dot `.`, and the underscore `_`.
 Hash algorithm identifiers containing the colon `:` will be converted to the hyphen `-`.
 For example `sha256:5b` will map to the layout `blobs/sha256-5b`.
 The blobs directory MAY contain blobs which are not referenced by any of the refs.
