@@ -20,6 +20,7 @@ $ cd example.com/app/
 $ find .
 .
 ./blobs
+./blobs/sha256-e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f
 ./blobs/sha256-afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1f2d51
 ./blobs/sha256-5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270
 ./blobs/sha256-e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f
@@ -50,7 +51,24 @@ This illustrates the expected contents of a given ref, the manifest list it poin
 
 ```
 $ cat ./refs/v1.0
-{"size": 4096, "digest": "sha256:afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1f2d51", "mediatype": "application/vnd.oci.image.manifest.v1+json"}
+{"size": 4096, "digest": "sha256:e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f", "mediatype": "application/vnd.oci.image.manifest.list.v1+json"}
+```
+```
+$ cat ./blobs/sha256-e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.manifest.list.v1+json",
+  "manifests": [
+    {
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "size": 7143,
+      "digest": "sha256:afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1f2d51",
+      "platform": {
+        "architecture": "ppc64le",
+        "os": "linux"
+      }
+    },
+...
 ```
 ```
 $ cat ./blobs/sha256-afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1f2d51
