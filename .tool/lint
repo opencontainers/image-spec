@@ -9,7 +9,7 @@ if [ ! $(command -v gometalinter) ]; then
 	gometalinter --update --install
 fi
 
-for d in $(find . -type d -not -iwholename '*.git*' -a -not -iname '.tool'); do
+for d in $(find . -type d -not -iwholename '*.git*' -a -not -iname '.tool' -a -not -iwholename '*vendor*'); do
 	gometalinter \
 		--exclude='error return value not checked.*(Close|Log|Print).*\(errcheck\)$' \
 		--exclude='.*_test\.go:.*error return value not checked.*\(errcheck\)$' \
