@@ -14,19 +14,13 @@
 
 package specs
 
-import "fmt"
+// Versioned provides a struct with the manifest schemaVersion and mediaType.
+// Incoming content with unknown schema version can be decoded against this
+// struct to check the version.
+type Versioned struct {
+	// SchemaVersion is the image manifest schema that this image follows
+	SchemaVersion int `json:"schemaVersion"`
 
-const (
-	// VersionMajor is for an API incompatible changes
-	VersionMajor = 0
-	// VersionMinor is for functionality in a backwards-compatible manner
-	VersionMinor = 3
-	// VersionPatch is for backwards-compatible bug fixes
-	VersionPatch = 0
-
-	// VersionDev indicates development branch. Releases will be empty string.
-	VersionDev = "-dev"
-)
-
-// Version is the specification version that the package types support.
-var Version = fmt.Sprintf("%d.%d.%d%s", VersionMajor, VersionMinor, VersionPatch, VersionDev)
+	// MediaType is the media type of this schema.
+	MediaType string `json:"mediaType,omitempty"`
+}

@@ -14,19 +14,14 @@
 
 package specs
 
-import "fmt"
+// Descriptor describes the disposition of targeted content.
+type Descriptor struct {
+	// MediaType contains the MIME type of the referenced object.
+	MediaType string `json:"mediaType"`
 
-const (
-	// VersionMajor is for an API incompatible changes
-	VersionMajor = 0
-	// VersionMinor is for functionality in a backwards-compatible manner
-	VersionMinor = 3
-	// VersionPatch is for backwards-compatible bug fixes
-	VersionPatch = 0
+	// Digests is the digest of the targeted content.
+	Digest string `json:"digest"`
 
-	// VersionDev indicates development branch. Releases will be empty string.
-	VersionDev = "-dev"
-)
-
-// Version is the specification version that the package types support.
-var Version = fmt.Sprintf("%d.%d.%d%s", VersionMajor, VersionMinor, VersionPatch, VersionDev)
+	// Size specifies the size in bytes of the blob
+	Size int64 `json:"size"`
+}
