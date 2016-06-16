@@ -28,7 +28,7 @@ This section shows where the OCI Image Specification is compatible with formats 
 
 ### application/vnd.oci.image.rootfs.tar.gzip
 
-**Interchangable and fully compatible mime-types**
+**Interchangeable and fully compatible mime-types**
 
 - [application/vnd.docker.image.rootfs.diff.tar.gzip](https://github.com/docker/docker/blob/master/image/spec/v1.md#creating-an-image-filesystem-changeset)
 
