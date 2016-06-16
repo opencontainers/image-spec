@@ -26,21 +26,39 @@
           }
         },
         "Entrypoint": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "Cmd": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "Volumes": {
           "oneOf": [
-            {"$ref": "defs.json#/definitions/mapStringObject"},
-            {"type": "null"}
+            {
+              "$ref": "defs.json#/definitions/mapStringObject"
+            },
+            {
+              "type": "null"
+            }
           ]
         },
         "WorkingDir": {
