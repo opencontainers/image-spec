@@ -7,7 +7,8 @@ Given an image layout a tool can convert a given ref into a runnable OCI Image F
 The image layout has two top level directories:
 
 - "blobs" contains content-addressable blobs. A blob has no schema and should be considered opaque.
-- "refs" contains descriptors pointing to an image manifest
+- "refs" contains [descriptors][descriptors]. Commonly pointing to an image manifest.
+
 
 It also contains a file that is used to identify the layout version:
 
@@ -45,7 +46,7 @@ The blobs directory MAY be missing referenced blobs, in which case the missing b
 
 No semantic restriction is given for object names in the `refs` subdirectory.
 Each object in the `refs` subdirectory MUST be of type `application/vnd.oci.descriptor.v1+json`.
-In general the `mediatype` of this descriptor object will be either `application/vnd.oci.image.manifest.list.v1+json` or `application/vnd.oci.image.manifest.v1+json` although future versions of the spec MAY use a different mediatype.
+In general the `mediatype` of this [descriptor][descriptors] object will be either `application/vnd.oci.image.manifest.list.v1+json` or `application/vnd.oci.image.manifest.v1+json` although future versions of the spec MAY use a different mediatype.
 
 This illustrates the expected contents of a given ref, the manifest list it points to and the blobs the manifest references.
 
@@ -97,3 +98,5 @@ $ cat ./blobs/sha256-5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a43335
 $ cat ./blobs/sha256-e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f
 [tar stream]
 ```
+
+[descriptors]: ./descriptor.md
