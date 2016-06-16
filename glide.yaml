@@ -8,3 +8,4 @@ import:
   version: ">=0.7.0"
 - package: github.com/spf13/cobra
 - package: github.com/xeipuuv/gojsonschema
+  version: d5336c75940ef31c9ceeb0ae64cf92944bccb4ee
