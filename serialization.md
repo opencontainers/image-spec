@@ -442,7 +442,7 @@ The `f60c56784b83` directory then looks like this:
 ```
 f60c56784b83/
     etc/
-        .wh.my-app.cfg
+        .wh.my-app-config
         my-app.d/
             default.cfg
     bin/
@@ -461,9 +461,15 @@ Modified:   /bin/my-app-tools
 Deleted:    /etc/my-app-config
 ```
 
-A Tar Archive is then created which contains *only* this changeset: The added and modified files and directories in their entirety, and for each deleted item an entry for an empty file at the same location but with the basename of the deleted file or directory prefixed with `.wh.`.
-The filenames prefixed with `.wh.` are known as "whiteout" files.
-NOTE: For this reason, it is not possible to create an image root filesystem which contains a file or directory with a name beginning with `.wh.`.
+A Tar Archive is then created which contains *only* this changeset:
+
+- Added and modified files and directories in their entirety
+- Deleted files or directory marked with a whiteout file
+
+A whiteout file is an empty file that prefixes the deleted paths basename `.wh.`.
+When a whiteout is found in the upper changeset of a filesystem, any matching name in the lower changeset is ignored, and the whiteout itself is also hidden.
+As files prefixed with `.wh.` are special whiteout tombstones it is not possible to create a filesystem which has a file or directory with a name beginning with `.wh.`.
+
 The resulting Tar archive for `f60c56784b83` has the following entries:
 
 ```
