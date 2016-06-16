@@ -38,7 +38,10 @@
           }
         },
         "Volumes": {
-          "$ref": "defs.json#/definitions/mapStringObject"
+          "oneOf": [
+            {"$ref": "defs.json#/definitions/mapStringObject"},
+            {"type": "null"}
+          ]
         },
         "WorkingDir": {
           "type": "string"

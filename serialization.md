@@ -297,7 +297,7 @@ Note: whitespace has been added to this example for clarity. Whitespace is OPTIO
                 Volumes <code>struct</code>
             </dt>
             <dd>
-                A set of directories which should be created as data volumes in a container running this image.
+                A set of directories which should be created as data volumes in a container running this image. This field MAY be "null".
                 <p>
                 If a file or folder exists within the image with the same path as a data volume, that file or folder is replaced with the data volume and is never merged.
                 </p>
