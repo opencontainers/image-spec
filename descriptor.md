@@ -23,7 +23,7 @@ The following describe the primary set of properties that make up a _Descriptor_
   This REQUIRED property is the _digest_ of the targeted content, meeting the requirements outlined in [Digests and Verification](#digests-and—verification).
   Retrieved content SHOULD be verified against this digest when consumed via untrusted sources.
 
-- **`size`** *int*
+- **`size`** *int64*
   This REQUIRED property specifies the size in bytes of the blob.
   This property exists so that a client will have an expected size for the content before validating.
   If the length of the retrieved content does not match the specified length, the content SHOULD NOT be trusted.
