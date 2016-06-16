@@ -90,7 +90,7 @@ Here is an example image JSON file:
 ```json,title=Image%20JSON&mediatype=application/vnd.oci.image.serialization.config.v1%2Bjson
 {  
     "created": "2015-10-31T22:22:56.015925234Z",
-    "author": "Alyssa P. Hacker &ltalyspdev@example.com&gt",
+    "author": "Alyssa P. Hacker <alyspdev@example.com>",
     "architecture": "amd64",
     "os": "linux",
     "config": {

@@ -42,7 +42,7 @@ func TestConfig(t *testing.T) {
 			config: `
 {
     "created": "2015-10-31T22:22:56.015925234Z",
-    "author": "Alyssa P. Hacker &ltalyspdev@example.com&gt",
+    "author": "Alyssa P. Hacker <alyspdev@example.com>",
     "architecture": "amd64",
     "os": "linux",
     "config": {
@@ -102,7 +102,7 @@ func TestConfig(t *testing.T) {
 			config: `
 {
     "created": "2015-10-31T22:22:56.015925234Z",
-    "author": "Alyssa P. Hacker &ltalyspdev@example.com&gt",
+    "author": "Alyssa P. Hacker <alyspdev@example.com>",
     "architecture": "amd64",
     "os": "linux",
     "config": {
