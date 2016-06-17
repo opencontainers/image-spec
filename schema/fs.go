@@ -203,7 +203,7 @@ var _escData = map[string]*_escFile{
 	"/config-schema.json": {
 		local:   "config-schema.json",
 		size:    707,
-		modtime: 1464139547,
+		modtime: 1464121931,
 		compressed: `
 H4sIAAAJbogA/5SRPW7DMAyF5/oUhpOxjjp0ytoDdOgJVJmKGcCiQDJDUPju1U/c2kvhLobx+L73JOqr
 adtuAHGMUZFCd2679wjhjYJaDMBt+vN4aT8iOPTobHE9Z+woboTJZmRUjWdjrkKhr+qJ+GIGtl77l1dT
@@ -216,7 +216,7 @@ T4aE9IoTdGU2V0tnbzoS/xG1dbMbUdPhbgx7GZK9zscuVu4jgy+HBy99HZ/yKxxMUjBgfi1ZdrjJYiL1
 	"/content-descriptor.json": {
 		local:   "content-descriptor.json",
 		size:    616,
-		modtime: 1464914956,
+		modtime: 1466030773,
 		compressed: `
 H4sIAAAJbogA/4yRMVPDMAyF9/wKXdqR1gxMXWFngI1jcG0lVe9iG1kMhet/x4oTSGGgW/L8vvck+7MB
 aD1mx5SEYmh30D4mDPcxiKWADPqFQeBhMkWGp4SOOnJ2JG40Yp3dAQer+EEk7Yw55hg2Vd1G7o1n28nm
@@ -228,23 +228,24 @@ AmOHXKZBD4uOEV+XM+U8dnlDg+1xq8uuyj8F0tRsfnpH6lzhNtPHf5OoBSjA/iSYr5hmvgkqz9QjX/Z5
 
 	"/defs-config.json": {
 		local:   "defs-config.json",
-		size:    1755,
-		modtime: 1464139547,
+		size:    1822,
+		modtime: 1466096871,
 		compressed: `
-H4sIAAAJbogA/7xUzc7TMBA8N09hBY6BXhAHri1HVKQIOFZusm63xF5rvQEi1HfHSauS/qRKKV8PVeOx
-Z2bXY/t3olRaQigYvSC59INK52DQYTsKymsWLOpKsxJSCw9uRk40OmAVvwyuVe6hQIOF7vjZXvCoEAVb
-jwgW3fLjOCLSeGgNabWFQjpqh3smD9EXQm91xL8E4BOkpxGE0a3T49Qu+8v7BJa4OWe+ZjAtMxYb3m4D
-uVfTXt1TdPL+3S29/Kf2/09z5ut8o/ms5YckP/7yFKD8TCz3qlrt825DF/toruu7H0NpaGbdpFl/CgXs
-eRk38otWA6bCjafY9vO9Z7Z8vulXqmp797EYFeA34u9xyRzH36qk/3/QSplITHjkZpdozBLLiy5ffnsr
-3QAP+o7rf4NBTh+YuzegYNACg8frUEeWTCYRNcRWS5d+JL0RtHA9YF3Lhv7pyTzUs1xdPJuj2GQtDN/Q
-W1SwXppll8oQfUVUgXaDqSTtb5f8CQAA//8Cok052wYAAA==
+H4sIAAAJbogA/7xUzY7TMBA+b57CChwDe0EcuHY5oiJFwAGhyk3G21lijzWeAFGVd8dJS0nTpmop20PV
+eOzvx/7sWSdKpSWEgtELkkvfqfQBDDrsRkF5zYJFXWlWQmruwc3IiUYHrOKXwUeVeyjQYKF7fLYh3DFE
+wk4jFot++W4cK9J46ARp+QSF9NC+7pk8RF0Ig9Wx/ikA71UGHEEY3WO6m2qzv7gPYImbMfIlg+mQ0Wx4
+/RTIvbgf+L5HJ2/fnOLLf2r//zhnvs5Xmkdbvory/S9PAcqPxHIpq9U+7w90vonmOL/7MZWGZtZNmg2n
+UMCObZzIL0pNiAo3nuK2b689s+XtRT9TVdvDa0EO5l2CX/fY15cG22Yj/B97rq6qtB1Mfjvq7gvx98j2
+gOc/zGT4v+VKmUhMuKY5lGjMAsuDg3r+hCrdAE/qnrf/FQbZ71EXH0DBoAUmb+jWR5bc3cWqIbZa+osS
+Qa8ELRx/5LqWFf1T1936WSwPOu9ZaLIWph/5KShYL82iT2UKviSqQLvJVJLu1ya/AwAA//9M4B9rHgcA
+AA==
 `,
 	},
 
 	"/defs-image.json": {
 		local:   "defs-image.json",
 		size:    2528,
-		modtime: 1464914958,
+		modtime: 1466030773,
 		compressed: `
 H4sIAAAJbogA/7RWy27bMBC8+ysIJUAOfqjXGkGAoEGBnlIgPTVQgY20kphKpLqkgzqB/r2k3k+nrt0b
 ueQOZ4Zjym8LxpwAlU8801wKZ8ucOwy54HamWAakub9LgJiW7D5D8UkKDVwgsS8pRMgeMvR5yH0o2lcl
@@ -263,7 +264,7 @@ Wb7IF38CAAD//wKthPngCQAA
 	"/defs.json": {
 		local:   "defs.json",
 		size:    3193,
-		modtime: 1464139547,
+		modtime: 1466096269,
 		compressed: `
 H4sIAAAJbogA/7RWTXPaMBC98ys8tEfa2PIX9NYp/cghAzOZnjo9uGYBtSCpstxpmuG/VzLGWPZiMKWH
 JPau9r23T6tYzwPHGS4gSyUVinI2fOMMp7CkjJq3zMkzWDhqLXm+WvNc6UdwZgLYO85UQhlI51FASpc0
@@ -282,7 +283,7 @@ MrVJbn8cB+ZnN/gbAAD//0JyEpx5DAAA
 	"/image-manifest-schema.json": {
 		local:   "image-manifest-schema.json",
 		size:    1032,
-		modtime: 1464914959,
+		modtime: 1466030773,
 		compressed: `
 H4sIAAAJbogA/6RSPU/zMBDe8ytOacc39TswdWViQAxULIjBJOfkqsYOPoNUVf3v+KMujsoAdMyTez7u
 8R0qgLpDbi1Njoyu11A/TKhvjXaSNFq4G2WPcC81KWQHjxO2pKiVcfpfoC+5HXCUgTo4N62F2LLRTUJX
@@ -297,7 +298,7 @@ X3p8DwgEAAA=
 	"/manifest-list-schema.json": {
 		local:   "manifest-list-schema.json",
 		size:    1010,
-		modtime: 1464139547,
+		modtime: 1461966159,
 		compressed: `
 H4sIAAAJbogA/6ySMU/7MBDF93yKU9rxn/o/MHWFBQnEQMWCGExyaa5q7OAzSFXV747tS0qiMIDoUqkv
 fu9+7+xjBpBXyKWjzpM1+Rryhw7NtTVek0EHt63eItxrQzWyhzsKP48dllRTqZPlX8xYctlgq6O/8b5b
