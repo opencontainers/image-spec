@@ -51,6 +51,7 @@ func validate(t *testing.T, name string) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	defer m.Close()
 
 	examples, err := extractExamples(m)
 	if err != nil {
