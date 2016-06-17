@@ -64,7 +64,7 @@
       "properties": {
         "created": {
           "type": "string",
-		  "format": "date-time"
+          "format": "date-time"
         },
         "author": {
           "type": "string"
