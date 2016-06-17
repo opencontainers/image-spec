@@ -23,7 +23,7 @@ A client will distinguish a manifest list from an image manifest based on the Co
 - **`schemaVersion`** *int*
 
   This REQUIRED property specifies the image manifest schema version.
-  This schema uses the version `2`.
+  For this version of the specification, this MUST be `2` to ensure backward compatibility with older versions of Docker. The value of this field will not change. This field MAY be removed in a future version of the specification.
 
 - **`mediaType`** *string*
 
@@ -139,7 +139,7 @@ Unlike the [Manifest List](#manifest-list), which contains information about a s
 - **`schemaVersion`** *int*
 
   This REQUIRED property specifies the image manifest schema version.
-  For this version of the specification, this MUST be `2`.
+  For this version of the specification, this MUST be `2` to ensure backward compatibility with older versions of Docker. The value of this field will not change. This field MAY be removed in a future version of the specification.
 
 - **`mediaType`** *string*
 
