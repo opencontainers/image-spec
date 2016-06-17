@@ -12,26 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package layout implements the cas interface using the image-spec's
-// image-layout [1].
-//
-// [1]: https://github.com/opencontainers/image-spec/blob/master/image-layout.md
-package layout
+package specs
 
-import (
-	"os"
-
-	"github.com/opencontainers/image-spec/image/cas"
-	"golang.org/x/net/context"
-)
-
-// NewEngine instantiates an engine with the appropriate backend (tar,
-// HTTP, ...).
-func NewEngine(ctx context.Context, path string) (engine cas.Engine, err error) {
-	file, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-
-	return NewTarEngine(ctx, file)
+// ImageLayoutVersion represents the oci-version content for the image
+// layout format.
+type ImageLayoutVersion struct {
+	Version string `json:"imageLayoutVersion"`
 }

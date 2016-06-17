@@ -28,13 +28,13 @@ import (
 
 // Validate validates the given reference.
 func Validate(ctx context.Context, path, ref string) error {
-	refEngine, err := refslayout.NewEngine(path)
+	refEngine, err := refslayout.NewEngine(ctx, path)
 	if err != nil {
 		return err
 	}
 	defer refEngine.Close()
 
-	casEngine, err := caslayout.NewEngine(path)
+	casEngine, err := caslayout.NewEngine(ctx, path)
 	if err != nil {
 		return err
 	}
@@ -64,13 +64,13 @@ func validate(ctx context.Context, refEngine refs.Engine, casEngine cas.Engine, 
 
 // Unpack unpacks the given reference to a destination directory.
 func Unpack(ctx context.Context, path, dest, ref string) error {
-	refEngine, err := refslayout.NewEngine(path)
+	refEngine, err := refslayout.NewEngine(ctx, path)
 	if err != nil {
 		return err
 	}
 	defer refEngine.Close()
 
-	casEngine, err := caslayout.NewEngine(path)
+	casEngine, err := caslayout.NewEngine(ctx, path)
 	if err != nil {
 		return err
 	}
@@ -105,13 +105,13 @@ func unpack(ctx context.Context, refEngine refs.Engine, casEngine cas.Engine, de
 // CreateRuntimeBundle creates an OCI runtime bundle in the given
 // destination.
 func CreateRuntimeBundle(ctx context.Context, path, dest, ref, rootfs string) error {
-	refEngine, err := refslayout.NewEngine(path)
+	refEngine, err := refslayout.NewEngine(ctx, path)
 	if err != nil {
 		return err
 	}
 	defer refEngine.Close()
 
-	casEngine, err := caslayout.NewEngine(path)
+	casEngine, err := caslayout.NewEngine(ctx, path)
 	if err != nil {
 		return err
 	}
