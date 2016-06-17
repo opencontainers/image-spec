@@ -24,11 +24,11 @@ import (
 	"github.com/opencontainers/image-spec/schema"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
+	"golang.org/x/net/context"
 )
 
 // supported validation types
 var validateTypes = []string{
-	typeImageLayout,
 	typeImage,
 	typeManifest,
 	typeManifestList,
@@ -64,7 +64,7 @@ func newValidateCmd(stdout, stderr *log.Logger) *cobra.Command {
 
 	cmd.Flags().StringVar(
 		&v.ref, "ref", "v1.0",
-		`The ref pointing to the manifest to be validated. This must be present in the "refs" subdirectory of the image. Only applicable if type is image or imageLayout.`,
+		`The ref pointing to the manifest to be validated. This must be present in the "refs" subdirectory of the image. Only applicable if type is image.`,
 	)
 
 	return cmd
@@ -79,9 +79,11 @@ func (v *validateCmd) Run(cmd *cobra.Command, args []string) {
 		os.Exit(1)
 	}
 
+	ctx := context.Background()
+
 	var exitcode int
 	for _, arg := range args {
-		err := v.validatePath(arg)
+		err := v.validatePath(ctx, arg)
 
 		if err == nil {
 			v.stdout.Printf("%s: OK", arg)
@@ -111,7 +113,7 @@ func (v *validateCmd) Run(cmd *cobra.Command, args []string) {
 	os.Exit(exitcode)
 }
 
-func (v *validateCmd) validatePath(name string) error {
+func (v *validateCmd) validatePath(ctx context.Context, name string) error {
 	var err error
 	typ := v.typ
 
@@ -122,10 +124,8 @@ func (v *validateCmd) validatePath(name string) error {
 	}
 
 	switch typ {
-	case typeImageLayout:
-		return image.ValidateLayout(name, v.ref)
 	case typeImage:
-		return image.Validate(name, v.ref)
+		return image.Validate(ctx, name, v.ref)
 	}
 
 	f, err := os.Open(name)

@@ -22,7 +22,7 @@ oci-image-tool-create-runtime-bundle \- Create an OCI image runtime bundle
   A directory representing the root filesystem of the container in the OCI runtime bundle. It is strongly recommended to keep the default value. (default "rootfs")
 
 **--type**
-  Type of the file to unpack. If unset, oci-image-tool will try to auto-detect the type. One of "imageLayout,image"
+  Type of the file to unpack. If unset, oci-image-tool will try to auto-detect the type. One of "image"
 
 # EXAMPLES
 ```

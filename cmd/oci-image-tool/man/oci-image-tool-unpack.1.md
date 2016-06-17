@@ -19,7 +19,7 @@ oci-image-tool-unpack \- Unpack an image or image source layout
   The ref pointing to the manifest to be unpacked. This must be present in the "refs" subdirectory of the image. (default "v1.0")
 
 **--type**
-  Type of the file to unpack. If unset, oci-image-tool will try to auto-detect the type. One of "imageLayout,image"
+  Type of the file to unpack. If unset, oci-image-tool will try to auto-detect the type. One of "image"
 
 # EXAMPLES
 ```

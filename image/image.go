@@ -19,136 +19,133 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/pkg/errors"
+	"github.com/opencontainers/image-spec/image/cas"
+	caslayout "github.com/opencontainers/image-spec/image/cas/layout"
+	"github.com/opencontainers/image-spec/image/refs"
+	refslayout "github.com/opencontainers/image-spec/image/refs/layout"
+	"golang.org/x/net/context"
 )
 
-// ValidateLayout walks through the file tree given by src and
-// validates the manifest pointed to by the given ref
-// or returns an error if the validation failed.
-func ValidateLayout(src, ref string) error {
-	return validate(newPathWalker(src), ref)
+// Validate validates the given reference.
+func Validate(ctx context.Context, path, ref string) error {
+	refEngine, err := refslayout.NewEngine(path)
+	if err != nil {
+		return err
+	}
+	defer refEngine.Close()
+
+	casEngine, err := caslayout.NewEngine(path)
+	if err != nil {
+		return err
+	}
+	defer casEngine.Close()
+
+	return validate(ctx, refEngine, casEngine, ref)
 }
 
-// Validate walks through the given .tar file and
-// validates the manifest pointed to by the given ref
-// or returns an error if the validation failed.
-func Validate(tarFile, ref string) error {
-	f, err := os.Open(tarFile)
+func validate(ctx context.Context, refEngine refs.Engine, casEngine cas.Engine, ref string) error {
+	descriptor, err := refEngine.Get(ctx, ref)
 	if err != nil {
-		return errors.Wrap(err, "unable to open file")
+		return err
 	}
-	defer f.Close()
 
-	return validate(newTarWalker(f), ref)
+	err = validateDescriptor(ctx, casEngine, descriptor)
+	if err != nil {
+		return err
+	}
+
+	m, err := findManifest(ctx, casEngine, descriptor)
+	if err != nil {
+		return err
+	}
+
+	return m.validate(ctx, casEngine)
 }
 
-func validate(w walker, refName string) error {
-	ref, err := findDescriptor(w, refName)
+// Unpack unpacks the given reference to a destination directory.
+func Unpack(ctx context.Context, path, dest, ref string) error {
+	refEngine, err := refslayout.NewEngine(path)
 	if err != nil {
 		return err
 	}
+	defer refEngine.Close()
 
-	if err = ref.validate(w); err != nil {
-		return err
-	}
-
-	m, err := findManifest(w, ref)
+	casEngine, err := caslayout.NewEngine(path)
 	if err != nil {
 		return err
 	}
+	defer casEngine.Close()
 
-	return m.validate(w)
+	return unpack(ctx, refEngine, casEngine, dest, ref)
 }
 
-// UnpackLayout walks through the file tree given by src and
-// using the layers specified in the manifest pointed to by the given ref
-// and unpacks all layers in the given destination directory
-// or returns an error if the unpacking failed.
-func UnpackLayout(src, dest, ref string) error {
-	return unpack(newPathWalker(src), dest, ref)
+func unpack(ctx context.Context, refEngine refs.Engine, casEngine cas.Engine, dest, ref string) error {
+	descriptor, err := refEngine.Get(ctx, ref)
+	if err != nil {
+		return err
+	}
+
+	err = validateDescriptor(ctx, casEngine, descriptor)
+	if err != nil {
+		return err
+	}
+
+	m, err := findManifest(ctx, casEngine, descriptor)
+	if err != nil {
+		return err
+	}
+
+	if err = m.validate(ctx, casEngine); err != nil {
+		return err
+	}
+
+	return m.unpack(ctx, casEngine, dest)
 }
 
-// Unpack walks through the given .tar file and
-// using the layers specified in the manifest pointed to by the given ref
-// and unpacks all layers in the given destination directory
-// or returns an error if the unpacking failed.
-func Unpack(tarFile, dest, ref string) error {
-	f, err := os.Open(tarFile)
+// CreateRuntimeBundle creates an OCI runtime bundle in the given
+// destination.
+func CreateRuntimeBundle(ctx context.Context, path, dest, ref, rootfs string) error {
+	refEngine, err := refslayout.NewEngine(path)
 	if err != nil {
-		return errors.Wrap(err, "unable to open file")
+		return err
 	}
-	defer f.Close()
+	defer refEngine.Close()
 
-	return unpack(newTarWalker(f), dest, ref)
+	casEngine, err := caslayout.NewEngine(path)
+	if err != nil {
+		return err
+	}
+	defer casEngine.Close()
+
+	return createRuntimeBundle(ctx, refEngine, casEngine, dest, ref, rootfs)
 }
 
-func unpack(w walker, dest, refName string) error {
-	ref, err := findDescriptor(w, refName)
+func createRuntimeBundle(ctx context.Context, refEngine refs.Engine, casEngine cas.Engine, dest, ref, rootfs string) error {
+	descriptor, err := refEngine.Get(ctx, ref)
 	if err != nil {
 		return err
 	}
 
-	if err = ref.validate(w); err != nil {
-		return err
-	}
-
-	m, err := findManifest(w, ref)
+	err = validateDescriptor(ctx, casEngine, descriptor)
 	if err != nil {
 		return err
 	}
 
-	if err = m.validate(w); err != nil {
-		return err
-	}
-
-	return m.unpack(w, dest)
-}
-
-// CreateRuntimeBundleLayout walks through the file tree given by src and
-// creates an OCI runtime bundle in the given destination dest
-// or returns an error if the unpacking failed.
-func CreateRuntimeBundleLayout(src, dest, ref, root string) error {
-	return createRuntimeBundle(newPathWalker(src), dest, ref, root)
-}
-
-// CreateRuntimeBundle walks through the given .tar file and
-// creates an OCI runtime bundle in the given destination dest
-// or returns an error if the unpacking failed.
-func CreateRuntimeBundle(tarFile, dest, ref, root string) error {
-	f, err := os.Open(tarFile)
-	if err != nil {
-		return errors.Wrap(err, "unable to open file")
-	}
-	defer f.Close()
-
-	return createRuntimeBundle(newTarWalker(f), dest, ref, root)
-}
-
-func createRuntimeBundle(w walker, dest, refName, rootfs string) error {
-	ref, err := findDescriptor(w, refName)
+	m, err := findManifest(ctx, casEngine, descriptor)
 	if err != nil {
 		return err
 	}
 
-	if err = ref.validate(w); err != nil {
+	if err = m.validate(ctx, casEngine); err != nil {
 		return err
 	}
 
-	m, err := findManifest(w, ref)
+	c, err := findConfig(ctx, casEngine, m.Config)
 	if err != nil {
 		return err
 	}
 
-	if err = m.validate(w); err != nil {
-		return err
-	}
-
-	c, err := findConfig(w, &m.Config)
-	if err != nil {
-		return err
-	}
-
-	err = m.unpack(w, filepath.Join(dest, rootfs))
+	err = m.unpack(ctx, casEngine, filepath.Join(dest, rootfs))
 	if err != nil {
 		return err
 	}
