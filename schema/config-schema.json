@@ -24,7 +24,7 @@
       "$ref": "defs-config.json#/definitions/rootfs"
     },
     "history": {
-	  "type": "array",
+      "type": "array",
       "items": {
         "$ref": "defs-config.json#/definitions/history"
       }

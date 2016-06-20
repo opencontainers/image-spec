@@ -27,7 +27,7 @@ help:
 	@echo " * 'validate' - build the validation tool"
 
 fmt:
-	for i in *.json ; do jq --indent 2 -M . "$${i}" > xx && cat xx > "$${i}" && rm xx ; done
+	for i in schema/*.json ; do jq --indent 2 -M . "$${i}" > xx && cat xx > "$${i}" && rm xx ; done
 
 docs: $(OUTPUT)/$(DOC_FILENAME).pdf $(OUTPUT)/$(DOC_FILENAME).html
 
