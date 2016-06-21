@@ -283,7 +283,7 @@ Note: whitespace has been added to this example for clarity. Whitespace is OPTIO
             </dt>
             <dd>
                 A list of arguments to use as the command to execute when the container starts.
-		This value acts as a  default and is replaced by an entrypoint specified when creating a container.
+		This value acts as a  default and is replaced by an entrypoint specified when creating a container. This field MAY be "null".
             </dd>
             <dt>
                 Cmd <code>array of strings</code>
@@ -291,13 +291,13 @@ Note: whitespace has been added to this example for clarity. Whitespace is OPTIO
             <dd>
                 Default arguments to the entry point of the container.
 		These values act as defaults and are replaced with any specified when creating a container.
-		If an <code>Entrypoint</code> value is not specified, then the first entry of the <code>Cmd</code> array should be interpreted as the executable to run.
+		If an <code>Entrypoint</code> value is not specified, then the first entry of the <code>Cmd</code> array should be interpreted as the executable to run. This field MAY be "null".
             </dd>
             <dt>
                 Volumes <code>struct</code>
             </dt>
             <dd>
-                A set of directories which should be created as data volumes in a container running this image.
+                A set of directories which should be created as data volumes in a container running this image. This field MAY be "null".
                 <p>
                 If a file or folder exists within the image with the same path as a data volume, that file or folder is replaced with the data volume and is never merged.
                 </p>
