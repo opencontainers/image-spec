@@ -36,10 +36,9 @@ This specification uses the following terms:
         Layer DiffID
     </dt>
     <dd>
-        Layers are referenced by cryptographic hashes of their serialized representation.
-	This is a SHA256 digest over the tar archive used to transport the layer, represented as a hexadecimal encoding of 256 bits, e.g., <code>sha256:a9561eb1b190625c9adb5a9513e72c4dedafc1cb2d4c5236c9a6957ec7dfd5a9</code>.
+	A layer DiffID is a SHA256 digest over the layer's uncompressed tar archive and serialized in the descriptor digest format, e.g., <code>sha256:a9561eb1b190625c9adb5a9513e72c4dedafc1cb2d4c5236c9a6957ec7dfd5a9</code>.
 	Layers must be packed and unpacked reproducibly to avoid changing the layer ID, for example by using tar-split to save the tar headers.
-	Note that the digest used as the layer ID is taken over an uncompressed version of the tar.
+	NOTE: the DiffID is different than the digest in the manifest list because the manifest digest is taken over the gzipped layer for `application/vnd.oci.image.serialization.rootfs.tar.gzip` types.
     </dd>
     <dt>
         Layer ChainID
