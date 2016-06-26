@@ -61,17 +61,22 @@ A client will distinguish a manifest list from an image manifest based on the Co
 
         This OPTIONAL property specifies an array of strings, each specifying a mandatory CPU feature (for example `sse4` or `aes`).
 
-- **`annotations`** *string-string hashmap*
+- **`annotations`** *string-string map*
 
     This OPTIONAL property contains arbitrary metadata for the manifest list.
-    Annotations is a key-value, unordered hashmap.
-    Keys are unique, and best practice is to namespace the keys.
-    Common annotation keys include:
-    * **created** date on which the image was built (string, timestamps type)
-    * **authors** contact details of the people or organization responsible for the image (freeform string)
-    * **homepage** URL to find more information on the image (string, must be a URL with scheme HTTP or HTTPS)
-    * **documentation** URL to get documentation on the image (string, must be a URL with scheme HTTP or HTTPS)
+    Annotations MUST be a key-value map where both the key and value MUST be strings.
+    While the value MUST be present, it MAY be an empty string.
+    Keys MUST be unique within this map, and best practice is to namespace the keys.
+    Keys SHOULD be named using a reverse domain notation - e.g. `com.example.myKey`.
+    Keys using the `org.opencontainers` namespace are reserved and MUST NOT be used by other specifications.
+    If there are no annotations then this property MUST either be absent or be an empty map.
+    Implementations that are reading/processing manifest lists MUST NOT generate an error if they encounter an unknown annotation key.
 
+    See [Pre-Defined Annotation Keys](#pre-defined-annotation-keys).
+
+### Extensibility
+Implementations that are reading/processing manifest lists MUST NOT generate an error if they encounter an unknown property.
+Instead they MUST ignore unknown properties.
 
 ## Example Manifest List
 
@@ -104,8 +109,8 @@ A client will distinguish a manifest list from an image manifest based on the Co
     }
   ],
   "annotations": {
-    "key1": "value1",
-    "key2": "value2"
+    "com.example.key1": "value1",
+    "com.example.key2": "value2"
   }
 }
 ```
@@ -139,18 +144,22 @@ Unlike the [Manifest List](#manifest-list), which contains information about a s
     Subsequent layers MUST then follow in the order in which they are to be layered on top of each other.
     The algorithm to create the final unpacked filesystem layout MUST be to first unpack the layer at index 0, then index 1, and so on.
 
-- **`annotations`** *hashmap*
+- **`annotations`** *string-string map*
 
-    This OPTIONAL property contains arbitrary metadata for the manifest list.
-    Annotations is a key-value, unordered hashmap.
-    Keys MUST be unique within the hashmap, and best practice is to namespace the keys.
-    Common annotation keys include:
-    * **created** date on which the image was built (string, timestamps type)
-    * **authors** contact details of the people or organization responsible for the image (freeform string)
-    * **homepage** URL to find more information on the image (string, must be a URL with scheme HTTP or HTTPS)
-    * **documentation** URL to get documentation on the image (string, must be a URL with scheme HTTP or HTTPS)
-    * **source** URL to get the source code for the binary files in the image (string, must be a URL with scheme HTTP or HTTPS)
+    This OPTIONAL property contains arbitrary metadata for the image manifest.
+    Annotations MUST be a key-value map where both the key and value MUST be strings.
+    While the value MUST be present, it MAY be an empty string.
+    Keys MUST be unique within this map, and best practice is to namespace the keys.
+    Keys SHOULD be named using a reverse domain notation - e.g. `com.example.myKey`.
+    Keys using the `org.opencontainers` namespace are reserved and MUST NOT be used by other specifications.
+    If there are no annotations then this property MUST either be absent or be an empty map.
+    Implementations that are reading/processing the image manifest MUST NOT generate an error if they encounter an unknown annotation key.
 
+    See [Pre-Defined Annotation Keys](#pre-defined-annotation-keys).
+
+### Extensibility
+Implementations that are reading/processing image manifests MUST NOT generate an error if they encounter an unknown property.
+Instead they MUST ignore unknown properties.
 
 ## Example Image Manifest
 
@@ -182,8 +191,15 @@ Unlike the [Manifest List](#manifest-list), which contains information about a s
     }
   ],
   "annotations": {
-    "key1": "value1",
-    "key2": "value2"
+    "com.example.key1": "value1",
+    "com.example.key2": "value2"
   }
 }
 ```
+
+# Pre-Defined Annotation Keys
+This specification defines the following annotation keys, which MAY be used by manifest list and image manifest authors:
+* **org.opencontainers.created** date on which the image was built (string, date-time as defined by [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6)).
+* **org.opencontainers.authors** contact details of the people or organization responsible for the image (freeform string)
+* **org.opencontainers.homepage** URL to find more information on the image (string, must be a URL with scheme HTTP or HTTPS)
+* **org.opencontainers.documentation** URL to get documentation on the image (string, must be a URL with scheme HTTP or HTTPS)
