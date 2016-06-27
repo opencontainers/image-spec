@@ -90,11 +90,12 @@ lint:
 test:
 	go test -race ./...
 
+## this uses https://github.com/Masterminds/glide and https://github.com/sgotti/glide-vc
 update-deps:
 	glide update --strip-vcs --strip-vendor --update-vendored --delete
 	glide-vc --only-code --no-tests
 	# see http://sed.sourceforge.net/sed1line.txt
-	for f in $$(find vendor -type f); do sed -i -e :a -e '/^\n*$$/{$$d;N;ba' -e '}' $$f; done
+	find vendor -type f -exec sed -i -e :a -e '/^\n*$$/{$$d;N;ba' -e '}' "{}" \;
 
 img/%.png: img/%.dot
 	dot -Tpng $^ > $@
