@@ -1,3 +1,5 @@
+GO15VENDOREXPERIMENT=1
+export GO15VENDOREXPERIMENT
 
 DOCKER ?= $(shell which docker)
 # These docs are in an order that determines how they show up in the PDF/HTML docs.
@@ -24,7 +26,14 @@ help:
 	@echo
 	@echo " * 'docs' - produce document in the $(OUTPUT) directory"
 	@echo " * 'fmt' - format the json with indentation"
-	@echo " * 'validate' - build the validation tool"
+	@echo " * 'validate-examples' - validate the examples in the specification markdown files"
+	@echo " * 'oci-image-tool' - build the oci-image-tool binary"
+	@echo " * 'schema-fs' - regenerate the virtual schema http/FileSystem"
+	@echo " * 'check-license' - check license headers in source files"
+	@echo " * 'lint' - Execute the source code linter"
+	@echo " * 'test' - Execute the unit tests"
+	@echo " * 'update-deps' - Update vendored dependencies"
+	@echo " * 'img/*.png' - Generate PNG from dot file"
 
 fmt:
 	for i in schema/*.json ; do jq --indent 2 -M . "$${i}" > xx && cat xx > "$${i}" && rm xx ; done
@@ -81,7 +90,13 @@ lint:
 test:
 	go test -race ./...
 
-img/%.png: %.dot
+update-deps:
+	glide update --strip-vcs --strip-vendor --update-vendored --delete
+	glide-vc --only-code --no-tests
+	# see http://sed.sourceforge.net/sed1line.txt
+	for f in $$(find vendor -type f); do sed -i -e :a -e '/^\n*$$/{$$d;N;ba' -e '}' $$f; done
+
+img/%.png: img/%.dot
 	dot -Tpng $^ > $@
 
 .PHONY: .gitvalidation
@@ -96,6 +111,7 @@ else
 endif
 
 .PHONY: install.tools
+
 install.tools: .install.gitvalidation
 
 .install.gitvalidation:
@@ -103,6 +119,8 @@ install.tools: .install.gitvalidation
 
 clean:
 	rm -rf *~ $(OUTPUT)
+	rm -f oci-image-tool
+
 .PHONY: \
 	validate-examples \
 	oci-image-tool \

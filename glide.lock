@@ -1,0 +1,26 @@
+hash: 9eee25c418553e1d79fe7fb956eae4b056402d2c1fe7c8c79f5849da571dd99b
+updated: 2016-06-23T09:00:42.232695928+02:00
+imports:
+- name: github.com/inconshreveable/mousetrap
+  version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
+- name: github.com/opencontainers/runtime-spec
+  version: 06479209bdc0d4135911688c18157bd39bd99c22
+  subpackages:
+  - specs-go
+- name: github.com/pkg/errors
+  version: 01fa4104b9c248c8945d14d9f128454d5b28d595
+- name: github.com/spf13/cobra
+  version: 6a8bd97bdb1fc0d08a83459940498ea49d3e8c93
+- name: github.com/spf13/pflag
+  version: 367864438f1b1a3c7db4da06a2f55b144e6784e0
+- name: github.com/xeipuuv/gojsonpointer
+  version: e0fe6f68307607d540ed8eac07a342c33fa1b54a
+- name: github.com/xeipuuv/gojsonreference
+  version: e02fc20de94c78484cd5ffb007f8af96be030a45
+- name: github.com/xeipuuv/gojsonschema
+  version: d5336c75940ef31c9ceeb0ae64cf92944bccb4ee
+- name: go4.org
+  version: 15c19124e43b90eba9aa27b4341e38365254a84a
+  subpackages:
+  - errorutil
+devImports: []
