@@ -65,13 +65,14 @@ func findDescriptor(w walker, name string) (*descriptor, error) {
 }
 
 func (d *descriptor) validate(w walker) error {
+	pd := pathDigest(d.Digest)
 	f := func(path string, info os.FileInfo, r io.Reader) error {
 		if info.IsDir() {
 			return nil
 		}
 
 		digest, err := filepath.Rel("blobs", filepath.Clean(path))
-		if err != nil || d.Digest != digest {
+		if err != nil || pd != digest {
 			return nil // ignore
 		}
 
