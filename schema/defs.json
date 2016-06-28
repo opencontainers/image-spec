@@ -42,34 +42,16 @@
       "maximum": 18446744073709552000
     },
     "uint16Pointer": {
-      "oneOf": [
-        {
-          "$ref": "#/definitions/uint16"
-        },
-        {
-          "type": "null"
-        }
-      ]
+      "$ref": "#/definitions/uint16",
+      "x-nullable": true
     },
     "uint64Pointer": {
-      "oneOf": [
-        {
-          "$ref": "#/definitions/uint64"
-        },
-        {
-          "type": "null"
-        }
-      ]
+      "$ref": "#/definitions/uint64",
+      "x-nullable": true
     },
     "stringPointer": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
+      "type": "string",
+      "x-nullable": true
     },
     "mapStringString": {
       "type": "object",
