@@ -140,7 +140,7 @@ Unlike the [Manifest List](#manifest-list), which contains information about a s
 
     Each item in the array MUST be a [descriptor](descriptor.md).
     The array MUST have the base image at index 0.
-	Subsequent layers MUST then follow in the order in which they are to be layered on top of each other.
+    Subsequent layers MUST then follow in the order in which they are to be layered on top of each other.
     The algorithm to create the final unpacked filesystem layout MUST be to first unpack the layer at index 0, then index 1, and so on.
 
 - **`annotations`** *hashmap*
