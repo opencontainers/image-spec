@@ -477,4 +477,76 @@ The resulting Tar archive for `f60c56784b83` has the following entries:
 /etc/.wh.my-app-config
 ```
 
+Whiteout files MUST only apply to resources in lower layers.
+Files that are present in the same layer as a whiteout file can only be hidden by whiteout files in subsequent layers.
+The following is a base layer with several resources:
+
+```
+a/
+a/b/
+a/b/c/
+a/b/c/bar
+```
+
+When the next layer is created, the original `a/b` directory is deleted and recreated with `a/b/c/foo`:
+
+```
+a/
+a/.wh..wh..opq
+a/b/
+a/b/c/
+a/b/c/foo
+```
+
+When processing the second layer, `a/.wh..wh..opq` is applied first, before creating the new version of `a/b, regardless of the ordering in which the whiteout file was encountered.
+For example, the following layer is equivalent to the layer above:
+
+```
+a/
+a/b/
+a/b/c/
+a/b/c/foo
+a/.wh..wh..opq
+```
+
+Implementations SHOULD generate layers such that the whiteout files appear before sibling directory entries.
+
+In addition to expressing that a single entry should be removed from a lower layer, layers may remove all of the children using an opaque whiteout entry.
+An opaque whiteout entry is a file with the name `.wh..wh..opq` indicating that all siblings are hidden in the lower layer.
+Let's take the following base layer as an example:
+
+```
+etc/
+	my-app-config
+bin/
+	my-app-binary
+	my-app-tools
+	tools/
+		my-app-tool-one
+```
+
+If all children of `bin/` are removed, the next layer would have the following:
+
+```
+bin/
+	.wh..wh..opq
+```
+
+This is called _opaque whiteout_ format.
+An _opaque whiteout_ file hides _all_ children of the `bin/` including sub-directories and all descendents.
+Using _explicit whiteout_ files, this would be equivalent to the following:
+
+```
+bin/
+	.wh.my-app-binary
+	.wh.my-app-tools
+	.wh.tools
+```
+
+In this case, a unique whiteout file is generated for each entry.
+If there were more children of `bin/` in the base layer, there would be an entry for each.
+Note that this opaque file will apply to _all_ children, including sub-directories, other resources and all descendents.
+
+Implementations SHOULD generate layers using _explicit whiteout_ files, but MUST accept both.
+
 Any given image is likely to be composed of several of these Image Filesystem Changeset tar archives.
