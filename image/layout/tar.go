@@ -26,42 +26,57 @@ import (
 	"golang.org/x/net/context"
 )
 
-// CheckTarVersion walks a tarball pointed to by reader and returns an
-// error if oci-layout is missing or has unrecognized content.
-func CheckTarVersion(ctx context.Context, reader io.ReadSeeker) (err error) {
+// TarEntryByName walks a tarball pointed to by reader, finds an
+// entry matching the given name, and returns the header and reader
+// for that entry.  Returns os.ErrNotExist if the path is not found.
+func TarEntryByName(ctx context.Context, reader io.ReadSeeker, name string) (header *tar.Header, tarReader *tar.Reader, err error) {
 	_, err = reader.Seek(0, os.SEEK_SET)
 	if err != nil {
-		return err
+		return nil, nil, err
 	}
 
-	tarReader := tar.NewReader(reader)
+	tarReader = tar.NewReader(reader)
 	for {
 		select {
 		case <-ctx.Done():
-			return ctx.Err()
+			return nil, nil, ctx.Err()
 		default:
 		}
 
 		header, err := tarReader.Next()
 		if err == io.EOF {
-			return errors.New("oci-layout not found")
+			return nil, nil, os.ErrNotExist
 		}
 		if err != nil {
-			return err
+			return nil, nil, err
 		}
 
-		if header.Name == "./oci-layout" {
-			decoder := json.NewDecoder(tarReader)
-			var version specs.ImageLayoutVersion
-			err = decoder.Decode(&version)
-			if err != nil {
-				return err
-			}
-			if version.Version != "1.0.0" {
-				return fmt.Errorf("unrecognized imageLayoutVersion: %q", version.Version)
-			}
-
-			return nil
+		if header.Name == name {
+			return header, tarReader, nil
 		}
 	}
+}
+
+// CheckTarVersion walks a tarball pointed to by reader and returns an
+// error if oci-layout is missing or has unrecognized content.
+func CheckTarVersion(ctx context.Context, reader io.ReadSeeker) (err error) {
+	_, tarReader, err := TarEntryByName(ctx, reader, "./oci-layout")
+	if err == os.ErrNotExist {
+		return errors.New("oci-layout not found")
+	}
+	if err != nil {
+		return err
+	}
+
+	decoder := json.NewDecoder(tarReader)
+	var version specs.ImageLayoutVersion
+	err = decoder.Decode(&version)
+	if err != nil {
+		return err
+	}
+	if version.Version != "1.0.0" {
+		return fmt.Errorf("unrecognized imageLayoutVersion: %q", version.Version)
+	}
+
+	return nil
 }

@@ -59,36 +59,18 @@ func (engine *TarEngine) Put(ctx context.Context, name string, descriptor *specs
 func (engine *TarEngine) Get(ctx context.Context, name string) (descriptor *specs.Descriptor, err error) {
 	targetName := fmt.Sprintf("./refs/%s", name)
 
-	_, err = engine.file.Seek(0, os.SEEK_SET)
+	_, tarReader, err := imagelayout.TarEntryByName(ctx, engine.file, targetName)
 	if err != nil {
 		return nil, err
 	}
 
-	tarReader := tar.NewReader(engine.file)
-	for {
-		select {
-		case <-ctx.Done():
-			return nil, ctx.Err()
-		default:
-		}
-
-		header, err := tarReader.Next()
-		if err == io.EOF {
-			return nil, os.ErrNotExist
-		} else if err != nil {
-			return nil, err
-		}
-
-		if header.Name == targetName {
-			decoder := json.NewDecoder(tarReader)
-			var desc specs.Descriptor
-			err = decoder.Decode(&desc)
-			if err != nil {
-				return nil, err
-			}
-			return &desc, nil
-		}
+	decoder := json.NewDecoder(tarReader)
+	var desc specs.Descriptor
+	err = decoder.Decode(&desc)
+	if err != nil {
+		return nil, err
 	}
+	return &desc, nil
 }
 
 // List returns available names from the store.
