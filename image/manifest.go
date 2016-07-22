@@ -154,9 +154,9 @@ loop:
 			// Not the root directory, ensure that the parent directory exists
 			parent := filepath.Dir(hdr.Name)
 			parentPath := filepath.Join(dest, parent)
-			if _, err := os.Lstat(parentPath); err != nil && os.IsNotExist(err) {
-				if err2 := os.MkdirAll(parentPath, 0777); err2 != nil {
-					return err2
+			if _, err2 := os.Lstat(parentPath); err2 != nil && os.IsNotExist(err2) {
+				if err3 := os.MkdirAll(parentPath, 0777); err3 != nil {
+					return err3
 				}
 			}
 		}
