@@ -33,7 +33,7 @@ type descriptor struct {
 	Size      int64  `json:"size"`
 }
 
-func (d *descriptor) getDigest() string {
+func (d *descriptor) normalizeDigest() string {
 	return strings.Replace(d.Digest, ":", "-", -1)
 }
 
@@ -76,7 +76,7 @@ func (d *descriptor) validate(w walker) error {
 		}
 
 		digest, err := filepath.Rel("blobs", filepath.Clean(path))
-		if err != nil || d.getDigest() != digest {
+		if err != nil || d.normalizeDigest() != digest {
 			return nil // ignore
 		}
 
@@ -89,11 +89,11 @@ func (d *descriptor) validate(w walker) error {
 
 	switch err := w.walk(f); err {
 	case nil:
-		return fmt.Errorf("%s: not found", d.getDigest())
+		return fmt.Errorf("%s: not found", d.normalizeDigest())
 	case errEOW:
 		// found, continue below
 	default:
-		return errors.Wrapf(err, "%s: validation failed", d.getDigest())
+		return errors.Wrapf(err, "%s: validation failed", d.normalizeDigest())
 	}
 
 	return nil

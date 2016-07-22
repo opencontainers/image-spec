@@ -51,7 +51,7 @@ type config struct {
 
 func findConfig(w walker, d *descriptor) (*config, error) {
 	var c config
-	cpath := filepath.Join("blobs", d.getDigest())
+	cpath := filepath.Join("blobs", d.normalizeDigest())
 
 	f := func(path string, info os.FileInfo, r io.Reader) error {
 		if info.IsDir() {
@@ -97,13 +97,15 @@ func (c *config) runtimeSpec(rootfs string) (*specs.Spec, error) {
 
 	var s specs.Spec
 	s.Version = "0.5.0"
+	// we should at least apply the default spec, otherwise this is totally useless
+	s.Process.Terminal = true
 	s.Root.Path = rootfs
 	s.Process.Cwd = "/"
 	if c.Config.WorkingDir != "" {
 		s.Process.Cwd = c.Config.WorkingDir
 	}
 	s.Process.Env = append(s.Process.Env, c.Config.Env...)
-	s.Process.Args = append(s.Process.Env, c.Config.Entrypoint...)
+	s.Process.Args = append(s.Process.Args, c.Config.Entrypoint...)
 	s.Process.Args = append(s.Process.Args, c.Config.Cmd...)
 
 	if len(s.Process.Args) == 0 {

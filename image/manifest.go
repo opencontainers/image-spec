@@ -38,7 +38,7 @@ type manifest struct {
 
 func findManifest(w walker, d *descriptor) (*manifest, error) {
 	var m manifest
-	mpath := filepath.Join("blobs", d.getDigest())
+	mpath := filepath.Join("blobs", d.normalizeDigest())
 
 	f := func(path string, info os.FileInfo, r io.Reader) error {
 		if info.IsDir() {
@@ -107,7 +107,7 @@ func (m *manifest) unpack(w walker, dest string) error {
 			}
 
 			dd, err := filepath.Rel("blobs", filepath.Clean(path))
-			if err != nil || d.Digest != dd {
+			if err != nil || d.normalizeDigest() != dd {
 				return nil // ignore
 			}
 
@@ -134,6 +134,7 @@ func unpackLayer(dest string, r io.Reader) error {
 	}
 	defer gz.Close()
 
+	var dirs []*tar.Header
 	tr := tar.NewReader(gz)
 
 loop:
@@ -148,8 +149,26 @@ loop:
 			return errors.Wrapf(err, "error advancing tar stream")
 		}
 
-		path := filepath.Join(dest, filepath.Clean(hdr.Name))
+		hdr.Name = filepath.Clean(hdr.Name)
+		if !strings.HasSuffix(hdr.Name, string(os.PathSeparator)) {
+			// Not the root directory, ensure that the parent directory exists
+			parent := filepath.Dir(hdr.Name)
+			parentPath := filepath.Join(dest, parent)
+			if _, err := os.Lstat(parentPath); err != nil && os.IsNotExist(err) {
+				if err2 := os.MkdirAll(parentPath, 0777); err2 != nil {
+					return err2
+				}
+			}
+		}
+		path := filepath.Join(dest, hdr.Name)
+		rel, err := filepath.Rel(dest, path)
+		if err != nil {
+			return err
+		}
 		info := hdr.FileInfo()
+		if strings.HasPrefix(rel, ".."+string(os.PathSeparator)) {
+			return fmt.Errorf("%q is outside of %q", hdr.Name, dest)
+		}
 
 		if strings.HasPrefix(info.Name(), ".wh.") {
 			path = strings.Replace(path, ".wh.", "", 1)
@@ -163,12 +182,14 @@ loop:
 
 		switch hdr.Typeflag {
 		case tar.TypeDir:
-			if err := os.MkdirAll(path, info.Mode()); err != nil {
-				return errors.Wrap(err, "error creating directory")
+			if fi, err := os.Lstat(path); !(err == nil && fi.IsDir()) {
+				if err2 := os.MkdirAll(path, info.Mode()); err2 != nil {
+					return errors.Wrap(err2, "error creating directory")
+				}
 			}
 
 		case tar.TypeReg, tar.TypeRegA:
-			f, err := os.OpenFile(path, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, info.Mode())
+			f, err := os.OpenFile(path, os.O_CREATE|os.O_WRONLY, info.Mode())
 			if err != nil {
 				return errors.Wrap(err, "unable to open file")
 			}
@@ -200,13 +221,24 @@ loop:
 			if err := os.Symlink(hdr.Linkname, path); err != nil {
 				return err
 			}
-
+		case tar.TypeXGlobalHeader:
+			return nil
 		}
+		// Directory mtimes must be handled at the end to avoid further
+		// file creation in them to modify the directory mtime
+		if hdr.Typeflag == tar.TypeDir {
+			dirs = append(dirs, hdr)
+		}
+	}
+	for _, hdr := range dirs {
+		path := filepath.Join(dest, hdr.Name)
 
-		if err := os.Chtimes(path, time.Now().UTC(), info.ModTime()); err != nil {
+		finfo := hdr.FileInfo()
+		// I believe the old version was using time.Now().UTC() to overcome an
+		// invalid error from chtimes.....but here we lose hdr.AccessTime like this...
+		if err := os.Chtimes(path, time.Now().UTC(), finfo.ModTime()); err != nil {
 			return errors.Wrap(err, "error changing time")
 		}
 	}
-
 	return nil
 }
