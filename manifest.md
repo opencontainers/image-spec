@@ -35,22 +35,7 @@ A client will distinguish a manifest list from an image manifest based on the Co
   This REQUIRED property contains a list of manifests for specific platforms.
   While the property MUST be present, the size of the array MAY be zero.
 
-  Properties of each object in the manifests list are:
-
-  - **`mediaType`** *string*
-
-    This REQUIRED property contains the MIME type of the referenced object.
-    (i.e. `application/vnd.oci.image.manifest.v1+json`)
-
-  - **`size`** *int*
-
-    This REQUIRED property specifies the size in bytes of the object.
-    This property exists so that a client will have an expected size for the content before validating.
-    If the length of the retrieved content does not match the specified length, the content should not be trusted.
-
-  - **`digest`** *string*
-
-    This REQUIRED property is the digest of the content, as defined by the [Descriptor](descriptor.md) digest format.
+  Each object in the manifest is a [descriptor](descriptor.md) with the following additional properties:
 
   - **`platform`** *object*
 
@@ -146,50 +131,17 @@ Unlike the [Manifest List](#manifest-list), which contains information about a s
     This REQUIRED property contains the MIME type of the image manifest.
     For this version of the specification, this MUST be set to `application/vnd.oci.image.manifest.v1+json`.
 
-- **`config`** *object*
+- **`config`** *[descriptor](descriptor.md)*
 
     This REQUIRED property references a configuration object for a container, by digest.
     The referenced configuration object is a JSON blob that the runtime uses to set up the container, see [Image JSON Description](serialization.md#image-json-description).
 
-    Properties of `config` are:
-
-    - **`mediaType`** *string*
-
-        This REQUIRED property contains the MIME type of the referenced object.
-	(i.e. `application/vnd.oci.image.serialization.config.v1+json`)
-
-    - **`size`** *int*
-
-        This REQUIRED property specifies the size in bytes of the object.
-	This property exists so that a client will have an expected size for the content before validating.
-	If the length of the retrieved content does not match the specified length, the content should not be trusted.
-
-    - **`digest`** *string*
-
-        This REQUIRED property is the digest of the content, as defined by the [Descriptor](descriptor.md) digest format.
-
 - **`layers`** *array*
 
-    The layer list MUST have the base image at index 0.
-	Subsequent layers MUST then follow in the order in which they are to be layered on top of each other.
+    Each item in the array MUST be a [descriptor](descriptor.md).
+    The array MUST have the base image at index 0.
+    Subsequent layers MUST then follow in the order in which they are to be layered on top of each other.
     The algorithm to create the final unpacked filesystem layout MUST be to first unpack the layer at index 0, then index 1, and so on.
-
-    Properties of an item in the layers list are:
-
-    - **`mediaType`** *string*
-
-        This REQUIRED property contains the MIME type of the referenced object.
-	(i.e. `application/vnd.oci.image.serialization.rootfs.tar.gzip`)
-
-    - **`size`** *int*
-
-        This REQUIRED property specifies the size in bytes of the object.
-	This property exists so that a client will have an expected size for the content before validating.
-	If the length of the retrieved content does not match the specified length, the content should not be trusted.
-
-    - **`digest`** *string*
-
-        This REQUIRED property is the digest of the content, as defined by the [Descriptor](descriptor.md) digest format.
 
 - **`annotations`** *hashmap*
 
