@@ -38,7 +38,7 @@ type manifest struct {
 
 func findManifest(w walker, d *descriptor) (*manifest, error) {
 	var m manifest
-	mpath := filepath.Join("blobs", d.Digest)
+	mpath := filepath.Join("blobs", d.getDigest())
 
 	f := func(path string, info os.FileInfo, r io.Reader) error {
 		if info.IsDir() {
