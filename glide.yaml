@@ -9,3 +9,7 @@ import:
 - package: github.com/spf13/cobra
 - package: github.com/xeipuuv/gojsonschema
   version: d5336c75940ef31c9ceeb0ae64cf92944bccb4ee
+- package: github.com/russross/blackfriday
+  version: ~v1.4
+- package: github.com/shurcooL/sanitized_anchor_name
+  version: 10ef21a441db47d8b13ebcc5fd2310f636973c77

@@ -1,5 +1,5 @@
-hash: 9eee25c418553e1d79fe7fb956eae4b056402d2c1fe7c8c79f5849da571dd99b
-updated: 2016-06-23T09:00:42.232695928+02:00
+hash: 223985f204597c6ed49657a4fc38273f683d40c39e8d48d13ed0dbf632107427
+updated: 2016-07-22T16:40:50.020731917+02:00
 imports:
 - name: github.com/inconshreveable/mousetrap
   version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
@@ -9,10 +9,14 @@ imports:
   - specs-go
 - name: github.com/pkg/errors
   version: 01fa4104b9c248c8945d14d9f128454d5b28d595
+- name: github.com/russross/blackfriday
+  version: 0b647d0506a698cca42caca173e55559b12a69f2
+- name: github.com/shurcooL/sanitized_anchor_name
+  version: 10ef21a441db47d8b13ebcc5fd2310f636973c77
 - name: github.com/spf13/cobra
-  version: 6a8bd97bdb1fc0d08a83459940498ea49d3e8c93
+  version: f62e98d28ab7ad31d707ba837a966378465c7b57
 - name: github.com/spf13/pflag
-  version: 367864438f1b1a3c7db4da06a2f55b144e6784e0
+  version: 1560c1005499d61b80f865c04d39ca7505bf7f0b
 - name: github.com/xeipuuv/gojsonpointer
   version: e0fe6f68307607d540ed8eac07a342c33fa1b54a
 - name: github.com/xeipuuv/gojsonreference
@@ -20,7 +24,7 @@ imports:
 - name: github.com/xeipuuv/gojsonschema
   version: d5336c75940ef31c9ceeb0ae64cf92944bccb4ee
 - name: go4.org
-  version: 15c19124e43b90eba9aa27b4341e38365254a84a
+  version: 85455cb60c902182109ca27131042a41bc4cb85d
   subpackages:
   - errorutil
-devImports: []
+testImports: []
