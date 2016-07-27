@@ -15,10 +15,14 @@
 package layout
 
 import (
+	"bytes"
+	"crypto/sha256"
+	"encoding/hex"
 	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
+	"os"
 	"strings"
 
 	"github.com/opencontainers/image-spec/image/cas"
@@ -47,8 +51,30 @@ func NewTarEngine(ctx context.Context, file ReadWriteSeekCloser) (eng cas.Engine
 
 // Put adds a new blob to the store.
 func (engine *TarEngine) Put(ctx context.Context, reader io.Reader) (digest string, err error) {
-	// FIXME
-	return "", errors.New("TarEngine.Put is not supported yet")
+	data, err := ioutil.ReadAll(reader)
+	if err != nil {
+		return "", err
+	}
+
+	size := int64(len(data))
+	hash := sha256.Sum256(data)
+	hexHash := hex.EncodeToString(hash[:])
+	algorithm := "sha256"
+	digest = fmt.Sprintf("%s:%s", algorithm, hexHash)
+
+	_, err = engine.Get(ctx, digest)
+	if err == os.ErrNotExist {
+		targetName := fmt.Sprintf("./blobs/%s/%s", algorithm, hexHash)
+		reader = bytes.NewReader(data)
+		err = layout.WriteTarEntryByName(ctx, engine.file, targetName, reader, &size)
+		if err != nil {
+			return "", err
+		}
+	} else if err != nil {
+		return "", err
+	}
+
+	return digest, nil
 }
 
 // Get returns a reader for retrieving a blob from the store.

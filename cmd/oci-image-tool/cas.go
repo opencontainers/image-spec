@@ -28,6 +28,7 @@ func newCASCmd(stdout io.Writer, stderr *log.Logger) *cobra.Command {
 	}
 
 	cmd.AddCommand(newCASGetCmd(stdout, stderr))
+	cmd.AddCommand(newCASPutCmd(stdout, stderr))
 
 	return cmd
 }
