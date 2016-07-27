@@ -25,6 +25,10 @@ import (
 type ListNameCallback func(ctx context.Context, name string) (err error)
 
 // Engine represents a name-based reference storage engine.
+//
+// This interface is for internal use of oci-image-tool for the time
+// being.  It is subject to change.  This notice will be removed when
+// and if the interface becomes stable.
 type Engine interface {
 
 	// Put adds a new reference to the store.  The action is idempotent;

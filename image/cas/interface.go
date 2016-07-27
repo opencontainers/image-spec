@@ -22,6 +22,10 @@ import (
 )
 
 // Engine represents a content-addressable storage engine.
+//
+// This interface is for internal use of oci-image-tool for the time
+// being.  It is subject to change.  This notice will be removed when
+// and if the interface becomes stable.
 type Engine interface {
 
 	// Put adds a new blob to the store.  The action is idempotent; a
