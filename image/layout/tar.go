@@ -219,3 +219,50 @@ func CheckTarVersion(ctx context.Context, reader io.ReadSeeker) (err error) {
 
 	return nil
 }
+
+// CreateTarFile creates a new image-layout tar file at the given path.
+func CreateTarFile(ctx context.Context, path string) (err error) {
+	file, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_EXCL, 0666)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	tarWriter := tar.NewWriter(file)
+	defer tarWriter.Close()
+
+	now := time.Now()
+	for _, name := range []string{"./blobs/", "./refs/"} {
+		header := &tar.Header{
+			Name:     name,
+			Mode:     0777,
+			ModTime:  now,
+			Typeflag: tar.TypeDir,
+		}
+		err = tarWriter.WriteHeader(header)
+		if err != nil {
+			return err
+		}
+	}
+
+	imageLayoutVersion := specs.ImageLayoutVersion{
+		Version: "1.0.0",
+	}
+	imageLayoutVersionBytes, err := json.Marshal(imageLayoutVersion)
+	if err != nil {
+		return err
+	}
+	header := &tar.Header{
+		Name:     "./oci-layout",
+		Mode:     0666,
+		Size:     int64(len(imageLayoutVersionBytes)),
+		ModTime:  now,
+		Typeflag: tar.TypeReg,
+	}
+	err = tarWriter.WriteHeader(header)
+	if err != nil {
+		return err
+	}
+	_, err = tarWriter.Write(imageLayoutVersionBytes)
+	return err
+}

@@ -15,30 +15,19 @@
 package main
 
 import (
+	"io"
 	"log"
-	"os"
 
 	"github.com/spf13/cobra"
 )
 
-func main() {
+func newInitCmd(stdout io.Writer, stderr *log.Logger) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "oci-image-tool",
-		Short: "A tool for working with OCI images",
+		Use:   "init",
+		Short: "Initialize an OCI image",
 	}
 
-	stdout := log.New(os.Stdout, "", 0)
-	stderr := log.New(os.Stderr, "", 0)
+	cmd.AddCommand(newInitImageLayoutCmd(stdout, stderr))
 
-	cmd.AddCommand(newInitCmd(os.Stdout, stderr))
-	cmd.AddCommand(newValidateCmd(stdout, stderr))
-	cmd.AddCommand(newUnpackCmd(stdout, stderr))
-	cmd.AddCommand(newBundleCmd(stdout, stderr))
-	cmd.AddCommand(newRefsCmd(os.Stdout, stderr))
-	cmd.AddCommand(newCASCmd(os.Stdout, stderr))
-
-	if err := cmd.Execute(); err != nil {
-		stderr.Println(err)
-		os.Exit(1)
-	}
+	return cmd
 }
