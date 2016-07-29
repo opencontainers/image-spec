@@ -51,7 +51,7 @@ type config struct {
 
 func findConfig(w walker, d *descriptor) (*config, error) {
 	var c config
-	cpath := filepath.Join("blobs", d.Digest)
+	cpath := filepath.Join("blobs", d.normalizeDigest())
 
 	f := func(path string, info os.FileInfo, r io.Reader) error {
 		if info.IsDir() {
@@ -97,11 +97,20 @@ func (c *config) runtimeSpec(rootfs string) (*specs.Spec, error) {
 
 	var s specs.Spec
 	s.Version = "0.5.0"
+	// we should at least apply the default spec, otherwise this is totally useless
+	s.Process.Terminal = true
 	s.Root.Path = rootfs
-	s.Process.Cwd = c.Config.WorkingDir
-	s.Process.Env = append([]string(nil), c.Config.Env...)
-	s.Process.Args = append([]string(nil), c.Config.Entrypoint...)
+	s.Process.Cwd = "/"
+	if c.Config.WorkingDir != "" {
+		s.Process.Cwd = c.Config.WorkingDir
+	}
+	s.Process.Env = append(s.Process.Env, c.Config.Env...)
+	s.Process.Args = append(s.Process.Args, c.Config.Entrypoint...)
 	s.Process.Args = append(s.Process.Args, c.Config.Cmd...)
+
+	if len(s.Process.Args) == 0 {
+		s.Process.Args = append(s.Process.Args, "sh")
+	}
 
 	if uid, err := strconv.Atoi(c.Config.User); err == nil {
 		s.Process.User.UID = uint32(uid)
@@ -118,7 +127,7 @@ func (c *config) runtimeSpec(rootfs string) (*specs.Spec, error) {
 
 		s.Process.User.UID = uint32(uid)
 		s.Process.User.GID = uint32(gid)
-	} else {
+	} else if c.Config.User != "" {
 		return nil, errors.New("config.User: unsupported format")
 	}
 

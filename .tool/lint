@@ -17,7 +17,7 @@ for d in $(find . -type d -not -iwholename '*.git*' -a -not -iname '.tool' -a -n
 		--exclude='schema/fs.go' \
 		--disable=aligncheck \
 		--disable=gotype \
-		--cyclo-over=20 \
+		--cyclo-over=35 \
 		--tests \
 		--deadline=10s "${d}"
 done

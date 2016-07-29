@@ -22,6 +22,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/pkg/errors"
 )
@@ -30,6 +31,10 @@ type descriptor struct {
 	MediaType string `json:"mediaType"`
 	Digest    string `json:"digest"`
 	Size      int64  `json:"size"`
+}
+
+func (d *descriptor) normalizeDigest() string {
+	return strings.Replace(d.Digest, ":", "-", -1)
 }
 
 func findDescriptor(w walker, name string) (*descriptor, error) {
@@ -71,7 +76,7 @@ func (d *descriptor) validate(w walker) error {
 		}
 
 		digest, err := filepath.Rel("blobs", filepath.Clean(path))
-		if err != nil || d.Digest != digest {
+		if err != nil || d.normalizeDigest() != digest {
 			return nil // ignore
 		}
 
@@ -84,11 +89,11 @@ func (d *descriptor) validate(w walker) error {
 
 	switch err := w.walk(f); err {
 	case nil:
-		return fmt.Errorf("%s: not found", d.Digest)
+		return fmt.Errorf("%s: not found", d.normalizeDigest())
 	case errEOW:
 		// found, continue below
 	default:
-		return errors.Wrapf(err, "%s: validation failed", d.Digest)
+		return errors.Wrapf(err, "%s: validation failed", d.normalizeDigest())
 	}
 
 	return nil

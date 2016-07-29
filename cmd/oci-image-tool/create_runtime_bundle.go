@@ -82,6 +82,11 @@ func (v *bundleCmd) Run(cmd *cobra.Command, args []string) {
 		os.Exit(1)
 	}
 
+	if _, err := os.Stat(args[1]); os.IsNotExist(err) {
+		v.stderr.Printf("destination path %s does not exist", args[1])
+		os.Exit(1)
+	}
+
 	if v.typ == "" {
 		typ, err := autodetect(args[0])
 		if err != nil {
