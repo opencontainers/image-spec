@@ -27,6 +27,7 @@ func newRefsCmd(stdout io.Writer, stderr *log.Logger) *cobra.Command {
 		Short: "Name-based reference manipulation",
 	}
 
+	cmd.AddCommand(newRefsPutCmd(stdout, stderr))
 	cmd.AddCommand(newRefsGetCmd(stdout, stderr))
 	cmd.AddCommand(newRefsListCmd(stdout, stderr))
 

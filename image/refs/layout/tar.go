@@ -16,6 +16,7 @@ package layout
 
 import (
 	"archive/tar"
+	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -51,8 +52,15 @@ func NewTarEngine(ctx context.Context, file caslayout.ReadWriteSeekCloser) (eng 
 
 // Put adds a new reference to the store.
 func (engine *TarEngine) Put(ctx context.Context, name string, descriptor *specs.Descriptor) (err error) {
-	// FIXME
-	return errors.New("TarEngine.Put is not supported yet")
+	data, err := json.Marshal(descriptor)
+	if err != nil {
+		return err
+	}
+
+	size := int64(len(data))
+	reader := bytes.NewReader(data)
+	targetName := fmt.Sprintf("./refs/%s", name)
+	return imagelayout.WriteTarEntryByName(ctx, engine.file, targetName, reader, &size)
 }
 
 // Get returns a reference from the store.
