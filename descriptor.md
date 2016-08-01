@@ -20,7 +20,7 @@ The following describe the primary set of properties that make up a _Descriptor_
 
 - **`digest`** *string*
 
-  This REQUIRED property is the _digest_ of the targeted content, meeting the requirements outlined in [Digests and Verification](#digests-and—verification).
+  This REQUIRED property is the _digest_ of the targeted content, meeting the requirements outlined in [Digests and Verification](#digests-and-verification).
   Retrieved content SHOULD be verified against this digest when consumed via untrusted sources.
 
 - **`size`** *int*
