@@ -13,7 +13,7 @@ before_script:
 before_install:
   - docker pull vbatts/pandoc
   - make install.tools
-  - go get github.com/alecthomas/gometalinter
+  - go get -u github.com/alecthomas/gometalinter
   - gometalinter --install --update
   - go get -t -d ./...
 

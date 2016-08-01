@@ -155,7 +155,7 @@ loop:
 			parent := filepath.Dir(hdr.Name)
 			parentPath := filepath.Join(dest, parent)
 			if _, err2 := os.Lstat(parentPath); err2 != nil && os.IsNotExist(err2) {
-				if err3 := os.MkdirAll(parentPath, 0777); err3 != nil {
+				if err3 := os.MkdirAll(parentPath, 0755); err3 != nil {
 					return err3
 				}
 			}

@@ -5,7 +5,7 @@ set -o nounset
 set -o pipefail
 
 if [ ! $(command -v gometalinter) ]; then
-	go get github.com/alecthomas/gometalinter
+	go get -u github.com/alecthomas/gometalinter
 	gometalinter --update --install
 fi
 
@@ -17,6 +17,7 @@ for d in $(find . -type d -not -iwholename '*.git*' -a -not -iname '.tool' -a -n
 		--exclude='schema/fs.go' \
 		--disable=aligncheck \
 		--disable=gotype \
+		--disable=gas \
 		--cyclo-over=35 \
 		--tests \
 		--deadline=10s "${d}"
