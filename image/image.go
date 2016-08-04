@@ -60,7 +60,7 @@ func validate(w walker, refName string) error {
 	return m.validate(w)
 }
 
-// UnpackLayout walks through the file tree given given by src and
+// UnpackLayout walks through the file tree given by src and
 // using the layers specified in the manifest pointed to by the given ref
 // and unpacks all layers in the given destination directory
 // or returns an error if the unpacking failed.
@@ -104,7 +104,7 @@ func unpack(w walker, dest, refName string) error {
 	return m.unpack(w, dest)
 }
 
-// CreateRuntimeBundleLayout walks through the file tree given given by src and
+// CreateRuntimeBundleLayout walks through the file tree given by src and
 // creates an OCI runtime bundle in the given destination dest
 // or returns an error if the unpacking failed.
 func CreateRuntimeBundleLayout(src, dest, ref, root string) error {
