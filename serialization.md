@@ -20,7 +20,7 @@ This specification uses the following terms:
         Image JSON
     </dt>
     <dd>
-        Each image has an associated JSON structure which describes some basic information about the image such as date created, author, and the ID of its parent image as well as execution/runtime configuration like its entry point, default arguments, CPU/memory shares, networking, and volumes.
+        Each image has an associated JSON structure which describes some basic information about the image such as date created, author, and the ID of its parent image as well as execution/runtime configuration like its entrypoint, default arguments, CPU/memory shares, networking, and volumes.
 	The JSON structure also references a cryptographic hash of each layer used by the image, and provides history information for those layers.
 	This JSON is considered to be immutable, because changing it would change the computed ImageID.
 	Changing it means creating a new derived image, instead of changing the existing image.
@@ -288,7 +288,7 @@ Note: whitespace has been added to this example for clarity. Whitespace is OPTIO
                 Cmd <code>array of strings</code>
             </dt>
             <dd>
-                Default arguments to the entry point of the container.
+                Default arguments to the entrypoint of the container.
 		These values act as defaults and are replaced with any specified when creating a container.
 		If an <code>Entrypoint</code> value is not specified, then the first entry of the <code>Cmd</code> array should be interpreted as the executable to run. This field MAY be "null".
             </dd>
@@ -311,7 +311,7 @@ Note: whitespace has been added to this example for clarity. Whitespace is OPTIO
                 WorkingDir <code>string</code>
             </dt>
             <dd>
-                Sets the current working directory of the entry point process in the container.
+                Sets the current working directory of the entrypoint process in the container.
 		This value acts as a default and is replaced by a working directory specified when creating a container.
             </dd>
         </dl>
