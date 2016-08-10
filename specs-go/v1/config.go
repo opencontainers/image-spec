@@ -37,13 +37,13 @@ type ImageConfig struct {
 	// Entrypoint defines a list of arguments to use as the command to execute when the container starts.
 	EntryPoint []string `json:"EntryPoint"`
 
-	// Cmd defines the default arguments to the entry point of the container.
+	// Cmd defines the default arguments to the entrypoint of the container.
 	Cmd []string `json:"Cmd"`
 
 	// Volumes is a set of directories which should be created as data volumes in a container running this image.
 	Volumes map[string]struct{} `json:"Volumes"`
 
-	// WorkingDir sets the current working directory of the entry point process in the container.
+	// WorkingDir sets the current working directory of the entrypoint process in the container.
 	WorkingDir string `json:"WorkingDir"`
 }
 
