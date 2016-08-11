@@ -19,9 +19,9 @@ type Descriptor struct {
 	// MediaType contains the MIME type of the referenced object.
 	MediaType string `json:"mediaType"`
 
-	// Digests is the digest of the targeted content.
+	// Digest is the digest of the targeted content.
 	Digest string `json:"digest"`
 
-	// Size specifies the size in bytes of the blob
+	// Size specifies the size in bytes of the blob.
 	Size int64 `json:"size"`
 }
