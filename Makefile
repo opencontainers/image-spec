@@ -14,7 +14,7 @@ DOC_FILES := \
 FIGURE_FILES := \
 	img/media-types.png
 
-OUTPUT		?= output/
+OUTPUT_DIRNAME		?= output/
 DOC_FILENAME	?= oci-image-spec
 
 EPOCH_TEST_COMMIT ?= v0.2.0
@@ -24,7 +24,7 @@ default: help
 help:
 	@echo "Usage: make <target>"
 	@echo
-	@echo " * 'docs' - produce document in the $(OUTPUT) directory"
+	@echo " * 'docs' - produce document in the $(OUTPUT_DIRNAME) directory"
 	@echo " * 'fmt' - format the json with indentation"
 	@echo " * 'validate-examples' - validate the examples in the specification markdown files"
 	@echo " * 'oci-image-tool' - build the oci-image-tool binary"
@@ -38,32 +38,32 @@ help:
 fmt:
 	for i in schema/*.json ; do jq --indent 2 -M . "$${i}" > xx && cat xx > "$${i}" && rm xx ; done
 
-docs: $(OUTPUT)/$(DOC_FILENAME).pdf $(OUTPUT)/$(DOC_FILENAME).html
+docs: $(OUTPUT_DIRNAME)/$(DOC_FILENAME).pdf $(OUTPUT_DIRNAME)/$(DOC_FILENAME).html
 
-$(OUTPUT)/$(DOC_FILENAME).pdf: $(DOC_FILES) $(FIGURE_FILES)
-	@mkdir -p $(OUTPUT)/ && \
-	cp -ap img/ $(shell pwd)/$(OUTPUT)/&& \
+$(OUTPUT_DIRNAME)/$(DOC_FILENAME).pdf: $(DOC_FILES) $(FIGURE_FILES)
+	@mkdir -p $(OUTPUT_DIRNAME)/ && \
+	cp -ap img/ $(shell pwd)/$(OUTPUT_DIRNAME)/&& \
 	$(DOCKER) run \
 	-it \
 	--rm \
 	-v $(shell pwd)/:/input/:ro \
-	-v $(shell pwd)/$(OUTPUT)/:/$(OUTPUT)/ \
+	-v $(shell pwd)/$(OUTPUT_DIRNAME)/:/$(OUTPUT_DIRNAME)/ \
 	-u $(shell id -u) \
 	--workdir /input \
-	vbatts/pandoc -f markdown_github -t latex -o /$(OUTPUT)/$(DOC_FILENAME).pdf $(patsubst %,/input/%,$(DOC_FILES)) && \
+	vbatts/pandoc -f markdown_github -t latex -o /$(OUTPUT_DIRNAME)/$(DOC_FILENAME).pdf $(patsubst %,/input/%,$(DOC_FILES)) && \
 	ls -sh $(shell readlink -f $@)
 
-$(OUTPUT)/$(DOC_FILENAME).html: $(DOC_FILES) $(FIGURE_FILES)
-	@mkdir -p $(OUTPUT)/ && \
-	cp -ap img/ $(shell pwd)/$(OUTPUT)/&& \
+$(OUTPUT_DIRNAME)/$(DOC_FILENAME).html: $(DOC_FILES) $(FIGURE_FILES)
+	@mkdir -p $(OUTPUT_DIRNAME)/ && \
+	cp -ap img/ $(shell pwd)/$(OUTPUT_DIRNAME)/&& \
 	$(DOCKER) run \
 	-it \
 	--rm \
 	-v $(shell pwd)/:/input/:ro \
-	-v $(shell pwd)/$(OUTPUT)/:/$(OUTPUT)/ \
+	-v $(shell pwd)/$(OUTPUT_DIRNAME)/:/$(OUTPUT_DIRNAME)/ \
 	-u $(shell id -u) \
 	--workdir /input \
-	vbatts/pandoc -f markdown_github -t html5 -o /$(OUTPUT)/$(DOC_FILENAME).html $(patsubst %,/input/%,$(DOC_FILES)) && \
+	vbatts/pandoc -f markdown_github -t html5 -o /$(OUTPUT_DIRNAME)/$(DOC_FILENAME).html $(patsubst %,/input/%,$(DOC_FILES)) && \
 	ls -sh $(shell readlink -f $@)
 
 code-of-conduct.md:
@@ -126,7 +126,7 @@ install.tools: .install.gitvalidation .install.glide .install.glide-vc
 	go get github.com/sgotti/glide-vc
 
 clean:
-	rm -rf *~ $(OUTPUT)
+	rm -rf *~ $(OUTPUT_DIRNAME)
 	rm -f oci-image-tool
 
 .PHONY: \
