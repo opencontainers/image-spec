@@ -1,7 +1,7 @@
 GO15VENDOREXPERIMENT=1
 export GO15VENDOREXPERIMENT
 
-DOCKER ?= $(shell which docker)
+DOCKER ?= $(shell command -v docker 2>/dev/null)
 # These docs are in an order that determines how they show up in the PDF/HTML docs.
 DOC_FILES := \
 	README.md \
