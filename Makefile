@@ -2,6 +2,23 @@ GO15VENDOREXPERIMENT=1
 export GO15VENDOREXPERIMENT
 
 DOCKER ?= $(shell command -v docker 2>/dev/null)
+PANDOC ?= $(shell command -v pandoc 2>/dev/null)
+
+ifeq "$(strip $(PANDOC))" ''
+	ifneq "$(strip $(DOCKER))" ''
+		PANDOC = $(DOCKER) run \
+			-it \
+			--rm \
+			-v $(shell pwd)/:/input/:ro \
+			-v $(shell pwd)/$(OUTPUT_DIRNAME)/:/$(OUTPUT_DIRNAME)/ \
+			-u $(shell id -u) \
+			--workdir /input \
+			vbatts/pandoc
+		PANDOC_SRC := /input/
+		PANDOC_DST := /
+	endif
+endif
+
 # These docs are in an order that determines how they show up in the PDF/HTML docs.
 DOC_FILES := \
 	README.md \
@@ -42,28 +59,13 @@ docs: $(OUTPUT_DIRNAME)/$(DOC_FILENAME).pdf $(OUTPUT_DIRNAME)/$(DOC_FILENAME).ht
 
 $(OUTPUT_DIRNAME)/$(DOC_FILENAME).pdf: $(DOC_FILES) $(FIGURE_FILES)
 	@mkdir -p $(OUTPUT_DIRNAME)/ && \
-	cp -ap img/ $(shell pwd)/$(OUTPUT_DIRNAME)/&& \
-	$(DOCKER) run \
-	-it \
-	--rm \
-	-v $(shell pwd)/:/input/:ro \
-	-v $(shell pwd)/$(OUTPUT_DIRNAME)/:/$(OUTPUT_DIRNAME)/ \
-	-u $(shell id -u) \
-	--workdir /input \
-	vbatts/pandoc -f markdown_github -t latex -o /$(OUTPUT_DIRNAME)/$(DOC_FILENAME).pdf $(patsubst %,/input/%,$(DOC_FILES)) && \
+	$(PANDOC) -f markdown_github -t latex -o $(PANDOC_DST)$@ $(patsubst %,$(PANDOC_SRC)%,$(DOC_FILES))
 	ls -sh $(shell readlink -f $@)
 
 $(OUTPUT_DIRNAME)/$(DOC_FILENAME).html: $(DOC_FILES) $(FIGURE_FILES)
 	@mkdir -p $(OUTPUT_DIRNAME)/ && \
 	cp -ap img/ $(shell pwd)/$(OUTPUT_DIRNAME)/&& \
-	$(DOCKER) run \
-	-it \
-	--rm \
-	-v $(shell pwd)/:/input/:ro \
-	-v $(shell pwd)/$(OUTPUT_DIRNAME)/:/$(OUTPUT_DIRNAME)/ \
-	-u $(shell id -u) \
-	--workdir /input \
-	vbatts/pandoc -f markdown_github -t html5 -o /$(OUTPUT_DIRNAME)/$(DOC_FILENAME).html $(patsubst %,/input/%,$(DOC_FILES)) && \
+	$(PANDOC) -f markdown_github -t html5 -o $(PANDOC_DST)$@ $(patsubst %,$(PANDOC_SRC)%,$(DOC_FILES))
 	ls -sh $(shell readlink -f $@)
 
 code-of-conduct.md:
