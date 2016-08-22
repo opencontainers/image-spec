@@ -29,7 +29,7 @@ oci-image-tool-create-runtime-bundle \- Create an OCI image runtime bundle
 $ skopeo copy docker://busybox oci:busybox-oci
 $ mkdir busybox-bundle
 $ oci-image-tool create-runtime-bundle --ref latest busybox-oci busybox-bundle
-$ cd busybox-bundle && sudo runc start busybox
+$ cd busybox-bundle && sudo runc run busybox
 [...]
 ```
 
