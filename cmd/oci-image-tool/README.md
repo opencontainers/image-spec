@@ -7,12 +7,12 @@ A tool for working with OCI images
 This project uses the Go programming language and is tested with the [Go
 compiler](https://golang.org/dl/). (Results with gccgo may vary)
 
-Install from a particular version of this repo (i.e. the v0.3.0 tag):
+Install from a particular version of this repo (i.e. the v0.4.0 tag):
 
 ```bash
 go get -u -d github.com/opencontainers/image-spec
 cd $GOPATH/src/github.com/opencontainers/image-spec
-git checkout -f v0.3.0
+git checkout -f v0.4.0
 go install github.com/opencontainers/image-spec/cmd/oci-image-tool
 ```
 
