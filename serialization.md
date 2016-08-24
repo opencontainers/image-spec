@@ -75,7 +75,7 @@ This specification uses the following terms:
         A collection of tags grouped under a common prefix (the name component before <code>:</code>).
 	For example, in an image tagged with the name <code>my-app:3.1.4</code>, <code>my-app</code> is the <i>Repository</i> component of the name.
 	A repository name is made up of slash-separated name components, optionally prefixed by a DNS hostname.
-	The hostname must follow comply with standard DNS rules, but may not contain <code>_</code> characters.
+	The hostname must comply with standard DNS rules that apply to IDNA labels as defined in <a href="https://tools.ietf.org/html/rfc5890#section-2.3">RFC 5890</a>.
 	If a hostname is present, it may optionally be followed by a port number in the format <code>:8080</code>.
 	Name components may contain lowercase characters, digits, and separators.
 	A separator is defined as a period, one or two underscores, or one or more dashes.
