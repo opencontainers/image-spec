@@ -1,9 +1,3 @@
-<!--[metadata]>
-+++
-draft = true
-+++
-<![end-metadata]-->
-
 # OpenContainers Image Manifest Specification
 
 There are three main goals of the Image Manifest Specification.
