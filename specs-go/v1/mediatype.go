@@ -25,8 +25,8 @@ const (
 	MediaTypeImageManifestList = "application/vnd.oci.image.manifest.list.v1+json"
 
 	// MediaTypeImageSerialization is the mediaType used for layers referenced by the manifest.
-	MediaTypeImageSerialization = "application/vnd.oci.image.serialization.rootfs.tar.gzip"
+	MediaTypeImageSerialization = "application/vnd.oci.image.layer.tar+gzip"
 
 	// MediaTypeImageSerializationConfig specifies the mediaType for the image configuration.
-	MediaTypeImageSerializationConfig = "application/vnd.oci.image.serialization.config.v1+json"
+	MediaTypeImageSerializationConfig = "application/vnd.oci.image.config.v1+json"
 )

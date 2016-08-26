@@ -89,7 +89,7 @@ func (m *manifest) validate(w walker) error {
 
 func (m *manifest) unpack(w walker, dest string) error {
 	for _, d := range m.Layers {
-		if d.MediaType != string(schema.MediaTypeImageSerialization) {
+		if d.MediaType != string(schema.MediaTypeImageConfig) {
 			continue
 		}
 

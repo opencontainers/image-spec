@@ -62,7 +62,7 @@ func findConfig(w walker, d *descriptor) (*config, error) {
 			return errors.Wrapf(err, "%s: error reading config", path)
 		}
 
-		if err := schema.MediaTypeImageSerializationConfig.Validate(bytes.NewReader(buf)); err != nil {
+		if err := schema.MediaTypeImageConfig.Validate(bytes.NewReader(buf)); err != nil {
 			return errors.Wrapf(err, "%s: config validation failed", path)
 		}
 

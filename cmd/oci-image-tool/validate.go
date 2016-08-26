@@ -142,7 +142,7 @@ func (v *validateCmd) validatePath(name string) error {
 		return schema.MediaTypeManifestList.Validate(f)
 
 	case typeConfig:
-		return schema.MediaTypeImageSerializationConfig.Validate(f)
+		return schema.MediaTypeImageConfig.Validate(f)
 	}
 
 	return fmt.Errorf("type %q unimplemented", typ)

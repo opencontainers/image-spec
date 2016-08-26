@@ -66,7 +66,7 @@ func TestManifest(t *testing.T) {
   },
   "layers": [
     {
-      "mediaType": "application/vnd.oci.image.serialization.rootfs.tar.gzip",
+      "mediaType": "application/vnd.oci.image.layer.tar+gzip",
       "size": "675598"
     }
   ]
@@ -88,17 +88,17 @@ func TestManifest(t *testing.T) {
   },
   "layers": [
     {
-      "mediaType": "application/vnd.oci.image.serialization.rootfs.tar.gzip",
+      "mediaType": "application/vnd.oci.image.layer.tar+gzip",
       "size": 675598,
       "digest": "sha256:9d3dd9504c685a304985025df4ed0283e47ac9ffa9bd0326fddf4d59513f0827"
     },
     {
-      "mediaType": "application/vnd.oci.image.serialization.rootfs.tar.gzip",
+      "mediaType": "application/vnd.oci.image.layer.tar+gzip",
       "size": 156,
       "digest": "sha256:2b689805fbd00b2db1df73fae47562faac1a626d5f61744bfe29946ecff5d73d"
     },
     {
-      "mediaType": "application/vnd.oci.image.serialization.rootfs.tar.gzip",
+      "mediaType": "application/vnd.oci.image.layer.tar+gzip",
       "size": 148,
       "digest": "sha256:c57089565e894899735d458f0fd4bb17a0f1e0df8d72da392b85c9b35ee777cd"
     }
