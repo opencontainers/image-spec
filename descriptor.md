@@ -77,7 +77,7 @@ Implementations MAY employ some canonicalization to ensure stable content identi
 
 ### Algorithms
 
-While the _algorithm_ does allow one to implement a wide variety of algorithms, compliant implementations SHOULD use [SHA-256](#SHA-256).
+While the _algorithm_ does allow one to implement a wide variety of algorithms, compliant implementations SHOULD use [SHA-256](#sha-256).
 
 Let's use a simple example in pseudo-code to demonstrate a digest calculation:
 A _digest_ is calculated by the following pseudo-code, where `H` is the selected hash algorithm, identified by string `<alg>`:
