@@ -1,13 +1,13 @@
 ## Open Container Initiative Image Layout Specification
 
-The OCI Image Layout is a slash separated layout of OCI content-addressable blobs and [location-addressable](https://en.wikipedia.org/wiki/Content-addressable_storage#Content-addressed_vs._location-addressed) references (refs).
+The OCI Image Layout is a slash separated layout of OCI content-addressable blobs and [location-addressable](https://en.wikipedia.org/wiki/Content-addressable_storage#Content-addressed_vs._location-addressed) reference tags (tags).
 This layout MAY be used in a variety of different transport mechanisms: archive formats (e.g. tar, zip), shared filesystem environments (e.g. nfs), or networked file fetching (e.g. http, ftp, rsync).
 Given an image layout a tool can convert a given ref into a runnable OCI Image Format by finding an appopriate manifest from the manifest list, unpacking the filesystem serializations in the correct order, and then converting the image configuration into an OCI Runtime config.json.
 
-The image layout has two top level directories:
+The image layout has two directory structures:
 
 - "blobs" contains content-addressable blobs. A blob has no schema and should be considered opaque.
-- "refs" contains [descriptors][descriptors]. Commonly pointing to an image manifest.
+- "refs/tags" contains [descriptors][descriptors]. Commonly pointing to an image manifest. Other subdirectories under `refs/` are reserved for future use.
 
 
 It also contains a file that is used to identify the layout version:
@@ -26,9 +26,9 @@ $ find .
 ./blobs/sha256-5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270
 ./blobs/sha256-e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f
 ./oci-layout
-./refs
-./refs/v1.0
-./refs/stable-release
+./refs/tags
+./refs/tags/v1.0
+./refs/tags/stable-release
 ```
 
 Blobs are named by their contents:
@@ -38,21 +38,21 @@ $ shasum -a 256 ./blobs/sha256-afff3924849e458c5ef237db5f89539274d5e609db5db935e
 afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1f2d51 ./blobs/sha256-afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1f2d51
 ```
 
-Object names in the `refs` subdirectories MUST NOT include characters outside of the set of "A" to "Z", "a" to "z", "0" to "9", the hyphen `-`, the dot `.`, and the underscore `_`.
-Object names in the `blobs` subdirectories are composed of hash algorithm, hash digest and separator. Hash digest MUST NOT include characters outside of the set of "A" to "F", "a" to "f", "0" to "9". Separator MUST NOT include characters outside of the hyphen `-`, the dot `.`, and the underscore `_`.
+Object names in the `refs/tags` directory MUST NOT include characters outside of the set of "A" to "Z", "a" to "z", "0" to "9", the hyphen `-`, the dot `.`, and the underscore `_`.
+Object names in the `blobs` directory are composed of hash algorithm, hash digest and separator. Hash digest MUST NOT include characters outside of the set of "A" to "F", "a" to "f", "0" to "9". Separator MUST NOT include characters outside of the hyphen `-`, the dot `.`, and the underscore `_`.
 Hash algorithm identifiers containing the colon `:` will be converted to the hyphen `-`.
 For example `sha256:5b` will map to the layout `blobs/sha256-5b`.
-The blobs directory MAY contain blobs which are not referenced by any of the refs.
+The blobs directory MAY contain blobs which are not referenced by any of the tags.
 The blobs directory MAY be missing referenced blobs, in which case the missing blobs SHOULD be fulfilled by an external blob store.
 
-No semantic restriction is given for object names in the `refs` subdirectory.
-Each object in the `refs` subdirectory MUST be of type `application/vnd.oci.descriptor.v1+json`.
+No semantic restriction is given for object names in the `refs/tags` subdirectory.
+Each object in the `refs/tags` subdirectory MUST be of type `application/vnd.oci.descriptor.v1+json`.
 In general the `mediatype` of this [descriptor][descriptors] object will be either `application/vnd.oci.image.manifest.list.v1+json` or `application/vnd.oci.image.manifest.v1+json` although future versions of the spec MAY use a different mediatype.
 
 This illustrates the expected contents of a given ref, the manifest list it points to and the blobs the manifest references.
 
 ```
-$ cat ./refs/v1.0
+$ cat ./refs/tags/v1.0
 {"size": 4096, "digest": "sha256:e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f", "mediatype": "application/vnd.oci.image.manifest.list.v1+json"}
 ```
 ```
