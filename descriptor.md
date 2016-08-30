@@ -60,7 +60,7 @@ The digest string matches the following grammar:
 
 ```
 digest      := algorithm ":" hex
-algorithm   := /[A-Fa-f0-9_+.-]+/
+algorithm   := /[a-z0-9_+.-]+/
 hex         := /[A-Fa-f0-9]+/
 ```
 
