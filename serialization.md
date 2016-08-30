@@ -327,7 +327,6 @@ Note: whitespace has been added to this example for clarity. Whitespace is OPTIO
         <ul>
           <li>
             <code>type</code> is usually set to <code>layers</code>.
-	    There is also a Windows-specific value <code>layers+base</code> that allows a base layer to be specified in a field of <code>rootfs</code> called <code>base_layer</code>.
           </li>
           <li>
             <code>diff_ids</code> is an array of layer content hashes (<code>DiffIDs</code>), in order from bottom-most to top-most.
