@@ -74,9 +74,6 @@
           "items": {
             "type": "string"
           }
-        },
-        "layers": {
-          "type": "string"
         }
       }
     },

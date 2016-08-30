@@ -302,12 +302,9 @@ Note: whitespace has been added to this example for clarity. Whitespace is OPTIO
     <dd>
         The rootfs key references the layer content addresses used by the image.
 	This makes the image config hash depend on the filesystem hash.
-        rootfs has two subkeys:
+        Subkeys:
 
         <ul>
-          <li>
-            <code>type</code> is usually set to <code>layers</code>.
-          </li>
           <li>
             <code>diff_ids</code> is an array of layer content hashes (<code>DiffIDs</code>), in order from bottom-most to top-most.
           </li>
@@ -321,8 +318,7 @@ Note: whitespace has been added to this example for clarity. Whitespace is OPTIO
     "sha256:c6f988f4874bb0add23a778f753c65efe992244e148a1d2ec2a8b664fb66bbd1",
     "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
     "sha256:13f53e08df5a220ab6d13c58b2bf83a59cbdc2e04d0a3f041ddf4b0ba4112d49"
-  ],
-  "type": "layers"
+  ]
 }</pre>
     </dd>
     <dt>
