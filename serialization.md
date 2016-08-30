@@ -60,26 +60,6 @@ This specification uses the following terms:
 	It is represented as a hexadecimal encoding of 256 bits, e.g., <code>sha256:a9561eb1b190625c9adb5a9513e72c4dedafc1cb2d4c5236c9a6957ec7dfd5a9</code>.
 	Since the configuration JSON that gets hashed references hashes of each layer in the image, this formulation of the ImageID makes images content-addresable.
     </dd>
-    <dt>
-        Tag
-    </dt>
-    <dd>
-        A tag serves to map a descriptive, user-given name to any single image ID.
-	Tag values are limited to the set of characters <code>[a-zA-Z_0-9]</code>.
-    </dd>
-    <dt>
-        Repository
-    </dt>
-    <dd>
-        A collection of tags grouped under a common prefix (the name component before <code>:</code>).
-	For example, in an image tagged with the name <code>my-app:3.1.4</code>, <code>my-app</code> is the <i>Repository</i> component of the name.
-	A repository name is made up of slash-separated name components, optionally prefixed by a DNS hostname.
-	The hostname must follow comply with standard DNS rules, but may not contain <code>_</code> characters.
-	If a hostname is present, it may optionally be followed by a port number in the format <code>:8080</code>.
-	Name components may contain lowercase characters, digits, and separators.
-	A separator is defined as a period, one or two underscores, or one or more dashes.
-	A name component may not start or end with a separator.
-    </dd>
 </dl>
 
 ## Image JSON Description
