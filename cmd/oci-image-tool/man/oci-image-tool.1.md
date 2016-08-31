@@ -20,11 +20,11 @@ oci-image-tool \- OCI (Open Container Initiative) image tool
 # COMMANDS
 **create-runtime-bundle**
   Create an OCI image runtime bundle
-  See **oci-image-tools-create-runtime-bundle(1)** for full documentation on the **create-runtime-bundle** command.
+  See **oci-image-tool-create-runtime-bundle(1)** for full documentation on the **create-runtime-bundle** command.
 
 **unpack**
   Unpack an image or image source layout
-  See **oci-image-tools-unpack(1)** for full documentation on the **unpack** command.
+  See **oci-image-tool-unpack(1)** for full documentation on the **unpack** command.
 
 **validate**
   Validate one or more image files
