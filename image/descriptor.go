@@ -33,8 +33,20 @@ type descriptor struct {
 	Size      int64  `json:"size"`
 }
 
-func (d *descriptor) normalizeDigest() string {
-	return strings.Replace(d.Digest, ":", "-", -1)
+func (d *descriptor) algo() string {
+	pts := strings.SplitN(d.Digest, ":", 2)
+	if len(pts) != 2 {
+		return ""
+	}
+	return pts[0]
+}
+
+func (d *descriptor) hash() string {
+	pts := strings.SplitN(d.Digest, ":", 2)
+	if len(pts) != 2 {
+		return ""
+	}
+	return pts[1]
 }
 
 func findDescriptor(w walker, name string) (*descriptor, error) {
@@ -67,8 +79,8 @@ func (d *descriptor) validate(w walker) error {
 			return nil
 		}
 
-		digest, err := filepath.Rel("blobs", filepath.Clean(path))
-		if err != nil || d.normalizeDigest() != digest {
+		filename, err := filepath.Rel(filepath.Join("blobs", d.algo()), filepath.Clean(path))
+		if err != nil || d.hash() != filename {
 			return nil
 		}
 
@@ -78,11 +90,11 @@ func (d *descriptor) validate(w walker) error {
 		return errEOW
 	}); err {
 	case nil:
-		return fmt.Errorf("%s: not found", d.normalizeDigest())
+		return fmt.Errorf("%s: not found", d.Digest)
 	case errEOW:
 		return nil
 	default:
-		return errors.Wrapf(err, "%s: validation failed", d.normalizeDigest())
+		return errors.Wrapf(err, "%s: validation failed", d.Digest)
 	}
 }
 
