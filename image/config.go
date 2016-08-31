@@ -53,15 +53,10 @@ func findConfig(w walker, d *descriptor) (*config, error) {
 	var c config
 	cpath := filepath.Join("blobs", d.normalizeDigest())
 
-	f := func(path string, info os.FileInfo, r io.Reader) error {
-		if info.IsDir() {
-			return nil
+	if err := w.walk(func(path string, info os.FileInfo, r io.Reader) error {
+		if info.IsDir() || filepath.Clean(path) != cpath {
+			return fmt.Errorf("%s: config not found", cpath)
 		}
-
-		if filepath.Clean(path) != cpath {
-			return nil
-		}
-
 		buf, err := ioutil.ReadAll(r)
 		if err != nil {
 			return errors.Wrapf(err, "%s: error reading config", path)
@@ -75,18 +70,10 @@ func findConfig(w walker, d *descriptor) (*config, error) {
 			return err
 		}
 
-		return errEOW
-	}
-
-	switch err := w.walk(f); err {
-	case nil:
-		return nil, fmt.Errorf("%s: config not found", cpath)
-	case errEOW:
-		// found, continue below
-	default:
+		return nil
+	}); err != nil {
 		return nil, err
 	}
-
 	return &c, nil
 }
 
