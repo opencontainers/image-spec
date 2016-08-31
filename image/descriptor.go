@@ -39,7 +39,7 @@ func (d *descriptor) normalizeDigest() string {
 
 func findDescriptor(w walker, name string) (*descriptor, error) {
 	var d descriptor
-	dpath := filepath.Join("refs", name)
+	dpath := filepath.Join("refs", "tags", name)
 
 	if err := w.walk(func(path string, info os.FileInfo, r io.Reader) error {
 		if info.IsDir() || filepath.Clean(path) != dpath {
