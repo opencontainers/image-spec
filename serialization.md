@@ -65,7 +65,7 @@ This specification uses the following terms:
     </dt>
     <dd>
         A tag serves to map a descriptive, user-given name to any single image ID.
-	Tag values are limited to the set of characters <code>[a-zA-Z_0-9]</code>.
+	Tag values are limited to the set of characters <code>[a-zA-Z_0-9.-]</code>.
     </dd>
     <dt>
         Repository
