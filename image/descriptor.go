@@ -41,44 +41,49 @@ func findDescriptor(w walker, name string) (*descriptor, error) {
 	var d descriptor
 	dpath := filepath.Join("refs", name)
 
-	if err := w.walk(func(path string, info os.FileInfo, r io.Reader) error {
+	switch err := w.walk(func(path string, info os.FileInfo, r io.Reader) error {
 		if info.IsDir() || filepath.Clean(path) != dpath {
-			return fmt.Errorf("%s: descriptor not found", dpath)
+			return nil
 		}
 
 		if err := json.NewDecoder(r).Decode(&d); err != nil {
 			return err
 		}
 
-		return nil
-	}); err != nil {
+		return errEOW
+	}); err {
+	case nil:
+		return nil, fmt.Errorf("%s: descriptor not found", dpath)
+	case errEOW:
+		return &d, nil
+	default:
 		return nil, err
 	}
-
-	return &d, nil
 }
 
 func (d *descriptor) validate(w walker) error {
-	if err := w.walk(func(path string, info os.FileInfo, r io.Reader) error {
+	switch err := w.walk(func(path string, info os.FileInfo, r io.Reader) error {
 		if info.IsDir() {
-			return fmt.Errorf("%s: not found", d.normalizeDigest())
+			return nil
 		}
 
 		digest, err := filepath.Rel("blobs", filepath.Clean(path))
 		if err != nil || d.normalizeDigest() != digest {
-			return fmt.Errorf("%s: not found", d.normalizeDigest())
+			return nil
 		}
 
 		if err := d.validateContent(r); err != nil {
 			return err
 		}
-
+		return errEOW
+	}); err {
+	case nil:
+		return fmt.Errorf("%s: not found", d.normalizeDigest())
+	case errEOW:
 		return nil
-	}); err != nil {
+	default:
 		return errors.Wrapf(err, "%s: validation failed", d.normalizeDigest())
 	}
-
-	return nil
 }
 
 func (d *descriptor) validateContent(r io.Reader) error {

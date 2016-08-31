@@ -16,11 +16,16 @@ package image
 
 import (
 	"archive/tar"
+	"fmt"
 	"io"
 	"os"
 	"path/filepath"
 
 	"github.com/pkg/errors"
+)
+
+var (
+	errEOW = fmt.Errorf("end of walk") // error to signal stop walking
 )
 
 // walkFunc is a function type that gets called for each file or directory visited by the Walker.
