@@ -49,6 +49,11 @@ No semantic restriction is given for object names in the `refs` subdirectory.
 Each object in the `refs` subdirectory MUST be of type `application/vnd.oci.descriptor.v1+json`.
 In general the `mediatype` of this [descriptor][descriptors] object will be either `application/vnd.oci.image.manifest.list.v1+json` or `application/vnd.oci.image.manifest.v1+json` although future versions of the spec MAY use a different mediatype.
 
+**Implementor's Note:**
+A common use case of refs is representing "tags" for a container image.
+For example, an image may have a tag for different versions or builds of the software.
+In the wild you often see "tags" like "v1.0.0-vendor.0", "2.0.0-debug", etc.
+
 This illustrates the expected contents of a given ref, the manifest list it points to and the blobs the manifest references.
 
 ```
