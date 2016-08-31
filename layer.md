@@ -1,6 +1,12 @@
-# Creating an Image Filesystem Changeset
+# OpenContainers Image Layers Specification
 
-An example of creating an Image Filesystem Changeset follows.
+This specification describes how to serialize a filesystem and filesystem changes like removed files into a blob called a layer.
+To create a complete filesystem one or more layers are ordered on top of each other.
+This document will use a concrete example to illustrate how to create and consume these filesystem layers.
+
+## Creating an Image Layers Based on Filesystem Changes
+
+An example of creating image filesystem layers follows.
 
 An image root filesystem is first created as an empty directory.
 Here is the initial empty directory structure for a changeset using the randomly-generated directory name `c3167915dc9d` ([actual layer DiffIDs are generated based on the content](#id_desc)).
@@ -28,8 +34,9 @@ bin/my-app-binary
 bin/my-app-tools
 ```
 
-To make changes to the filesystem of this container image, create a new directory, such as `f60c56784b83`, and initialize it with a snapshot of the parent image's root filesystem, so that the directory is identical to that of `c3167915dc9d`.
-NOTE: a copy-on-write or union filesystem can make this very efficient:
+To make changes to the filesystem of this image, create a new directory, such as `f60c56784b83`, and initialize it with a snapshot of the parent image's root filesystem, so that the directory is identical to that of `c3167915dc9d`.
+
+**Implementor's Note:** a copy-on-write or union filesystem can make this very efficient.
 
 ```
 f60c56784b83/
