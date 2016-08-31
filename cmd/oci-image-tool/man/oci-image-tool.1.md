@@ -18,9 +18,21 @@ oci-image-tool \- OCI (Open Container Initiative) image tool
   Print usage statement
 
 # COMMANDS
+**cas**
+  Content-addressable storage manipulation.
+  See **oci-image-tool-cas**(1) for full documentation on the **cas** command.
+
 **create-runtime-bundle**
   Create an OCI image runtime bundle
   See **oci-image-tool-create-runtime-bundle(1)** for full documentation on the **create-runtime-bundle** command.
+
+**init**
+  Initialize an OCI image.
+  See **oci-image-tool-init**(1) for full documentation on the **init** command.
+
+**refs**
+  Name-based reference manipulation.
+  See **oci-image-tool-refs**(1) for full documentation on the **refs** command.
 
 **unpack**
   Unpack an image or image source layout
