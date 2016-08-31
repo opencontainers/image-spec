@@ -40,9 +40,9 @@ func findManifest(w walker, d *descriptor) (*manifest, error) {
 	var m manifest
 	mpath := filepath.Join("blobs", d.normalizeDigest())
 
-	if err := w.walk(func(path string, info os.FileInfo, r io.Reader) error {
+	switch err := w.walk(func(path string, info os.FileInfo, r io.Reader) error {
 		if info.IsDir() || filepath.Clean(path) != mpath {
-			return fmt.Errorf("%s: manifest not found", mpath)
+			return nil
 		}
 
 		buf, err := ioutil.ReadAll(r)
@@ -62,12 +62,15 @@ func findManifest(w walker, d *descriptor) (*manifest, error) {
 			return fmt.Errorf("%s: no layers found", path)
 		}
 
-		return nil
-	}); err != nil {
+		return errEOW
+	}); err {
+	case nil:
+		return nil, fmt.Errorf("%s: manifest not found", mpath)
+	case errEOW:
+		return &m, nil
+	default:
 		return nil, err
 	}
-
-	return &m, nil
 }
 
 func (m *manifest) validate(w walker) error {
@@ -90,26 +93,30 @@ func (m *manifest) unpack(w walker, dest string) error {
 			continue
 		}
 
-		if err := w.walk(func(path string, info os.FileInfo, r io.Reader) error {
+		switch err := w.walk(func(path string, info os.FileInfo, r io.Reader) error {
 			if info.IsDir() {
-				return fmt.Errorf("%s: blob digest not found", d.normalizeDigest())
+				return nil
 			}
 
 			dd, err := filepath.Rel("blobs", filepath.Clean(path))
 			if err != nil || d.normalizeDigest() != dd {
-				return fmt.Errorf("%s: blob digest not found", d.normalizeDigest())
+				return nil
 			}
 
 			if err := unpackLayer(dest, r); err != nil {
 				return errors.Wrap(err, "error extracting layer")
 			}
 
+			return errEOW
+		}); err {
+		case nil:
+			return fmt.Errorf("%s: layer not found", dest)
+		case errEOW:
 			return nil
-		}); err != nil {
+		default:
 			return err
 		}
 	}
-
 	return nil
 }
 

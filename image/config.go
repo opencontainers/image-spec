@@ -53,9 +53,9 @@ func findConfig(w walker, d *descriptor) (*config, error) {
 	var c config
 	cpath := filepath.Join("blobs", d.normalizeDigest())
 
-	if err := w.walk(func(path string, info os.FileInfo, r io.Reader) error {
+	switch err := w.walk(func(path string, info os.FileInfo, r io.Reader) error {
 		if info.IsDir() || filepath.Clean(path) != cpath {
-			return fmt.Errorf("%s: config not found", cpath)
+			return nil
 		}
 		buf, err := ioutil.ReadAll(r)
 		if err != nil {
@@ -69,12 +69,15 @@ func findConfig(w walker, d *descriptor) (*config, error) {
 		if err := json.Unmarshal(buf, &c); err != nil {
 			return err
 		}
-
-		return nil
-	}); err != nil {
+		return errEOW
+	}); err {
+	case nil:
+		return nil, fmt.Errorf("%s: config not found", cpath)
+	case errEOW:
+		return &c, nil
+	default:
 		return nil, err
 	}
-	return &c, nil
 }
 
 func (c *config) runtimeSpec(rootfs string) (*specs.Spec, error) {
