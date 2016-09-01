@@ -34,7 +34,7 @@ type descriptor struct {
 }
 
 func (d *descriptor) normalizeDigest() string {
-	return strings.Replace(d.Digest, ":", "-", -1)
+	return strings.Replace(d.Digest, ":", "/", -1)
 }
 
 func findDescriptor(w walker, name string) (*descriptor, error) {
