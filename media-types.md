@@ -5,8 +5,8 @@ The following `mediaType` MIME types are used by the formats described here, and
 - `application/vnd.oci.descriptor.v1+json`: [Content Descriptor](descriptor.md)
 - `application/vnd.oci.image.manifest.list.v1+json`: [Manifest list](manifest.md#manifest-list)
 - `application/vnd.oci.image.manifest.v1+json`: [Image manifest format](manifest.md#image-manifest)
-- `application/vnd.oci.image.serialization.config.v1+json`: [Container config JSON](serialization.md)
-- `application/vnd.oci.image.serialization.rootfs.tar.gzip`: ["Layer", as a gzipped tar archive](layer.md)
+- `application/vnd.oci.image.layer.tar+gzip`: ["Layer", as a gzipped tar archive](layer.md)
+- `application/vnd.oci.image.config.v1+json`: [Container config JSON](serialization.md)
 
 ## Compatibility Matrix
 
@@ -32,7 +32,7 @@ This section shows where the OCI Image Specification is compatible with formats 
 
 - [application/vnd.docker.image.rootfs.diff.tar.gzip](https://github.com/docker/docker/blob/master/image/spec/v1.md#creating-an-image-filesystem-changeset)
 
-### application/vnd.oci.image.serialization.config.v1+json
+### application/vnd.oci.image.config.v1+json
 
 **Similar/related schema**
 

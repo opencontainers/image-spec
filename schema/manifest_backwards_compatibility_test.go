@@ -28,7 +28,7 @@ var compatMap = map[string]string{
 	"application/vnd.docker.distribution.manifest.list.v2+json": "application/vnd.oci.image.manifest.list.v1+json",
 	"application/vnd.docker.distribution.manifest.v2+json":      "application/vnd.oci.image.manifest.v1+json",
 	"application/vnd.docker.image.rootfs.diff.tar.gzip":         "application/vnd.oci.image.rootfs.tar.gzip",
-	"application/vnd.docker.container.image.v1+json":            "application/vnd.oci.image.serialization.config.v1+json",
+	"application/vnd.docker.container.image.v1+json":            "application/vnd.oci.image.config.v1+json",
 }
 
 // convertFormats converts Docker v2.2 image format JSON documents to OCI
@@ -220,7 +220,7 @@ func TestBackwardsCompatibilityConfig(t *testing.T) {
 
 		manifest := convertFormats(tt.manifest)
 		r := strings.NewReader(manifest)
-		err := schema.MediaTypeImageSerializationConfig.Validate(r)
+		err := schema.MediaTypeImageConfig.Validate(r)
 
 		if got := err != nil; tt.fail != got {
 			t.Errorf("test %d: expected validation failure %t but got %t, err %v", i, tt.fail, got, err)

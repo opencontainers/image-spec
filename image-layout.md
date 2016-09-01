@@ -83,13 +83,13 @@ $ cat ./blobs/sha256-afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1
   "schemaVersion": 2,
   "mediaType": "application/vnd.oci.image.manifest.v1+json",
   "config": [
-    "mediaType": "application/vnd.oci.image.serialization.config.v1+json",
+    "mediaType": "application/vnd.oci.image.config.v1+json",
     "size": 7023,
     "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270"
   },
   "layers": [
     {
-      "mediaType": "application/vnd.oci.image.serialization.rootfs.tar.gzip",
+      "mediaType": "application/vnd.oci.image.layer.tar+gzip",
       "size": 32654,
       "digest": "sha256:e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f"
     },
