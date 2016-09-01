@@ -2,14 +2,16 @@
 % OCI Community
 % JULY 2016
 # NAME
-oci-image-tool-create-runtime-bundle \- Create an OCI image runtime bundle
+oci-image-tool-create-runtime-bundle \- Create an OCI runtime bundle
 
 # SYNOPSIS
 **oci-image-tool create-runtime-bundle** [src] [dest] [flags]
 
 # DESCRIPTION
-`oci-image-tool create-runtime-bundle` generates an [OCI bundle](https://github.com/opencontainers/runtime-spec/blob/master/bundle.md) from an [OCI image layout](https://github.com/opencontainers/image-spec/blob/master/image-layout.md).
+`oci-image-tool create-runtime-bundle` validates an application/vnd.oci.image.manifest.v1+json and unpacks its layered filesystem to `dest/rootfs`, although the target directory is configurable with `--rootfs`. See **oci-image-tool-unpack**(1) for more details on this process.
 
+Also translates the referenced config from application/vnd.oci.image.config.v1+json to a
+runtime-spec-compatible `dest/config.json`.
 
 # OPTIONS
 **--help**
@@ -34,7 +36,7 @@ $ cd busybox-bundle && sudo runc run busybox
 ```
 
 # SEE ALSO
-**oci-image-tool(1)**, **runc**(1), **skopeo**(1)
+**oci-image-tool**(1), **runc**(1), **skopeo**(1)
 
 # HISTORY
 July 2016, Originally compiled by Antonio Murdaca (runcom at redhat dot com)

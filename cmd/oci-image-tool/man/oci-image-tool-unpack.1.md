@@ -8,8 +8,7 @@ oci-image-tool-unpack \- Unpack an image or image source layout
 **oci-image-tool unpack** [src] [dest] [flags]
 
 # DESCRIPTION
-`oci-image-tool unpack` unpacks a given OCI image into a directory suitable to be used with `runc`.
-
+`oci-image-tool unpack` validates an application/vnd.oci.image.manifest.v1+json and unpacks its layered filesystem to `dest`.
 
 # OPTIONS
 **--help**
@@ -44,7 +43,7 @@ busybox-bundle
 ```
 
 # SEE ALSO
-**oci-image-tool(1)**, **skopeo**(1)
+**oci-image-tool**(1), **skopeo**(1)
 
 # HISTORY
 July 2016, Originally compiled by Antonio Murdaca (runcom at redhat dot com)
