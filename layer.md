@@ -3,7 +3,7 @@
 An example of creating an Image Filesystem Changeset follows.
 
 An image root filesystem is first created as an empty directory.
-Here is the initial empty directory structure for the a changeset using the randomly-generated directory name `c3167915dc9d` ([actual layer DiffIDs are generated based on the content](#id_desc)).
+Here is the initial empty directory structure for a changeset using the randomly-generated directory name `c3167915dc9d` ([actual layer DiffIDs are generated based on the content](#id_desc)).
 
 ```
 c3167915dc9d/
