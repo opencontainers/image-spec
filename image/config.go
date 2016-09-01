@@ -51,7 +51,7 @@ type config struct {
 
 func findConfig(w walker, d *descriptor) (*config, error) {
 	var c config
-	cpath := filepath.Join("blobs", d.normalizeDigest())
+	cpath := filepath.Join("blobs", d.algo(), d.hash())
 
 	switch err := w.walk(func(path string, info os.FileInfo, r io.Reader) error {
 		if info.IsDir() || filepath.Clean(path) != cpath {
