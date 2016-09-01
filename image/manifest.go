@@ -121,6 +121,7 @@ func (m *manifest) unpack(w walker, dest string) error {
 }
 
 func unpackLayer(dest string, r io.Reader) error {
+	entries := make(map[string]bool)
 	gz, err := gzip.NewReader(r)
 	if err != nil {
 		return errors.Wrap(err, "error creating gzip reader")
@@ -154,6 +155,10 @@ loop:
 			}
 		}
 		path := filepath.Join(dest, hdr.Name)
+		if entries[path] {
+			return fmt.Errorf("duplicate entry for %s", path)
+		}
+		entries[path] = true
 		rel, err := filepath.Rel(dest, path)
 		if err != nil {
 			return err
