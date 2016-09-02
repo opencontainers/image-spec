@@ -9,12 +9,13 @@ This specification uses the following terms:
 
 <dl>
     <dt>
-        Layer
+        [Layer](layer.md)
     </dt>
     <dd>
-        Images are composed of <i>layers</i>.
-	Each layer is a set of filesystem changes.
+        Image filesystems are composed of <i>layers</i>.
+        Each layer represents a set of filesystem changes in a tar-based [layer format](layer.md), recording files to be added, changed, or deleted relative to its parent layer.
 	Layers do not have configuration metadata such as environment variables or default arguments - these are properties of the image as a whole rather than any particular layer.
+        Using a layer-based or union filesystem such as AUFS, or by computing the diff from filesystem snapshots, the filesystem changeset can be used to present a series of image layers as if they were one cohesive filesystem.
     </dd>
     <dt>
         Image JSON
@@ -24,13 +25,6 @@ This specification uses the following terms:
 	The JSON structure also references a cryptographic hash of each layer used by the image, and provides history information for those layers.
 	This JSON is considered to be immutable, because changing it would change the computed ImageID.
 	Changing it means creating a new derived image, instead of changing the existing image.
-    </dd>
-    <dt>
-        Image Filesystem Changeset
-    </dt>
-    <dd>
-        Each layer has an archive of the files which have been added, changed, or deleted relative to its parent layer.
-	Using a layer-based or union filesystem such as AUFS, or by computing the diff from filesystem snapshots, the filesystem changeset can be used to present a series of image layers as if they were one cohesive filesystem.
     </dd>
     <dt>
         Layer DiffID
