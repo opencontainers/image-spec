@@ -29,7 +29,7 @@ The optional and base layers of all OCI projects are tracked in the [OCI Scope T
 
 The OCI Image Format partner project is the [OCI Runtime Spec project](https://github.com/opencontainers/runtime-spec). The Runtime Specification outlines how to run a "[filesystem bundle](https://github.com/opencontainers/runtime-spec/blob/master/bundle.md)" that is unpacked on disk. At a high-level an OCI implementation would download an OCI Image then unpack that image into an OCI Runtime filesystem bundle. At this point the OCI Runtime Bundle would be run by an OCI Runtime.
 
-This entire workflow should support the UX that users have come to expect from container engines like Docker and rkt: primarily, the ability to run an image with no additional arguments:
+This entire workflow supports the UX that users have come to expect from container engines like Docker and rkt: primarily, the ability to run an image with no additional arguments:
 
 * docker run example.com/org/app:v1.0.0
 * rkt run example.com/org/app,version=v1.0.0
