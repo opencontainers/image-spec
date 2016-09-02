@@ -29,7 +29,7 @@ busybox-oci: OK
 ```
 
 # SEE ALSO
-**oci-image-tool(1)**, **skopeo**(1)
+**oci-image-tool**(1), **skopeo**(1)
 
 # HISTORY
 July 2016, Originally compiled by Antonio Murdaca (runcom at redhat dot com)
