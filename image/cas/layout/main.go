@@ -12,33 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+// Package layout implements the cas interface using the image-spec's
+// image-layout [1].
+//
+// [1]: https://github.com/opencontainers/image-spec/blob/master/image-layout.md
+package layout
 
 import (
-	"log"
 	"os"
 
-	"github.com/spf13/cobra"
+	"github.com/opencontainers/image-spec/image/cas"
+	"golang.org/x/net/context"
 )
 
-func main() {
-	cmd := &cobra.Command{
-		Use:   "oci-image-tool",
-		Short: "A tool for working with OCI images",
+// NewEngine instantiates an engine with the appropriate backend (tar,
+// HTTP, ...).
+func NewEngine(ctx context.Context, path string) (engine cas.Engine, err error) {
+	file, err := os.OpenFile(path, os.O_RDWR, 0)
+	if err != nil {
+		return nil, err
 	}
 
-	stdout := log.New(os.Stdout, "", 0)
-	stderr := log.New(os.Stderr, "", 0)
-
-	cmd.AddCommand(newInitCmd(os.Stdout, stderr))
-	cmd.AddCommand(newValidateCmd(stdout, stderr))
-	cmd.AddCommand(newUnpackCmd(stdout, stderr))
-	cmd.AddCommand(newBundleCmd(stdout, stderr))
-	cmd.AddCommand(newRefsCmd(os.Stdout, stderr))
-	cmd.AddCommand(newCASCmd(os.Stdout, stderr))
-
-	if err := cmd.Execute(); err != nil {
-		stderr.Println(err)
-		os.Exit(1)
-	}
+	return NewTarEngine(ctx, file)
 }

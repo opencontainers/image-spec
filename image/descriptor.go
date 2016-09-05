@@ -17,88 +17,24 @@ package image
 import (
 	"crypto/sha256"
 	"encoding/hex"
-	"encoding/json"
-	"fmt"
 	"io"
-	"os"
-	"path/filepath"
-	"strings"
 
+	"github.com/opencontainers/image-spec/image/cas"
+	"github.com/opencontainers/image-spec/specs-go"
 	"github.com/pkg/errors"
+	"golang.org/x/net/context"
 )
 
-type descriptor struct {
-	MediaType string `json:"mediaType"`
-	Digest    string `json:"digest"`
-	Size      int64  `json:"size"`
-}
-
-func (d *descriptor) algo() string {
-	pts := strings.SplitN(d.Digest, ":", 2)
-	if len(pts) != 2 {
-		return ""
+func validateDescriptor(ctx context.Context, engine cas.Engine, descriptor *specs.Descriptor) error {
+	reader, err := engine.Get(ctx, descriptor.Digest)
+	if err != nil {
+		return err
 	}
-	return pts[0]
+
+	return validateContent(ctx, descriptor, reader)
 }
 
-func (d *descriptor) hash() string {
-	pts := strings.SplitN(d.Digest, ":", 2)
-	if len(pts) != 2 {
-		return ""
-	}
-	return pts[1]
-}
-
-func findDescriptor(w walker, name string) (*descriptor, error) {
-	var d descriptor
-	dpath := filepath.Join("refs", name)
-
-	switch err := w.walk(func(path string, info os.FileInfo, r io.Reader) error {
-		if info.IsDir() || filepath.Clean(path) != dpath {
-			return nil
-		}
-
-		if err := json.NewDecoder(r).Decode(&d); err != nil {
-			return err
-		}
-
-		return errEOW
-	}); err {
-	case nil:
-		return nil, fmt.Errorf("%s: descriptor not found", dpath)
-	case errEOW:
-		return &d, nil
-	default:
-		return nil, err
-	}
-}
-
-func (d *descriptor) validate(w walker) error {
-	switch err := w.walk(func(path string, info os.FileInfo, r io.Reader) error {
-		if info.IsDir() {
-			return nil
-		}
-
-		filename, err := filepath.Rel(filepath.Join("blobs", d.algo()), filepath.Clean(path))
-		if err != nil || d.hash() != filename {
-			return nil
-		}
-
-		if err := d.validateContent(r); err != nil {
-			return err
-		}
-		return errEOW
-	}); err {
-	case nil:
-		return fmt.Errorf("%s: not found", d.Digest)
-	case errEOW:
-		return nil
-	default:
-		return errors.Wrapf(err, "%s: validation failed", d.Digest)
-	}
-}
-
-func (d *descriptor) validateContent(r io.Reader) error {
+func validateContent(ctx context.Context, descriptor *specs.Descriptor, r io.Reader) error {
 	h := sha256.New()
 	n, err := io.Copy(h, r)
 	if err != nil {
@@ -107,13 +43,15 @@ func (d *descriptor) validateContent(r io.Reader) error {
 
 	digest := "sha256:" + hex.EncodeToString(h.Sum(nil))
 
-	if digest != d.Digest {
+	if digest != descriptor.Digest {
 		return errors.New("digest mismatch")
 	}
 
-	if n != d.Size {
+	if n != descriptor.Size {
 		return errors.New("size mismatch")
 	}
+
+	// FIXME: check descriptor.MediaType, when possible
 
 	return nil
 }

@@ -14,6 +14,11 @@ for d in $(find . -type d -not -iwholename '*.git*' -a -not -iname '.tool' -a -n
 		--exclude='error return value not checked.*(Close|Log|Print).*\(errcheck\)$' \
 		--exclude='.*_test\.go:.*error return value not checked.*\(errcheck\)$' \
 		--exclude='duplicate of.*_test.go.*\(dupl\)$' \
+		--exclude='^cmd/oci-image-tool/cas_get.go:.* duplicate of .* \(dupl\)$' \
+		--exclude='^cmd/oci-image-tool/cas_put.go:.* duplicate of .* \(dupl\)$' \
+		--exclude='^cmd/oci-image-tool/refs_get.go:.* duplicate of .* \(dupl\)$' \
+		--exclude='^cmd/oci-image-tool/refs_list.go:.* duplicate of .* \(dupl\)$' \
+		--exclude='^cmd/oci-image-tool/refs_put.go:.* duplicate of .* \(dupl\)$' \
 		--exclude='schema/fs.go' \
 		--disable=aligncheck \
 		--disable=gotype \

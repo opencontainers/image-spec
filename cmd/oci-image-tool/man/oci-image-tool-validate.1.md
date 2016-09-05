@@ -16,15 +16,15 @@ oci-image-tool-validate \- Validate one or more image files
   Print usage statement
 
 **--ref**
-  The ref pointing to the manifest to be validated. This must be present in the "refs" subdirectory of the image. Only applicable if type is image or imageLayout. (default "v1.0")
+  The ref pointing to the manifest to be validated. This must be present in the "refs" subdirectory of the image. Only applicable if type is image. (default "v1.0")
 
 **--type**
-  Type of the file to validate. If unset, oci-image-tool will try to auto-detect the type. One of "imageLayout,image,manifest,manifestList,config"
+  Type of the file to validate. If unset, oci-image-tool will try to auto-detect the type. One of "image,manifest,manifestList,config"
 
 # EXAMPLES
 ```
 $ skopeo copy docker://busybox oci:busybox-oci
-$ oci-image-tool validate --type imageLayout --ref latest busybox-oci
+$ oci-image-tool validate --type image --ref latest busybox-oci
 busybox-oci: OK
 ```
 
