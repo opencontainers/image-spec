@@ -9,11 +9,11 @@ This specification uses the following terms:
 
 <dl>
     <dt>
-        [Layer](layer.md)
+        <a href="layer.md">Layer</a>
     </dt>
     <dd>
         Image filesystems are composed of <i>layers</i>.
-        Each layer represents a set of filesystem changes in a tar-based [layer format](layer.md), recording files to be added, changed, or deleted relative to its parent layer.
+        Each layer represents a set of filesystem changes in a tar-based <a href="layer.md">layer format</a>, recording files to be added, changed, or deleted relative to its parent layer.
 	Layers do not have configuration metadata such as environment variables or default arguments - these are properties of the image as a whole rather than any particular layer.
         Using a layer-based or union filesystem such as AUFS, or by computing the diff from filesystem snapshots, the filesystem changeset can be used to present a series of image layers as if they were one cohesive filesystem.
     </dd>
