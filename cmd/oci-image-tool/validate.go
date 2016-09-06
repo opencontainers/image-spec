@@ -39,7 +39,7 @@ type validateCmd struct {
 	stdout *log.Logger
 	stderr *log.Logger
 	typ    string // the type to validate, can be empty string
-	ref    string
+	refs   []string
 }
 
 func newValidateCmd(stdout, stderr *log.Logger) *cobra.Command {
@@ -62,9 +62,9 @@ func newValidateCmd(stdout, stderr *log.Logger) *cobra.Command {
 		),
 	)
 
-	cmd.Flags().StringVar(
-		&v.ref, "ref", "v1.0",
-		`The ref pointing to the manifest to be validated. This must be present in the "refs" subdirectory of the image. Only applicable if type is image or imageLayout.`,
+	cmd.Flags().StringSliceVar(
+		&v.refs, "ref", []string{"v1.0"},
+		`A set of refs pointing to the manifests to be validated. Each reference must be present in the "refs" subdirectory of the image. Only applicable if type is image or imageLayout.`,
 	)
 
 	return cmd
@@ -112,8 +112,10 @@ func (v *validateCmd) Run(cmd *cobra.Command, args []string) {
 }
 
 func (v *validateCmd) validatePath(name string) error {
-	var err error
-	typ := v.typ
+	var (
+		err error
+		typ = v.typ
+	)
 
 	if typ == "" {
 		if typ, err = autodetect(name); err != nil {
@@ -123,9 +125,9 @@ func (v *validateCmd) validatePath(name string) error {
 
 	switch typ {
 	case typeImageLayout:
-		return image.ValidateLayout(name, v.ref)
+		return image.ValidateLayout(name, v.refs, v.stdout)
 	case typeImage:
-		return image.Validate(name, v.ref)
+		return image.Validate(name, v.refs, v.stdout)
 	}
 
 	f, err := os.Open(name)
@@ -137,10 +139,8 @@ func (v *validateCmd) validatePath(name string) error {
 	switch typ {
 	case typeManifest:
 		return schema.MediaTypeManifest.Validate(f)
-
 	case typeManifestList:
 		return schema.MediaTypeManifestList.Validate(f)
-
 	case typeConfig:
 		return schema.MediaTypeImageConfig.Validate(f)
 	}
