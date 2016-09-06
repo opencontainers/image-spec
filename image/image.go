@@ -20,6 +20,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/opencontainers/image-spec/specs-go/v1"
 	"github.com/pkg/errors"
 )
 
@@ -43,6 +44,11 @@ func Validate(tarFile string, refs []string, out *log.Logger) error {
 	return validate(newTarWalker(f), refs, out)
 }
 
+var validRefMediaTypes = []string{
+	v1.MediaTypeImageManifest,
+	v1.MediaTypeImageManifestList,
+}
+
 func validate(w walker, refs []string, out *log.Logger) error {
 	for _, r := range refs {
 		ref, err := findDescriptor(w, r)
@@ -50,7 +56,7 @@ func validate(w walker, refs []string, out *log.Logger) error {
 			return err
 		}
 
-		if err = ref.validate(w); err != nil {
+		if err = ref.validate(w, validRefMediaTypes); err != nil {
 			return err
 		}
 
@@ -97,7 +103,7 @@ func unpack(w walker, dest, refName string) error {
 		return err
 	}
 
-	if err = ref.validate(w); err != nil {
+	if err = ref.validate(w, validRefMediaTypes); err != nil {
 		return err
 	}
 
@@ -139,7 +145,7 @@ func createRuntimeBundle(w walker, dest, refName, rootfs string) error {
 		return err
 	}
 
-	if err = ref.validate(w); err != nil {
+	if err = ref.validate(w, validRefMediaTypes); err != nil {
 		return err
 	}
 
