@@ -95,7 +95,7 @@ lint:
 	@./.tool/lint
 
 test:
-	go test -race -cover ./...
+	go test -race -cover $(shell go list ./... | grep -v /vendor/)
 
 ## this uses https://github.com/Masterminds/glide and https://github.com/sgotti/glide-vc
 update-deps:
