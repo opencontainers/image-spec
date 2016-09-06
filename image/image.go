@@ -16,6 +16,7 @@ package image
 
 import (
 	"encoding/json"
+	"log"
 	"os"
 	"path/filepath"
 
@@ -23,41 +24,49 @@ import (
 )
 
 // ValidateLayout walks through the file tree given by src and
-// validates the manifest pointed to by the given ref
+// validates the manifest pointed to by the given refs
 // or returns an error if the validation failed.
-func ValidateLayout(src, ref string) error {
-	return validate(newPathWalker(src), ref)
+func ValidateLayout(src string, refs []string, out *log.Logger) error {
+	return validate(newPathWalker(src), refs, out)
 }
 
 // Validate walks through the given .tar file and
-// validates the manifest pointed to by the given ref
+// validates the manifest pointed to by the given refs
 // or returns an error if the validation failed.
-func Validate(tarFile, ref string) error {
+func Validate(tarFile string, refs []string, out *log.Logger) error {
 	f, err := os.Open(tarFile)
 	if err != nil {
 		return errors.Wrap(err, "unable to open file")
 	}
 	defer f.Close()
 
-	return validate(newTarWalker(f), ref)
+	return validate(newTarWalker(f), refs, out)
 }
 
-func validate(w walker, refName string) error {
-	ref, err := findDescriptor(w, refName)
-	if err != nil {
-		return err
-	}
+func validate(w walker, refs []string, out *log.Logger) error {
+	for _, r := range refs {
+		ref, err := findDescriptor(w, r)
+		if err != nil {
+			return err
+		}
 
-	if err = ref.validate(w); err != nil {
-		return err
-	}
+		if err = ref.validate(w); err != nil {
+			return err
+		}
 
-	m, err := findManifest(w, ref)
-	if err != nil {
-		return err
-	}
+		m, err := findManifest(w, ref)
+		if err != nil {
+			return err
+		}
 
-	return m.validate(w)
+		if err := m.validate(w); err != nil {
+			return err
+		}
+		if out != nil {
+			out.Printf("reference %q: OK", r)
+		}
+	}
+	return nil
 }
 
 // UnpackLayout walks through the file tree given by src and
