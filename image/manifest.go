@@ -117,7 +117,7 @@ func (m *manifest) unpack(w walker, dest string) error {
 			return err
 		}
 	}
-	return nil
+	return fmt.Errorf("%s: layer not found", dest)
 }
 
 func unpackLayer(dest string, r io.Reader) error {
