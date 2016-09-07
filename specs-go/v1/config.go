@@ -35,7 +35,7 @@ type ImageConfig struct {
 	Env []string `json:"Env"`
 
 	// Entrypoint defines a list of arguments to use as the command to execute when the container starts.
-	EntryPoint []string `json:"EntryPoint"`
+	Entrypoint []string `json:"Entrypoint"`
 
 	// Cmd defines the default arguments to the entrypoint of the container.
 	Cmd []string `json:"Cmd"`

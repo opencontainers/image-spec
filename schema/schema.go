@@ -14,15 +14,19 @@
 
 package schema
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/opencontainers/image-spec/specs-go/v1"
+)
 
 // Media types for the OCI image formats
 const (
-	MediaTypeDescriptor   Validator     = `application/vnd.oci.descriptor.v1+json`
-	MediaTypeManifest     Validator     = `application/vnd.oci.image.manifest.v1+json`
-	MediaTypeManifestList Validator     = `application/vnd.oci.image.manifest.list.v1+json`
-	MediaTypeImageConfig  Validator     = `application/vnd.oci.image.config.v1+json`
-	MediaTypeImageLayer   unimplemented = `application/vnd.oci.image.layer.tar+gzip`
+	MediaTypeDescriptor   Validator     = v1.MediaTypeDescriptor
+	MediaTypeManifest     Validator     = v1.MediaTypeImageManifest
+	MediaTypeManifestList Validator     = v1.MediaTypeImageManifestList
+	MediaTypeImageConfig  Validator     = v1.MediaTypeImageConfig
+	MediaTypeImageLayer   unimplemented = v1.MediaTypeImageLayer
 )
 
 var (

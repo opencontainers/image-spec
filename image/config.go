@@ -26,28 +26,12 @@ import (
 	"strings"
 
 	"github.com/opencontainers/image-spec/schema"
+	"github.com/opencontainers/image-spec/specs-go/v1"
 	"github.com/opencontainers/runtime-spec/specs-go"
 	"github.com/pkg/errors"
 )
 
-type cfg struct {
-	User         string
-	Memory       int64
-	MemorySwap   int64
-	CPUShares    int64 `json:"CpuShares"`
-	ExposedPorts map[string]struct{}
-	Env          []string
-	Entrypoint   []string
-	Cmd          []string
-	Volumes      map[string]struct{}
-	WorkingDir   string
-}
-
-type config struct {
-	Architecture string `json:"architecture"`
-	OS           string `json:"os"`
-	Config       cfg    `json:"config"`
-}
+type config v1.Image
 
 func findConfig(w walker, d *descriptor) (*config, error) {
 	var c config

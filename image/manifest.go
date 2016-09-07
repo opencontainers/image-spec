@@ -28,6 +28,7 @@ import (
 	"time"
 
 	"github.com/opencontainers/image-spec/schema"
+	"github.com/opencontainers/image-spec/specs-go/v1"
 	"github.com/pkg/errors"
 )
 
@@ -74,12 +75,12 @@ func findManifest(w walker, d *descriptor) (*manifest, error) {
 }
 
 func (m *manifest) validate(w walker) error {
-	if err := m.Config.validate(w); err != nil {
+	if err := m.Config.validate(w, []string{v1.MediaTypeImageConfig}); err != nil {
 		return errors.Wrap(err, "config validation failed")
 	}
 
 	for _, d := range m.Layers {
-		if err := d.validate(w); err != nil {
+		if err := d.validate(w, []string{v1.MediaTypeImageLayer}); err != nil {
 			return errors.Wrap(err, "layer validation failed")
 		}
 	}
