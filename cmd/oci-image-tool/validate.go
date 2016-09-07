@@ -16,6 +16,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"strings"
@@ -138,6 +139,9 @@ func (v *validateCmd) validatePath(name string) error {
 
 	switch typ {
 	case typeManifest:
+		if err := validManifestfile(name); err != nil {
+			return errors.Wrap(err, "invalid manifest format")
+		}
 		return schema.MediaTypeManifest.Validate(f)
 	case typeManifestList:
 		return schema.MediaTypeManifestList.Validate(f)
@@ -146,4 +150,20 @@ func (v *validateCmd) validatePath(name string) error {
 	}
 
 	return fmt.Errorf("type %q unimplemented", typ)
+}
+
+func validManifestfile(name string) error {
+	f, err := os.Open(name)
+	if err != nil {
+		return errors.Wrap(err, "unable to open manifest")
+	}
+	defer f.Close()
+	buf, err := ioutil.ReadAll(f)
+	if err != nil {
+		return errors.Wrap(err, "unable to read manifest")
+	}
+	if err := image.ValidInternalMediaType(buf); err != nil {
+		return errors.Wrapf(err, "%s: manifest validation failed", name)
+	}
+	return nil
 }
