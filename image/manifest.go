@@ -112,7 +112,6 @@ func (m *manifest) unpack(w walker, dest string) error {
 		case nil:
 			return fmt.Errorf("%s: layer not found", dest)
 		case errEOW:
-			return nil
 		default:
 			return err
 		}
