@@ -25,8 +25,11 @@ DOC_FILES := \
 	code-of-conduct.md \
 	project.md \
 	media-types.md \
-	manifest.md \
-	serialization.md
+	descriptor.md \
+	image-layout.md \
+	layer.md \
+	serialization.md \
+	manifest.md
 
 FIGURE_FILES := \
 	img/media-types.png
