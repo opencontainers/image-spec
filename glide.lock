@@ -1,6 +1,16 @@
-hash: 223985f204597c6ed49657a4fc38273f683d40c39e8d48d13ed0dbf632107427
-updated: 2016-09-08T14:33:20.578698462Z
+hash: de6893a781a13dc078c00c394cf50111db4bc990824d94b6e0743c79d1fd5878
+updated: 2016-09-08T14:35:30.393400026Z
 imports:
+- name: github.com/docker/docker
+  version: f4bf5c7026816785d9f63c07e87f9450a49f2403
+  subpackages:
+  - pkg/archive
+  - pkg/fileutils
+  - pkg/ioutils
+  - pkg/pools
+  - pkg/promise
+  - pkg/system
+  - pkg/units
 - name: github.com/inconshreveable/mousetrap
   version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
 - name: github.com/opencontainers/runtime-spec
@@ -13,6 +23,8 @@ imports:
   version: 0b647d0506a698cca42caca173e55559b12a69f2
 - name: github.com/shurcooL/sanitized_anchor_name
   version: 10ef21a441db47d8b13ebcc5fd2310f636973c77
+- name: github.com/Sirupsen/logrus
+  version: 3ec0642a7fb6488f65b06f9040adc67e3990296a
 - name: github.com/spf13/cobra
   version: 9c28e4bbd74e5c3ed7aacbc552b2cab7cfdfe744
 - name: github.com/spf13/pflag
@@ -27,4 +39,8 @@ imports:
   version: f5283521d7365fb2875408726e9cbf349f173767
   subpackages:
   - errorutil
+- name: golang.org/x/sys
+  version: 30de6d19a3bd89a5f38ae4028e23aaa5582648af
+  subpackages:
+  - unix
 testImports: []
