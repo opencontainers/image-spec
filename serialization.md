@@ -300,7 +300,8 @@ Note: whitespace has been added to this example for clarity. Whitespace is OPTIO
 
         <ul>
           <li>
-            <code>type</code> is usually set to <code>layers</code>.
+            <code>type</code> which MUST be set to <code>layers</code>.
+            Implementations MUST generate an error if they encounter a unknown value while verifying or unpacking an image.
           </li>
           <li>
             <code>diff_ids</code> is an array of layer content hashes (<code>DiffIDs</code>), in order from bottom-most to top-most.
