@@ -49,9 +49,6 @@ type ImageConfig struct {
 
 // RootFS describes a layer content addresses
 type RootFS struct {
-	// Type is the type of the rootfs.
-	Type string `json:"type"`
-
 	// DiffIDs is an array of layer content hashes (DiffIDs), in order from bottom-most to top-most.
 	DiffIDs []string `json:"diff_ids"`
 }

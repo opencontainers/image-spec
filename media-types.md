@@ -38,6 +38,13 @@ This section shows where the OCI Image Specification is compatible with formats 
 
 - [application/vnd.docker.container.image.v1+json](https://github.com/docker/docker/blob/master/image/spec/v1.md#image-json-description)
 
+    Differences compared to the OCI schema:
+
+    * Docker's [v1.1](https://github.com/docker/docker/blob/master/image/spec/v1.1.md#container-runconfig-field-descriptions) and [v1.2](https://github.com/docker/docker/blob/master/image/spec/v1.2.md#container-runconfig-field-descriptions) declare a [`rootfs.type`] property but only document a `layers` argument.
+      The OCI configuration does not provide a `rootfs.type` property, and treats all configurations as if they used Docker's `layers` value.
+      Translators converting Docker v1.1 or v1.2 configurations to OCI configurations should error out if `rootfs.type` contains any string other than `layers`.
+      Translators converting OCI configurations to Docker v1.1 or v1.2 configurations should always set `rootfs.type` to `layers`.
+
 ## Relations
 
 The following figure shows how the above media types reference each other:

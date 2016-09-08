@@ -136,8 +136,7 @@ func TestConfig(t *testing.T) {
       "diff_ids": [
         "sha256:9d3dd9504c685a304985025df4ed0283e47ac9ffa9bd0326fddf4d59513f0827",
         "sha256:2b689805fbd00b2db1df73fae47562faac1a626d5f61744bfe29946ecff5d73d"
-      ],
-      "type": "layers"
+      ]
     },
     "history": [
       {
