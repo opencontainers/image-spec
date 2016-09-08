@@ -63,7 +63,7 @@ func newValidateCmd(stdout, stderr *log.Logger) *cobra.Command {
 	)
 
 	cmd.Flags().StringSliceVar(
-		&v.refs, "ref", []string{"v1.0"},
+		&v.refs, "ref", nil,
 		`A set of refs pointing to the manifests to be validated. Each reference must be present in the "refs" subdirectory of the image. Only applicable if type is image or imageLayout.`,
 	)
 
