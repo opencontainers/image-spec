@@ -92,6 +92,12 @@ func newPathWalker(root string) walker {
 
 func (w *pathWalker) walk(f walkFunc) error {
 	return filepath.Walk(w.root, func(path string, info os.FileInfo, err error) error {
+		// MUST check error value, to make sure the `os.FileInfo` is available.
+		// Otherwise panic risk will exist.
+		if err != nil {
+			return errors.Wrap(err, "error walking path")
+		}
+
 		rel, err := filepath.Rel(w.root, path)
 		if err != nil {
 			return errors.Wrap(err, "error walking path") // err from filepath.Walk includes path name
