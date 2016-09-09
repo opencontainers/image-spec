@@ -21,8 +21,9 @@ A client will distinguish a manifest list from an image manifest based on the Co
 
 - **`mediaType`** *string*
 
-  This REQUIRED property contains the MIME type of the manifest list.
+  This REQUIRED property contains the media type of the manifest list.
   For this version of the specification, this MUST be set to `application/vnd.oci.image.manifest.list.v1+json`.
+  For the media type(s) that this is compatible with see the [matrix](media-types.md#compatibility-matrix).
 
 - **`manifests`** *array*
 
@@ -122,8 +123,9 @@ Unlike the [Manifest List](#manifest-list), which contains information about a s
 
 - **`mediaType`** *string*
 
-    This REQUIRED property contains the MIME type of the image manifest.
+    This REQUIRED property contains the media type of the image manifest.
     For this version of the specification, this MUST be set to `application/vnd.oci.image.manifest.v1+json`.
+    For the media type(s) that this is compatible with see the [matrix](media-types.md#compatibility-matrix).
 
 - **`config`** *[descriptor](descriptor.md)*
 
