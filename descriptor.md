@@ -32,13 +32,13 @@ The following fields contain the primary properties that constitute a Descriptor
   This property exists so that a client will have an expected size for the content before processing.
   If the length of the retrieved content does not match the specified length, the content SHOULD NOT be trusted.
 
+- **`urls`** *array*
+
+  This OPTIONAL property specifies a list of URLs from which this object MAY be downloaded.
+
 ### Reserved
 
 The following field keys MUST NOT be used in descriptors specified in other OCI specifications:
-
-- **`urls`** *array*
-
-  This key is RESERVED for future versions of the specification.
 
 - **`data`** *string*
 
