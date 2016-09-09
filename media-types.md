@@ -7,7 +7,7 @@ The following `mediaType` MIME types are used by the formats described here, and
 - `application/vnd.oci.image.manifest.v1+json`: [Image manifest format](manifest.md#image-manifest)
 - `application/vnd.oci.image.config.v1+json`: [Container config JSON](serialization.md)
 - `application/vnd.oci.image.layer.tar+gzip`: ["Layer", as a gzipped tar archive](layer.md)
-- `application/vnd.oci.image.layer.foreign.tar+gzip`: ["Layer", as a gzipped tar that has distribution restrictions](layer.md#foreign-layers)
+- `application/vnd.oci.image.layer.nondistributable.tar+gzip`: ["Layer", as a gzipped tar that has distribution restrictions](layer.md#non-distributable-layers)
 
 ## Compatibility Matrix
 

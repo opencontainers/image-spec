@@ -270,12 +270,12 @@ Implementations SHOULD generate layers using _explicit whiteout_ files, but MUST
 
 Any given image is likely to be composed of several of these Image Filesystem Changeset tar archives.
 
-# Foreign Layers
+# Non-Distributable Layers
 
 Certain layers, due to legal requirements, may not be regularly distributable.
 Typically, such layers are downloaded directly from a distributor but are never uploaded.
 
-Layers that have these restrictions SHOULD be tagged with an alternative mediatype of `application/vnd.oci.image.layer.foreign.tar+gzip`.
+Layers that have these restrictions SHOULD be tagged with an alternative mediatype of `application/vnd.oci.image.layer.nondistributable.tar+gzip`.
 [Descriptors](descriptor.md) referencing these layers MAY include `urls` for downloading these layers.
 It is implementation defined whether or not implementations upload layers tagged with this media type.
 
