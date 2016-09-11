@@ -13,3 +13,5 @@ import:
   version: ~v1.4
 - package: github.com/shurcooL/sanitized_anchor_name
   version: 10ef21a441db47d8b13ebcc5fd2310f636973c77
+- package: github.com/Sirupsen/logrus
+  version: v0.10.0
