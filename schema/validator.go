@@ -16,10 +16,13 @@ package schema
 
 import (
 	"bytes"
+	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
 	"io"
 	"io/ioutil"
 
+	"github.com/Sirupsen/logrus"
 	"github.com/pkg/errors"
 	"github.com/xeipuuv/gojsonschema"
 )
@@ -53,6 +56,12 @@ func (v Validator) Validate(src io.Reader) error {
 			WrapSyntaxError(bytes.NewReader(buf), err),
 			"schema %s: unable to validate", v)
 	}
+
+	h := sha256.New()
+	if _, err := io.Copy(h, bytes.NewReader(buf)); err != nil {
+		return errors.Wrap(err, "error generating hash")
+	}
+	logrus.Debugf("the validated type(%s) object's hash digest is sha256:%s", v, hex.EncodeToString(h.Sum(nil)))
 
 	if result.Valid() {
 		return nil

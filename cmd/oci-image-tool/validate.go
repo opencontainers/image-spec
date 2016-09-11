@@ -20,6 +20,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/Sirupsen/logrus"
 	"github.com/opencontainers/image-spec/image"
 	"github.com/opencontainers/image-spec/schema"
 	"github.com/pkg/errors"
@@ -36,10 +37,11 @@ var validateTypes = []string{
 }
 
 type validateCmd struct {
-	stdout *log.Logger
-	stderr *log.Logger
-	typ    string // the type to validate, can be empty string
-	refs   []string
+	stdout   *log.Logger
+	stderr   *log.Logger
+	typ      string // the type to validate, can be empty string
+	refs     []string
+	logLevel string
 }
 
 func newValidateCmd(stdout, stderr *log.Logger) *cobra.Command {
@@ -67,6 +69,11 @@ func newValidateCmd(stdout, stderr *log.Logger) *cobra.Command {
 		`A set of refs pointing to the manifests to be validated. Each reference must be present in the "refs" subdirectory of the image. Only applicable if type is image or imageLayout.`,
 	)
 
+	cmd.Flags().StringVar(
+		&v.logLevel, "log-level", "info",
+		`Log level (panic, fatal, error, warn, info, or debug)`,
+	)
+
 	return cmd
 }
 
@@ -78,6 +85,13 @@ func (v *validateCmd) Run(cmd *cobra.Command, args []string) {
 		}
 		os.Exit(1)
 	}
+
+	logLevel, err := logrus.ParseLevel(v.logLevel)
+	if err != nil {
+		logrus.Fatalf(err.Error())
+		os.Exit(1)
+	}
+	logrus.SetLevel(logLevel)
 
 	var exitcode int
 	for _, arg := range args {
