@@ -41,7 +41,7 @@ func (e ValidationError) Error() string {
 func (v Validator) Validate(src io.Reader) error {
 	buf, err := ioutil.ReadAll(src)
 	if err != nil {
-		return errors.Wrap(err, "unable to read manifest")
+		return errors.Wrap(err, "unable to read the document file")
 	}
 
 	sl := gojsonschema.NewReferenceLoaderFileSystem("file:///"+specs[v], fs)
