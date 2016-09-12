@@ -54,14 +54,14 @@ It uniquely identifies content by taking a [collision-resistant hash](https://en
 If the identifier can be communicated in a secure manner, one can retrieve the content from an insecure source, calculate the digest independently, and be certain that the correct content was obtained.
 
 The value of the digest property, the _digest string_, is a serialized hash result, consisting of an _algorithm_ portion and a _hex_ portion.
-The algorithm identifies the methodology used to calculate the digest; the hex portion is the hex-encoded result of the hash.
+The algorithm identifies the methodology used to calculate the digest; the hex portion is the lowercase hex-encoded result of the hash.
 
-The digest string matches the following grammar:
+The digest string MUST match the following grammar:
 
 ```
 digest      := algorithm ":" hex
 algorithm   := /[a-z0-9_+.-]+/
-hex         := /[A-Fa-f0-9]+/
+hex         := /[a-f0-9]+/
 ```
 
 Some example digest strings include the following:
