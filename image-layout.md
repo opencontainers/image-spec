@@ -2,7 +2,7 @@
 
 The OCI Image Layout is a slash separated layout of OCI content-addressable blobs and [location-addressable](https://en.wikipedia.org/wiki/Content-addressable_storage#Content-addressed_vs._location-addressed) references (refs).
 This layout MAY be used in a variety of different transport mechanisms: archive formats (e.g. tar, zip), shared filesystem environments (e.g. nfs), or networked file fetching (e.g. http, ftp, rsync).
-Given an image layout a tool can convert a given ref into a runnable OCI Image Format by finding an appopriate manifest from the manifest list, unpacking the filesystem serializations in the correct order, and then converting the image configuration into an OCI Runtime config.json.
+Given an image layout a tool can convert a given ref into a runnable OCI Image Format by finding an appropriate manifest from the manifest list, unpacking the filesystem serializations in the correct order, and then converting the image configuration into an OCI Runtime config.json.
 
 The image layout has two top level directories:
 
