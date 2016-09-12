@@ -1,6 +1,6 @@
 # Media Types
 
-The following `mediaType` MIME types are used by the formats described here, and the resources they reference:
+The following media types identify the formats described here and their referenced resources:
 
 - `application/vnd.oci.descriptor.v1+json`: [Content Descriptor](descriptor.md)
 - `application/vnd.oci.image.manifest.list.v1+json`: [Manifest list](manifest.md#manifest-list)
