@@ -1,7 +1,7 @@
 # OCI Image Serialization
 
 An *Image* is an ordered collection of root filesystem changes and the corresponding execution parameters for use within a container runtime.
-This specification outlines the JSON format describing images for use with a container runtime and execution tool and its relationship to filesystem change sets, described in [Layers](layer.md).
+This specification outlines the JSON format describing images for use with a container runtime and execution tool and its relationship to filesystem changesets, described in [Layers](layer.md).
 
 ## Terminology
 
