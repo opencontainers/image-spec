@@ -49,6 +49,27 @@ func (d *descriptor) hash() string {
 	return pts[1]
 }
 
+func listReferences(w walker) (map[string]*descriptor, error) {
+	refs := make(map[string]*descriptor)
+
+	if err := w.walk(func(path string, info os.FileInfo, r io.Reader) error {
+		if info.IsDir() || !strings.HasPrefix(path, "refs") {
+			return nil
+		}
+
+		var d descriptor
+		if err := json.NewDecoder(r).Decode(&d); err != nil {
+			return err
+		}
+		refs[info.Name()] = &d
+
+		return nil
+	}); err != nil {
+		return nil, err
+	}
+	return refs, nil
+}
+
 func findDescriptor(w walker, name string) (*descriptor, error) {
 	var d descriptor
 	dpath := filepath.Join("refs", name)

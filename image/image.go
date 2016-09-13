@@ -16,6 +16,7 @@ package image
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -33,7 +34,7 @@ func ValidateLayout(src string, refs []string, out *log.Logger) error {
 
 // Validate walks through the given .tar file and
 // validates the manifest pointed to by the given refs
-// or returns an error if the validation failed.
+//iiii or returns an error if the validation failed.
 func Validate(tarFile string, refs []string, out *log.Logger) error {
 	f, err := os.Open(tarFile)
 	if err != nil {
@@ -50,17 +51,37 @@ var validRefMediaTypes = []string{
 }
 
 func validate(w walker, refs []string, out *log.Logger) error {
-	for _, r := range refs {
-		ref, err := findDescriptor(w, r)
-		if err != nil {
+	ds, err := listReferences(w)
+	if err != nil {
+		return err
+	}
+	if len(refs) == 0 && len(ds) == 0 {
+		// TODO(runcom): ugly, we'll need a better way and library
+		// to express log levels.
+		// see https://github.com/opencontainers/image-spec/issues/288
+		out.Print("WARNING: no descriptors found")
+	}
+
+	if len(refs) == 0 {
+		for ref := range ds {
+			refs = append(refs, ref)
+		}
+	}
+
+	for _, ref := range refs {
+		d, ok := ds[ref]
+		if !ok {
+			// TODO(runcom):
+			// soften this error to a warning if the user didn't ask for any specific reference
+			// with --ref but she's just validating the whole image.
+			return fmt.Errorf("reference %s not found", ref)
+		}
+
+		if err = d.validate(w, validRefMediaTypes); err != nil {
 			return err
 		}
 
-		if err = ref.validate(w, validRefMediaTypes); err != nil {
-			return err
-		}
-
-		m, err := findManifest(w, ref)
+		m, err := findManifest(w, d)
 		if err != nil {
 			return err
 		}
@@ -69,7 +90,7 @@ func validate(w walker, refs []string, out *log.Logger) error {
 			return err
 		}
 		if out != nil {
-			out.Printf("reference %q: OK", r)
+			out.Printf("reference %q: OK", ref)
 		}
 	}
 	return nil
