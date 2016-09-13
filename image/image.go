@@ -25,16 +25,14 @@ import (
 	"github.com/pkg/errors"
 )
 
-// ValidateLayout walks through the file tree given by src and
-// validates the manifest pointed to by the given refs
-// or returns an error if the validation failed.
+// ValidateLayout walks through the given file tree and validates the manifest
+// pointed to by the given refs or returns an error if the validation failed.
 func ValidateLayout(src string, refs []string, out *log.Logger) error {
 	return validate(newPathWalker(src), refs, out)
 }
 
-// Validate walks through the given .tar file and
-// validates the manifest pointed to by the given refs
-// or returns an error if the validation failed.
+// Validate walks through the given .tar file and validates the manifest
+// pointed to by the given refs or returns an error if the validation failed.
 func Validate(tarFile string, refs []string, out *log.Logger) error {
 	f, err := os.Open(tarFile)
 	if err != nil {
@@ -96,18 +94,16 @@ func validate(w walker, refs []string, out *log.Logger) error {
 	return nil
 }
 
-// UnpackLayout walks through the file tree given by src and
-// using the layers specified in the manifest pointed to by the given ref
-// and unpacks all layers in the given destination directory
-// or returns an error if the unpacking failed.
+// UnpackLayout walks through the file tree given by src and, using the layers
+// specified in the manifest pointed to by the given ref, unpacks all layers in
+// the given destination directory or returns an error if the unpacking failed.
 func UnpackLayout(src, dest, ref string) error {
 	return unpack(newPathWalker(src), dest, ref)
 }
 
-// Unpack walks through the given .tar file and
-// using the layers specified in the manifest pointed to by the given ref
-// and unpacks all layers in the given destination directory
-// or returns an error if the unpacking failed.
+// Unpack walks through the given .tar file and, using the layers specified in
+// the manifest pointed to by the given ref, unpacks all layers in the given
+// destination directory or returns an error if the unpacking failed.
 func Unpack(tarFile, dest, ref string) error {
 	f, err := os.Open(tarFile)
 	if err != nil {
