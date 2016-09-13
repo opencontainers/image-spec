@@ -37,17 +37,18 @@ func TestManifest(t *testing.T) {
 			fail: true,
 		},
 
-		// expected failure: config.size is integer, expected string
+		// expected failure: config.size is a string, expected integer
 		{
 			manifest: `
 {
   "schemaVersion": 2,
   "mediaType": "application/vnd.oci.image.manifest.v1+json",
   "config": {
-    "mediaType": "application/vnd.oci.image.serialization.v1+json",
+    "mediaType": "application/vnd.oci.image.config.v1+json",
     "size": "1470",
     "digest": "sha256:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
-  }
+  },
+  "layers": []
 }
 `,
 			fail: true,
@@ -60,14 +61,15 @@ func TestManifest(t *testing.T) {
   "schemaVersion": 2,
   "mediaType": "application/vnd.oci.image.manifest.v1+json",
   "config": {
-    "mediaType": "application/vnd.oci.image.serialization.v1+json",
+    "mediaType": "application/vnd.oci.image.config.v1+json",
     "size": 1470,
     "digest": "sha256:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
   },
   "layers": [
     {
       "mediaType": "application/vnd.oci.image.layer.tar+gzip",
-      "size": "675598"
+      "size": "675598",
+      "digest": "sha256:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
     }
   ]
 }
@@ -82,7 +84,7 @@ func TestManifest(t *testing.T) {
   "schemaVersion": 2,
   "mediaType": "application/vnd.oci.image.manifest.v1+json",
   "config": {
-    "mediaType": "application/vnd.oci.image.serialization.v1+json",
+    "mediaType": "application/vnd.oci.image.config.v1+json",
     "size": 1470,
     "digest": "sha256:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
   },
