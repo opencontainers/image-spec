@@ -135,7 +135,7 @@ Unlike the [Manifest List](#manifest-list), which contains information about a s
 - **`config`** *[descriptor](descriptor.md)*
 
     This REQUIRED property references a configuration object for a container, by digest.
-    The referenced configuration object is a JSON blob that the runtime uses to set up the container, see [Image JSON Description](serialization.md#image-json-description).
+    The referenced configuration object is a JSON blob that the runtime uses to set up the container, see [Image JSON Description](config.md).
 
 - **`layers`** *array*
 

@@ -28,7 +28,7 @@ DOC_FILES := \
 	descriptor.md \
 	image-layout.md \
 	layer.md \
-	serialization.md \
+	config.md \
 	manifest.md
 
 FIGURE_FILES := \

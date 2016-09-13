@@ -56,12 +56,12 @@ This specification uses the following terms:
     </dd>
 </dl>
 
-## Image JSON Description
+## Image Configuration
 
-Here is an example image JSON file:
+Here is an example image configuration JSON document:
 
 ```json,title=Image%20JSON&mediatype=application/vnd.oci.image.config.v1%2Bjson
-{  
+{
     "created": "2015-10-31T22:22:56.015925234Z",
     "author": "Alyssa P. Hacker <alyspdev@example.com>",
     "architecture": "amd64",
@@ -71,10 +71,10 @@ Here is an example image JSON file:
         "Memory": 2048,
         "MemorySwap": 4096,
         "CpuShares": 8,
-        "ExposedPorts": {  
+        "ExposedPorts": {
             "8080/tcp": {}
         },
-        "Env": [  
+        "Env": [
             "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
             "FOO=oci_is_a",
             "BAR=well_written_spec"
