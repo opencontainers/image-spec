@@ -30,7 +30,16 @@ A client will distinguish a manifest list from an image manifest based on the Co
   This REQUIRED property contains a list of manifests for specific platforms.
   While the property MUST be present, the size of the array MAY be zero.
 
-  Each object in the manifest is a [descriptor](descriptor.md) with the following additional properties:
+  Each object in the manifest is a [descriptor](descriptor.md) with the following additional properties and restrictions:
+
+  - **`mediaType`** *object*
+
+    This [descriptor property](descriptor.md#properties) has additional restrictions for `manifests`.
+    Implementations MUST support at least the following media types:
+
+    - [`application/vnd.oci.image.manifest.v1+json`](#image-manifest)
+
+    Manifest lists concerned with portability SHOULD use one of the above media types.
 
   - **`platform`** *object*
 
@@ -135,7 +144,16 @@ Unlike the [Manifest List](#manifest-list), which contains information about a s
 - **`config`** *[descriptor](descriptor.md)*
 
     This REQUIRED property references a configuration object for a container, by digest.
-    The referenced configuration object is a JSON blob that the runtime uses to set up the container, see [Image JSON Description](config.md).
+    Beyond the [descriptor requirements](descriptor.md#properties), the value has the following additional restrictions:
+
+    - **`mediaType`** *object*
+
+        This [descriptor property](descriptor.md#properties) has additional restrictions for `config`.
+        Implementations MUST support at least the following media types:
+
+        - [`application/vnd.oci.image.config.v1+json`](config.md)
+
+        Manifests concerned with portability SHOULD use one of the above media types.
 
 - **`layers`** *array*
 
@@ -143,6 +161,18 @@ Unlike the [Manifest List](#manifest-list), which contains information about a s
     The array MUST have the base image at index 0.
     Subsequent layers MUST then follow in the order in which they are to be layered on top of each other.
     The algorithm to create the final unpacked filesystem layout MUST be to first unpack the layer at index 0, then index 1, and so on.
+
+    Beyond the [descriptor requirements](descriptor.md#properties), the value has the following additional restrictions:
+
+    - **`mediaType`** *object*
+
+        This [descriptor property](descriptor.md#properties) has additional restrictions for `layers[]`.
+        Implementations MUST support at least the following media types:
+
+        - [`application/vnd.oci.image.layer.tar+gzip`](layer.md)
+        - [`application/vnd.oci.image.layer.nondistributable.tar+gzip`](layer.md#non-distributable-layers)
+
+        Manifests concerned with portability SHOULD use one of the above media types.
 
 - **`annotations`** *string-string map*
 
