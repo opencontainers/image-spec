@@ -34,7 +34,7 @@ func ValidateLayout(src string, refs []string, out *log.Logger) error {
 
 // Validate walks through the given .tar file and
 // validates the manifest pointed to by the given refs
-//iiii or returns an error if the validation failed.
+// or returns an error if the validation failed.
 func Validate(tarFile string, refs []string, out *log.Logger) error {
 	f, err := os.Open(tarFile)
 	if err != nil {
