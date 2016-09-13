@@ -15,18 +15,22 @@
 package v1
 
 const (
-	// MediaTypeDescriptor specifies the mediaType for a content descriptor.
+	// MediaTypeDescriptor specifies the media type for a content descriptor.
 	MediaTypeDescriptor = "application/vnd.oci.descriptor.v1+json"
 
-	// MediaTypeImageManifest specifies the mediaType for an image manifest.
+	// MediaTypeImageManifest specifies the media type for an image manifest.
 	MediaTypeImageManifest = "application/vnd.oci.image.manifest.v1+json"
 
-	// MediaTypeImageManifestList specifies the mediaType for an image manifest list.
+	// MediaTypeImageManifestList specifies the media type for an image manifest list.
 	MediaTypeImageManifestList = "application/vnd.oci.image.manifest.list.v1+json"
 
-	// MediaTypeImageLayer is the mediaType used for layers referenced by the manifest.
+	// MediaTypeImageLayer is the media type used for layers referenced by the manifest.
 	MediaTypeImageLayer = "application/vnd.oci.image.layer.tar+gzip"
 
-	// MediaTypeImageConfig specifies the mediaType for the image configuration.
+	// MediaTypeImageLayerNonDistributable is the media type for layers referenced by
+	// the manifest but with distribution restrictions.
+	MediaTypeImageLayerNonDistributable = "application/vnd.oci.image.layer.nondistributable.tar+gzip"
+
+	// MediaTypeImageConfig specifies the media type for the image configuration.
 	MediaTypeImageConfig = "application/vnd.oci.image.config.v1+json"
 )
