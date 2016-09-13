@@ -39,7 +39,7 @@ func TestUnpackLayerDuplicateEntries(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer f.Close()
-	defer os.RemoveAll(tarfile)
+	defer os.RemoveAll(tmp1)
 	gw := gzip.NewWriter(f)
 	tw := tar.NewWriter(gw)
 
