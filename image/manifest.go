@@ -59,10 +59,6 @@ func findManifest(w walker, d *descriptor) (*manifest, error) {
 			return err
 		}
 
-		if len(m.Layers) == 0 {
-			return fmt.Errorf("%s: no layers found", path)
-		}
-
 		return errEOW
 	}); err {
 	case nil:
