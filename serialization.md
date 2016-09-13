@@ -278,7 +278,7 @@ Note: whitespace has been added to this example for clarity. Whitespace is OPTIO
 		Here is an example:
 <pre>{
     "/var/my-app-data/": {},
-    "/etc/some-config.d/": {},
+    "/etc/some-config.d/": {}
 }</pre>
             </dd>
             <dt>
