@@ -2,10 +2,10 @@
 
 The OCI Image Format project creates and maintains the software shipping container image format spec (OCI Image Format). The goal of this specification is to enable the creation of interoperable tools for building, transporting, and preparing a container image to run.
 
-This specification defines how to create an OCI Image, which will generally be done by a build system, and output an [image manifest](manifest.md), a set of [filesystem layers](layer.md), and an [image configuration](serialization.md).
-At a high level the image manifest contains metadata about the contents and dependencies of the image including the content-addressable identity of one or more filesystem serialization archives that will be unpacked to make up the final runnable filesystem.
+This specification defines how to create an OCI Image, which will generally be done by a build system, and output an [image manifest](manifest.md), a set of [filesystem layers](layer.md), and an [image configuration](config.md).
+At a high level the image manifest contains metadata about the contents and dependencies of the image including the content-addressable identity of one or more [filesystem layer changeset](layer.md) archives that will be unpacked to make up the final runnable filesystem.
 The image configuration includes information such as application arguments, environments, etc.
-The combination of the image manifest, image configuration, and one or more filesystem serializations is called the "OCI Image".
+The combination of the image manifest, image configuration, and one or more filesystem layers is called the "OCI Image".
 
 The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" are to be interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119) (Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, March 1997).
 
@@ -17,11 +17,11 @@ Once built the OCI Image can then be discovered by name, downloaded, verified by
 
 ## Understanding the Specification
 
-The [Media Types](media-types.md) document is a starting point to understanding the overall structure of the specification. This document outlines the OCI Image file format specifications, including the critical filesystem serialization and image manifest described above.
+The [Media Types](media-types.md) document is a starting point to understanding the overall structure of the specification. This document outlines the OCI Image file format specifications, including the [filesystem layer changesets](layer.md) and image manifest described above.
 
 The high level components of the spec include:
 
-* An [image manifest](manifest.md), a set of [filesystem layers](layer.md), and [image configuration](serialization.md) (base layer)
+* An [image manifest](manifest.md), a set of [filesystem layers](layer.md), and [image configuration](config.md) (base layer)
 * A process of hashing the image format for integrity and content-addressing (base layer)
 * Signatures that are based on signing image content address (optional layer)
 * Naming that is federated based on DNS and can be delegated (optional layer)

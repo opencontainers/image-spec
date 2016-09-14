@@ -41,8 +41,8 @@ func TestValidateManifest(t *testing.T) {
 	validate(t, "../manifest.md")
 }
 
-func TestValidateSerialization(t *testing.T) {
-	validate(t, "../serialization.md")
+func TestValidateConfig(t *testing.T) {
+	validate(t, "../config.md")
 }
 
 // TODO(sur): include examples from all specification files
