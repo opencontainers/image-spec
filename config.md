@@ -1,4 +1,4 @@
-# OCI Image Serialization
+# Image Configuration
 
 An *Image* is an ordered collection of root filesystem changes and the corresponding execution parameters for use within a container runtime.
 This specification outlines the JSON format describing images for use with a container runtime and execution tool and its relationship to filesystem changesets, described in [Layers](layer.md).
@@ -56,67 +56,7 @@ This specification uses the following terms:
     </dd>
 </dl>
 
-## Image Configuration
-
-Here is an example image configuration JSON document:
-
-```json,title=Image%20JSON&mediatype=application/vnd.oci.image.config.v1%2Bjson
-{
-    "created": "2015-10-31T22:22:56.015925234Z",
-    "author": "Alyssa P. Hacker <alyspdev@example.com>",
-    "architecture": "amd64",
-    "os": "linux",
-    "config": {
-        "User": "alice",
-        "Memory": 2048,
-        "MemorySwap": 4096,
-        "CpuShares": 8,
-        "ExposedPorts": {
-            "8080/tcp": {}
-        },
-        "Env": [
-            "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
-            "FOO=oci_is_a",
-            "BAR=well_written_spec"
-        ],
-        "Entrypoint": [
-            "/bin/my-app-binary"
-        ],
-        "Cmd": [
-            "--foreground",
-            "--config",
-            "/etc/my-app.d/default.cfg"
-        ],
-        "Volumes": {
-            "/var/job-result-data": {},
-            "/var/log/my-app-logs": {}
-        },
-        "WorkingDir": "/home/alice"
-    },
-    "rootfs": {
-      "diff_ids": [
-        "sha256:c6f988f4874bb0add23a778f753c65efe992244e148a1d2ec2a8b664fb66bbd1",
-        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
-      ],
-      "type": "layers"
-    },
-    "history": [
-      {
-        "created": "2015-10-31T22:22:54.690851953Z",
-        "created_by": "/bin/sh -c #(nop) ADD file:a3bc1e842b69636f9df5256c49c5374fb4eef1e281fe3f282c65fb853ee171c5 in /"
-      },
-      {
-        "created": "2015-10-31T22:22:55.613815829Z",
-        "created_by": "/bin/sh -c #(nop) CMD [\"sh\"]",
-        "empty_layer": true
-      }
-    ]
-}
-```
-
-Note: whitespace has been added to this example for clarity. Whitespace is OPTIONAL and implementations MAY have compact JSON with no whitespace.
-
-### Image JSON Field Descriptions
+## Properties
 
 <dl>
     <dt>
@@ -365,3 +305,62 @@ Here is an example history section:
 </dl>
 
 Any extra fields in the Image JSON struct are considered implementation specific and should be ignored by any implementations which are unable to interpret them.
+Whitespace is OPTIONAL and implementations MAY have compact JSON with no whitespace.
+
+## Example
+
+Here is an example image configuration JSON document:
+
+```json,title=Image%20JSON&mediatype=application/vnd.oci.image.config.v1%2Bjson
+{
+    "created": "2015-10-31T22:22:56.015925234Z",
+    "author": "Alyssa P. Hacker <alyspdev@example.com>",
+    "architecture": "amd64",
+    "os": "linux",
+    "config": {
+        "User": "alice",
+        "Memory": 2048,
+        "MemorySwap": 4096,
+        "CpuShares": 8,
+        "ExposedPorts": {
+            "8080/tcp": {}
+        },
+        "Env": [
+            "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+            "FOO=oci_is_a",
+            "BAR=well_written_spec"
+        ],
+        "Entrypoint": [
+            "/bin/my-app-binary"
+        ],
+        "Cmd": [
+            "--foreground",
+            "--config",
+            "/etc/my-app.d/default.cfg"
+        ],
+        "Volumes": {
+            "/var/job-result-data": {},
+            "/var/log/my-app-logs": {}
+        },
+        "WorkingDir": "/home/alice"
+    },
+    "rootfs": {
+      "diff_ids": [
+        "sha256:c6f988f4874bb0add23a778f753c65efe992244e148a1d2ec2a8b664fb66bbd1",
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+      ],
+      "type": "layers"
+    },
+    "history": [
+      {
+        "created": "2015-10-31T22:22:54.690851953Z",
+        "created_by": "/bin/sh -c #(nop) ADD file:a3bc1e842b69636f9df5256c49c5374fb4eef1e281fe3f282c65fb853ee171c5 in /"
+      },
+      {
+        "created": "2015-10-31T22:22:55.613815829Z",
+        "created_by": "/bin/sh -c #(nop) CMD [\"sh\"]",
+        "empty_layer": true
+      }
+    ]
+}
+```
