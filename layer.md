@@ -277,6 +277,6 @@ Typically, such layers are downloaded directly from a distributor but are never 
 
 Layers that have these restrictions SHOULD be tagged with an alternative mediatype of `application/vnd.oci.image.layer.nondistributable.tar+gzip`.
 [Descriptors](descriptor.md) referencing these layers MAY include `urls` for downloading these layers.
-It is implementation defined whether or not implementations upload layers tagged with this media type.
+It is implementation-defined whether or not implementations upload layers tagged with this media type.
 
 [tar-archive]: https://en.wikipedia.org/wiki/Tar_(computing)
