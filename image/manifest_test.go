@@ -28,27 +28,25 @@ import (
 	"testing"
 )
 
+type tarContent struct {
+	header *tar.Header
+	b      []byte
+}
+
 func TestUnpackLayerDuplicateEntries(t *testing.T) {
 	tmp1, err := ioutil.TempDir("", "test-dup")
 	if err != nil {
 		t.Fatal(err)
 	}
 	tarfile := filepath.Join(tmp1, "test.tar")
-	f, err := os.Create(tarfile)
+
+	_, err = createTarFile(tarfile, []tarContent{
+		tarContent{&tar.Header{Name: "test", Size: 4, Mode: 0600}, []byte("test")},
+		tarContent{&tar.Header{Name: "test", Size: 5, Mode: 0600}, []byte("test1")},
+	})
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer f.Close()
-	defer os.RemoveAll(tmp1)
-	gw := gzip.NewWriter(f)
-	tw := tar.NewWriter(gw)
-
-	tw.WriteHeader(&tar.Header{Name: "test", Size: 4, Mode: 0600})
-	io.Copy(tw, bytes.NewReader([]byte("test")))
-	tw.WriteHeader(&tar.Header{Name: "test", Size: 5, Mode: 0600})
-	io.Copy(tw, bytes.NewReader([]byte("test1")))
-	tw.Close()
-	gw.Close()
 
 	r, err := os.Open(tarfile)
 	if err != nil {
@@ -76,32 +74,15 @@ func TestUnpackLayer(t *testing.T) {
 		t.Fatal(err)
 	}
 	tarfile := filepath.Join(tmp1, "blobs", "sha256", "test.tar")
-	f, err := os.Create(tarfile)
+
+	desc, err := createTarFile(tarfile, []tarContent{
+		tarContent{&tar.Header{Name: "test", Size: 4, Mode: 0600}, []byte("test")},
+	})
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	gw := gzip.NewWriter(f)
-	tw := tar.NewWriter(gw)
-
-	tw.WriteHeader(&tar.Header{Name: "test", Size: 4, Mode: 0600})
-	io.Copy(tw, bytes.NewReader([]byte("test")))
-	tw.Close()
-	gw.Close()
-	f.Close()
-
-	// generate sha256 hash
-	h := sha256.New()
-	file, err := os.Open(tarfile)
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer file.Close()
-	_, err = io.Copy(h, file)
-	if err != nil {
-		t.Fatal(err)
-	}
-	err = os.Rename(tarfile, filepath.Join(tmp1, "blobs", "sha256", fmt.Sprintf("%x", h.Sum(nil))))
+	err = os.Rename(tarfile, filepath.Join(tmp1, "blobs", "sha256", desc.Digest))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -109,7 +90,7 @@ func TestUnpackLayer(t *testing.T) {
 	testManifest := manifest{
 		Layers: []descriptor{descriptor{
 			MediaType: "application/vnd.oci.image.layer.tar+gzip",
-			Digest:    fmt.Sprintf("sha256:%s", fmt.Sprintf("%x", h.Sum(nil))),
+			Digest:    fmt.Sprintf("sha256:%s", desc.Digest),
 		}},
 	}
 	err = testManifest.unpack(newPathWalker(tmp1), filepath.Join(tmp1, "rootfs"))
@@ -121,4 +102,46 @@ func TestUnpackLayer(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+}
+
+func createTarFile(name string, list []tarContent) (descriptor, error) {
+	f, err := os.Create(name)
+	if err != nil {
+		return descriptor{}, err
+	}
+	gw := gzip.NewWriter(f)
+	tw := tar.NewWriter(gw)
+
+	for _, content := range list {
+		if err = tw.WriteHeader(content.header); err != nil {
+			tw.Close()
+			gw.Close()
+			f.Close()
+			return descriptor{}, err
+		}
+		if _, err = io.Copy(tw, bytes.NewReader(content.b)); err != nil {
+			tw.Close()
+			gw.Close()
+			f.Close()
+			return descriptor{}, err
+		}
+	}
+	tw.Close()
+	gw.Close()
+	f.Close()
+
+	// generate sha256 hash
+	h := sha256.New()
+	file, err := os.Open(name)
+	if err != nil {
+		return descriptor{}, err
+	}
+	defer file.Close()
+
+	size, err := io.Copy(h, file)
+	if err != nil {
+		return descriptor{}, err
+	}
+
+	return descriptor{Digest: fmt.Sprintf("%x", h.Sum(nil)), Size: size}, nil
 }
