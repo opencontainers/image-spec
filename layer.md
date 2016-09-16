@@ -6,7 +6,7 @@ This document will use a concrete example to illustrate how to create and consum
 
 ## Distributable Format
 
-Layer Changesets for the [mediatype](./media-types.md) `application/vnd.oci.image.layer.tar+gzip` MUST be packaged in [tar archive][tar-archive].
+Layer Changesets for the [mediatype](./media-types.md) `application/vnd.oci.image.layer.tar+gzip` MUST be packaged in a [tar archive][tar-archive] compressed with [gzip][gzip].
 Layer Changesets for the [mediatype](./media-types.md) `application/vnd.oci.image.layer.tar+gzip` MUST NOT include duplicate entries for file paths in the resulting [tar archive][tar-archive].
 
 ## Change Types
@@ -318,3 +318,4 @@ It is implementation-defined whether or not implementations upload layers tagged
 [libarchive-tar]: https://github.com/libarchive/libarchive/wiki/ManPageTar5#POSIX_ustar_Archives
 [gnu-tar-standard]: http://www.gnu.org/software/tar/manual/html_node/Standard.html
 [tar-archive]: https://en.wikipedia.org/wiki/Tar_(computing)
+[gzip]: http://www.zlib.org/rfc-gzip.html
