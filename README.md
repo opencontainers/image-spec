@@ -2,6 +2,20 @@
 
 The OCI Image Format project creates and maintains the software shipping container image format spec (OCI Image Format). The goal of this specification is to enable the creation of interoperable tools for building, transporting, and preparing a container image to run.
 
+## Table of Contents
+
+- [Introduction](README.md)
+    - [Code of Conduct](#code-of-conduct)
+    - [Project Documentation](project.md)
+    - [Media Types](media-types.md)
+- [Content Descriptors](descriptor.md)
+- [Image Layout](image-layout.md)
+- [Filesystem Layers](layer.md)
+- [Image Configuration](config.md)
+- [Manifests and Manifest Lists](manifest.md)
+
+## Overview
+
 This specification defines how to create an OCI Image, which will generally be done by a build system, and output an [image manifest](manifest.md), a set of [filesystem layers](layer.md), and an [image configuration](config.md).
 At a high level the image manifest contains metadata about the contents and dependencies of the image including the content-addressable identity of one or more [filesystem layer changeset](layer.md) archives that will be unpacked to make up the final runnable filesystem.
 The image configuration includes information such as application arguments, environments, etc.
