@@ -25,7 +25,7 @@ type Manifest struct {
 	Config Descriptor `json:"config"`
 
 	// Layers is an indexed list of layers referenced by the manifest.
-	Layers []Descriptor `json:"layers"`
+	Layers []Descriptor `json:"layers,omitempty"`
 
 	// Annotations contains arbitrary metadata for the manifest list.
 	Annotations map[string]string `json:"annotations"`
