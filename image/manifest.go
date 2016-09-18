@@ -51,6 +51,10 @@ func findManifest(w walker, d *descriptor) (*manifest, error) {
 			return errors.Wrapf(err, "%s: error reading manifest", path)
 		}
 
+		if err := ValidInternalMediaType(buf); err != nil {
+			return errors.Wrapf(err, "%s: manifest validation failed", path)
+		}
+
 		if err := schema.MediaTypeManifest.Validate(bytes.NewReader(buf)); err != nil {
 			return errors.Wrapf(err, "%s: manifest validation failed", path)
 		}
@@ -236,6 +240,36 @@ loop:
 		// invalid error from chtimes.....but here we lose hdr.AccessTime like this...
 		if err := os.Chtimes(path, time.Now().UTC(), finfo.ModTime()); err != nil {
 			return errors.Wrap(err, "error changing time")
+		}
+	}
+	return nil
+}
+
+// ValidInternalMediaType validate the manifest's internal
+// fields mediatype such as config and layers, to make sure
+// they match to spec definition, or returns an error if
+// the validation failed.
+func ValidInternalMediaType(buf []byte) error {
+	header := struct {
+		Config struct {
+			MediaType string `json:"mediaType"`
+		} `json:"config"`
+		Layers []struct {
+			MediaType string `json:"mediaType"`
+		} `json:"layers"`
+	}{}
+
+	if err := json.NewDecoder(bytes.NewReader(buf)).Decode(&header); err != nil {
+		return errors.Wrap(err, "manifest format mismatch")
+	}
+	if header.Config.MediaType != string(schema.MediaTypeImageConfig) &&
+		header.Config.MediaType != string(schema.MediaTypeDockerImageConfig) {
+		return fmt.Errorf("illegal config mediaType: %s", header.Config.MediaType)
+	}
+	for _, layer := range header.Layers {
+		if layer.MediaType != string(schema.MediaTypeImageLayer) &&
+			layer.MediaType != string(schema.MediaTypeDockerImageLayer) {
+			return fmt.Errorf("illegal layer mediaType: %s", layer.MediaType)
 		}
 	}
 	return nil

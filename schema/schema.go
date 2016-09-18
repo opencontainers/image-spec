@@ -22,11 +22,13 @@ import (
 
 // Media types for the OCI image formats
 const (
-	MediaTypeDescriptor   Validator     = v1.MediaTypeDescriptor
-	MediaTypeManifest     Validator     = v1.MediaTypeImageManifest
-	MediaTypeManifestList Validator     = v1.MediaTypeImageManifestList
-	MediaTypeImageConfig  Validator     = v1.MediaTypeImageConfig
-	MediaTypeImageLayer   unimplemented = v1.MediaTypeImageLayer
+	MediaTypeDescriptor        Validator     = v1.MediaTypeDescriptor
+	MediaTypeManifest          Validator     = v1.MediaTypeImageManifest
+	MediaTypeManifestList      Validator     = v1.MediaTypeImageManifestList
+	MediaTypeImageConfig       Validator     = v1.MediaTypeImageConfig
+	MediaTypeImageLayer        unimplemented = v1.MediaTypeImageLayer
+	MediaTypeDockerImageConfig Validator     = "application/vnd.docker.container.image.v1+json"
+	MediaTypeDockerImageLayer  unimplemented = "application/vnd.docker.image.rootfs.diff.tar.gzip"
 )
 
 var (
