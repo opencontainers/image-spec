@@ -4,12 +4,12 @@ This document describes how to serialize a filesystem and filesystem changes lik
 One or more layers are applied on top of each other to create a complete filesystem.
 This document will use a concrete example to illustrate how to create and consume these filesystem layers.
 
-This section defines the `application/vnd.oci.image.layer.v1.tar+gzip` and `application/vnd.oci.image.layer.nondistributable.v1.tar+gzip` [media types](media-types.md).
+This section defines the `application/vnd.oci.image.layer.v1.tar` and `application/vnd.oci.image.layer.nondistributable.v1.tar` [media types](media-types.md).
 
 ## Distributable Format
 
-Layer Changesets for the [mediatype](./media-types.md) `application/vnd.oci.image.layer.v1.tar+gzip` MUST be packaged in a [tar archive][tar-archive] compressed with [gzip][gzip].
-Layer Changesets for the [mediatype](./media-types.md) `application/vnd.oci.image.layer.v1.tar+gzip` MUST NOT include duplicate entries for file paths in the resulting [tar archive][tar-archive].
+Layer Changesets for the [media type](./media-types.md) `application/vnd.oci.image.layer.v1.tar` MUST be packaged in [tar archive][tar-archive].
+Layer Changesets for the [media type](./media-types.md) `application/vnd.oci.image.layer.v1.tar` MUST NOT include duplicate entries for file paths in the resulting [tar archive][tar-archive].
 
 ## Change Types
 
@@ -208,7 +208,7 @@ To signify that the resource `./etc/my-app-config` MUST be removed when the chan
 
 ## Applying Changesets
 
-Layer Changesets of [mediatype](./media-types.md) `application/vnd.oci.image.layer.v1.tar+gzip` are _applied_, rather than simply extracted as tar archives.
+Layer Changesets of [media type](./media-types.md) `application/vnd.oci.image.layer.v1.tar` are _applied_, rather than simply extracted as tar archives.
 
 Applying a layer changeset requires special consideration for the [whiteout](#whiteouts) files.
 
@@ -311,11 +311,10 @@ Any given image is likely to be composed of several of these Image Filesystem Ch
 Certain layers, due to legal requirements, may not be regularly distributable.
 Typically, such layers are downloaded directly from a distributor but are never uploaded.
 
-Layers that have these restrictions SHOULD be tagged with an alternative mediatype of `application/vnd.oci.image.layer.nondistributable.v1.tar+gzip`.
+Layers that have these restrictions SHOULD be tagged with an alternative media type of `application/vnd.oci.image.layer.nondistributable.v1.tar`.
 [Descriptors](descriptor.md) referencing these layers MAY include `urls` for downloading these layers.
 It is implementation-defined whether or not implementations upload layers tagged with this media type.
 
 [libarchive-tar]: https://github.com/libarchive/libarchive/wiki/ManPageTar5#POSIX_ustar_Archives
 [gnu-tar-standard]: http://www.gnu.org/software/tar/manual/html_node/Standard.html
 [tar-archive]: https://en.wikipedia.org/wiki/Tar_(computing)
-[gzip]: http://www.zlib.org/rfc-gzip.html
