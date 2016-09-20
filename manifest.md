@@ -54,10 +54,14 @@ Unlike the [Manifest List](manifest-list.md), which contains information about a
         This [descriptor property](descriptor.md#properties) has additional restrictions for `layers[]`.
         Implementations MUST support at least the following media types:
 
-        - [`application/vnd.oci.image.layer.v1.tar+gzip`](layer.md)
-        - [`application/vnd.oci.image.layer.nondistributable.v1.tar+gzip`](layer.md#non-distributable-layers)
+        - [`application/vnd.oci.image.layer.v1.tar`](layer.md)
+        - [`application/vnd.oci.image.layer.v1.tar+gzip`](layer.md#gzip-media-types)
+        - [`application/vnd.oci.image.layer.nondistributable.v1.tar`](layer.md#non-distributable-layers)
+        - [`application/vnd.oci.image.layer.nondistributable.v1.tar+gzip`](layer.md#gzip-media-types)
 
         Manifests concerned with portability SHOULD use one of the above media types.
+
+        Entries in this field will frequently use the `+gzip` types.
 
 - **`annotations`** *string-string map*
 

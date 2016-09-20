@@ -6,8 +6,10 @@ The following media types identify the formats described here and their referenc
 - `application/vnd.oci.image.manifest.list.v1+json`: [Manifest list](manifest-list.md#manifest-list)
 - `application/vnd.oci.image.manifest.v1+json`: [Image manifest](manifest.md#image-manifest)
 - `application/vnd.oci.image.config.v1+json`: [Image config](config.md)
-- `application/vnd.oci.image.layer.v1.tar+gzip`: ["Layer", as a gzipped tar archive](layer.md)
-- `application/vnd.oci.image.layer.nondistributable.v1.tar+gzip`: ["Layer", as a gzipped tar archive with distribution restrictions](layer.md#non-distributable-layers)
+- `application/vnd.oci.image.layer.v1.tar`: ["Layer", as a tar archive](layer.md)
+- `application/vnd.oci.image.layer.v1.tar+gzip`: ["Layer", as a tar archive](layer.md#gzip-media-types) compressed with [gzip][rfc1952]
+- `application/vnd.oci.image.layer.nondistributable.v1.tar`: ["Layer", as a tar archive with distribution restrictions](layer.md#non-distributable-layers)
+- `application/vnd.oci.image.layer.nondistributable.v1.tar+gzip`: ["Layer", as a tar archive with distribution restrictions](layer.md#gzip-media-types) compressed with [gzip][rfc1952]
 
 ## Media Type Conflicts
 
@@ -41,7 +43,7 @@ This section shows where the OCI Image Specification is compatible with formats 
 
 - [application/vnd.docker.distribution.manifest.v2+json](https://github.com/docker/distribution/blob/master/docs/spec/manifest-v2-2.md#image-manifest-field-descriptions)
 
-### application/vnd.oci.image.rootfs.tar.gzip
+### application/vnd.oci.image.layer.v1.tar+gzip
 
 **Interchangeable and fully compatible mime-types**
 
@@ -61,3 +63,5 @@ The following figure shows how the above media types reference each other:
 
 [Descriptors](descriptor.md) are used for all references.
 The manifest list being a "fat manifest" references one or more image manifests per target platform. An image manifest references exactly one target configuration and possibly many layers.
+
+[rfc1952]: https://tools.ietf.org/html/rfc1952
