@@ -61,7 +61,7 @@ $ make schema-fs
 This target auto-formats all JSON files in the `schema` directory using the `jq` tool.
 
 Prerequisites:
-* [jq](https://stedolan.github.io/jq/)
+* [jq](https://stedolan.github.io/jq/) >=1.5
 
 Invocation:
 ```
