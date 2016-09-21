@@ -21,6 +21,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/Sirupsen/logrus"
 	"github.com/opencontainers/image-spec/specs-go/v1"
 	"github.com/pkg/errors"
 )
@@ -74,6 +75,7 @@ func validate(w walker, refs []string, out *log.Logger) error {
 			// with --ref but she's just validating the whole image.
 			return fmt.Errorf("reference %s not found", ref)
 		}
+		logrus.Debugf("the validated ref(%s) property: %+v", r, ref)
 
 		if err = d.validate(w, validRefMediaTypes); err != nil {
 			return err
@@ -83,6 +85,7 @@ func validate(w walker, refs []string, out *log.Logger) error {
 		if err != nil {
 			return err
 		}
+		logrus.Debugf("the validated objects property of ref(%s): %+v", r, m)
 
 		if err := m.validate(w); err != nil {
 			return err
