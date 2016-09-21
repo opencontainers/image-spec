@@ -24,7 +24,7 @@ Changing it means creating a new derived image, instead of changing the existing
 ### Layer DiffID
 
 A layer DiffID is a SHA256 digest over the layer's uncompressed tar archive and serialized in the descriptor digest format, e.g., `sha256:a9561eb1b190625c9adb5a9513e72c4dedafc1cb2d4c5236c9a6957ec7dfd5a9`.
-Layers must be packed and unpacked reproducibly to avoid changing the layer ID, for example by using tar-split to save the tar headers.
+Layers must be packed and unpacked reproducibly to avoid changing the layer DiffID, for example by using tar-split to save the tar headers.
 
 NOTE: the DiffID is different than the digest in the manifest list because the manifest digest is taken over the gzipped layer for <code>application/vnd.oci.image.layer.tar+gzip</code> types.
 
