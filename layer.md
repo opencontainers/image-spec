@@ -90,7 +90,7 @@ Entries for the following files:
 
 ### Populate a Comparison Filesystem
 
-Create a new directory and initialize it with an copy or snapshot of the prior root filesystem.
+Create a new directory and initialize it with a copy or snapshot of the prior root filesystem.
 Example commands that can preserve [file attributes](#file-attributes) to make this copy are:
 * [cp(1)](http://linux.die.net/man/1/cp): `cp -a rootfs-c9d-v1/ rootfs-c9d-v1.s1/`
 * [rsync(1)](http://linux.die.net/man/1/rsync):  `rsync -aHAX rootfs-c9d-v1/ rootfs-c9d-v1.s1/`
