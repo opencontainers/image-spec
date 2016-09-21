@@ -26,7 +26,7 @@ Changing it means creating a new derived image, instead of changing the existing
 A layer DiffID is a SHA256 digest over the layer's uncompressed tar archive and serialized in the descriptor digest format, e.g., `sha256:a9561eb1b190625c9adb5a9513e72c4dedafc1cb2d4c5236c9a6957ec7dfd5a9`.
 Layers must be packed and unpacked reproducibly to avoid changing the layer DiffID, for example by using tar-split to save the tar headers.
 
-NOTE: the DiffID is different than the digest in the manifest list because the manifest digest is taken over the gzipped layer for <code>application/vnd.oci.image.layer.tar+gzip</code> types.
+NOTE: the DiffID is different than the digest in the manifest list because the manifest digest is taken over the gzipped layer for `application/vnd.oci.image.layer.tar+gzip` types.
 
 ### Layer ChainID
 
@@ -35,20 +35,20 @@ This is called a `ChainID`.
 For a single layer (or the layer at the bottom of a stack), the
 `ChainID` is equal to the layer's `DiffID`.
 
-Otherwise the <code>ChainID</code> is given by the formula:
-<code>ChainID(layerN) = SHA256hex(ChainID(layerN-1) + " " + DiffID(layerN))</code>.
+Otherwise the `ChainID` is given by the formula:
+`ChainID(layerN) = SHA256hex(ChainID(layerN-1) + " " + DiffID(layerN))`.
 
 ### ImageID
 
 Each image's ID is given by the SHA256 hash of its configuration JSON.
-It is represented as a hexadecimal encoding of 256 bits, e.g., <code>sha256:a9561eb1b190625c9adb5a9513e72c4dedafc1cb2d4c5236c9a6957ec7dfd5a9</code>.
+It is represented as a hexadecimal encoding of 256 bits, e.g., `sha256:a9561eb1b190625c9adb5a9513e72c4dedafc1cb2d4c5236c9a6957ec7dfd5a9`.
 Since the configuration JSON that gets hashed references hashes of each layer in the image, this formulation of the ImageID makes images content-addresable.
 
 ## Properties
 
 - **created** *string*, OPTIONAL
 
-  A ISO-8601 formatted combined date and time at which the image was created.
+  An ISO-8601 formatted combined date and time at which the image was created.
 
 - **author** *string*, OPTIONAL
 
@@ -71,13 +71,13 @@ Since the configuration JSON that gets hashed references hashes of each layer in
 - **config** *object*, OPTIONAL
 
   The execution parameters which should be used as a base when running a container using the image.
-  This field can be <code>null</code>, in which case any execution parameters should be specified at creation of the container.
+  This field can be `null`, in which case any execution parameters should be specified at creation of the container.
 
-   - **user** *string*, OPTIONAL
+   - **User** *string*, OPTIONAL
 
      The username or UID which the process in the container should run as.
      This acts as a default value to use when the value is not specified when creating a container.
-     All of the following are valid: `user`, `uid`, `user:group`, `uid:gid`, `uid:group`, `uiser:gid`
+     All of the following are valid: `user`, `uid`, `user:group`, `uid:gid`, `uid:group`, `user:gid`
      If `group`/`gid` is not specified, the default group and supplementary groups of the given `user`/`uid` in `/etc/passwd` from the container are applied.
 
    - **Memory** *integer*, OPTIONAL
@@ -87,7 +87,7 @@ Since the configuration JSON that gets hashed references hashes of each layer in
 
    - **MemorySwap** *integer*, OPTIONAL
 
-     Total memory usage (memory + swap); set to <code>-1</code> to disable swap.
+     Total memory usage (memory + swap); set to `-1` to disable swap.
      This acts as a default value to use when the value is not specified when creating a container.
 
    - **CpuShares** *integer*, OPTIONAL
@@ -101,17 +101,17 @@ Since the configuration JSON that gets hashed references hashes of each layer in
      Its keys can be in the format of:
 `port/tcp`, `port/udp`, `port` with the default protocol being `tcp` if not specified.
      These values act as defaults and are merged with any specified when creating a container.
-     **NOTE:** This JSON structure value is unusual because it is a direct JSON serialization of the Go type <code>map[string]struct{}</code> and is represented in JSON as an object mapping its keys to an empty object.
+     **NOTE:** This JSON structure value is unusual because it is a direct JSON serialization of the Go type `map[string]struct{}` and is represented in JSON as an object mapping its keys to an empty object.
 
    - **Env** *array of strings*, OPTIONAL
 
-     Entries are in the format of <code>VARNAME="var value"</code>.
+     Entries are in the format of `VARNAME="var value"`.
      These values act as defaults and are merged with any specified when creating a container.
 
-   - **Entrypoint** *array of strings*
+   - **Entrypoint** *array of strings*, OPTIONAL
 
      A list of arguments to use as the command to execute when the container starts.
-     This value acts as a  default and is replaced by an entrypoint specified when creating a container. This field MAY be "null".
+     This value acts as a  default and is replaced by an entrypoint specified when creating a container. This field MAY be null.
 
    - **Cmd** *array of strings*, OPTIONAL
 
@@ -120,10 +120,11 @@ Since the configuration JSON that gets hashed references hashes of each layer in
      If an `Entrypoint` value is not specified, then the first entry of the `Cmd` array should be interpreted as the executable to run.
 
    - **Volumes** *object*, OPTIONAL
-     A set of directories which should be created as data volumes in a container running this image. This field MAY be "null".
-     If a file or folder exists within the image with the same path as a data volume, that file or folder is replaced with the data volume and is never merged. **NOTE:** This JSON structure value is unusual because it is a direct JSON serialization of the Go type <code>map[string]struct{}</code> and is represented in JSON as an object mapping its keys to an empty object.
 
-   - **WorkingDir** *string*, REQUIRED
+     A set of directories which should be created as data volumes in a container running this image. This field MAY be null.
+     If a file or folder exists within the image with the same path as a data volume, that file or folder is replaced with the data volume and is never merged. **NOTE:** This JSON structure value is unusual because it is a direct JSON serialization of the Go type `map[string]struct{}` and is represented in JSON as an object mapping its keys to an empty object.
+
+   - **WorkingDir** *string*, OPTIONAL
 
      Sets the current working directory of the entrypoint process in the container.
      This value acts as a default and is replaced by a working directory specified when creating a container.
@@ -133,41 +134,41 @@ Since the configuration JSON that gets hashed references hashes of each layer in
    The rootfs key references the layer content addresses used by the image.
    This makes the image config hash depend on the filesystem hash.
 
-  - **type** *string*, REQUIRED
+    - **type** *string*, REQUIRED
 
-     MUST be set to `layers`.
-     Implementations MUST generate an error if they encounter a unknown value while verifying or unpacking an image.
+       MUST be set to `layers`.
+       Implementations MUST generate an error if they encounter a unknown value while verifying or unpacking an image.
 
-  - **diff_ids** *array*, REQUIRED
+    - **diff_ids** *array*, REQUIRED
 
-     An array of layer content hashes (`DiffIDs`), in order from bottom-most to top-most.
+       An array of layer content hashes (`DiffIDs`), in order from bottom-most to top-most.
 
-- **history** *array of object*
+- **history** *array of object*, REQUIRED
 
- Describes the history of each layer.
- The array is ordered from bottom-most layer to top-most layer.
- The object has the following fields:
+  Describes the history of each layer.
+  The array is ordered from bottom-most layer to top-most layer.
+  The object has the following fields:
 
-  - **created** *string*, OPTIONAL
+    - **created** *string*, OPTIONAL
 
-     Creation time, expressed as a ISO-8601 formatted combined date and time
+       Creation time, expressed as a ISO-8601 formatted combined date and time
 
-  - **author** *string*, OPTIONAL
+    - **author** *string*, OPTIONAL
 
-     The author of the build point.
+       The author of the build point.
 
-  - **created_by** *string*, OPTIONAL
+    - **created_by** *string*, OPTIONAL
 
-     The command which created the layer.
+       The command which created the layer.
 
-  - **comment** *string*, OPTIONAL
+    - **comment** *string*, OPTIONAL
 
-     A custom message set when creating the layer.
+       A custom message set when creating the layer.
 
-  - **empty_layer** *string*
+    - **empty_layer** *boolean*, OPTIONAL
 
-     This field is used to mark if the history item created a filesystem diff, OPTIONAL
-     It is set to true if this history item doesn't correspond to an actual layer in the rootfs section (for example, a command like ENV which results in no change to the filesystem).
+       This field is used to mark if the history item created a filesystem diff, OPTIONAL
+       It is set to true if this history item doesn't correspond to an actual layer in the rootfs section (for example, a command like ENV which results in no change to the filesystem).
 
 Any extra fields in the Image JSON struct are considered implementation specific and should be ignored by any implementations which are unable to interpret them.
 
