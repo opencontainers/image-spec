@@ -18,12 +18,12 @@ This specification uses the following terms:
         Using a layer-based or union filesystem such as AUFS, or by computing the diff from filesystem snapshots, the filesystem changeset can be used to present a series of image layers as if they were one cohesive filesystem.
     </dd>
     <dt>
-        Image JSON
+        <a name="image_json">Image JSON</a>
     </dt>
     <dd>
         Each image has an associated JSON structure which describes some basic information about the image such as date created, author, and the ID of its parent image as well as execution/runtime configuration like its entrypoint, default arguments, CPU/memory shares, networking, and volumes.
 	The JSON structure also references a cryptographic hash of each layer used by the image, and provides history information for those layers.
-	This JSON is considered to be immutable, because changing it would change the computed ImageID.
+	This JSON is considered to be immutable, because changing it would change the computed <a href="#image_id">ImageID</a>.
 	Changing it means creating a new derived image, instead of changing the existing image.
     </dd>
     <dt>
@@ -47,12 +47,12 @@ This specification uses the following terms:
         <code>ChainID(layerN) = SHA256hex(ChainID(layerN-1) + " " + DiffID(layerN))</code>.
     </dd>
     <dt>
-        ImageID <a name="id_desc"></a>
+        <a name="image_id">ImageID</a>
     </dt>
     <dd>
-        Each image's ID is given by the SHA256 hash of its configuration JSON.
+        Each image's ID is given by the SHA256 hash of its <a href="#image_json">configuration JSON</a>.
 	It is represented as a hexadecimal encoding of 256 bits, e.g., <code>sha256:a9561eb1b190625c9adb5a9513e72c4dedafc1cb2d4c5236c9a6957ec7dfd5a9</code>.
-	Since the configuration JSON that gets hashed references hashes of each layer in the image, this formulation of the ImageID makes images content-addresable.
+	Since the <a href="#image_json">configuration JSON</a> that gets hashed references hashes of each layer in the image, this formulation of the ImageID makes images content-addresable.
     </dd>
 </dl>
 
