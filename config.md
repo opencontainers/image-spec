@@ -111,7 +111,7 @@ Since the configuration JSON that gets hashed references hashes of each layer in
    - **Entrypoint** *array of strings*, OPTIONAL
 
      A list of arguments to use as the command to execute when the container starts.
-     This value acts as a  default and is replaced by an entrypoint specified when creating a container. This field MAY be null.
+     This value acts as a default and is replaced by an entrypoint specified when creating a container. This field MAY be null.
 
    - **Cmd** *array of strings*, OPTIONAL
 
@@ -167,7 +167,7 @@ Since the configuration JSON that gets hashed references hashes of each layer in
 
     - **empty_layer** *boolean*, OPTIONAL
 
-       This field is used to mark if the history item created a filesystem diff, OPTIONAL
+       This field is used to mark if the history item created a filesystem diff.
        It is set to true if this history item doesn't correspond to an actual layer in the rootfs section (for example, a command like ENV which results in no change to the filesystem).
 
 Any extra fields in the Image JSON struct are considered implementation specific and should be ignored by any implementations which are unable to interpret them.
