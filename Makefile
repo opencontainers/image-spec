@@ -30,7 +30,8 @@ DOC_FILES := \
 	layer.md \
 	config.md \
 	manifest.md \
-	manifest-list.md
+	manifest-list.md \
+	canonicalization.md
 
 FIGURE_FILES := \
 	img/media-types.png
