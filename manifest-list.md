@@ -71,10 +71,6 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 
     See [Pre-Defined Annotation Keys](annotations.md#pre-defined-annotation-keys).
 
-### Extensibility
-Implementations that are reading/processing manifest lists MUST NOT generate an error if they encounter an unknown property.
-Instead they MUST ignore unknown properties.
-
 ## Example Manifest List
 
 *Example showing a simple manifest list pointing to image manifests for two platforms:*
