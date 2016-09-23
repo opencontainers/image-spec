@@ -6,8 +6,14 @@ This document will use a concrete example to illustrate how to create and consum
 
 ## Distributable Format
 
-Layer Changesets for the [mediatype](./media-types.md) `application/vnd.oci.image.layer.tar+gzip` MUST be packaged in a [tar archive][tar-archive] compressed with [gzip][gzip].
-Layer Changesets for the [mediatype](./media-types.md) `application/vnd.oci.image.layer.tar+gzip` MUST NOT include duplicate entries for file paths in the resulting [tar archive][tar-archive].
+Layer changesets have the [media type](media-types.md) `application/vnd.oci.image.layer.tar+gzip`.
+Layer changesets SHOULD be packaged in the ustar interchange format, as [specified by IEEE Std 1003.1-2013][ustar], and MUST be compressed using gzip, as [specified by RFC 1952][rfc1952].
+Layer changesets MUST NOT include duplicate entries for target paths (the value computed from `prefix` and `name` in the ustar header).
+
+Implementations consuming layer changesets MUST be able to unpack both gzip and ustar.
+Portable layers SHOULD NOT use features that [ustar][] leaves unspecified, undefined, or implementation-defined.
+For example, pax [extends ustar by specifying `typeflag` values `g` and `x`][pax-header], so support for unpacking such entries may be mixed.
+[Sparse files](https://en.wikipedia.org/wiki/Sparse_file) SHOULD NOT be used because they [are a GNU extension][tar.5-gnu].
 
 ## Change Types
 
@@ -20,69 +26,6 @@ Types of changes that can occur in a changeset are:
 Additions and Modifications are represented the same in the changeset tar archive.
 
 Removals are represented using "[whiteout](#whiteouts)" file entries (See [Representing Changes](#representing-changes)).
-
-### File Types
-
-Throughout this document section, the use of word "files" or "entries" includes:
-
-* regular files
-* directories
-* sockets
-* symbolic links
-* block devices
-* character devices
-* FIFOs
-
-### File Attributes
-
-Where supported, MUST include file attributes for Additions and Modifications include:
-
-* Modification Time (`mtime`)
-* User ID (`uid`)
-    * User Name (`uname`) *secondary to `uid`*
-* Group ID (`gid `)
-    * Group Name (`gname`) *secondary to `gid`*
-* Mode (`mode`)
-* Extended Attributes (`xattrs`)
-* Symlink reference (`linkname` + symbolic link type)
-* [Hardlink](#hardlinks) reference (`linkname`)
-
-[Sparse files](https://en.wikipedia.org/wiki/Sparse_file) SHOULD NOT be used because they lack consistent support across tar implementations.
-
-#### Hardlinks
-
-Hardlinks are a [POSIX concept](http://pubs.opengroup.org/onlinepubs/9699919799/functions/link.html) for having one or more directory entries for the same file on the same device.
-Not all filesystems support hardlinks (e.g. [FAT](https://en.wikipedia.org/wiki/File_Allocation_Table)).
-
-Hardlinks are possible with all [file types](#file-types) except `directories`.
-Non-directory files are considered "hardlinked" when their link count is greater than 1.
-Hardlinked files are on a same device (i.e. comparing Major:Minor pair) and have the same inode.
-The corresponding files that share the link with the > 1 linkcount may be outside the directory that the changeset is being produced from, in which case the `linkname` is not recorded in the changeset.
-
-Hardlinks are stored in a tar archive with type of a `1` char, per the [GNU Basic Tar Format][gnu-tar-standard] and [libarchive tar(5)][libarchive-tar].
-
-While approaches to deriving new or changed hardlinks may vary, a possible approach is:
-
-```
-SET LinkMap to map[< Major:Minor String >]map[< inode integer >]< path string >
-SET LinkNames to map[< src path string >]< dest path string >
-FOR each path in root path
-  IF path type is directory
-    CONTINUE
-  ENDIF
-  SET filestat to stat(path)
-  IF filestat num of links == 1
-    CONTINUE
-  ENDIF
-  IF LinkMap[filestat device][filestat inode] is not empty
-    SET LinkNames[path] to LinkMap[filestat device][filestat inode]
-  ELSE
-    SET LinkMap[filestat device][filestat inode] to path
-  ENDIF
-END FOR
-```
-
-With this approach, the link map and links names of a directory could be compared against that of another directory to derive additions and changes to hardlinks.
 
 ## Creating
 
@@ -112,7 +55,7 @@ rootfs-c9d-v1/
         my-app-tools
 ```
 
-The `rootfs-c9d-v1` directory is then created as a plain [tar archive][tar-archive] with relative path to `rootfs-c9d-v1`.
+The `rootfs-c9d-v1` directory is then created as a plain [tar archive][ustar] with paths relative to `rootfs-c9d-v1`.
 Entries for the following files:
 
 ```
@@ -127,7 +70,7 @@ Entries for the following files:
 ### Populate a Comparison Filesystem
 
 Create a new directory and initialize it with a copy or snapshot of the prior root filesystem.
-Example commands that can preserve [file attributes](#file-attributes) to make this copy are:
+Example commands that can preserve [file attributes][ustar] to make this copy are:
 * [cp(1)](http://linux.die.net/man/1/cp): `cp -a rootfs-c9d-v1/ rootfs-c9d-v1.s1/`
 * [rsync(1)](http://linux.die.net/man/1/rsync):  `rsync -aHAX rootfs-c9d-v1/ rootfs-c9d-v1.s1/`
 * [tar(1)](http://linux.die.net/man/1/tar): `mkdir rootfs-c9d-v1.s1 && tar --acls --xattrs -C rootfs-c9d-v1/ -c . | tar -C rootfs-c9d-v1.s1/ --acls --xattrs -x` (including `--selinux` where supported)
@@ -188,7 +131,7 @@ This reflects the removal of `/etc/my-app-config` and creation of a file and dir
 
 ### Representing Changes
 
-A [tar archive][tar-archive] is then created which contains *only* this changeset:
+A [tar archive][ustar] is then created which contains *only* this changeset:
 
 - Added and modified files and directories in their entirety
 - Deleted files or directories marked with a [whiteout file](#whiteouts)
@@ -315,7 +258,7 @@ Layers that have these restrictions SHOULD be tagged with an alternative mediaty
 [Descriptors](descriptor.md) referencing these layers MAY include `urls` for downloading these layers.
 It is implementation-defined whether or not implementations upload layers tagged with this media type.
 
-[libarchive-tar]: https://github.com/libarchive/libarchive/wiki/ManPageTar5#POSIX_ustar_Archives
-[gnu-tar-standard]: http://www.gnu.org/software/tar/manual/html_node/Standard.html
-[tar-archive]: https://en.wikipedia.org/wiki/Tar_(computing)
-[gzip]: http://www.zlib.org/rfc-gzip.html
+[ustar]: http://pubs.opengroup.org/onlinepubs/9699919799/utilities/pax.html#tag_20_92_13_06
+[pax-header]: http://pubs.opengroup.org/onlinepubs/9699919799/utilities/pax.html#tag_20_92_13_02
+[rfc1952]: https://tools.ietf.org/html/rfc1952
+[tar.5-gnu]: https://github.com/libarchive/libarchive/wiki/ManPageTar5#gnu-tar-archives
