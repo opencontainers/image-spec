@@ -66,20 +66,7 @@ This section defines the `application/vnd.oci.image.manifest.list.v1+json` [medi
 
 - **`annotations`** *string-string map*
 
-    This OPTIONAL property contains arbitrary metadata for the manifest list.
-    Annotations MUST be a key-value map where both the key and value MUST be strings.
-    While the value MUST be present, it MAY be an empty string.
-    Keys MUST be unique within this map, and best practice is to namespace the keys.
-    Keys SHOULD be named using a reverse domain notation - e.g. `com.example.myKey`.
-    Keys using the `org.opencontainers` namespace are reserved and MUST NOT be used by other specifications.
-    If there are no annotations then this property MUST either be absent or be an empty map.
-    Implementations that are reading/processing manifest lists MUST NOT generate an error if they encounter an unknown annotation key.
-
-    See [Pre-Defined Annotation Keys](manifest.md#pre-defined-annotation-keys).
-
-### Extensibility
-Implementations that are reading/processing manifest lists MUST NOT generate an error if they encounter an unknown property.
-Instead they MUST ignore unknown properties.
+    This OPTIONAL property contains arbitrary metadata for the manifest list with the same semantics as the [manifest's `annotations`](manifest.md#image-manifest-property-descriptions)
 
 ## Example Manifest List
 
