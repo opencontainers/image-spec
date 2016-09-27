@@ -7,7 +7,7 @@ The following media types identify the formats described here and their referenc
 - `application/vnd.oci.image.manifest.v1+json`: [Image manifest format](manifest.md#image-manifest)
 - `application/vnd.oci.image.config.v1+json`: [Image config JSON](config.md)
 - `application/vnd.oci.image.layer.tar+gzip`: ["Layer", as a gzipped tar archive](layer.md)
-- `application/vnd.oci.image.layer.nondistributable.tar+gzip`: ["Layer", as a gzipped tar that has distribution restrictions](layer.md#non-distributable-layers)
+- `application/vnd.oci.image.layer.nondistributable.tar+gzip`: ["Layer", as a gzipped tar archive with distribution restrictions](layer.md#non-distributable-layers)
 
 ## Compatibility Matrix
 
