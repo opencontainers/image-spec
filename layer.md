@@ -44,9 +44,45 @@ Where supported, MUST include file attributes for Additions and Modifications in
     * Group Name (`gname`) *secondary to `gid`*
 * Mode (`mode`)
 * Extended Attributes (`xattrs`)
-* Symlink reference (`linkname`)
+* Symlink reference (`linkname` + symbolic link type)
+* [Hardlink](#hardlinks) reference (`linkname`)
 
 [Sparse files](https://en.wikipedia.org/wiki/Sparse_file) SHOULD NOT be used because they lack consistent support across tar implementations.
+
+#### Hardlinks
+
+Hardlinks are a [POSIX concept](http://pubs.opengroup.org/onlinepubs/9699919799/functions/link.html) for having one or more directory entries for the same file on the same device.
+Not all filesystems support hardlinks (e.g. [FAT](https://en.wikipedia.org/wiki/File_Allocation_Table)).
+
+Hardlinks are possible with all [file types](#file-types) except `directories`.
+Non-directory files are considered "hardlinked" when their link count is greater than 1.
+Hardlinked files are on a same device (i.e. comparing Major:Minor pair) and have the same inode.
+The corresponding files that share the link with the > 1 linkcount may be outside the directory that the changeset is being produced from, in which case the `linkname` is not recorded in the changeset.
+
+Hardlinks are stored in a tar archive with type of a `1` char, per the [GNU Basic Tar Format][gnu-tar-standard] and [libarchive tar(5)][libarchive-tar].
+
+While approaches to deriving new or changed hardlinks may vary, a possible approach is:
+
+```
+SET LinkMap to map[< Major:Minor String >]map[< inode integer >]< path string >
+SET LinkNames to map[< src path string >]< dest path string >
+FOR each path in root path
+  IF path type is directory
+    CONTINUE
+  ENDIF
+  SET filestat to stat(path)
+  IF filestat num of links == 1
+    CONTINUE
+  ENDIF
+  IF LinkMap[filestat device][filestat inode] is not empty
+    SET LinkNames[path] to LinkMap[filestat device][filestat inode]
+  ELSE
+    SET LinkMap[filestat device][filestat inode] to path
+  ENDIF
+END FOR
+```
+
+With this approach, the link map and links names of a directory could be compared against that of another directory to derive additions and changes to hardlinks.
 
 ## Creating
 
@@ -279,4 +315,6 @@ Layers that have these restrictions SHOULD be tagged with an alternative mediaty
 [Descriptors](descriptor.md) referencing these layers MAY include `urls` for downloading these layers.
 It is implementation-defined whether or not implementations upload layers tagged with this media type.
 
+[libarchive-tar]: https://github.com/libarchive/libarchive/wiki/ManPageTar5#POSIX_ustar_Archives
+[gnu-tar-standard]: http://www.gnu.org/software/tar/manual/html_node/Standard.html
 [tar-archive]: https://en.wikipedia.org/wiki/Tar_(computing)
