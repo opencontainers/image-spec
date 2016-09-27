@@ -18,7 +18,7 @@ Using a layer-based or union filesystem such as AUFS, or by computing the diff f
 
 Each image has an associated JSON structure which describes some basic information about the image such as date created, author, and the ID of its parent image as well as execution/runtime configuration like its entrypoint, default arguments, CPU/memory shares, networking, and volumes.
 The JSON structure also references a cryptographic hash of each layer used by the image, and provides history information for those layers.
-This JSON is considered to be immutable, because changing it would change the computed ImageID.
+This JSON is considered to be immutable, because changing it would change the computed [ImageID](#imageid).
 Changing it means creating a new derived image, instead of changing the existing image.
 
 ### Layer DiffID
@@ -40,9 +40,9 @@ Otherwise the `ChainID` is given by the formula:
 
 ### ImageID
 
-Each image's ID is given by the SHA256 hash of its configuration JSON.
+Each image's ID is given by the SHA256 hash of its [configuration JSON](#image-json).
 It is represented as a hexadecimal encoding of 256 bits, e.g., `sha256:a9561eb1b190625c9adb5a9513e72c4dedafc1cb2d4c5236c9a6957ec7dfd5a9`.
-Since the configuration JSON that gets hashed references hashes of each layer in the image, this formulation of the ImageID makes images content-addresable.
+Since the [configuration JSON](#image-json) that gets hashed references hashes of each layer in the image, this formulation of the ImageID makes images content-addresable.
 
 ## Properties
 
