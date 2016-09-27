@@ -129,7 +129,7 @@ Since the configuration JSON that gets hashed references hashes of each layer in
      Sets the current working directory of the entrypoint process in the container.
      This value acts as a default and is replaced by a working directory specified when creating a container.
 
-- **rootfs** *object, REQUIRED
+- **rootfs** *object*, REQUIRED
 
    The rootfs key references the layer content addresses used by the image.
    This makes the image config hash depend on the filesystem hash.
@@ -143,7 +143,7 @@ Since the configuration JSON that gets hashed references hashes of each layer in
 
        An array of layer content hashes (`DiffIDs`), in order from bottom-most to top-most.
 
-- **history** *array of object*, REQUIRED
+- **history** *array of objects*, OPTIONAL
 
   Describes the history of each layer.
   The array is ordered from bottom-most layer to top-most layer.
@@ -151,7 +151,7 @@ Since the configuration JSON that gets hashed references hashes of each layer in
 
     - **created** *string*, OPTIONAL
 
-       Creation time, expressed as a ISO-8601 formatted combined date and time
+       Creation time, expressed as an ISO-8601 formatted combined date and time
 
     - **author** *string*, OPTIONAL
 
