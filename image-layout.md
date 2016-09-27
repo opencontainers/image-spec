@@ -54,6 +54,7 @@ In general the `mediatype` of this [descriptor][descriptors] object will be eith
 A common use case of refs is representing "tags" for a container image.
 For example, an image may have a tag for different versions or builds of the software.
 In the wild you often see "tags" like "v1.0.0-vendor.0", "2.0.0-debug", etc.
+Those tags will often be represented in an image-layout repository with matching refs names like "v1.0.0-vendor.0", "2.0.0-debug", etc.
 
 This illustrates the expected contents of a given ref, the manifest list it points to and the blobs the manifest references.
 
