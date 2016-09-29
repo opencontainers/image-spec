@@ -9,6 +9,8 @@ Descriptors SHOULD be embedded in other formats to securely reference external c
 
 Other formats SHOULD use descriptors to securely reference external content.
 
+This section defines the `application/vnd.oci.descriptor.v1+json` [media type](media-types.md).
+
 ## Properties
 
 A descriptor consists of a set of properties encapsulated in key-value fields.
