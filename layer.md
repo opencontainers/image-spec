@@ -1,7 +1,7 @@
 # Image Layer Filesystem Changeset
 
 This document describes how to serialize a filesystem and filesystem changes like removed files into a blob called a layer.
-One or more layers are ordered on top of each other to create a complete filesystem.
+One or more layers are applied on top of each other to create a complete filesystem.
 This document will use a concrete example to illustrate how to create and consume these filesystem layers.
 
 ## Distributable Format
