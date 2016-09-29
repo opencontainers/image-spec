@@ -6,8 +6,8 @@ This document will use a concrete example to illustrate how to create and consum
 
 ## Distributable Format
 
-Layer Changesets for the [mediatype](./media-types.md) `application/vnd.oci.image.layer.tar+gzip` MUST be packaged in a [tar archive][tar-archive] compressed with [gzip][gzip].
-Layer Changesets for the [mediatype](./media-types.md) `application/vnd.oci.image.layer.tar+gzip` MUST NOT include duplicate entries for file paths in the resulting [tar archive][tar-archive].
+Layer Changesets for the [mediatype](./media-types.md) `application/vnd.oci.image.layer.v1.tar+gzip` MUST be packaged in a [tar archive][tar-archive] compressed with [gzip][gzip].
+Layer Changesets for the [mediatype](./media-types.md) `application/vnd.oci.image.layer.v1.tar+gzip` MUST NOT include duplicate entries for file paths in the resulting [tar archive][tar-archive].
 
 ## Change Types
 
@@ -206,7 +206,7 @@ Where the basename name of `./etc/my-app-config` is now prefixed with `.wh.`, an
 
 ## Applying
 
-Layer Changesets of [mediatype](./media-types.md) `application/vnd.oci.image.layer.tar+gzip` are applied rather than strictly extracted in normal fashion for tar archives.
+Layer Changesets of [mediatype](./media-types.md) `application/vnd.oci.image.layer.v1.tar+gzip` are applied rather than strictly extracted in normal fashion for tar archives.
 
 Applying a layer changeset requires consideration for the [whiteout](#whiteouts) files.
 In the absence of any [whiteout](#whiteouts) files in a layer changeset, the archive is extracted like a regular tar archive.
@@ -311,7 +311,7 @@ Any given image is likely to be composed of several of these Image Filesystem Ch
 Certain layers, due to legal requirements, may not be regularly distributable.
 Typically, such layers are downloaded directly from a distributor but are never uploaded.
 
-Layers that have these restrictions SHOULD be tagged with an alternative mediatype of `application/vnd.oci.image.layer.nondistributable.tar+gzip`.
+Layers that have these restrictions SHOULD be tagged with an alternative mediatype of `application/vnd.oci.image.layer.nondistributable.v1.tar+gzip`.
 [Descriptors](descriptor.md) referencing these layers MAY include `urls` for downloading these layers.
 It is implementation-defined whether or not implementations upload layers tagged with this media type.
 
