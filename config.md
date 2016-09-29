@@ -141,12 +141,12 @@ Since the configuration JSON that gets hashed references hashes of each layer in
 
     - **diff_ids** *array*, REQUIRED
 
-       An array of layer content hashes (`DiffIDs`), in order from bottom-most to top-most.
+       An array of layer content hashes (`DiffIDs`), in order from first to last.
 
 - **history** *array of objects*, OPTIONAL
 
   Describes the history of each layer.
-  The array is ordered from bottom-most layer to top-most layer.
+  The array is ordered from first to last.
   The object has the following fields:
 
     - **created** *string*, OPTIONAL
