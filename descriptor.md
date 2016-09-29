@@ -38,7 +38,7 @@ The following fields contain the primary properties that constitute a Descriptor
 
 ### Reserved
 
-The following field keys MUST NOT be used in descriptors specified in other OCI specifications:
+The following field keys are reserved and MUST NOT be used by other specifications.
 
 - **`data`** *string*
 
