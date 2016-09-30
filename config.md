@@ -121,8 +121,10 @@ Since the [configuration JSON](#image-json) that gets hashed references hashes o
 
    - **Volumes** *object*, OPTIONAL
 
-     A set of directories which should be created as data volumes in a container running this image. This field MAY be null.
-     If a file or folder exists within the image with the same path as a data volume, that file or folder is replaced with the data volume and is never merged. **NOTE:** This JSON structure value is unusual because it is a direct JSON serialization of the Go type `map[string]struct{}` and is represented in JSON as an object mapping its keys to an empty object.
+     A set of directories which should be created as data volumes in a container running this image.
+     This field MAY be null.
+     If a file or folder exists within the image with the same path as a data volume, that file or folder is replaced with the data volume and is never merged.
+     **NOTE:** This JSON structure value is unusual because it is a direct JSON serialization of the Go type `map[string]struct{}` and is represented in JSON as an object mapping its keys to an empty object.
 
    - **WorkingDir** *string*, OPTIONAL
 
