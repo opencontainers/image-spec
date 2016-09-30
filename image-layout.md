@@ -6,8 +6,8 @@ This layout MAY be used in a variety of different transport mechanisms: archive 
 Given an image layout and a ref, a tool can create an [OCI Runtime Specification bundle](https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc2/bundle.md) by:
 
 * Following the ref to find a [manifest](manifest.md#image-manifest), possibly via a [manifest list](manifest.md#manifest-list)
-* Applying the filesystem layers in the specified order
-* Converting the [image configuration](config.md) into an [OCI Runtime Specification config.json](https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc2/config.md)
+* [Applying the filesystem layers](layers.md#applying) in the specified order
+* Converting the [image configuration](config.md) into an [OCI Runtime Specification `config.json`](https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc2/config.md)
 
 The image layout has two top level directories:
 
