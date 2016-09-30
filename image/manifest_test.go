@@ -108,7 +108,7 @@ func TestUnpackLayer(t *testing.T) {
 
 	testManifest := manifest{
 		Layers: []descriptor{descriptor{
-			MediaType: "application/vnd.oci.image.layer.tar+gzip",
+			MediaType: "application/vnd.oci.image.layer.v1.tar+gzip",
 			Digest:    fmt.Sprintf("sha256:%s", fmt.Sprintf("%x", h.Sum(nil))),
 		}},
 	}
