@@ -75,10 +75,17 @@
             "type": "string"
           }
         },
-        "layers": {
-          "type": "string"
+        "type": {
+          "type": "string",
+          "enum": [
+            "layers"
+          ]
         }
-      }
+      },
+      "required": [
+        "diff_ids",
+        "type"
+      ]
     },
     "history": {
       "type": "object",
