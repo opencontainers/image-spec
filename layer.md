@@ -4,7 +4,7 @@ This document describes how to serialize a filesystem and filesystem changes lik
 One or more layers are applied on top of each other to create a complete filesystem.
 This document will use a concrete example to illustrate how to create and consume these filesystem layers.
 
-This section defines the `application/vnd.oci.image.layer.tar+gzip` and `application/vnd.oci.image.layer.nondistributable.tar+gzip` [media type](media-types.md).
+This section defines the `application/vnd.oci.image.layer.tar+gzip` and `application/vnd.oci.image.layer.nondistributable.tar+gzip` [media types](media-types.md).
 
 ## Distributable Format
 
