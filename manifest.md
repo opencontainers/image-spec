@@ -5,7 +5,7 @@ The first goal is content-addressable images, by supporting an image model where
 The second goal is to allow multi-architecture images, through a "fat manifest" which references image manifests for platform-specific versions of an image.
 The third goal is to be translatable to the [OpenContainers/runtime-spec](https://github.com/opencontainers/runtime-spec)
 
-This section defines the `application/vnd.oci.image.manifest.list.v1+json` and `application/vnd.oci.image.manifest.v1+json` [media type](media-types.md).
+This section defines the `application/vnd.oci.image.manifest.list.v1+json` and `application/vnd.oci.image.manifest.v1+json` [media types](media-types.md).
 
 # Manifest List
 
