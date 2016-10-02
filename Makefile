@@ -13,7 +13,7 @@ ifeq "$(strip $(PANDOC))" ''
 			-v $(shell pwd)/$(OUTPUT_DIRNAME)/:/$(OUTPUT_DIRNAME)/ \
 			-u $(shell id -u) \
 			--workdir /input \
-			vbatts/pandoc
+			docker.io/vbatts/pandoc:1.16.0.2-1.fc24
 		PANDOC_SRC := /input/
 		PANDOC_DST := /
 	endif
