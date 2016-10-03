@@ -160,7 +160,7 @@ Unlike the [Manifest List](#manifest-list), which contains information about a s
 
     Each item in the array MUST be a [descriptor](descriptor.md).
     The array MUST have the base image at index 0.
-    Subsequent layers MUST then follow in stack order (i.e. from `layers[0]` to `layers[len(layers)]`).
+    Subsequent layers MUST then follow in stack order (i.e. from `layers[0]` to `layers[len(layers)-1]`).
     The final filesystem layout MUST match the result of [applying](layer.md#applying) the layers to an empty directory.
 
     Beyond the [descriptor requirements](descriptor.md#properties), the value has the following additional restrictions:
