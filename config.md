@@ -48,6 +48,8 @@ Since the [configuration JSON](#image-json) that gets hashed references hashes o
 
 ## Properties
 
+Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being absent.
+
 - **created** *string*, OPTIONAL
 
   An ISO-8601 formatted combined date and time at which the image was created.
@@ -113,7 +115,7 @@ Since the [configuration JSON](#image-json) that gets hashed references hashes o
    - **Entrypoint** *array of strings*, OPTIONAL
 
      A list of arguments to use as the command to execute when the container starts.
-     This value acts as a default and is replaced by an entrypoint specified when creating a container. This field MAY be null.
+     This value acts as a default and is replaced by an entrypoint specified when creating a container.
 
    - **Cmd** *array of strings*, OPTIONAL
 
@@ -124,7 +126,6 @@ Since the [configuration JSON](#image-json) that gets hashed references hashes o
    - **Volumes** *object*, OPTIONAL
 
      A set of directories which should be created as data volumes in a container running this image.
-     This field MAY be null.
      If a file or folder exists within the image with the same path as a data volume, that file or folder is replaced with the data volume and is never merged.
      **NOTE:** This JSON structure value is unusual because it is a direct JSON serialization of the Go type `map[string]struct{}` and is represented in JSON as an object mapping its keys to an empty object.
 
