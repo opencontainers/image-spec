@@ -12,7 +12,7 @@ Given an image layout and a ref, a tool can create an [OCI Runtime Specification
 The image layout has two top level directories:
 
 - "blobs" contains content-addressable blobs. A blob has no schema and should be considered opaque.
-- "refs" contains [descriptors][descriptors]. Commonly pointing to an image manifest.
+- "refs" contains [descriptors][descriptors]. Commonly pointing to an image manifest or an image manifest list.
 
 
 It also contains a file that is used to identify the layout version:
