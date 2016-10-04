@@ -1,6 +1,6 @@
-# Image Configuration
+# OCI Image Configuration
 
-An *Image* is an ordered collection of root filesystem changes and the corresponding execution parameters for use within a container runtime.
+An OCI *Image* is an ordered collection of root filesystem changes and the corresponding execution parameters for use within a container runtime.
 This specification outlines the JSON format describing images for use with a container runtime and execution tool and its relationship to filesystem changesets, described in [Layers](layer.md).
 
 This section defines the `application/vnd.oci.image.config.v1+json` [media type](media-types.md).

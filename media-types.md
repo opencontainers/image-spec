@@ -1,4 +1,4 @@
-# Media Types
+# OCI Image Media Types
 
 The following media types identify the formats described here and their referenced resources:
 
