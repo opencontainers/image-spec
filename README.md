@@ -34,16 +34,16 @@ Once built the OCI Image can then be discovered by name, downloaded, verified by
 
 ## Understanding the Specification
 
-The [Media Types](media-types.md) document is a starting point to understanding the overall structure of the specification. This document outlines the OCI Image file format specifications, including the [filesystem layer changesets](layer.md) and image manifest described above.
+The [OCI Image Media Types](media-types.md) document is a starting point to understanding the overall structure of the specification.
 
-The high level components of the spec include:
+The high-level components of the spec include:
 
-* An [image manifest](manifest.md), a set of [filesystem layers](layer.md), and [image configuration](config.md) (base layer)
-* A process of hashing the image format for integrity and content-addressing (base layer)
-* Signatures that are based on signing image content address (optional layer)
-* Naming that is federated based on DNS and can be delegated (optional layer)
+* An archival format for container images, consisting of an [image manifest](manifest.md), an [image layout](image-layout.md), a set of [filesystem layers](layer.md), and [image configuration](config.md) (base OCI layer)
+* A process of hashing the image format for integrity and content-addressing (base OCI layer)
+* Signatures that are based on signing image content address (optional OCI layer)
+* Naming that is federated based on DNS and can be delegated (optional OCI layer)
 
-The optional and base layers of all OCI projects are tracked in the [OCI Scope Table](https://www.opencontainers.org/governance/oci-scope-table).
+The _optional_ and _base_ layers of all OCI projects are tracked in the [OCI Scope Table](https://www.opencontainers.org/governance/oci-scope-table).
 
 ## Running an OCI Image
 
@@ -60,13 +60,13 @@ To support this UX the OCI Image Format contains sufficient information to launc
 
 **Q: Why doesn't this project mention distribution?**
 
-A: Distribution, for example using HTTP as both Docker v2.2 and AppC do today, is currently out of scope on the [OCI Scope Table](https://www.opencontainers.org/governance/oci-scope-table). There has been [some discussion on the TOB mailing list]( https://groups.google.com/a/opencontainers.org/d/msg/tob/A3JnmI-D-6Y/tLuptPDHAgAJ) to make distribution an optional layer but this topic is a work in progress.
+A: Distribution, for example using HTTP as both Docker v2.2 and AppC do today, is currently out of scope on the [OCI Scope Table](https://www.opencontainers.org/governance/oci-scope-table). There has been [some discussion on the TOB mailing list](https://groups.google.com/a/opencontainers.org/d/msg/tob/A3JnmI-D-6Y/tLuptPDHAgAJ) to make distribution an optional layer, but this topic is a work in progress.
 
 **Q: Why a new project?**
 
-A: The first OCI spec centered around defining the run side of a container. This is generally seen to be an orthogonal concern to the shipping container component. As practical examples of this separation you see many organizations separating these concerns into different teams and organizations: the Docker Distribution project and the Docker containerd project; Amazon ECS and Amazon EC2 Container Registry, etc.
+A: The [first OCI spec][https://github.com/opencontainers/runtime-spec] centered around defining the run side of a container. This is generally seen to be an orthogonal concern to the shipping container component. As practical examples of this separation you see many organizations separating these concerns into different teams and organizations: the Docker Distribution project and the Docker containerd project; Amazon ECS and Amazon EC2 Container Registry, etc.
 
-**Q: Why start this work now?**
+**Q: Why work on this?**
 
 A: We are seeing many independent implementations of container image handling including build systems, registries, and image analysis tools. As an organization we would like to encourage this growth and bring people together to ensure a technically correct and open specification continues to evolve reflecting the OCI values.
 
@@ -76,7 +76,7 @@ A: Existing formats can continue to be a proving ground for technologies, as nee
 
 ## Roadmap
 
-The [GitHub milestones](https://github.com/opencontainers/image-spec/milestones) lays out the path to the OCI v1.0.0 release in June 2016.
+The [GitHub milestones](https://github.com/opencontainers/image-spec/milestones) lay out the path to the OCI v1.0.0 release in late 2016.
 
 # Contributing
 
