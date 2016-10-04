@@ -29,7 +29,8 @@ DOC_FILES := \
 	image-layout.md \
 	layer.md \
 	config.md \
-	manifest.md
+	manifest.md \
+	manifest-list.md
 
 FIGURE_FILES := \
 	img/media-types.png

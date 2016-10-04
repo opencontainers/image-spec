@@ -41,6 +41,10 @@ func TestValidateManifest(t *testing.T) {
 	validate(t, "../manifest.md")
 }
 
+func TestValidateManifestList(t *testing.T) {
+	validate(t, "../manifest-list.md")
+}
+
 func TestValidateConfig(t *testing.T) {
 	validate(t, "../config.md")
 }

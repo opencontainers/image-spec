@@ -12,7 +12,8 @@ The OCI Image Format project creates and maintains the software shipping contain
 - [Image Layout](image-layout.md)
 - [Filesystem Layers](layer.md)
 - [Image Configuration](config.md)
-- [Manifests and Manifest Lists](manifest.md)
+- [Image Manifest](manifest.md)
+- [Image Manifest List](manifest-list.md)
 
 ## Overview
 
