@@ -1,4 +1,4 @@
-# OpenContainers Image Manifest Specification
+# OCI Image Manifest Specification
 
 There are three main goals of the Image Manifest Specification.
 The first goal is content-addressable images, by supporting an image model where the image's configuration can be hashed to generate a unique ID for the image and its components.
