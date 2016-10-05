@@ -204,7 +204,7 @@ The resulting tar archive for `rootfs-c9d-v1.s1` has the following entries:
 ./etc/.wh.my-app-config
 ```
 
-where the basename name of `./etc/my-app-config` is now prefixed with `.wh.`, and will therefore be removed when the changeset is applied.
+To signify that the resource `./etc/my-app-config` MUST be removed when the changeset is applied, the basename of the entry is prefixed with `.wh.`.
 
 ## Applying Changesets
 
@@ -216,7 +216,7 @@ In the absence of any [whiteout](#whiteouts) files in a layer changeset, the arc
 
 ### Changeset over existing files
 
-This section describes applying an entry from a layer changeset if the file path already exists.
+This section specifies applying an entry from a layer changeset if the target path already exists.
 
 If the entry and the existing path are both directories, then the existing path's attributes MUST be replaced by those of the entry in the changeset.
 In all other cases, the implementation MUST do the semantic equivalent of the following:
