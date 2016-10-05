@@ -8,7 +8,7 @@ This guide contains instructions for building artifacts contained in this reposi
 
 This spec includes several Go packages, and a command line tool considered to be a reference implementation of the OCI image specification.
 
-Prerequsites:
+Prerequisites:
 * Go >=1.5
 * make
 
@@ -91,7 +91,7 @@ $ make check-license
 
 ### Update vendored dependencies
 
-This target updates all vendored depencies to their newest available versions. The `glide` tools is being used for the actual management and `glide-vc` tool is being used for stripping down the vendor directory size.
+This target updates all vendored dependencies to their newest available versions. The `glide` tools is being used for the actual management and `glide-vc` tool is being used for stripping down the vendor directory size.
 
 Prerequisites:
 * [glide](https://github.com/Masterminds/glide)
