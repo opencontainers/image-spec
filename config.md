@@ -133,6 +133,16 @@ Since the [configuration JSON](#image-json) that gets hashed references hashes o
      Sets the current working directory of the entrypoint process in the container.
      This value acts as a default and is replaced by a working directory specified when creating a container.
 
+   - **Labels ** *object*, OPTIONAL
+
+     The field contains arbitrary metadata for the container.
+     Labels MUST be a key-value map where both the key and value MUST be strings.
+     Keys MUST be unique within this map, and best practice is to namespace the keys.
+     Keys SHOULD be named using a reverse domain notation - e.g. `com.example.myKey`.
+     Keys using the `org.opencontainers` namespace are reserved and MUST NOT be used by subsequent specifications.
+     If there are no annotations then this property MAY either be absent or an empty map.
+     Implementations that are reading/processing this configuration file MUST NOT generate an error if they encounter an unknown annotation key.
+
 - **rootfs** *object*, REQUIRED
 
    The rootfs key references the layer content addresses used by the image.
@@ -213,7 +223,11 @@ Here is an example image configuration JSON document:
             "/var/job-result-data": {},
             "/var/log/my-app-logs": {}
         },
-        "WorkingDir": "/home/alice"
+        "WorkingDir": "/home/alice",
+        "Labels": {
+            "com.example.project.git.url": "https://example.com/project.git",
+            "com.example.project.git.commit": "45a939b2999782a3f005621a8d0f29aa387e1d6b"
+	}
     },
     "rootfs": {
       "diff_ids": [
