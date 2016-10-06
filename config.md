@@ -174,6 +174,18 @@ Since the [configuration JSON](#image-json) that gets hashed references hashes o
        This field is used to mark if the history item created a filesystem diff.
        It is set to true if this history item doesn't correspond to an actual layer in the rootfs section (for example, a command like ENV which results in no change to the filesystem).
 
+- **annotations** *object*, OPTIONAL
+
+       contains arbitrary metadata for the container.
+       This information MAY be structured or unstructured.
+       Annotations MUST be a key-value map where both the key and value MUST be strings.
+       While the value MUST be present, it MAY be an empty string.
+       Keys MUST be unique within this map, and best practice is to namespace the keys.
+       Keys SHOULD be named using a reverse domain notation - e.g. `com.example.myKey`.
+       Keys using the `org.opencontainers` namespace are reserved and MUST NOT be used by subsequent specifications.
+       If there are no annotations then this property MAY either be absent or an empty map.
+       Implementations that are reading/processing this configuration file MUST NOT generate an error if they encounter an unknown annotation key.
+
 Any extra fields in the Image JSON struct are considered implementation specific and should be ignored by any implementations which are unable to interpret them.
 
 Whitespace is OPTIONAL and implementations MAY have compact JSON with no whitespace.
@@ -232,6 +244,11 @@ Here is an example image configuration JSON document:
         "created_by": "/bin/sh -c #(nop) CMD [\"sh\"]",
         "empty_layer": true
       }
-    ]
+    ],
+    "annotations": {
+        "com.example.project.git.url": "https://example.com/project.git",
+        "com.example.project.git.commit": "45a939b2999782a3f005621a8d0f29aa387e1d6b",
+        "com.example.package.openssl": "1.0.2j"
+    }
 }
 ```
