@@ -133,7 +133,7 @@ Since the [configuration JSON](#image-json) that gets hashed references hashes o
      Sets the current working directory of the entrypoint process in the container.
      This value acts as a default and is replaced by a working directory specified when creating a container.
 
-   - **Labels ** *object*, OPTIONAL
+   - **Labels** *object*, OPTIONAL
 
      The field contains arbitrary metadata for the container.
      Labels MUST be a key-value map where both the key and value MUST be strings.
