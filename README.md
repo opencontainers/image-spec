@@ -65,7 +65,7 @@ A: Distribution, for example using HTTP as both Docker v2.2 and AppC do today, i
 
 **Q: Why a new project?**
 
-A: The [first OCI spec][https://github.com/opencontainers/runtime-spec] centered around defining the run side of a container. This is generally seen to be an orthogonal concern to the shipping container component. As practical examples of this separation you see many organizations separating these concerns into different teams and organizations: the Docker Distribution project and the Docker containerd project; Amazon ECS and Amazon EC2 Container Registry, etc.
+A: The [first OCI spec](https://github.com/opencontainers/runtime-spec) centered around defining the run side of a container. This is generally seen to be an orthogonal concern to the shipping container component. As practical examples of this separation you see many organizations separating these concerns into different teams and organizations: the Docker Distribution project and the Docker containerd project; Amazon ECS and Amazon EC2 Container Registry, etc.
 
 **Q: Why work on this?**
 
