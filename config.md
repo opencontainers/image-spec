@@ -36,7 +36,6 @@ For convenience, it is sometimes useful to refer to a stack of layers with a sin
 This is called a `ChainID`.
 For a single layer (or the layer at the bottom of a stack), the
 `ChainID` is equal to the layer's `DiffID`.
-
 Otherwise the `ChainID` is given by the formula:
 `ChainID(layerN) = SHA256hex(ChainID(layerN-1) + " " + DiffID(layerN))`.
 
