@@ -91,7 +91,7 @@ let verified = ID(C) == D
 ```
 Above, we define the content identifier as `ID(C)`, extracted from the `Descriptor.digest` field.
 Content `C` is a string of bytes.
-Function `H` returns a the hashs of `C` in bytes and is passed to function `EncodeHex` to obtain the _digest_.
+Function `H` returns the hash of `C` in bytes and is passed to function `EncodeHex` to obtain the _digest_.
 The result `verified` is true if `ID(C)` is equal to `D`, confirming that `C` is the content identified by `D`.
 After verification, the following is true:
 
