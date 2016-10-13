@@ -60,7 +60,7 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
 - **architecture** *string*, REQUIRED
 
   The CPU architecture which the binaries in this image are built to run on.
-  Possible values include: `386`, `amd64`, `arm`.
+  Possible values include: `386`, `amd64`, `arm`, `arm64`.
   More values may be supported in the future and any of these may or may not be supported by a given container runtime implementation.
   New entries SHOULD be submitted to this specification for standardization and be inspired by the [Go language documentation for $GOOS and $GOARCH](https://golang.org/doc/install/source#environment).
 
