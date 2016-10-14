@@ -22,13 +22,14 @@ import (
 	"testing"
 
 	"github.com/opencontainers/image-spec/schema"
+	"github.com/opencontainers/image-spec/specs-go/v1"
 )
 
 var compatMap = map[string]string{
-	"application/vnd.docker.distribution.manifest.list.v2+json": "application/vnd.oci.image.manifest.list.v1+json",
-	"application/vnd.docker.distribution.manifest.v2+json":      "application/vnd.oci.image.manifest.v1+json",
-	"application/vnd.docker.image.rootfs.diff.tar.gzip":         "application/vnd.oci.image.rootfs.tar.gzip",
-	"application/vnd.docker.container.image.v1+json":            "application/vnd.oci.image.config.v1+json",
+	"application/vnd.docker.distribution.manifest.list.v2+json": v1.MediaTypeImageManifestList,
+	"application/vnd.docker.distribution.manifest.v2+json":      v1.MediaTypeImageManifest,
+	"application/vnd.docker.image.rootfs.diff.tar.gzip":         v1.MediaTypeImageLayer,
+	"application/vnd.docker.container.image.v1+json":            v1.MediaTypeImageConfig,
 }
 
 // convertFormats converts Docker v2.2 image format JSON documents to OCI
