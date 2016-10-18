@@ -30,7 +30,7 @@ Unlike the [Manifest List](manifest-list.md), which contains information about a
     This REQUIRED property references a configuration object for a container, by digest.
     Beyond the [descriptor requirements](descriptor.md#properties), the value has the following additional restrictions:
 
-    - **`mediaType`** *object*
+    - **`mediaType`** *string*
 
         This [descriptor property](descriptor.md#properties) has additional restrictions for `config`.
         Implementations MUST support at least the following media types:
@@ -48,7 +48,7 @@ Unlike the [Manifest List](manifest-list.md), which contains information about a
 
     Beyond the [descriptor requirements](descriptor.md#properties), the value has the following additional restrictions:
 
-    - **`mediaType`** *object*
+    - **`mediaType`** *string*
 
         This [descriptor property](descriptor.md#properties) has additional restrictions for `layers[]`.
         Implementations MUST support at least the following media types:

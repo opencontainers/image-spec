@@ -26,7 +26,7 @@ This section defines the `application/vnd.oci.image.manifest.list.v1+json` [medi
 
   Each object in the manifest is a [descriptor](descriptor.md) with the following additional properties and restrictions:
 
-  - **`mediaType`** *object*
+  - **`mediaType`** *string*
 
     This [descriptor property](descriptor.md#properties) has additional restrictions for `manifests`.
     Implementations MUST support at least the following media types:
