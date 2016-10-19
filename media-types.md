@@ -9,6 +9,20 @@ The following media types identify the formats described here and their referenc
 - `application/vnd.oci.image.layer.v1.tar+gzip`: ["Layer", as a gzipped tar archive](layer.md)
 - `application/vnd.oci.image.layer.nondistributable.v1.tar+gzip`: ["Layer", as a gzipped tar archive with distribution restrictions](layer.md#non-distributable-layers)
 
+## Media Type Conflicts
+
+[Blob](image-layout.md) retrieval methods MAY return media type metadata.
+For example, a HTTP response might return a manifest with the Content-Type header set to `application/vnd.oci.image.manifest.v1+json`.
+Implementations MAY also have expectations for the blob's media type and digest (e.g. from a [descriptor](descriptor.md) referencing the blob).
+
+* Implementations that do not have an expected media type for the blob SHOULD respect the returned media type.
+* Implementations that have an expected media type which matches the returned media type SHOULD respect the matched media type.
+* Implementations that have an expected media type which does not match the returned media type SHOULD:
+    * Respect the expected media type if the blob matches the expected digest.
+      Implementations MAY warn about the media type mismatch.
+    * Return an error if the blob does not match the expected digest (as [recommended for descriptors](descriptor.md#properties)).
+    * Return an error if they do not have an expected digest.
+
 ## Compatibility Matrix
 
 The OCI Image Specification strives to be backwards and forwards compatible when possible.
