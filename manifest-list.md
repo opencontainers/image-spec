@@ -37,15 +37,16 @@ This section defines the `application/vnd.oci.image.manifest.list.v1+json` [medi
   - **`platform`** *object*
 
     This REQUIRED property describes the platform which the image in the manifest runs on.
-    A full list of valid operating system and architecture values are listed in the [Go language documentation for `$GOOS` and `$GOARCH`](https://golang.org/doc/install/source#environment)
 
     - **`architecture`** *string*
 
-        This REQUIRED property specified the CPU architecture, for example `amd64` or `ppc64le`.
+        This REQUIRED property specified the CPU architecture.
+        Manifest lists SHOULD use, and implementations SHOULD understand, values [supported by runtime-spec's `platform.arch`][runtime-platform].
 
     - **`os`** *string*
 
-        This REQUIRED property specifies the operating system, for example `linux` or `windows`.
+        This REQUIRED property specifies the operating system.
+        Manifest lists SHOULD use, and implementations SHOULD understand, values [supported by runtime-spec's `platform.os`][runtime-platform].
 
     - **`os.version`** *string*
 
@@ -116,3 +117,5 @@ Instead they MUST ignore unknown properties.
   }
 }
 ```
+
+[runtime-platform]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc2/config.md#platform

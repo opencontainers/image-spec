@@ -60,16 +60,12 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
 - **architecture** *string*, REQUIRED
 
   The CPU architecture which the binaries in this image are built to run on.
-  Possible values include: `386`, `amd64`, `arm`, `arm64`.
-  More values may be supported in the future and any of these may or may not be supported by a given container runtime implementation.
-  New entries SHOULD be submitted to this specification for standardization and be inspired by the [Go language documentation for $GOOS and $GOARCH](https://golang.org/doc/install/source#environment).
+  Configurations SHOULD use, and implementations SHOULD understand, values [supported by runtime-spec's `platform.arch`][runtime-platform].
 
 - **os** *string*, REQUIRED
 
   The name of the operating system which the image is built to run on.
-  Possible values include: `darwin`, `freebsd`, `linux`.
-  More values may be supported in the future and any of these may or may not be supported by a given container runtime implementation.
-  New entries SHOULD be submitted to this specification for standardization and be inspired by the [Go language documentation for $GOOS and $GOARCH](https://golang.org/doc/install/source#environment).
+  Configurations SHOULD use, and implementations SHOULD understand, values [supported by runtime-spec's `platform.os`][runtime-platform].
 
 - **config** *object*, OPTIONAL
 
@@ -235,3 +231,5 @@ Here is an example image configuration JSON document:
     ]
 }
 ```
+
+[runtime-platform]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc2/config.md#platform
