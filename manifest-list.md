@@ -2,7 +2,6 @@
 
 The manifest list is a higher-level manifest which points to specific [image manifests](manifest.md) for one or more platforms.
 While the use of a manifest list is OPTIONAL for image providers, image consumers SHOULD be prepared to process them.
-A client will distinguish a manifest list from an image manifest based on the Content-Type returned in the HTTP response.
 
 This section defines the `application/vnd.oci.image.manifest.list.v1+json` [media type](media-types.md).
 
