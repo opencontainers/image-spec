@@ -20,26 +20,17 @@ import (
 	"github.com/opencontainers/image-spec/specs-go/v1"
 )
 
-// Media types for the OCI image formats
-const (
-	MediaTypeDescriptor   Validator     = v1.MediaTypeDescriptor
-	MediaTypeManifest     Validator     = v1.MediaTypeImageManifest
-	MediaTypeManifestList Validator     = v1.MediaTypeImageManifestList
-	MediaTypeImageConfig  Validator     = v1.MediaTypeImageConfig
-	MediaTypeImageLayer   unimplemented = v1.MediaTypeImageLayer
-)
-
 var (
 	// fs stores the embedded http.FileSystem
 	// having the OCI JSON schema files in root "/".
 	fs = _escFS(false)
 
-	// specs maps OCI schema media types to schema files.
-	specs = map[Validator]string{
-		MediaTypeDescriptor:   "content-descriptor.json",
-		MediaTypeManifest:     "image-manifest-schema.json",
-		MediaTypeManifestList: "manifest-list-schema.json",
-		MediaTypeImageConfig:  "config-schema.json",
+	// Schemas maps OCI media types to JSON Schema files.
+	Schemas = map[string]string{
+		v1.MediaTypeDescriptor:        "content-descriptor.json",
+		v1.MediaTypeImageManifest:     "image-manifest-schema.json",
+		v1.MediaTypeImageManifestList: "manifest-list-schema.json",
+		v1.MediaTypeImageConfig:       "config-schema.json",
 	}
 )
 

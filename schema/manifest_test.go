@@ -18,12 +18,15 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/opencontainers/go-digest"
 	"github.com/opencontainers/image-spec/schema"
+	"github.com/opencontainers/image-spec/specs-go/v1"
 )
 
 func TestManifest(t *testing.T) {
 	for i, tt := range []struct {
 		manifest string
+		strict   bool
 		fail     bool
 	}{
 		// expected failure: mediaType does not match pattern
@@ -46,7 +49,8 @@ func TestManifest(t *testing.T) {
   ]
 }
 `,
-			fail: true,
+			strict: true,
+			fail:   true,
 		},
 
 		// expected failure: config.size is a string, expected integer
@@ -69,7 +73,8 @@ func TestManifest(t *testing.T) {
   ]
 }
 `,
-			fail: true,
+			strict: true,
+			fail:   true,
 		},
 
 		// expected failure: layers.size is string, expected integer
@@ -92,7 +97,56 @@ func TestManifest(t *testing.T) {
   ]
 }
 `,
-			fail: true,
+			strict: true,
+			fail:   true,
+		},
+
+		// expected failure: unrecognized layer media type and strict is true
+		{
+			manifest: `
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "config": {
+    "mediaType": "application/vnd.oci.image.config.v1+json",
+    "size": 1470,
+    "digest": "sha256:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.other.layer",
+      "size": "675598",
+      "digest": "sha256:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+    }
+  ]
+}
+`,
+			strict: true,
+			fail:   true,
+		},
+
+		// expected success: unrecognized layer media type, but strict is false
+		{
+			manifest: `
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "config": {
+    "mediaType": "application/vnd.oci.image.config.v1+json",
+    "size": 1470,
+    "digest": "sha256:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.other.layer",
+      "size": "675598",
+      "digest": "sha256:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+    }
+  ]
+}
+`,
+			strict: false,
+			fail:   true,
 		},
 
 		// valid manifest with optional fields
@@ -129,7 +183,8 @@ func TestManifest(t *testing.T) {
   }
 }
 `,
-			fail: false,
+			strict: true,
+			fail:   false,
 		},
 
 		// valid manifest with only required fields
@@ -182,9 +237,14 @@ func TestManifest(t *testing.T) {
 			fail: true,
 		},
 	} {
-		r := strings.NewReader(tt.manifest)
-		err := schema.MediaTypeManifest.Validate(r)
-
+		manifestBytes := []byte(tt.manifest)
+		reader := strings.NewReader(tt.manifest)
+		descriptor := v1.Descriptor{
+			MediaType: v1.MediaTypeImageManifest,
+			Digest:    digest.FromBytes(manifestBytes).String(),
+			Size:      int64(len(manifestBytes)),
+		}
+		err := schema.Validate(reader, &descriptor, tt.strict)
 		if got := err != nil; tt.fail != got {
 			t.Errorf("test %d: expected validation failure %t but got %t, err %v", i, tt.fail, got, err)
 		}

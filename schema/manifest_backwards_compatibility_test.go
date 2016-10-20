@@ -15,12 +15,11 @@
 package schema_test
 
 import (
-	"crypto/sha256"
-	"encoding/hex"
-	"fmt"
+	"bytes"
 	"strings"
 	"testing"
 
+	"github.com/opencontainers/go-digest"
 	"github.com/opencontainers/image-spec/schema"
 	"github.com/opencontainers/image-spec/specs-go/v1"
 )
@@ -45,13 +44,13 @@ func convertFormats(input string) string {
 
 func TestBackwardsCompatibilityManifestList(t *testing.T) {
 	for i, tt := range []struct {
-		manifest string
-		digest   string
-		fail     bool
+		manifestList string
+		digest       string
+		fail         bool
 	}{
 		{
 			digest: "sha256:219f4b61132fe9d09b0ec5c15517be2ca712e4744b0e0cc3be71295b35b2a467",
-			manifest: `{
+			manifestList: `{
    "schemaVersion": 2,
    "mediaType": "application/vnd.docker.distribution.manifest.list.v2+json",
    "manifests": [
@@ -110,16 +109,18 @@ func TestBackwardsCompatibilityManifestList(t *testing.T) {
 			fail: false,
 		},
 	} {
-		sum := sha256.Sum256([]byte(tt.manifest))
-		got := fmt.Sprintf("sha256:%s", hex.EncodeToString(sum[:]))
-		if tt.digest != got {
-			t.Errorf("test %d: expected digest %s but got %s", i, tt.digest, got)
+		err := schema.ValidateByteDigest([]byte(tt.manifestList), &v1.Descriptor{Digest: tt.digest})
+		if err != nil {
+			t.Fatal(err)
 		}
-
-		manifest := convertFormats(tt.manifest)
-		r := strings.NewReader(manifest)
-		err := schema.MediaTypeManifestList.Validate(r)
-
+		manifestList := []byte(convertFormats(tt.manifestList))
+		reader := bytes.NewReader(manifestList)
+		descriptor := v1.Descriptor{
+			MediaType: v1.MediaTypeImageManifestList,
+			Digest:    digest.FromBytes(manifestList).String(),
+			Size:      int64(len(manifestList)),
+		}
+		err = schema.Validate(reader, &descriptor, true)
 		if got := err != nil; tt.fail != got {
 			t.Errorf("test %d: expected validation failure %t but got %t, err %v", i, tt.fail, got, err)
 		}
@@ -130,6 +131,7 @@ func TestBackwardsCompatibilityManifest(t *testing.T) {
 	for i, tt := range []struct {
 		manifest string
 		digest   string
+		strict   bool
 		fail     bool
 	}{
 		// manifest pulled from docker hub using hash value
@@ -170,19 +172,22 @@ func TestBackwardsCompatibilityManifest(t *testing.T) {
       }
    ]
 }`,
-			fail: false,
+			strict: false, // unrecognized config media type application/octet-stream
+			fail:   false,
 		},
 	} {
-		sum := sha256.Sum256([]byte(tt.manifest))
-		got := fmt.Sprintf("sha256:%s", hex.EncodeToString(sum[:]))
-		if tt.digest != got {
-			t.Errorf("test %d: expected digest %s but got %s", i, tt.digest, got)
+		err := schema.ValidateByteDigest([]byte(tt.manifest), &v1.Descriptor{Digest: tt.digest})
+		if err != nil {
+			t.Fatal(err)
 		}
-
-		manifest := convertFormats(tt.manifest)
-		r := strings.NewReader(manifest)
-		err := schema.MediaTypeManifest.Validate(r)
-
+		manifest := []byte(convertFormats(tt.manifest))
+		reader := bytes.NewReader(manifest)
+		descriptor := v1.Descriptor{
+			MediaType: v1.MediaTypeImageManifest,
+			Digest:    digest.FromBytes(manifest).String(),
+			Size:      int64(len(manifest)),
+		}
+		err = schema.Validate(reader, &descriptor, tt.strict)
 		if got := err != nil; tt.fail != got {
 			t.Errorf("test %d: expected validation failure %t but got %t, err %v", i, tt.fail, got, err)
 		}
@@ -213,16 +218,18 @@ func TestBackwardsCompatibilityConfig(t *testing.T) {
 			fail:   false,
 		},
 	} {
-		sum := sha256.Sum256([]byte(tt.config))
-		got := fmt.Sprintf("sha256:%s", hex.EncodeToString(sum[:]))
-		if tt.digest != got {
-			t.Errorf("test %d: expected digest %s but got %s", i, tt.digest, got)
+		err := schema.ValidateByteDigest([]byte(tt.config), &v1.Descriptor{Digest: tt.digest})
+		if err != nil {
+			t.Fatal(err)
 		}
-
-		config := convertFormats(tt.config)
-		r := strings.NewReader(config)
-		err := schema.MediaTypeImageConfig.Validate(r)
-
+		config := []byte(convertFormats(tt.config))
+		reader := bytes.NewReader(config)
+		descriptor := v1.Descriptor{
+			MediaType: v1.MediaTypeImageConfig,
+			Digest:    digest.FromBytes(config).String(),
+			Size:      int64(len(config)),
+		}
+		err = schema.Validate(reader, &descriptor, true)
 		if got := err != nil; tt.fail != got {
 			t.Errorf("test %d: expected validation failure %t but got %t, err %v", i, tt.fail, got, err)
 		}

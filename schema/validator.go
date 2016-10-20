@@ -16,60 +16,81 @@ package schema
 
 import (
 	"bytes"
-	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
 
+	"github.com/opencontainers/go-digest"
 	"github.com/opencontainers/image-spec/specs-go/v1"
 	"github.com/pkg/errors"
 	"github.com/xeipuuv/gojsonschema"
 )
 
-// Validator wraps a media type string identifier
-// and implements validation against a JSON schema.
-type Validator string
-
-type validateDescendantsFunc func(r io.Reader) error
-
-var mapValidateDescendants = map[Validator]validateDescendantsFunc{
-	MediaTypeManifest: validateManifestDescendants,
-}
-
-// ValidationError contains all the errors that happened during validation.
+// ValidationError contains all the errors that happened during
+// validation.
 type ValidationError struct {
 	Errs []error
+}
+
+// Validator is a template for validating a CAS blob.  The 'strict'
+// parameter distinguishes between compliant blobs (which should only
+// pass when strict is false) and blobs that only use features which
+// the spec requires implementations to support (which should pass
+// regardless of strict).
+type Validator func(blob io.Reader, descriptor *v1.Descriptor, strict bool) (err error)
+
+// Validators is a map from media types to an appropriate Validator
+// function.
+var Validators = map[string]Validator{
+	v1.MediaTypeDescriptor:        ValidateJSONSchema,
+	v1.MediaTypeImageManifestList: ValidateJSONSchema,
+	v1.MediaTypeImageManifest:     ValidateManifest,
+	v1.MediaTypeImageConfig:       ValidateJSONSchema,
 }
 
 func (e ValidationError) Error() string {
 	return fmt.Sprintf("%v", e.Errs)
 }
 
-// Validate validates the given reader against the schema of the wrapped media type.
-func (v Validator) Validate(src io.Reader) error {
-	buf, err := ioutil.ReadAll(src)
+// Validate retrieves the appropriate Validator from Validators and
+// uses it to validate the given CAS blob.  Validate uses the
+// Validator template; see the Validator docs for usage information.
+func Validate(blob io.Reader, descriptor *v1.Descriptor, strict bool) (err error) {
+	validator, ok := Validators[descriptor.MediaType]
+	if !ok {
+		return fmt.Errorf("unrecognized media type %q", descriptor.MediaType)
+	}
+	return validator(blob, descriptor, strict)
+}
+
+// ValidateJSONSchema validates the given CAS blob against the schema
+// for the descriptor's media type.  Calls ValidateByteSize and
+// ValidateByteDigest as well.
+func ValidateJSONSchema(blob io.Reader, descriptor *v1.Descriptor, strict bool) (err error) {
+	buffer, err := ioutil.ReadAll(blob)
 	if err != nil {
-		return errors.Wrap(err, "unable to read the document file")
+		return errors.Wrapf(err, "unable to read %s", descriptor.Digest)
 	}
 
-	if f, ok := mapValidateDescendants[v]; ok {
-		if f == nil {
-			return fmt.Errorf("internal error: mapValidateDescendents[%q] is nil", v)
-		}
-		err = f(bytes.NewReader(buf))
-		if err != nil {
-			return err
-		}
+	err = ValidateByteSize(buffer, descriptor)
+	if err != nil {
+		return err
 	}
 
-	sl := gojsonschema.NewReferenceLoaderFileSystem("file:///"+specs[v], fs)
-	ml := gojsonschema.NewStringLoader(string(buf))
+	err = ValidateByteDigest(buffer, descriptor)
+	if err != nil {
+		return err
+	}
 
-	result, err := gojsonschema.Validate(sl, ml)
+	url := "file:///" + Schemas[descriptor.MediaType]
+	schemaLoader := gojsonschema.NewReferenceLoaderFileSystem(url, fs)
+	docLoader := gojsonschema.NewStringLoader(string(buffer))
+
+	result, err := gojsonschema.Validate(schemaLoader, docLoader)
 	if err != nil {
 		return errors.Wrapf(
-			WrapSyntaxError(bytes.NewReader(buf), err),
-			"schema %s: unable to validate", v)
+			WrapSyntaxError(bytes.NewReader(buffer), err),
+			"unable to validate JSON Schema for %s", descriptor.Digest)
 	}
 
 	if result.Valid() {
@@ -77,8 +98,8 @@ func (v Validator) Validate(src io.Reader) error {
 	}
 
 	errs := make([]error, 0, len(result.Errors()))
-	for _, desc := range result.Errors() {
-		errs = append(errs, fmt.Errorf("%s", desc))
+	for _, description := range result.Errors() {
+		errs = append(errs, fmt.Errorf("%s", description))
 	}
 
 	return ValidationError{
@@ -86,34 +107,32 @@ func (v Validator) Validate(src io.Reader) error {
 	}
 }
 
-type unimplemented string
+// ValidateByteDigest checks the digest of blob against the expected
+// descriptor.Digest.
+func ValidateByteDigest(blob []byte, descriptor *v1.Descriptor) (err error) {
+	parsed, err := digest.Parse(descriptor.Digest)
+	if err != nil {
+		return err
+	}
+	algorithm := parsed.Algorithm()
+	if !algorithm.Available() {
+		return fmt.Errorf("unsupported digest algorithm for %s", descriptor.Digest)
+	}
+	actualDigest := algorithm.FromBytes(blob).String()
+	if actualDigest != descriptor.Digest {
+		return fmt.Errorf("unexpected digest for %s: %s", descriptor.Digest, actualDigest)
+	}
 
-func (v unimplemented) Validate(src io.Reader) error {
-	return fmt.Errorf("%s: unimplemented", v)
+	return nil
 }
 
-func validateManifestDescendants(r io.Reader) error {
-	header := v1.Manifest{}
-
-	buf, err := ioutil.ReadAll(r)
-	if err != nil {
-		return errors.Wrapf(err, "error reading the io stream")
+// ValidateByteSize checks the size of blob against the expected
+// descriptor.Size.  This isn't very complicated; the function is
+// mostly useful for generating consistent error messages.
+func ValidateByteSize(blob []byte, descriptor *v1.Descriptor) (err error) {
+	if descriptor.Size > 0 && int64(len(blob)) != descriptor.Size {
+		return fmt.Errorf("unexpected size for %s: %d != %d", descriptor.Digest, len(blob), descriptor.Size)
 	}
 
-	err = json.Unmarshal(buf, &header)
-	if err != nil {
-		return errors.Wrap(err, "manifest format mismatch")
-	}
-
-	if header.Config.MediaType != string(v1.MediaTypeImageConfig) {
-		fmt.Printf("warning: config %s has an unknown media type: %s\n", header.Config.Digest, header.Config.MediaType)
-	}
-
-	for _, layer := range header.Layers {
-		if layer.MediaType != string(v1.MediaTypeImageLayer) &&
-			layer.MediaType != string(v1.MediaTypeImageLayerNonDistributable) {
-			fmt.Printf("warning: layer %s has an unknown media type: %s\n", layer.Digest, layer.MediaType)
-		}
-	}
 	return nil
 }
