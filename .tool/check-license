@@ -7,7 +7,10 @@ set -o pipefail
 ret=0
 
 for file in $(find . -type f -iname '*.go' ! -path './vendor/*'); do
-	(head -n3 "${file}" | grep -Eq "(Copyright|generated|GENERATED)") || (echo "${file}:missing license header" && ret=1)
+	if ! head -n3 "${file}" | grep -Eq "(Copyright|generated|GENERATED)"; then
+		echo "${file}:missing license header"
+		ret=1
+	fi
 done
 
 exit $ret
