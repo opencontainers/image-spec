@@ -7,11 +7,16 @@
     "schemaVersion": {
       "description": "This field specifies the image manifest-list schema version as an integer",
       "id": "https://opencontainers.org/schema/image/manifest-list/schemaVersion",
-      "type": "integer"
+      "type": "integer",
+      "minimum": 2,
+      "maximum": 2
     },
     "mediaType": {
       "id": "https://opencontainers.org/schema/image/manifest-list/mediaType",
-      "$ref": "defs-image.json#/definitions/mediaType"
+      "type": "string",
+      "enum": [
+        "application/vnd.oci.image.manifest.list.v1+json"
+      ]
     },
     "manifests": {
       "type": "array",
