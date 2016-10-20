@@ -7,6 +7,7 @@ In OCI, this is codified in a [Manifest List](manifest-list.md).
 The third goal is to be translatable to the [OCI Runtime Specification](https://github.com/opencontainers/runtime-spec).
 
 This section defines the `application/vnd.oci.image.manifest.v1+json` [media type](media-types.md).
+For the media type(s) that this is compatible with see the [matrix](media-types.md#compatibility-matrix).
 
 # Image Manifest
 
@@ -21,9 +22,8 @@ Unlike the [Manifest List](manifest-list.md), which contains information about a
 
 - **`mediaType`** *string*
 
-    This REQUIRED property contains the media type of the image manifest.
-    For this version of the specification, this MUST be set to `application/vnd.oci.image.manifest.v1+json`.
-    For the media type(s) that this is compatible with see the [matrix](media-types.md#compatibility-matrix).
+  This property is *reserved* for use, to [maintain compatibility][matrix].
+  When used, this field contains the media type of this document, which differs from the [descriptor](descriptor.md#properties) use of `mediaType`.
 
 - **`config`** *[descriptor](descriptor.md)*
 

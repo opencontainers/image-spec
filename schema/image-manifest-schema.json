@@ -11,13 +11,6 @@
       "minimum": 2,
       "maximum": 2
     },
-    "mediaType": {
-      "id": "https://opencontainers.org/schema/image/manifest/mediaType",
-      "type": "string",
-      "enum": [
-        "application/vnd.oci.image.manifest.v1+json"
-      ]
-    },
     "config": {
       "$ref": "content-descriptor.json"
     },
@@ -35,7 +28,6 @@
   },
   "required": [
     "schemaVersion",
-    "mediaType",
     "config",
     "layers"
   ]

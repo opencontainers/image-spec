@@ -78,6 +78,7 @@ type History struct {
 }
 
 // Image is the JSON structure which describes some basic information about the image.
+// This provides the `application/vnd.oci.image.config.v1+json` mediatype when marshalled to JSON.
 type Image struct {
 	// Created defines an ISO-8601 formatted combined date and time at which the image was created.
 	Created string `json:"created,omitempty"`
