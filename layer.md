@@ -204,31 +204,29 @@ The resulting tar archive for `rootfs-c9d-v1.s1` has the following entries:
 ./etc/.wh.my-app-config
 ```
 
-Where the basename name of `./etc/my-app-config` is now prefixed with `.wh.`, and will therefore be removed when the changeset is applied.
+To signify that the resource `./etc/my-app-config` MUST be removed when the changeset is applied, the basename of the entry is prefixed with `.wh.`.
 
-## Applying
+## Applying Changesets
 
-Layer Changesets of [mediatype](./media-types.md) `application/vnd.oci.image.layer.v1.tar+gzip` are applied rather than strictly extracted in normal fashion for tar archives.
+Layer Changesets of [mediatype](./media-types.md) `application/vnd.oci.image.layer.v1.tar+gzip` are _applied_, rather than simply extracted as tar archives.
 
-Applying a layer changeset requires consideration for the [whiteout](#whiteouts) files.
+Applying a layer changeset requires special consideration for the [whiteout](#whiteouts) files.
+
 In the absence of any [whiteout](#whiteouts) files in a layer changeset, the archive is extracted like a regular tar archive.
-
 
 ### Changeset over existing files
 
-This section covers applying an entry in a layer changeset, if the file path already exists.
+This section specifies applying an entry from a layer changeset if the target path already exists.
 
-If the file path is a directory, then the existing path just has it's attribute set from the layer changeset for that filepath.
-If the file path is any other file type (regular file, FIFO, etc), then the:
-* file path is unlinked (See [`unlink(2)`](http://linux.die.net/man/2/unlink))
-* create the file
-    * If a regular file then content written.
-* set attributes on the filepath
+If the entry and the existing path are both directories, then the existing path's attributes MUST be replaced by those of the entry in the changeset.
+In all other cases, the implementation MUST do the semantic equivalent of the following:
+- removing the file path (e.g. [`unlink(2)`](http://linux.die.net/man/2/unlink) on Linux systems)
+- recreating the file path, based on the contents and attributes of the changeset entry
 
 ## Whiteouts
 
 A whiteout file is an empty file with a special filename that signifies a path should be deleted.
-A whiteout filename consists of the prefix .wh. plus the basename of the path to be deleted.
+A whiteout filename consists of the prefix `.wh.` plus the basename of the path to be deleted.
 As files prefixed with `.wh.` are special whiteout markers, it is not possible to create a filesystem which has a file or directory with a name beginning with `.wh.`.
 
 Once a whiteout is applied, the whiteout itself MUST also be hidden.
