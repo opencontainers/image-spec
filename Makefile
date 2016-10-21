@@ -31,7 +31,7 @@ DOC_FILES := \
 	config.md \
 	manifest.md \
 	manifest-list.md \
-	canonicalization.md
+	considerations.md
 
 FIGURE_FILES := \
 	img/media-types.png

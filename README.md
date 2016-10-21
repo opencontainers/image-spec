@@ -15,7 +15,9 @@ The goal of this specification is to enable the creation of interoperable tools 
 - [Image Configuration](config.md)
 - [Image Manifest](manifest.md)
 - [Image Manifest List](manifest-list.md)
-- [Canonicalization](canonicalization.md)
+- [Considerations](considerations.md)
+    - [Extensibility](considerations.md#extensibility)
+    - [Canonicalization](considerations.md#canonicalization)
 
 ## Overview
 
