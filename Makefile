@@ -49,7 +49,6 @@ help:
 	@echo " * 'docs' - produce document in the $(OUTPUT_DIRNAME) directory"
 	@echo " * 'fmt' - format the json with indentation"
 	@echo " * 'validate-examples' - validate the examples in the specification markdown files"
-	@echo " * 'oci-image-tool' - build the oci-image-tool binary"
 	@echo " * 'schema-fs' - regenerate the virtual schema http/FileSystem"
 	@echo " * 'check-license' - check license headers in source files"
 	@echo " * 'lint' - Execute the source code linter"
@@ -83,9 +82,6 @@ code-of-conduct.md:
 
 validate-examples:
 	go test -run TestValidate ./schema
-
-oci-image-tool:
-	go build ./cmd/oci-image-tool
 
 schema-fs:
 	@echo "generating schema fs"
@@ -139,11 +135,9 @@ install.tools: .install.gitvalidation .install.glide .install.glide-vc
 
 clean:
 	rm -rf *~ $(OUTPUT_DIRNAME)
-	rm -f oci-image-tool
 
 .PHONY: \
 	validate-examples \
-	oci-image-tool \
 	check-license \
 	clean \
 	lint \

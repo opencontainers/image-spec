@@ -24,5 +24,4 @@ script:
   - make lint
   - make check-license
   - make test
-  - make oci-image-tool
   - make docs

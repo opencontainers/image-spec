@@ -33,20 +33,13 @@ $ make test
 $ make validate-examples
 ```
 
-### OCI image tool
-
-This target builds the `oci-image-tool` binary.
-
-Invocation:
-```
-$ make oci-image-tool
-```
-
 ### Virtual schema http/FileSystem
 
-The `oci-image-tool` uses a virtual [http/FileSystem](https://golang.org/pkg/net/http/#FileSystem) to load the JSON schema files for validating OCI images and/or manifests. The virtual file system is generated using the `esc` tool and compiled into the `oci-image-tool` binary so the JSON schema files don't have to be distributed along with the binary.
+The `schema` validator uses a virtual [http/FileSystem](https://golang.org/pkg/net/http/#FileSystem) to load the JSON schema files for validating OCI images and/or manifests.
+The virtual file system is generated using the `esc` tool and compiled into consumers of the `schema` package so the JSON schema files don't have to be distributed along with and consumer binaries.
 
-Whenever changes are being done in any of the `schema/*.json` files, one must refresh the generated virtual file system. Otherwise schema changes will not be visible inside the `oci-image-tool`.
+Whenever changes are being done in any of the `schema/*.json` files, one must refresh the generated virtual file system.
+Otherwise schema changes will not be visible inside `schema` consumers.
 
 Prerequisites:
 * [esc](https://github.com/mjibson/esc)
