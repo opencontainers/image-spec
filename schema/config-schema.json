@@ -29,5 +29,10 @@
         "$ref": "defs-config.json#/definitions/history"
       }
     }
-  }
+  },
+  "required": [
+    "architecture",
+    "os",
+    "rootfs"
+  ]
 }
