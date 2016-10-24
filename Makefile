@@ -27,10 +27,10 @@ DOC_FILES := \
 	media-types.md \
 	descriptor.md \
 	image-layout.md \
-	layer.md \
-	config.md \
 	manifest.md \
 	manifest-list.md \
+	layer.md \
+	config.md \
 	canonicalization.md
 
 FIGURE_FILES := \
