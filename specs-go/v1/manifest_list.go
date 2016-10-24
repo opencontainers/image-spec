@@ -58,5 +58,5 @@ type ManifestList struct {
 	Manifests []ManifestDescriptor `json:"manifests"`
 
 	// Annotations contains arbitrary metadata for the manifest list.
-	Annotations map[string]string `json:"annotations"`
+	Annotations map[string]string `json:"annotations,omitempty"`
 }
