@@ -11,10 +11,10 @@ The goal of this specification is to enable the creation of interoperable tools 
     - [Media Types](media-types.md)
 - [Content Descriptors](descriptor.md)
 - [Image Layout](image-layout.md)
-- [Filesystem Layers](layer.md)
-- [Image Configuration](config.md)
 - [Image Manifest](manifest.md)
 - [Image Manifest List](manifest-list.md)
+- [Filesystem Layers](layer.md)
+- [Image Configuration](config.md)
 - [Canonicalization](canonicalization.md)
 
 ## Overview
