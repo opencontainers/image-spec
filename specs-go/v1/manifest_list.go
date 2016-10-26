@@ -44,7 +44,7 @@ type Platform struct {
 
 // ManifestDescriptor describes a platform specific manifest.
 type ManifestDescriptor struct {
-	Descriptor
+	Config Descriptor `json:"config"`
 
 	// Platform describes the platform which the image in the manifest runs on.
 	Platform Platform `json:"platform"`
