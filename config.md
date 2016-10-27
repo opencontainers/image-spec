@@ -76,7 +76,7 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
 
      The username or UID which the process in the container should run as.
      This acts as a default value to use when the value is not specified when creating a container.
-     All of the following are valid: `user`, `uid`, `user:group`, `uid:gid`, `uid:group`, `user:gid`
+     All of the following are valid: `user`, `uid`, `user:group`, `uid:gid`, `uid:group`, `user:gid`.
      If `group`/`gid` is not specified, the default group and supplementary groups of the given `user`/`uid` in `/etc/passwd` from the container are applied.
 
    - **Memory** *integer*, OPTIONAL
@@ -151,7 +151,7 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
 
     - **created** *string*, OPTIONAL
 
-       Creation time, expressed as an ISO-8601 formatted combined date and time
+       Creation time, expressed as an ISO-8601 formatted combined date and time.
 
     - **author** *string*, OPTIONAL
 
