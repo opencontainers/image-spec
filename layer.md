@@ -63,7 +63,7 @@ The corresponding files that share the link with the > 1 linkcount may be outsid
 
 Hardlinks are stored in a tar archive with type of a `1` char, per the [GNU Basic Tar Format][gnu-tar-standard] and [libarchive tar(5)][libarchive-tar].
 
-While approaches to deriving new or changed hardlinks may vary, a possible approach is:
+While approaches to derive new or changed hardlinks may vary, a possible approach is:
 
 ```
 SET LinkMap to map[< Major:Minor String >]map[< inode integer >]< path string >
@@ -204,7 +204,7 @@ The resulting tar archive for `rootfs-c9d-v1.s1` has the following entries:
 ./etc/.wh.my-app-config
 ```
 
-To signify that the resource `./etc/my-app-config` MUST be removed when the changeset is applied, the basename of the entry is prefixed with `.wh.`.
+To signify that, the resource `./etc/my-app-config` MUST be removed when the changeset is applied, the basename of the entry is prefixed with `.wh.`.
 
 ## Applying Changesets
 
