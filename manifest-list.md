@@ -16,7 +16,7 @@ This section defines the `application/vnd.oci.image.manifest.list.v1+json` [medi
 
   This REQUIRED property contains the media type of the manifest list.
   For this version of the specification, this MUST be set to `application/vnd.oci.image.manifest.list.v1+json`.
-  For the media type(s) that this is compatible with see the [matrix](media-types.md#compatibility-matrix).
+  For the media type(s) that this is compatible with, see the [matrix](media-types.md#compatibility-matrix).
 
 - **`manifests`** *array*
 
@@ -40,7 +40,7 @@ This section defines the `application/vnd.oci.image.manifest.list.v1+json` [medi
 
     - **`architecture`** *string*
 
-        This REQUIRED property specified the CPU architecture.
+        This REQUIRED property specifies the CPU architecture.
         Manifest lists SHOULD use, and implementations SHOULD understand, values [supported by runtime-spec's `platform.arch`][runtime-platform].
 
     - **`os`** *string*
