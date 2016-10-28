@@ -9,6 +9,8 @@ Given an image layout and a ref, a tool can create an [OCI Runtime Specification
 * [Applying the filesystem layers](layer.md#applying) in the specified order
 * Converting the [image configuration](config.md) into an [OCI Runtime Specification `config.json`](https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc2/config.md)
 
+# Content
+
 The image layout MUST contain two top level directories:
 
 - `blobs` contains content-addressable blobs.
@@ -24,6 +26,8 @@ The image layout MUST also contain an `oci-layout` file:
 - It MUST contain an `imageLayoutVersion` field
     - The `imageLayoutVersion` value will align with the OCI Image Specification version at the time changes to the layout are made, and will pin a given version until changes to the layout are required
 - It MAY include additional fields
+
+## Example Layout
 
 This is an example image layout:
 
@@ -49,16 +53,9 @@ $ shasum -a 256 ./blobs/sha256/afff3924849e458c5ef237db5f89539274d5e609db5db935e
 afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1f2d51 ./blobs/sha256/afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1f2d51
 ```
 
+## Refs
+
 Object names in the `refs` subdirectories MUST NOT include characters outside of the set of "A" to "Z", "a" to "z", "0" to "9", the hyphen `-`, the dot `.`, and the underscore `_`.
-
-Object names in the `blobs` subdirectories are composed of a directory for each hash algorithm, the children of which will contain the actual content.
-A blob, referenced with digest `<alg>:<hex>` (per [descriptor](descriptor.md#digests-and-verification)), MUST have its content stored in a file under `blobs/<alg>/<hex>`.
-The character set of the entry name for `<hex>` and `<alg>` MUST match the respective grammar elements described in [descriptor](descriptor.md#digests-and-verification).
-For example `sha256:5b` will map to the layout `blobs/sha256/5b`.
-
-The blobs directory MAY contain blobs which are not referenced by any of the refs.
-
-The blobs directory MAY be missing referenced blobs, in which case the missing blobs SHOULD be fulfilled by an external blob store.
 
 No semantic restriction is given for object names in the `refs` subdirectory.
 Each object in the `refs` subdirectory MUST be of type `application/vnd.oci.descriptor.v1+json`.
@@ -70,7 +67,7 @@ For example, an image may have a tag for different versions or builds of the sof
 In the wild you often see "tags" like "v1.0.0-vendor.0", "2.0.0-debug", etc.
 Those tags will often be represented in an image-layout repository with matching refs names like "v1.0.0-vendor.0", "2.0.0-debug", etc.
 
-This illustrates the expected contents of a given ref, the manifest list it points to and the blobs the manifest references.
+### Example Ref
 
 ```
 $ cat ./refs/v1.0 | jq
@@ -80,6 +77,21 @@ $ cat ./refs/v1.0 | jq
   "mediaType": "application/vnd.oci.image.manifest.list.v1+json"
 }
 ```
+
+This illustrates the expected contents of a given ref, the manifest list it points to and the blobs the manifest references.
+
+## Blobs
+
+Object names in the `blobs` subdirectories are composed of a directory for each hash algorithm, the children of which will contain the actual content.
+A blob, referenced with digest `<alg>:<hex>` (per [descriptor](descriptor.md#digests-and-verification)), MUST have its content stored in a file under `blobs/<alg>/<hex>`.
+The character set of the entry name for `<hex>` and `<alg>` MUST match the respective grammar elements described in [descriptor](descriptor.md#digests-and-verification).
+For example `sha256:5b` will map to the layout `blobs/sha256/5b`.
+
+The blobs directory MAY contain blobs which are not referenced by any of the refs.
+
+The blobs directory MAY be missing referenced blobs, in which case the missing blobs SHOULD be fulfilled by an external blob store.
+
+### Example Blobs
 
 ```
 $ cat ./blobs/sha256/e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f | jq
