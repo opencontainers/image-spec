@@ -168,7 +168,7 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
     - **empty_layer** *boolean*, OPTIONAL
 
        This field is used to mark if the history item created a filesystem diff.
-       It is set to true if this history item doesn't correspond to an actual layer in the rootfs section (for example, a command like ENV which results in no change to the filesystem).
+       It is set to true if this history item doesn't correspond to an actual layer in the rootfs section (for example, Dockerfile's [ENV](https://docs.docker.com/engine/reference/builder/#/env) command results in no change to the filesystem).
 
 Any extra fields in the Image JSON struct are considered implementation specific and should be ignored by any implementations which are unable to interpret them.
 
