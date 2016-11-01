@@ -26,7 +26,7 @@ Implementations MAY also have expectations for the blob's media type and digest 
 ## Compatibility Matrix
 
 The OCI Image Specification strives to be backwards and forwards compatible when possible.
-Breaking compatibility with existing systems creates a burden on users whether they be build systems, distribution systems, container engines, etc.
+Breaking compatibility with existing systems creates a burden on users whether they are build systems, distribution systems, container engines, etc.
 This section shows where the OCI Image Specification is compatible with formats external to the OCI Image and different versions of this specification.
 
 ### application/vnd.oci.image.manifest.list.v1+json
