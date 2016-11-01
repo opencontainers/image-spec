@@ -18,9 +18,12 @@ The image layout MUST contain two top level directories:
 
 Both `blobs` and `refs` MAY be empty.
 
-The image layout MUST also contain a file that is used to identify the layout version:
+The image layout MUST also contain an `oci-layout` file:
 
-- `oci-layout` MUST contain a JSON object with a version field `{"imageLayoutVersion": "1.0.0"}` and MAY include additional fields.
+- It MUST be a JSON object
+- It MUST contain an `imageLayoutVersion` field
+    - The `imageLayoutVersion` value will align with the OCI Image Specification version at the time changes to the layout are made, and will pin a given version until changes to the layout are required
+- It MAY include additional fields
 
 This is an example image layout:
 
