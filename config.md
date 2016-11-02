@@ -86,7 +86,7 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
 
    - **MemorySwap** *integer*, OPTIONAL
 
-     Total memory usage (memory + swap); set to `-1` to disable swap.
+     MemorySwap is a platform-specific field to set total memory usage (memory + swap) for Linux based systems; set to `-1` to disable swap.
      This acts as a default value to use when the value is not specified when creating a container.
 
    - **CpuShares** *integer*, OPTIONAL
