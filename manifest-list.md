@@ -23,7 +23,7 @@ This section defines the `application/vnd.oci.image.manifest.list.v1+json` [medi
   This REQUIRED property contains a list of manifests for specific platforms.
   While the property MUST be present, the size of the array MAY be zero.
 
-  Each object in the manifest is a [descriptor](descriptor.md) with the following additional properties and restrictions:
+  Each object in `manifests` is a [descriptor](descriptor.md) with the following additional properties and restrictions:
 
   - **`mediaType`** *string*
 
