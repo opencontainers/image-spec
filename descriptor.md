@@ -116,4 +116,15 @@ The following example describes a [_Manifest_](manifest.md#image-manifest) with 
   "size": 7682,
   "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270"
 }
+
+In the following example, the descriptor indicates that the referenced manifest is retrievable from a particular URL:
+
+{
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "size": 7682,
+  "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270",
+  "urls": [
+    "https://example.com/example-manifest"
+  ]
+}
 ```
