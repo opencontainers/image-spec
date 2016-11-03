@@ -68,7 +68,7 @@ This illustrates the expected contents of a given ref, the manifest list it poin
 
 ```
 $ cat ./refs/v1.0
-{"size": 4096, "digest": "sha256:e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f", "mediatype": "application/vnd.oci.image.manifest.list.v1+json"}
+{"size": 4096, "digest": "sha256:e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f", "mediaType": "application/vnd.oci.image.manifest.list.v1+json"}
 ```
 ```
 $ cat ./blobs/sha256/e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f
