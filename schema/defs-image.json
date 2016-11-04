@@ -32,6 +32,14 @@
         "digest": {
           "$ref": "#definitions/digest"
         },
+        "urls": {
+          "description": "a list of urls from which this object may be downloaded",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
         "platform": {
           "id": "https://opencontainers.org/schema/image/platform",
           "type": "object",
