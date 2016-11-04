@@ -31,7 +31,19 @@ func TestManifest(t *testing.T) {
 			manifest: `
 {
   "schemaVersion": 2,
-  "mediaType": "invalid"
+  "mediaType": "invalid",
+  "config": {
+    "mediaType": "application/vnd.oci.image.config.v1+json",
+    "size": 1470,
+    "digest": "sha256:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+      "size": 148,
+      "digest": "sha256:c57089565e894899735d458f0fd4bb17a0f1e0df8d72da392b85c9b35ee777cd"
+    }
+  ]
 }
 `,
 			fail: true,
