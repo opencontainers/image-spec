@@ -74,9 +74,9 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
 
    - **User** *string*, OPTIONAL
 
-     The username or UID which the process in the container should run as.
+     The username or UID which is a platform-specific structure that allows specific control over which user the process run as.
      This acts as a default value to use when the value is not specified when creating a container.
-     All of the following are valid: `user`, `uid`, `user:group`, `uid:gid`, `uid:group`, `user:gid`.
+     For Linux based systems, all of the following are valid: `user`, `uid`, `user:group`, `uid:gid`, `uid:group`, `user:gid`.
      If `group`/`gid` is not specified, the default group and supplementary groups of the given `user`/`uid` in `/etc/passwd` from the container are applied.
 
    - **Memory** *integer*, OPTIONAL
@@ -86,7 +86,7 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
 
    - **MemorySwap** *integer*, OPTIONAL
 
-     Total memory usage (memory + swap); set to `-1` to disable swap.
+     MemorySwap is a platform-specific field to set total memory usage (memory + swap) for Linux based systems; set to `-1` to disable swap.
      This acts as a default value to use when the value is not specified when creating a container.
 
    - **CpuShares** *integer*, OPTIONAL
