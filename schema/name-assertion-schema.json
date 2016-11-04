@@ -1,0 +1,21 @@
+{
+  "description": "Open Container Initiative Name Assertion Specification",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://opencontainers.org/schema/image/name-assertion",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "The name being asserted.",
+      "id": "https://opencontainers.org/schema/image/name-assertion/name",
+      "type": "string"
+    },
+    "blob": {
+      "id": "https://opencontainers.org/schema/image/name-assertion/blob",
+      "$ref": "content-descriptor.json"
+    }
+  },
+  "required": [
+    "name",
+    "blob"
+  ]
+}
