@@ -15,22 +15,12 @@
       "id": "https://opencontainers.org/schema/image/manifestDescriptor",
       "type": "object",
       "required": [
-        "mediaType",
-        "size",
-        "digest",
+        "config",
         "platform"
       ],
       "properties": {
-        "mediaType": {
-          "description": "the mediatype of the referenced object",
-          "$ref": "#definitions/mediaType"
-        },
-        "size": {
-          "description": "the size in bytes of the referenced object",
-          "$ref": "defs.json#/definitions/int64"
-        },
-        "digest": {
-          "$ref": "#definitions/digest"
+        "config": {
+          "$ref": "#content-descriptor.json"
         },
         "platform": {
           "id": "https://opencontainers.org/schema/image/platform",
