@@ -18,7 +18,7 @@ This section defines the `application/vnd.oci.image.manifest.list.v1+json` [medi
   For this version of the specification, this MUST be set to `application/vnd.oci.image.manifest.list.v1+json`.
   For the media type(s) that this is compatible with see the [matrix](media-types.md#compatibility-matrix).
 
-- **`manifests`** *array*
+- **`manifests`** *array of objects*
 
   This REQUIRED property contains a list of manifests for specific platforms.
   While the property MUST be present, the size of the array MAY be zero.
@@ -52,7 +52,7 @@ This section defines the `application/vnd.oci.image.manifest.list.v1+json` [medi
 
         This OPTIONAL property specifies the operating system version, for example `10.0.10586`.
 
-    - **`os.features`** *array*
+    - **`os.features`** *array of strings*
 
         This OPTIONAL property specifies an array of strings, each specifying a mandatory OS feature (for example on Windows `win32k`).
 
@@ -60,7 +60,7 @@ This section defines the `application/vnd.oci.image.manifest.list.v1+json` [medi
 
         This OPTIONAL property specifies the variant of the CPU, for example `armv6l` to specify a particular CPU variant of the ARM CPU.
 
-    - **`features`** *array*
+    - **`features`** *array of strings*
 
         This OPTIONAL property specifies an array of strings, each specifying a mandatory CPU feature (for example `sse4` or `aes`).
 

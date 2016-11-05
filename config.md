@@ -139,7 +139,7 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
        MUST be set to `layers`.
        Implementations MUST generate an error if they encounter a unknown value while verifying or unpacking an image.
 
-    - **diff_ids** *array*, REQUIRED
+    - **diff_ids** *array of strings*, REQUIRED
 
        An array of layer content hashes (`DiffIDs`), in order from first to last.
 
