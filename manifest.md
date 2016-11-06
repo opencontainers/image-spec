@@ -37,6 +37,7 @@ Unlike the [Manifest List](manifest-list.md), which contains information about a
         Implementations MUST support at least the following media types:
 
         - [`application/vnd.oci.image.config.v1+json`](config.md)
+        - [`application/vnd.oci.runtime.config.v1+json`](https://github.com/opencontainers/runtime-spec/blob/master/config.md), which MUST be unpacked to `config.json` without alteration.
 
         Manifests concerned with portability SHOULD use one of the above media types.
 
