@@ -4,6 +4,7 @@ An OCI *Image* is an ordered collection of root filesystem changes and the corre
 This specification outlines the JSON format describing images for use with a container runtime and execution tool and its relationship to filesystem changesets, described in [Layers](layer.md).
 
 This section defines the `application/vnd.oci.image.config.v1+json` [media type](media-types.md).
+Implementations unpacking this type MUST generate a [version 1.0.0-rc2 runtime-spec configuration][runtime-config].
 
 ## Terminology
 
@@ -232,4 +233,5 @@ Here is an example image configuration JSON document:
 }
 ```
 
+[runtime-config]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc2/config.md
 [runtime-platform]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc2/config.md#platform
