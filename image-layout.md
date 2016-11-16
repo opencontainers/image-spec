@@ -9,15 +9,18 @@ Given an image layout and a ref, a tool can create an [OCI Runtime Specification
 * [Applying the filesystem layers](layer.md#applying) in the specified order
 * Converting the [image configuration](config.md) into an [OCI Runtime Specification `config.json`](https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc2/config.md)
 
-The image layout has two top level directories:
+The image layout MUST contain two top level directories:
 
-- "blobs" contains content-addressable blobs. A blob has no schema and should be considered opaque.
-- "refs" contains [descriptors][descriptors]. Commonly pointing to an [image manifest](manifest.md#image-manifest) or an [image manifest list](manifest-list.md#oci-image-manifest-list-specification).
+- `blobs` contains content-addressable blobs.
+  A blob has no schema and should be considered opaque.
+- `refs` contains [descriptors][descriptors].
+  Commonly pointing to an [image manifest](manifest.md#image-manifest) or an [image manifest list](manifest-list.md#oci-image-manifest-list-specification).
 
+Both `blobs` and `refs` MAY be empty.
 
-It also contains a file that is used to identify the layout version:
+The image layout MUST also contain a file that is used to identify the layout version:
 
-- "oci-layout" MUST contain a JSON object with a version field `{"imageLayoutVersion": "1.0.0"}` and MAY include additional fields.
+- `oci-layout` MUST contain a JSON object with a version field `{"imageLayoutVersion": "1.0.0"}` and MAY include additional fields.
 
 This is an example image layout:
 
