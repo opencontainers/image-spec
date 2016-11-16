@@ -105,7 +105,7 @@ Instead they MUST ignore unknown properties.
       "platform": {
         "architecture": "amd64",
         "os": "linux",
-        "features": [
+        "os.features": [
           "sse4"
         ]
       }
