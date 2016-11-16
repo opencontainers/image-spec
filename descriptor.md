@@ -36,7 +36,9 @@ The following fields contain the primary properties that constitute a Descriptor
 
 - **`urls`** *array*
 
-  This OPTIONAL property specifies a list of URLs from which this object MAY be downloaded.
+  This OPTIONAL property specifies a list of URIs from which this object MAY be downloaded.
+  Each entry MUST conform to [RFC 3986][rfc3986].
+  Entries SHOULD use the `http` and `https` schemes, as defined in [RFC 7230][rfc7230-s2.7].
 
 ### Reserved
 
@@ -117,3 +119,6 @@ The following example describes a [_Manifest_](manifest.md#image-manifest) with 
   "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270"
 }
 ```
+
+[rfc3986]: https://tools.ietf.org/html/rfc3986
+[rfc7230-s2.7]: https://tools.ietf.org/html/rfc7230#section-2.7
