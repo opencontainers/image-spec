@@ -38,7 +38,7 @@ var compatMap = map[string]string{
 func convertFormats(input string) string {
 	out := input
 	for k, v := range compatMap {
-		out = strings.Replace(out, v, k, -1)
+		out = strings.Replace(out, k, v, -1)
 	}
 	return out
 }
