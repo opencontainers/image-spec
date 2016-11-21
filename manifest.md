@@ -39,7 +39,7 @@ Unlike the [Manifest List](manifest-list.md), which contains information about a
 
         Manifests concerned with portability SHOULD use one of the above media types.
 
-- **`layers`** *array*
+- **`layers`** *array of objects*
 
     Each item in the array MUST be a [descriptor](descriptor.md).
     The array MUST have the base image at index 0.

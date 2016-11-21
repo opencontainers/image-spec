@@ -34,7 +34,7 @@ The following fields contain the primary properties that constitute a Descriptor
   This property exists so that a client will have an expected size for the content before processing.
   If the length of the retrieved content does not match the specified length, the content SHOULD NOT be trusted.
 
-- **`urls`** *array*
+- **`urls`** *array of strings*
 
   This OPTIONAL property specifies a list of URIs from which this object MAY be downloaded.
   Each entry MUST conform to [RFC 3986][rfc3986].
