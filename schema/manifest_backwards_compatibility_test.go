@@ -50,7 +50,7 @@ func TestBackwardsCompatibilityManifestList(t *testing.T) {
 		fail     bool
 	}{
 		{
-			digest: "sha256:e588eb8123f2031a41f2e60bc27f30a4388e181e07410aff392f7dc96b585969",
+			digest: "sha256:250442869e3c339f7361f435a168c44505120149dc1d333ba19f90514b23983e",
 			manifest: `{
    "schemaVersion": 2,
    "mediaType": "application/vnd.docker.distribution.manifest.list.v2+json",
@@ -81,7 +81,7 @@ func TestBackwardsCompatibilityManifestList(t *testing.T) {
          "size": 2084,
          "digest": "sha256:e4c0df75810b953d6717b8f8f28298d73870e8aa2a0d5e77b8391f16fdfbbbe2",
          "platform": {
-            "architecture": "s390x",
+            "architecture": "mips64",
             "os": "linux"
          }
       },
