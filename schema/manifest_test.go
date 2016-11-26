@@ -95,6 +95,23 @@ func TestManifest(t *testing.T) {
 			fail: true,
 		},
 
+		// expected failure: config.digest is not hex hashed format
+		{
+			manifest: `
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "config": {
+    "mediaType": "application/vnd.oci.image.config.v1+json",
+    "size": 1470,
+    "digest": "sha256:c86f7763873b6c0aaehhhhhhhhhhhhhhhhmmmmmmmmmmmmmmmm22d9h3bab59b4f"
+  },
+  "layers": []
+}
+`,
+			fail: true,
+		},
+
 		// valid manifest with optional fields
 		{
 			manifest: `
