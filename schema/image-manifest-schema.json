@@ -36,7 +36,6 @@
   "required": [
     "schemaVersion",
     "mediaType",
-    "config",
-    "layers"
+    "config"
   ]
 }
