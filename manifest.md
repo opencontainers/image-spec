@@ -41,7 +41,7 @@ Unlike the [Manifest List](manifest-list.md), which contains information about a
 
 - **`layers`** *array of objects*
 
-    Each item in the array MUST be a [descriptor](descriptor.md).
+    This property MAY be empty, an image can have an empty layers array. Each item in the array MUST be a [descriptor](descriptor.md).
     The array MUST have the base image at index 0.
     Subsequent layers MUST then follow in stack order (i.e. from `layers[0]` to `layers[len(layers)-1]`).
     The final filesystem layout MUST match the result of [applying](layer.md#applying) the layers to an empty directory.
