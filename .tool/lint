@@ -6,7 +6,7 @@ set -o pipefail
 
 if [ ! $(command -v gometalinter) ]; then
 	go get -u github.com/alecthomas/gometalinter
-	gometalinter --update --install
+	gometalinter --install
 fi
 
 for d in $(find . -type d -not -iwholename '*.git*' -a -not -iname '.tool' -a -not -iwholename '*vendor*'); do
