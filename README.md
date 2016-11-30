@@ -1,4 +1,9 @@
-# Open Container Initiative Image Format Specification
+# OCI Image Format Specification
+<div>
+<a href="https://travis-ci.org/opencontainers/image-spec">
+<img src="https://travis-ci.org/opencontainers/image-spec.svg?branch=master"></img>
+</a>
+</div>
 
 The OCI Image Format project creates and maintains the software shipping container image format spec (OCI Image Format).
 The goal of this specification is to enable the creation of interoperable tools for building, transporting, and preparing a container image to run.
