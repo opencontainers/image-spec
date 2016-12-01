@@ -70,11 +70,16 @@ Those tags will often be represented in an image-layout repository with matching
 This illustrates the expected contents of a given ref, the manifest list it points to and the blobs the manifest references.
 
 ```
-$ cat ./refs/v1.0
-{"size": 4096, "digest": "sha256:e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f", "mediaType": "application/vnd.oci.image.manifest.list.v1+json"}
+$ cat ./refs/v1.0 | jq
+{
+  "size": 4096,
+  "digest": "sha256:e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f",
+  "mediaType": "application/vnd.oci.image.manifest.list.v1+json"
+}
 ```
+
 ```
-$ cat ./blobs/sha256/e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f
+$ cat ./blobs/sha256/e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f | jq
 {
   "schemaVersion": 2,
   "mediaType": "application/vnd.oci.image.manifest.list.v1+json",
@@ -90,8 +95,9 @@ $ cat ./blobs/sha256/e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7f
     },
 ...
 ```
+
 ```
-$ cat ./blobs/sha256/afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1f2d51
+$ cat ./blobs/sha256/afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1f2d51 | jq
 {
   "schemaVersion": 2,
   "mediaType": "application/vnd.oci.image.manifest.v1+json",
@@ -108,11 +114,13 @@ $ cat ./blobs/sha256/afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1
     },
 ...
 ```
+
 ```
 $ cat ./blobs/sha256/5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270
 {"architecture":"amd64","author":"Antonio Murdaca \u003eruncom@redhat.com\u003e","config":{"Hostname":"8dfe43d80430","Domainname":"","User":"","AttachStdin":false,"AttachStdout":false,"AttachStderr":false,"Tty":false,"OpenStdin":false,"StdinOnce":false,"Env":["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"],"Cmd":null,"Image":"sha256:6986ae504bbf843512d680cc959484452034965db15f75ee8bdd1b107f61500b",
 ...
 ```
+
 ```
 $ cat ./blobs/sha256/e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f
 [tar stream]
