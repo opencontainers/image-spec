@@ -33,4 +33,7 @@ const (
 
 	// MediaTypeImageConfig specifies the media type for the image configuration.
 	MediaTypeImageConfig = "application/vnd.oci.image.config.v1+json"
+
+	// MediaTypeNameAssertion specifies the media type for name assertions.
+	MediaTypeNameAssertion = "application/vnd.oci.name.assertion.v1"
 )

@@ -3,6 +3,7 @@
 The following media types identify the formats described here and their referenced resources:
 
 - `application/vnd.oci.descriptor.v1+json`: [Content Descriptor](descriptor.md)
+- `application/vnd.oci.name.assertion.v1`: [Name assertion](name-assertion.md)
 - `application/vnd.oci.image.manifest.list.v1+json`: [Manifest list](manifest-list.md#manifest-list)
 - `application/vnd.oci.image.manifest.v1+json`: [Image manifest](manifest.md#image-manifest)
 - `application/vnd.oci.image.config.v1+json`: [Image config](config.md)
