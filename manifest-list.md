@@ -41,12 +41,12 @@ This section defines the `application/vnd.oci.image.manifest.list.v1+json` [medi
     - **`architecture`** *string*
 
         This REQUIRED property specifies the CPU architecture.
-        Manifest lists SHOULD use, and implementations SHOULD understand, values [supported by runtime-spec's `platform.arch`][runtime-platform].
+        Manifest lists SHOULD use, and implementations SHOULD understand, values [supported by runtime-spec's `platform.arch`][runtime-platform2].
 
     - **`os`** *string*
 
         This REQUIRED property specifies the operating system.
-        Manifest lists SHOULD use, and implementations SHOULD understand, values [supported by runtime-spec's `platform.os`][runtime-platform].
+        Manifest lists SHOULD use, and implementations SHOULD understand, values [supported by runtime-spec's `platform.os`][runtime-platform2].
 
     - **`os.version`** *string*
 
@@ -118,4 +118,4 @@ Instead they MUST ignore unknown properties.
 }
 ```
 
-[runtime-platform]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc2/config.md#platform
+[runtime-platform2]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc2/config.md#platform

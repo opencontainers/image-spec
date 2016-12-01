@@ -6,52 +6,15 @@
 </div>
 
 The OCI Image Format project creates and maintains the software shipping container image format spec (OCI Image Format).
-The goal of this specification is to enable the creation of interoperable tools for building, transporting, and preparing a container image to run.
 
-## Table of Contents
+The specification can be found [here](spec.md).
 
-- [Introduction](README.md)
-    - [Code of Conduct](#code-of-conduct)
-    - [Project Documentation](project.md)
-    - [Media Types](media-types.md)
-- [Content Descriptors](descriptor.md)
-- [Image Layout](image-layout.md)
-- [Image Manifest](manifest.md)
-- [Image Manifest List](manifest-list.md)
-- [Filesystem Layers](layer.md)
-- [Image Configuration](config.md)
-- [Canonicalization](canonicalization.md)
+Additional documentation about how this group operates:
 
-## Overview
-
-This specification defines an OCI Image, consisting of a [manifest](manifest.md), a set of [filesystem layers](layer.md), and a [configuration](config.md).
-At a high level the image manifest contains metadata about the contents and dependencies of the image including the content-addressable identity of one or more [filesystem layer changeset](layer.md) archives that will be unpacked to make up the final runnable filesystem.
-The image configuration includes information such as application arguments, environments, etc.
-
-The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" are to be interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119) (Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, March 1997).
-
-The keywords "unspecified", "undefined", and "implementation-defined" are to be interpreted as described in the [rationale for the C99 standard][c99-unspecified].
-
-An implementation is not compliant if it fails to satisfy one or more of the MUST, REQUIRED, or SHALL requirements for the protocols it implements.
-An implementation is compliant if it satisfies all the MUST, REQUIRED, and SHALL requirements for the protocols it implements.
-
-![](img/build-diagram.png)
-
-Once built the OCI Image can then be discovered by name, downloaded, verified by hash, trusted through a signature, and unpacked into an [OCI Runtime Bundle](https://github.com/opencontainers/runtime-spec/blob/master/bundle.md).
-
-![](img/run-diagram.png)
-
-## Understanding the Specification
-
-The [OCI Image Media Types](media-types.md) document is a starting point to understanding the overall structure of the specification.
-
-The high-level components of the spec include:
-
-* An archival format for container images, consisting of an [image manifest](manifest.md), an [image layout](image-layout.md), a set of [filesystem layers](layer.md), and [image configuration](config.md) (base OCI layer)
-* A [process of referencing container images by a cryptographic hash of their content](descriptor.md) (base OCI layer)
-* A format for [storing CAS blobs and references to them](image-layout.md) (optional OCI layer)
-* Signatures that are based on signing image content address (optional OCI layer)
-* Naming that is federated based on DNS and can be delegated (optional OCI layer)
+- [Code of Conduct](https://github.com/opencontainers/tob/blob/d2f9d68c1332870e40693fe077d311e0742bc73d/code-of-conduct.md)
+- [Roadmap](#roadmap)
+- [Releases](RELEASES.md)
+- [Project Documentation](project.md)
 
 The _optional_ and _base_ layers of all OCI projects are tracked in the [OCI Scope Table](https://www.opencontainers.org/governance/oci-scope-table).
 
@@ -102,10 +65,6 @@ Development happens on GitHub for the spec.
 Issues are used for bugs and actionable items and longer discussions can happen on the [mailing list](#mailing-list).
 
 The specification and code is licensed under the Apache 2.0 license found in the `LICENSE` file of this repository.
-
-## Code of Conduct
-
-Participation in the OCI community is governed by the [OCI Code of Conduct](https://github.com/opencontainers/tob/blob/d2f9d68c1332870e40693fe077d311e0742bc73d/code-of-conduct.md).
 
 ## Discuss your design
 
@@ -209,6 +168,5 @@ Read more on [How to Write a Git Commit Message](http://chris.beams.io/posts/git
 8. When possible, one keyword to scope the change in the subject (i.e. "README: ...", "runtime: ...")
 
 
-[c99-unspecified]: http://www.open-std.org/jtc1/sc22/wg14/www/C99RationaleV5.10.pdf#page=18
 [UberConference]: https://www.uberconference.com/opencontainers
 [irc-logs]: http://ircbot.wl.linuxfoundation.org/eavesdrop/%23opencontainers/
