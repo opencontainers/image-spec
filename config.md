@@ -51,7 +51,7 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
 
 - **created** *string*, OPTIONAL
 
-  An ISO-8601 formatted combined date and time at which the image was created.
+  The date and time at which the image was created, expressed in Internet Date/Time Format ([RFC-3339](https://tools.ietf.org/html/rfc3339#section-5.6)).
 
 - **author** *string*, OPTIONAL
 
@@ -161,7 +161,7 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
 
     - **created** *string*, OPTIONAL
 
-       Creation time, expressed as an ISO-8601 formatted combined date and time.
+       Creation time, expressed in Internet Date/Time Format ([RFC-3339](https://tools.ietf.org/html/rfc3339#section-5.6)).
 
     - **author** *string*, OPTIONAL
 
