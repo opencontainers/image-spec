@@ -63,6 +63,16 @@
         },
         "WorkingDir": {
           "type": "string"
+        },
+        "Labels": {
+          "oneOf": [
+            {
+              "$ref": "defs.json#/definitions/mapStringString"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       }
     },

@@ -45,6 +45,9 @@ type ImageConfig struct {
 
 	// WorkingDir sets the current working directory of the entrypoint process in the container.
 	WorkingDir string `json:"WorkingDir,omitempty"`
+
+	// Labels contains arbitrary metadata for the container.
+	Labels map[string]string `json:"labels,omitempty"`
 }
 
 // RootFS describes a layer content addresses
