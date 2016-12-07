@@ -308,12 +308,13 @@ Any given image is likely to be composed of several of these Image Filesystem Ch
 
 # Non-Distributable Layers
 
-Certain layers, due to legal requirements, may not be regularly distributable.
-Typically, such layers are downloaded directly from a distributor but are never uploaded.
+Due to legal requirements, certain layers may not be regularly distributable.
+Such "non-distributable" layers are typically downloaded directly from a distributor but never uploaded.
 
-Layers that have these restrictions SHOULD be tagged with an alternative mediatype of `application/vnd.oci.image.layer.nondistributable.v1.tar+gzip`.
-[Descriptors](descriptor.md) referencing these layers MAY include `urls` for downloading these layers.
-It is implementation-defined whether or not implementations upload layers tagged with this media type.
+Non-distributable layers SHOULD be tagged with an alternative mediatype of `application/vnd.oci.image.layer.nondistributable.v1.tar+gzip`.
+Implementations SHOULD NOT upload layers tagged with this media type; however, such a media type SHOULD NOT affect whether an implementation downloads the layer.
+
+[Descriptors](descriptor.md) referencing non-distributable layers MAY include `urls` for downloading these layers directly.
 
 [libarchive-tar]: https://github.com/libarchive/libarchive/wiki/ManPageTar5#POSIX_ustar_Archives
 [gnu-tar-standard]: http://www.gnu.org/software/tar/manual/html_node/Standard.html
