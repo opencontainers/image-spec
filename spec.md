@@ -48,4 +48,6 @@ The high-level components of the spec include:
 * Signatures that are based on signing image content address (optional OCI layer)
 * Naming that is federated based on DNS and can be delegated (optional OCI layer)
 
+The _optional_ and _base_ layers of all OCI projects are tracked in the [OCI Scope Table](https://www.opencontainers.org/governance/oci-scope-table).
+
 [c99-unspecified]: http://www.open-std.org/jtc1/sc22/wg14/www/C99RationaleV5.10.pdf#page=18
