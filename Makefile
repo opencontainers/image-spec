@@ -30,6 +30,7 @@ DOC_FILES := \
 	layer.md \
 	config.md \
 	annotations.md \
+	conversion.md \
 	considerations.md \
 	implementations.md
 
