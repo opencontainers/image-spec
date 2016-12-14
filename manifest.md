@@ -118,3 +118,4 @@ This specification defines the following annotation keys, which MAY be used by m
 * **org.opencontainers.authors** contact details of the people or organization responsible for the image (freeform string)
 * **org.opencontainers.homepage** URL to find more information on the image (string, must be a URL with scheme HTTP or HTTPS)
 * **org.opencontainers.documentation** URL to get documentation on the image (string, must be a URL with scheme HTTP or HTTPS)
+* **org.opencontainers.source** URL to get source code for the binary files in the image (string, must be a URL with scheme HTTP or HTTPS)
