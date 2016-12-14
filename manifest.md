@@ -28,6 +28,7 @@ Unlike the [Manifest List](manifest-list.md), which contains information about a
 - **`config`** *[descriptor](descriptor.md)*
 
     This REQUIRED property references a configuration object for a container, by digest.
+    Implementations unpacking manifests MUST generate a [`config.json`][bundle-format] from the referenced configuration.
     Beyond the [descriptor requirements](descriptor.md#properties), the value has the following additional restrictions:
 
     - **`mediaType`** *string*
@@ -36,6 +37,7 @@ Unlike the [Manifest List](manifest-list.md), which contains information about a
         Implementations MUST support at least the following media types:
 
         - [`application/vnd.oci.image.config.v1+json`](config.md)
+        - [`application/vnd.oci.runtime.config.v1+json`](https://github.com/opencontainers/runtime-spec/blob/master/config.md), which MUST be unpacked to `config.json` without alteration.
 
         Manifests concerned with portability SHOULD use one of the above media types.
 
@@ -118,3 +120,5 @@ This specification defines the following annotation keys, which MAY be used by m
 * **org.opencontainers.authors** contact details of the people or organization responsible for the image (freeform string)
 * **org.opencontainers.homepage** URL to find more information on the image (string, must be a URL with scheme HTTP or HTTPS)
 * **org.opencontainers.documentation** URL to get documentation on the image (string, must be a URL with scheme HTTP or HTTPS)
+
+[bundle-format]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc2/bundle.md#container-format
