@@ -144,9 +144,6 @@ func TestConfig(t *testing.T) {
     "os": "linux",
     "config": {
         "User": "1:1",
-        "Memory": 2048,
-        "MemorySwap": 4096,
-        "CpuShares": 8,
         "ExposedPorts": {
             "8080/tcp": {}
         },

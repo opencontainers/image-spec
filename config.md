@@ -18,7 +18,7 @@ Using a layer-based or union filesystem such as AUFS, or by computing the diff f
 
 ### Image JSON
 
-Each image has an associated JSON structure which describes some basic information about the image such as date created, author, as well as execution/runtime configuration like its entrypoint, default arguments, CPU/memory shares, networking, and volumes.
+Each image has an associated JSON structure which describes some basic information about the image such as date created, author, as well as execution/runtime configuration like its entrypoint, default arguments, networking, and volumes.
 The JSON structure also references a cryptographic hash of each layer used by the image, and provides history information for those layers.
 This JSON is considered to be immutable, because changing it would change the computed [ImageID](#imageid).
 Changing it means creating a new derived image, instead of changing the existing image.
@@ -78,21 +78,6 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
      This acts as a default value to use when the value is not specified when creating a container.
      For Linux based systems, all of the following are valid: `user`, `uid`, `user:group`, `uid:gid`, `uid:group`, `user:gid`.
      If `group`/`gid` is not specified, the default group and supplementary groups of the given `user`/`uid` in `/etc/passwd` from the container are applied.
-
-   - **Memory** *integer*, OPTIONAL
-
-     Memory limit (in bytes).
-     This acts as a default value to use when the value is not specified when creating a container.
-
-   - **MemorySwap** *integer*, OPTIONAL
-
-     MemorySwap is a platform-specific field to set total memory usage (memory + swap) for Linux based systems; set to `-1` to disable swap.
-     This acts as a default value to use when the value is not specified when creating a container.
-
-   - **CpuShares** *integer*, OPTIONAL
-
-     CPU shares (relative weight vs. other containers).
-     This acts as a default value to use when the value is not specified when creating a container.
 
    - **ExposedPorts** *object*, OPTIONAL
 
@@ -196,9 +181,6 @@ Here is an example image configuration JSON document:
     "os": "linux",
     "config": {
         "User": "alice",
-        "Memory": 2048,
-        "MemorySwap": 4096,
-        "CpuShares": 8,
         "ExposedPorts": {
             "8080/tcp": {}
         },

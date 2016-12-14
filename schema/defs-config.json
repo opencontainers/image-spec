@@ -7,15 +7,6 @@
         "User": {
           "type": "string"
         },
-        "Memory": {
-          "$ref": "defs.json#/definitions/int64"
-        },
-        "MemorySwap": {
-          "$ref": "defs.json#/definitions/int64"
-        },
-        "CpuShares": {
-          "$ref": "defs.json#/definitions/int64"
-        },
         "ExposedPorts": {
           "$ref": "defs.json#/definitions/mapStringObject"
         },
