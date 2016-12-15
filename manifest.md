@@ -62,15 +62,9 @@ Unlike the [Manifest List](manifest-list.md), which contains information about a
 - **`annotations`** *string-string map*
 
     This OPTIONAL property contains arbitrary metadata for the image manifest.
-    Annotations MUST be a key-value map where both the key and value MUST be strings.
-    While the value MUST be present, it MAY be an empty string.
-    Keys MUST be unique within this map, and best practice is to namespace the keys.
-    Keys SHOULD be named using a reverse domain notation - e.g. `com.example.myKey`.
-    Keys using the `org.opencontainers` namespace are reserved and MUST NOT be used by other specifications.
-    If there are no annotations then this property MUST either be absent or be an empty map.
-    Implementations that are reading/processing the image manifest MUST NOT generate an error if they encounter an unknown annotation key.
+    This OPTIONAL property MUST use the [annotation rules](annotations.md#rules).
 
-    See [Pre-Defined Annotation Keys](#pre-defined-annotation-keys).
+    See [Pre-Defined Annotation Keys](annotations.md#pre-defined-annotation-keys).
 
 ### Extensibility
 Implementations that are reading/processing image manifests MUST NOT generate an error if they encounter an unknown property.
@@ -111,11 +105,3 @@ Instead they MUST ignore unknown properties.
   }
 }
 ```
-
-# Pre-Defined Annotation Keys
-This specification defines the following annotation keys, which MAY be used by manifest list and image manifest authors:
-* **org.opencontainers.created** date on which the image was built (string, date-time as defined by [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6)).
-* **org.opencontainers.authors** contact details of the people or organization responsible for the image (freeform string)
-* **org.opencontainers.homepage** URL to find more information on the image (string, must be a URL with scheme HTTP or HTTPS)
-* **org.opencontainers.documentation** URL to get documentation on the image (string, must be a URL with scheme HTTP or HTTPS)
-* **org.opencontainers.source** URL to get source code for the binary files in the image (string, must be a URL with scheme HTTP or HTTPS)
