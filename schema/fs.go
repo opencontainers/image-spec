@@ -233,24 +233,24 @@ DLQ9RAMAAA==
 
 	"/defs-config.json": {
 		local:   "defs-config.json",
-		size:    2483,
-		modtime: 1480556605,
+		size:    2236,
+		modtime: 1481704571,
 		compressed: `
-H4sIAAAJbogA/+RWzY7TMBC+5ykiw7GwF8SB6y43UJEi4IBQ5SaT7Syxx4wnQIT23XGypRsnrel2tycO
-VRvH389845/+zvJcVeBLRidIVr3J1RXUaLF/8rnTLFi2jeZcKF86sJdkRaMFzsOvGq/zwkGJNZZ6wC/u
-CHcMgbDXCIPlMH33HEakc9AL0voGShmgw7hjchB0wY9mh/GPHjgaGXF4YbTXavfqdnGPew+GuJsinzPU
-PTKY9S9vPNlnFyPfF2jl9asUX/FTu6fjvHRtsdE8KflRlG9/OfJQfSCWh7Ia7Yoh0OVda/bz2x+HuqGZ
-dacW41coYKY2Ev0LUgdEhTtHoeypNllY9jV9iQRiuaTFhM1/WI3tTiwnXdi2aWKmMc/X/UvFVP9t7Z+o
-ac18kxxZ/6mr/txVfSb+FmSv8KTj7Z1eQ3PuSIo9jX/ySLLx95ZdMZHU/jH3RoV1vcJqFtH5T6vt/FRL
-I1mwrZn1TDW6A/YqndkuBYbvLTJUEc99BlN32Zjxb+Yb9BJfmQ8OvWTQArOTKlV9TWy0DKsxQF8IGti/
-4nUrGzppr2xdrdazvwNHockYmN88x0DBOOlWQycPwddEDWirDu2HrP/cZn8CAAD//0zDaxqzCQAA
+H4sIAAAJbogA/+RVzY7TMBC+5yksw7Gwd6673JCKVAEHhCo3Ge/OEnvMeIKI0L47TrZ0888qpac9VG0m
+/n7m89j9nSmlC4g5YxAkr98pfQMWPTZPUQXDgnlVGlZCahvAX5MXgx5YpV8Wb9UuQI4Wc9PiN4+EJ4ZE
+2GikYt4uPz2nitQBGkE63EMuLbStB6YASRdiZ3Wqf4rAvUqHIwqjv9WnVw+bJ9z7X4EiFB+JJQ7xrxls
+g0+W49v7SP7VVcf9lTNh1zJvHz1O8/ufc7YMs6n1pvsKBdzQxkIjSWpGVLgOhF6G2uRh2/T0tSfQl1u0
+uGDzH1b7dgeWF134qiz7TF2eb5MRXLvixfb+mcrKwWicn9n/2qm/dFdfiL8n2Rtcdc4/mAOUl45kN7Hx
+/z2SrPt9ZNdMJDaec4EWaO0ei1FEl7+tjuuXtrQnC75yoz3TpamBo17O7JQCw48KGYoez1MGQ3dZl/Fv
+5ncYhbg+J/ScwQiMbqql7i2xM9JOY4K+EXQwPfGmkjtadVaOrvaHehWanIPxP89zoOCC1Pt2J+fgB6IS
+jNdz5yFrPg/ZnwAAAP//3oH4m7wIAAA=
 `,
 	},
 
 	"/defs-image.json": {
 		local:   "defs-image.json",
 		size:    2736,
-		modtime: 1480556516,
+		modtime: 1481704392,
 		compressed: `
 H4sIAAAJbogA/7yWy27bOhCG934KQgmQhS86i4MCNYIARbPpKot01cAtJtTImlQiVZJO6gR+95K6UrcE
 boyuEg7Jn/83nBH9MmMsiFBzRbkhKYI1C64xJkFupFkOyhDfpaCYkewmR/FZCgMkULEvGWyR3ebIKSYO
@@ -289,7 +289,7 @@ MrVJbn8cB+ZnN/gbAAD//0JyEpx5DAAA
 	"/image-manifest-schema.json": {
 		local:   "image-manifest-schema.json",
 		size:    1139,
-		modtime: 1480556516,
+		modtime: 1481704392,
 		compressed: `
 H4sIAAAJbogA/6RSO4/UMBDu8ytGvuu4xByiupbqCkTBiQZRmHiSzCl+YPtWrFb73/Ej3mx2KRBb5ou/
 18wcGgAm0feObCCj2ROwLxb1J6ODII0OnpUYET4LTQP6AF8t9jRQL/Lrh0S/9/2ESiTqFIJ94vzVG90W

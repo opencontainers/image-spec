@@ -19,15 +19,6 @@ type ImageConfig struct {
 	// User defines the username or UID which the process in the container should run as.
 	User string `json:"User,omitempty"`
 
-	// Memory defines the memory limit.
-	Memory int64 `json:"Memory,omitempty"`
-
-	// MemorySwap defines the total memory usage limit (memory + swap).
-	MemorySwap int64 `json:"MemorySwap,omitempty"`
-
-	// CPUShares is the CPU shares (relative weight vs. other containers).
-	CPUShares int64 `json:"CpuShares,omitempty"`
-
 	// ExposedPorts a set of ports to expose from a container running this image.
 	ExposedPorts map[string]struct{} `json:"ExposedPorts,omitempty"`
 
