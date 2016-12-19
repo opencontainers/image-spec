@@ -1,8 +1,10 @@
-hash: 61c12670baff1b8a58d601c5afeae07ac831ef85cb67de3d4823ccdbb0085f56
-updated: 2016-09-21T13:59:32.039338003-07:00
+hash: 731b4c55f527573960d8a2e09881f77a431ecf2cb434192768a9e5be84ff1800
+updated: 2017-01-11T12:19:22.946780728-08:00
 imports:
+- name: github.com/opencontainers/go-digest
+  version: 21dfd564fd89c944783d00d069f33e3e7123c448
 - name: github.com/pkg/errors
-  version: 17b591df37844cde689f4d5813e5cea0927d8dd2
+  version: 645ef00459ed84a119197bfb8d8205042c6df63d
 - name: github.com/russross/blackfriday
   version: 0b647d0506a698cca42caca173e55559b12a69f2
 - name: github.com/shurcooL/sanitized_anchor_name
@@ -14,7 +16,7 @@ imports:
 - name: github.com/xeipuuv/gojsonschema
   version: d5336c75940ef31c9ceeb0ae64cf92944bccb4ee
 - name: go4.org
-  version: 27882e489dcd7ade28c033b82c6d498661c4dc42
+  version: 3b6fde061c9c94928618caa51aff24646db549df
   subpackages:
   - errorutil
 testImports: []
