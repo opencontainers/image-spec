@@ -205,7 +205,7 @@ Here is an example image configuration JSON document:
         "Labels": {
             "com.example.project.git.url": "https://example.com/project.git",
             "com.example.project.git.commit": "45a939b2999782a3f005621a8d0f29aa387e1d6b"
-	}
+        }
     },
     "rootfs": {
       "diff_ids": [
