@@ -40,6 +40,14 @@ The following fields contain the primary properties that constitute a Descriptor
   Each entry MUST conform to [RFC 3986][rfc3986].
   Entries SHOULD use the `http` and `https` schemes, as defined in [RFC 7230][rfc7230-s2.7].
 
+- **`license`** *string*
+
+  This OPTIONAL property specifies the license that convers the referenced content.
+  This property MUST conform to [RFC 3986][rfc3986].
+  Values SHOULD be one of the following:
+    1. The `http` and `https` schemes, as defined in [RFC 7230][rfc7230-s2.7]; or
+    2. Magnet links to licenses, as defined in [the LibreJS manual &sect; 3.2.2.1][librejs-s3].
+
 ### Reserved
 
 The following field keys are reserved and MUST NOT be used by other specifications.
@@ -133,3 +141,4 @@ In the following example, the descriptor indicates that the referenced manifest 
 
 [rfc3986]: https://tools.ietf.org/html/rfc3986
 [rfc7230-s2.7]: https://tools.ietf.org/html/rfc7230#section-2.7
+[librejs-s3]: https://www.gnu.org/software/librejs/free-your-javascript.html#step3
