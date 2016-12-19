@@ -60,7 +60,13 @@ func TestManifest(t *testing.T) {
     "size": "1470",
     "digest": "sha256:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
   },
-  "layers": []
+  "layers": [
+    {
+      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+      "size": 148,
+      "digest": "sha256:c57089565e894899735d458f0fd4bb17a0f1e0df8d72da392b85c9b35ee777cd"
+    }
+  ]
 }
 `,
 			fail: true,
@@ -89,7 +95,7 @@ func TestManifest(t *testing.T) {
 			fail: true,
 		},
 
-		// valid manifest
+		// valid manifest with optional fields
 		{
 			manifest: `
 {
@@ -121,6 +127,39 @@ func TestManifest(t *testing.T) {
     "key1": "value1",
     "key2": "value2"
   }
+}
+`,
+			fail: false,
+		},
+
+		// valid manifest with only required fields
+		{
+			manifest: `
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "config": {
+    "mediaType": "application/vnd.oci.image.config.v1+json",
+    "size": 1470,
+    "digest": "sha256:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+      "size": 675598,
+      "digest": "sha256:9d3dd9504c685a304985025df4ed0283e47ac9ffa9bd0326fddf4d59513f0827"
+    },
+    {
+      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+      "size": 156,
+      "digest": "sha256:2b689805fbd00b2db1df73fae47562faac1a626d5f61744bfe29946ecff5d73d"
+    },
+    {
+      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+      "size": 148,
+      "digest": "sha256:c57089565e894899735d458f0fd4bb17a0f1e0df8d72da392b85c9b35ee777cd"
+    }
+  ]
 }
 `,
 			fail: false,
