@@ -78,8 +78,6 @@ $ cat ./refs/v1.0 | jq
 }
 ```
 
-This illustrates the expected contents of a given ref, the manifest list it points to and the blobs the manifest references.
-
 ## Blobs
 
 Object names in the `blobs` subdirectories are composed of a directory for each hash algorithm, the children of which will contain the actual content.
