@@ -69,6 +69,8 @@ Those tags will often be represented in an image-layout repository with matching
 
 ### Example Ref
 
+This is an example `v1.0` ref with a manifest-list descriptor:
+
 ```
 $ cat ./refs/v1.0 | jq
 {
