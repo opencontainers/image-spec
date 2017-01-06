@@ -314,7 +314,7 @@ Such "non-distributable" layers are typically downloaded directly from a distrib
 Non-distributable layers SHOULD be tagged with an alternative mediatype of `application/vnd.oci.image.layer.nondistributable.v1.tar+gzip`.
 Implementations SHOULD NOT upload layers tagged with this media type; however, such a media type SHOULD NOT affect whether an implementation downloads the layer.
 
-[Descriptors](descriptor.md) referencing non-distributable layers MAY include `urls` for downloading these layers directly.
+[Descriptors](descriptor.md) referencing non-distributable layers MAY include `urls` for downloading these layers directly; however, the presence of the `urls` field SHOULD NOT be used to determine whether or not a layer is non-distributable.
 
 [libarchive-tar]: https://github.com/libarchive/libarchive/wiki/ManPageTar5#POSIX_ustar_Archives
 [gnu-tar-standard]: http://www.gnu.org/software/tar/manual/html_node/Standard.html
