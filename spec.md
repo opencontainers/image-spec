@@ -17,6 +17,7 @@ The goal of this specification is to enable the creation of interoperable tools 
 - [Image Manifest List](manifest-list.md)
 - [Filesystem Layers](layer.md)
 - [Image Configuration](config.md)
+- [Annotations](annotations.md)
 - [Canonicalization](canonicalization.md)
 
 # Notational Conventions
