@@ -97,9 +97,9 @@ test:
 update-deps:
 	@which glide > /dev/null 2>/dev/null || (echo "ERROR: glide not found. Consider 'make install.tools' target" && false)
 	glide update --strip-vcs --strip-vendor --update-vendored --delete
-	glide-vc --only-code --no-tests
+	glide-vc --only-code --no-tests --use-lock-file
 	# see http://sed.sourceforge.net/sed1line.txt
-	find vendor -type f -exec sed -i -e :a -e '/^\n*$$/{$$d;N;ba' -e '}' "{}" \;
+	find vendor -type f -exec sed -i="" -e :a -e '/^\n*$$/{$$d;N;ba' -e '}' "{}" \;
 
 img/%.png: img/%.dot
 	dot -Tpng $^ > $@
@@ -120,13 +120,13 @@ endif
 install.tools: .install.gitvalidation .install.glide .install.glide-vc
 
 .install.gitvalidation:
-	go get github.com/vbatts/git-validation
+	go get -u github.com/vbatts/git-validation
 
 .install.glide:
-	go get github.com/Masterminds/glide
+	go get -u github.com/Masterminds/glide
 
 .install.glide-vc:
-	go get github.com/sgotti/glide-vc
+	go get -u github.com/sgotti/glide-vc
 
 clean:
 	rm -rf *~ $(OUTPUT_DIRNAME)
