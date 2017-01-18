@@ -50,13 +50,13 @@ func TestBackwardsCompatibilityManifestList(t *testing.T) {
 		fail     bool
 	}{
 		{
-			digest: "sha256:e588eb8123f2031a41f2e60bc27f30a4388e181e07410aff392f7dc96b585969",
+			digest: "sha256:219f4b61132fe9d09b0ec5c15517be2ca712e4744b0e0cc3be71295b35b2a467",
 			manifest: `{
    "schemaVersion": 2,
    "mediaType": "application/vnd.docker.distribution.manifest.list.v2+json",
    "manifests": [
       {
-         "mediaType": "application/vnd.docker.distribution.manifest.v1+json",
+         "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
          "size": 2094,
          "digest": "sha256:7820f9a86d4ad15a2c4f0c0e5479298df2aa7c2f6871288e2ef8546f3e7b6783",
          "platform": {
@@ -65,7 +65,7 @@ func TestBackwardsCompatibilityManifestList(t *testing.T) {
          }
       },
       {
-         "mediaType": "application/vnd.docker.distribution.manifest.v1+json",
+         "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
          "size": 1922,
          "digest": "sha256:ae1b0e06e8ade3a11267564a26e750585ba2259c0ecab59ab165ad1af41d1bdd",
          "platform": {
@@ -77,7 +77,7 @@ func TestBackwardsCompatibilityManifestList(t *testing.T) {
          }
       },
       {
-         "mediaType": "application/vnd.docker.distribution.manifest.v1+json",
+         "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
          "size": 2084,
          "digest": "sha256:e4c0df75810b953d6717b8f8f28298d73870e8aa2a0d5e77b8391f16fdfbbbe2",
          "platform": {
@@ -86,7 +86,7 @@ func TestBackwardsCompatibilityManifestList(t *testing.T) {
          }
       },
       {
-         "mediaType": "application/vnd.docker.distribution.manifest.v1+json",
+         "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
          "size": 2084,
          "digest": "sha256:07ebe243465ef4a667b78154ae6c3ea46fdb1582936aac3ac899ea311a701b40",
          "platform": {
@@ -96,7 +96,7 @@ func TestBackwardsCompatibilityManifestList(t *testing.T) {
          }
       },
       {
-         "mediaType": "application/vnd.docker.distribution.manifest.v1+json",
+         "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
          "size": 2090,
          "digest": "sha256:fb2fc0707b86dafa9959fe3d29e66af8787aee4d9a23581714be65db4265ad8a",
          "platform": {
