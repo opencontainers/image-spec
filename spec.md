@@ -1,6 +1,6 @@
 # Open Container Initiative Image Format Specification
 
-This specification defines an OCI Image, consisting of a [manifest](manifest.md), a set of [filesystem layers](layer.md), and a [configuration](config.md).
+This specification defines an OCI Image, consisting of a [manifest](manifest.md), a [manifest list](manifest-list.md) (optional), a set of [filesystem layers](layer.md), and a [configuration](config.md).
 
 The goal of this specification is to enable the creation of interoperable tools for building, transporting, and preparing a container image to run.
 
@@ -32,6 +32,8 @@ An implementation is compliant if it satisfies all the MUST, REQUIRED, and SHALL
 
 At a high level the image manifest contains metadata about the contents and dependencies of the image including the content-addressable identity of one or more [filesystem layer changeset](layer.md) archives that will be unpacked to make up the final runnable filesystem.
 The image configuration includes information such as application arguments, environments, etc.
+The manifest list is a higher-level manifest which points to one or more manifests.
+Typically, these manifests may provide different implementations of the image, possibly varying by platform or other attributes.
 
 ![](img/build-diagram.png)
 
@@ -45,7 +47,7 @@ The [OCI Image Media Types](media-types.md) document is a starting point to unde
 
 The high-level components of the spec include:
 
-* An archival format for container images, consisting of an [image manifest](manifest.md), an [image layout](image-layout.md), a set of [filesystem layers](layer.md), and [image configuration](config.md) (base OCI layer)
+* An archival format for container images, consisting of an [image manifest](manifest.md), a [manifest list](manifest-list.md) (optional), an [image layout](image-layout.md), a set of [filesystem layers](layer.md), and [image configuration](config.md) (base OCI layer)
 * A [process of referencing container images by a cryptographic hash of their content](descriptor.md) (base OCI layer)
 * A format for [storing CAS blobs and references to them](image-layout.md) (optional OCI layer)
 * Signatures that are based on signing image content address (optional OCI layer)
