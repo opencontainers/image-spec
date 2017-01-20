@@ -59,7 +59,7 @@ Object names in the `refs` subdirectories MUST NOT include characters outside of
 
 No semantic restriction is given for object names in the `refs` subdirectory.
 Each object in the `refs` subdirectory MUST be of type `application/vnd.oci.descriptor.v1+json`.
-In general the `mediatype` of this [descriptor][descriptors] object will be either `application/vnd.oci.image.manifest.list.v1+json` or `application/vnd.oci.image.manifest.v1+json` although future versions of the spec MAY use a different mediatype.
+In general the `mediaType` of this [descriptor][descriptors] object will be either `application/vnd.oci.image.manifest.list.v1+json` or `application/vnd.oci.image.manifest.v1+json` although future versions of the spec MAY use a different mediatype.
 
 **Implementor's Note:**
 A common use case of refs is representing "tags" for a container image.
@@ -97,7 +97,6 @@ The blobs directory MAY be missing referenced blobs, in which case the missing b
 $ cat ./blobs/sha256/e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f | jq
 {
   "schemaVersion": 2,
-  "mediaType": "application/vnd.oci.image.manifest.list.v1+json",
   "manifests": [
     {
       "mediaType": "application/vnd.oci.image.manifest.v1+json",
@@ -115,7 +114,6 @@ $ cat ./blobs/sha256/e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7f
 $ cat ./blobs/sha256/afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1f2d51 | jq
 {
   "schemaVersion": 2,
-  "mediaType": "application/vnd.oci.image.manifest.v1+json",
   "config": [
     "mediaType": "application/vnd.oci.image.config.v1+json",
     "size": 7023,

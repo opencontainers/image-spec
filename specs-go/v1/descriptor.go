@@ -15,9 +15,10 @@
 package v1
 
 // Descriptor describes the disposition of targeted content.
+// This structure provides `application/vnd.oci.descriptor.v1+json` mediatype when marshalled to JSON
 type Descriptor struct {
-	// MediaType contains the MIME type of the referenced object.
-	MediaType string `json:"mediaType"`
+	// MediaType is the media type of the object this schema refers to.
+	MediaType string `json:"mediaType,omitempty"`
 
 	// Digest is the digest of the targeted content.
 	Digest string `json:"digest"`

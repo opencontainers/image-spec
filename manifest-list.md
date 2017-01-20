@@ -4,6 +4,7 @@ The manifest list is a higher-level manifest which points to specific [image man
 While the use of a manifest list is OPTIONAL for image providers, image consumers SHOULD be prepared to process them.
 
 This section defines the `application/vnd.oci.image.manifest.list.v1+json` [media type](media-types.md).
+For the media type(s) that this document is compatible with, see the [matrix][matrix].
 
 ## *Manifest List* Property Descriptions
 
@@ -14,9 +15,8 @@ This section defines the `application/vnd.oci.image.manifest.list.v1+json` [medi
 
 - **`mediaType`** *string*
 
-  This REQUIRED property contains the media type of the manifest list.
-  For this version of the specification, this MUST be set to `application/vnd.oci.image.manifest.list.v1+json`.
-  For the media type(s) that this is compatible with, see the [matrix](media-types.md#compatibility-matrix).
+  This property is *reserved* for use, to [maintain compatibility][matrix].
+  When used, this field contains the media type of this document, which differs from the [descriptor](descriptor.md#properties) use of `mediaType`.
 
 - **`manifests`** *array of objects*
 
@@ -119,3 +119,4 @@ Instead they MUST ignore unknown properties.
 ```
 
 [runtime-platform2]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc2/config.md#platform
+[matrix]: media-types.md#compatibility-matrix
