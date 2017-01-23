@@ -20,6 +20,7 @@ before_install:
 install: true
 
 script:
+  - env | grep TRAVIS_
   - make .gitvalidation
   - make lint
   - make check-license
