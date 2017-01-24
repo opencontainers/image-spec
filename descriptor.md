@@ -40,6 +40,11 @@ The following fields contain the primary properties that constitute a Descriptor
   Each entry MUST conform to [RFC 3986][rfc3986].
   Entries SHOULD use the `http` and `https` schemes, as defined in [RFC 7230][rfc7230-s2.7].
 
+- **`annotations`** *string-string map*
+
+    This OPTIONAL property contains arbitrary metadata for this descriptor.
+    This OPTIONAL property MUST use the [annotation rules](annotations.md#rules).
+
 ### Reserved
 
 The following field keys are reserved and MUST NOT be used by other specifications.
@@ -118,9 +123,11 @@ The following example describes a [_Manifest_](manifest.md#image-manifest) with 
   "size": 7682,
   "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270"
 }
+```
 
 In the following example, the descriptor indicates that the referenced manifest is retrievable from a particular URL:
 
+```json,title=Content%20Descriptor&mediatype=application/vnd.oci.descriptor.v1%2Bjson
 {
   "mediaType": "application/vnd.oci.image.manifest.v1+json",
   "size": 7682,

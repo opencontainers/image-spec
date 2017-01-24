@@ -29,6 +29,7 @@ DOC_FILES := \
 	manifest-list.md \
 	layer.md \
 	config.md \
+	annotations.md \
 	canonicalization.md
 
 FIGURE_FILES := \
