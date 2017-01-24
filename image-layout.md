@@ -132,7 +132,7 @@ $ cat ./blobs/sha256/afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1
 $ cat ./blobs/sha256/5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270 | jq
 {
   "architecture": "amd64",
-  "author": "Antonio Murdaca <runcom@redhat.com>",
+  "author": "Alyssa P. Hacker <alyspdev@example.com>",
   "config": {
     "Hostname": "8dfe43d80430",
     "Domainname": "",
