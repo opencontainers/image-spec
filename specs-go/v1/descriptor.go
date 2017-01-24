@@ -14,6 +14,8 @@
 
 package v1
 
+import digest "github.com/opencontainers/go-digest"
+
 // Descriptor describes the disposition of targeted content.
 // This structure provides `application/vnd.oci.descriptor.v1+json` mediatype when marshalled to JSON
 type Descriptor struct {
@@ -21,7 +23,7 @@ type Descriptor struct {
 	MediaType string `json:"mediaType,omitempty"`
 
 	// Digest is the digest of the targeted content.
-	Digest string `json:"digest"`
+	Digest digest.Digest `json:"digest"`
 
 	// Size specifies the size in bytes of the blob.
 	Size int64 `json:"size"`
