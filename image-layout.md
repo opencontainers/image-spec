@@ -70,7 +70,7 @@ Those tags will often be represented in an image-layout repository with matching
 ### Example Ref
 
 ```
-$ cat ./refs/v1.0 | jq
+$ cat ./refs/v1.0 | jq .
 {
   "size": 4096,
   "digest": "sha256:e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f",
@@ -94,7 +94,7 @@ The blobs directory MAY be missing referenced blobs, in which case the missing b
 ### Example Blobs
 
 ```
-$ cat ./blobs/sha256/e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f | jq
+$ cat ./blobs/sha256/e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f | jq .
 {
   "schemaVersion": 2,
   "manifests": [
@@ -111,7 +111,7 @@ $ cat ./blobs/sha256/e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7f
 ```
 
 ```
-$ cat ./blobs/sha256/afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1f2d51 | jq
+$ cat ./blobs/sha256/afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1f2d51 | jq .
 {
   "schemaVersion": 2,
   "config": {
