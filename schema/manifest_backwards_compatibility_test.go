@@ -45,13 +45,13 @@ func convertFormats(input string) string {
 
 func TestBackwardsCompatibilityManifestList(t *testing.T) {
 	for i, tt := range []struct {
-		manifest string
+		manifestlist string
 		digest   string
 		fail     bool
 	}{
 		{
 			digest: "sha256:219f4b61132fe9d09b0ec5c15517be2ca712e4744b0e0cc3be71295b35b2a467",
-			manifest: `{
+			manifestlist: `{
    "schemaVersion": 2,
    "mediaType": "application/vnd.docker.distribution.manifest.list.v2+json",
    "manifests": [
@@ -110,14 +110,14 @@ func TestBackwardsCompatibilityManifestList(t *testing.T) {
 			fail: false,
 		},
 	} {
-		sum := sha256.Sum256([]byte(tt.manifest))
+		sum := sha256.Sum256([]byte(tt.manifestlist))
 		got := fmt.Sprintf("sha256:%s", hex.EncodeToString(sum[:]))
 		if tt.digest != got {
 			t.Errorf("test %d: expected digest %s but got %s", i, tt.digest, got)
 		}
 
-		manifest := convertFormats(tt.manifest)
-		r := strings.NewReader(manifest)
+		manifestlist := convertFormats(tt.manifestlist)
+		r := strings.NewReader(manifestlist)
 		err := schema.MediaTypeManifestList.Validate(r)
 
 		if got := err != nil; tt.fail != got {
