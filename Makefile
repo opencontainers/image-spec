@@ -30,7 +30,7 @@ DOC_FILES := \
 	layer.md \
 	config.md \
 	annotations.md \
-	canonicalization.md
+	considerations.md
 
 FIGURE_FILES := \
 	img/media-types.png

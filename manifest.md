@@ -66,10 +66,6 @@ Unlike the [Manifest List](manifest-list.md), which contains information about a
 
     See [Pre-Defined Annotation Keys](annotations.md#pre-defined-annotation-keys).
 
-### Extensibility
-Implementations that are reading/processing image manifests MUST NOT generate an error if they encounter an unknown property.
-Instead they MUST ignore unknown properties.
-
 ## Example Image Manifest
 
 *Example showing an image manifest:*

@@ -18,7 +18,9 @@ The goal of this specification is to enable the creation of interoperable tools 
 - [Filesystem Layers](layer.md)
 - [Image Configuration](config.md)
 - [Annotations](annotations.md)
-- [Canonicalization](canonicalization.md)
+- [Considerations](considerations.md)
+    - [Extensibility](considerations.md#extensibility)
+    - [Canonicalization](considerations.md#canonicalization)
 
 # Notational Conventions
 
