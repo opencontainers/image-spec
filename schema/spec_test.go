@@ -24,7 +24,9 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/opencontainers/go-digest"
 	"github.com/opencontainers/image-spec/schema"
+	"github.com/opencontainers/image-spec/specs-go/v1"
 	"github.com/pkg/errors"
 	"github.com/russross/blackfriday"
 )
@@ -73,7 +75,15 @@ func validate(t *testing.T, name string) {
 			continue
 		}
 
-		err = schema.Validator(example.Mediatype).Validate(strings.NewReader(example.Body))
+		bodyBytes := []byte(example.Body)
+		bodyDigest := digest.FromBytes(bodyBytes).String()
+		reader := strings.NewReader(example.Body)
+		descriptor := v1.Descriptor{
+			MediaType: example.Mediatype,
+			Digest:    bodyDigest,
+			Size:      int64(len(bodyBytes)),
+		}
+		err = schema.Validate(reader, &descriptor, true)
 		if err == nil {
 			printFields(t, "ok", example.Mediatype, example.Title)
 			t.Log(example.Body, "---")

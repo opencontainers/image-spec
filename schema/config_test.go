@@ -18,7 +18,9 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/opencontainers/go-digest"
 	"github.com/opencontainers/image-spec/schema"
+	"github.com/opencontainers/image-spec/specs-go/v1"
 )
 
 func TestConfig(t *testing.T) {
@@ -210,9 +212,14 @@ func TestConfig(t *testing.T) {
 			fail: false,
 		},
 	} {
-		r := strings.NewReader(tt.config)
-		err := schema.MediaTypeImageConfig.Validate(r)
-
+		configBytes := []byte(tt.config)
+		reader := strings.NewReader(tt.config)
+		descriptor := v1.Descriptor{
+			MediaType: v1.MediaTypeImageConfig,
+			Digest:    digest.FromBytes(configBytes).String(),
+			Size:      int64(len(configBytes)),
+		}
+		err := schema.Validate(reader, &descriptor, true)
 		if got := err != nil; tt.fail != got {
 			t.Errorf("test %d: expected validation failure %t but got %t, err %v", i, tt.fail, got, err)
 		}
