@@ -52,7 +52,6 @@ help:
 	@echo " * 'check-license' - check license headers in source files"
 	@echo " * 'lint' - Execute the source code linter"
 	@echo " * 'test' - Execute the unit tests"
-	@echo " * 'update-deps' - Update vendored dependencies"
 	@echo " * 'img/*.png' - Generate PNG from dot file"
 
 fmt:
@@ -93,14 +92,6 @@ lint:
 
 test:
 	go test -race -cover $(shell go list ./... | grep -v /vendor/)
-
-## this uses https://github.com/Masterminds/glide and https://github.com/sgotti/glide-vc
-update-deps:
-	@which glide > /dev/null 2>/dev/null || (echo "ERROR: glide not found. Consider 'make install.tools' target" && false)
-	glide update --strip-vcs --strip-vendor --update-vendored --delete
-	glide-vc --only-code --no-tests --use-lock-file
-	# see http://sed.sourceforge.net/sed1line.txt
-	find vendor -type f -exec sed -i="" -e :a -e '/^\n*$$/{$$d;N;ba' -e '}' "{}" \;
 
 img/%.png: img/%.dot
 	dot -Tpng $^ > $@
