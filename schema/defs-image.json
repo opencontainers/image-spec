@@ -4,7 +4,7 @@
     "mediaType": {
       "id": "https://opencontainers.org/schema/image/mediaType",
       "type": "string",
-      "pattern": "^[a-z]+/[0-9a-zA-Z.+]+$"
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9!#$&-^_.+]{0,126}/[A-Za-z0-9][A-Za-z0-9!#$&-^_.+]{0,126}$"
     },
     "digest": {
       "description": "the cryptographic checksum digest of the object, in the pattern '<hash>:<hexadecimal digest>'",
@@ -23,14 +23,15 @@
       "properties": {
         "mediaType": {
           "description": "the mediatype of the referenced object",
-          "$ref": "#definitions/mediaType"
+          "$ref": "#/definitions/mediaType"
         },
         "size": {
           "description": "the size in bytes of the referenced object",
           "$ref": "defs.json#/definitions/int64"
         },
         "digest": {
-          "$ref": "#definitions/digest"
+          "description": "the cryptographic checksum digest of the object, in the pattern '<hash>:<hexadecimal digest>'",
+          "$ref": "#/definitions/digest"
         },
         "urls": {
           "description": "a list of urls from which this object may be downloaded",
