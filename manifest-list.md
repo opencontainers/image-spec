@@ -77,7 +77,6 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 ```json,title=Manifest%20List&mediatype=application/vnd.oci.image.manifest.list.v1%2Bjson
 {
   "schemaVersion": 2,
-  "mediaType": "application/vnd.oci.image.manifest.list.v1+json",
   "manifests": [
     {
       "mediaType": "application/vnd.oci.image.manifest.v1+json",
