@@ -16,11 +16,13 @@ before_install:
   - go get -u github.com/alecthomas/gometalinter
   - gometalinter --install
   - go get -t -d ./...
+  - make schema-fs
 
 install: true
 
 script:
   - env | grep TRAVIS_
+  - git diff --exit-code
   - make .gitvalidation
   - make lint
   - make check-license
