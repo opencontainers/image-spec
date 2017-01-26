@@ -51,7 +51,7 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
 
 - **created** *string*, OPTIONAL
 
-  An ISO-8601 formatted combined date and time at which the image was created.
+  An combined date and time at which the image was created, formatted as defined by [RFC 3339, section 5.6][rfc3339-s5.6].
 
 - **author** *string*, OPTIONAL
 
@@ -146,7 +146,7 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
 
     - **created** *string*, OPTIONAL
 
-       Creation time, expressed as an ISO-8601 formatted combined date and time.
+       A combined date and time at which the layer was created, formatted as defined by [RFC 3339, section 5.6][rfc3339-s5.6].
 
     - **author** *string*, OPTIONAL
 
@@ -228,4 +228,5 @@ Here is an example image configuration JSON document:
 }
 ```
 
+[rfc3339-s5.6]: https://tools.ietf.org/html/rfc3339#section-5.6
 [runtime-platform]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc2/config.md#platform
