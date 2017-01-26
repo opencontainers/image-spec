@@ -94,7 +94,7 @@ func TestManifestList(t *testing.T) {
 			fail: true,
 		},
 
-		// expected failure: manifest.platform is missing, expected required
+		// expected pass: manifest.platform is optional
 		{
 			manifestList: `
 {
@@ -108,7 +108,7 @@ func TestManifestList(t *testing.T) {
   ]
 }
 `,
-			fail: true,
+			fail: false,
 		},
 
 		// expected failure: invalid referenced manifest media type

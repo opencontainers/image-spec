@@ -11,7 +11,9 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 - **`schemaVersion`** *int*
 
   This REQUIRED property specifies the image manifest schema version.
-  For this version of the specification, this MUST be `2` to ensure backward compatibility with older versions of Docker. The value of this field will not change. This field MAY be removed in a future version of the specification.
+  For this version of the specification, this MUST be `2` to ensure backward compatibility with older versions of Docker.
+  The value of this field will not change.
+  This field MAY be removed in a future version of the specification.
 
 - **`mediaType`** *string*
 
@@ -103,5 +105,5 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 }
 ```
 
-[runtime-platform2]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc2/config.md#platform
+[runtime-platform2]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc3/config.md#platform
 [matrix]: media-types.md#compatibility-matrix
