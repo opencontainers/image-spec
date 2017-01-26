@@ -31,10 +31,9 @@ func TestManifestList(t *testing.T) {
 			manifestList: `
 {
   "schemaVersion": 2,
-  "mediaType": "invalid",
   "manifests": [
     {
-      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "mediaType": "invalid",
       "size": 7143,
       "digest": "sha256:e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f",
       "platform": {
@@ -53,7 +52,6 @@ func TestManifestList(t *testing.T) {
 			manifestList: `
 {
   "schemaVersion": 2,
-  "mediaType": "application/vnd.oci.image.manifest.list.v1+json",
   "manifests": [
     {
       "mediaType": "application/vnd.oci.image.manifest.v1+json",
@@ -78,7 +76,6 @@ func TestManifestList(t *testing.T) {
 			manifestList: `
 {
   "schemaVersion": 2,
-  "mediaType": "application/vnd.oci.image.manifest.list.v1+json",
   "manifests": [
     {
       "mediaType": "application/vnd.oci.image.manifest.v1+json",
@@ -102,7 +99,6 @@ func TestManifestList(t *testing.T) {
 			manifestList: `
 {
   "schemaVersion": 2,
-  "mediaType": "application/vnd.oci.image.manifest.list.v1+json",
   "manifests": [
     {
       "mediaType": "application/vnd.oci.image.manifest.v1+json",
@@ -120,7 +116,6 @@ func TestManifestList(t *testing.T) {
 			manifestList: `
 {
   "schemaVersion": 2,
-  "mediaType": "application/vnd.oci.image.manifest.list.v1+json",
   "manifests": [
     {
       "mediaType": "invalid",
@@ -145,7 +140,6 @@ func TestManifestList(t *testing.T) {
 			manifestList: `
 {
   "schemaVersion": 2,
-  "mediaType": "application/vnd.oci.image.manifest.list.v1+json",
   "manifests": [
     {
       "mediaType": "",
@@ -170,7 +164,6 @@ func TestManifestList(t *testing.T) {
 			manifestList: `
 {
   "schemaVersion": 2,
-  "mediaType": "application/vnd.oci.image.manifest.list.v1+json",
   "manifests": [
     {
       "mediaType": "application/vnd.oci.image.manifest.v1+json",
@@ -208,7 +201,6 @@ func TestManifestList(t *testing.T) {
 			manifestList: `
 {
   "schemaVersion": 2,
-  "mediaType": "application/vnd.oci.image.manifest.list.v1+json",
   "manifests": [
     {
       "mediaType": "application/vnd.oci.image.manifest.v1+json",
@@ -230,7 +222,6 @@ func TestManifestList(t *testing.T) {
 			manifestList: `
 {
   "schemaVersion": 2,
-  "mediaType": "application/vnd.oci.image.manifest.list.v1+json",
   "manifests": [
     {
       "mediaType": "application/customized.manifest+json",
