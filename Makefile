@@ -111,7 +111,10 @@ else
 	git-validation -v -run DCO,short-subject,dangling-whitespace -range $(EPOCH_TEST_COMMIT)..HEAD
 endif
 
-install.tools: .install.gitvalidation .install.glide .install.glide-vc
+install.tools: .install.esc .install.gitvalidation .install.glide .install.glide-vc
+
+.install.esc:
+	go get -u github.com/mjibson/esc
 
 .install.gitvalidation:
 	go get -u github.com/vbatts/git-validation
