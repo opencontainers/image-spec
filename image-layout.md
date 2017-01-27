@@ -69,6 +69,8 @@ Those tags will often be represented in an image-layout repository with matching
 
 ### Example Ref
 
+This is an example `v1.0` ref with a manifest-list descriptor:
+
 ```
 $ cat ./refs/v1.0 | jq
 {
@@ -77,8 +79,6 @@ $ cat ./refs/v1.0 | jq
   "mediaType": "application/vnd.oci.image.manifest.list.v1+json"
 }
 ```
-
-This illustrates the expected contents of a given ref, the manifest list it points to and the blobs the manifest references.
 
 ## Blobs
 
