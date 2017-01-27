@@ -9,7 +9,7 @@ This guide contains instructions for building artifacts contained in this reposi
 This spec includes several Go packages, and a command line tool considered to be a reference implementation of the OCI image specification.
 
 Prerequisites:
-* Go >=1.5
+* Go - current release only, earlier releases are not supported
 * make
 
 The following make targets are relevant for any work involving the Go packages.
