@@ -82,19 +82,6 @@ Invocation:
 $ make check-license
 ```
 
-### Update vendored dependencies
-
-This target updates all vendored dependencies to their newest available versions. The `glide` tools is being used for the actual management and `glide-vc` tool is being used for stripping down the vendor directory size.
-
-Prerequisites:
-* [glide](https://github.com/Masterminds/glide)
-* [glide-vc](https://github.com/sgotti/glide-vc)
-
-Invocation:
-```
-$ make update-deps
-```
-
 ### Clean build artifacts
 
 This target cleans all generated/compiled artifacts.
