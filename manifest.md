@@ -76,7 +76,6 @@ Unlike the [Manifest List](manifest-list.md), which contains information about a
 ```json,title=Manifest&mediatype=application/vnd.oci.image.manifest.v1%2Bjson
 {
   "schemaVersion": 2,
-  "mediaType": "application/vnd.oci.image.manifest.v1+json",
   "config": {
     "mediaType": "application/vnd.oci.image.config.v1+json",
     "size": 7023,
