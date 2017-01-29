@@ -15,12 +15,11 @@
 package schema_test
 
 import (
-	"crypto/sha256"
-	"encoding/hex"
-	"fmt"
+	_ "crypto/sha256"
 	"strings"
 	"testing"
 
+	"github.com/opencontainers/go-digest"
 	"github.com/opencontainers/image-spec/schema"
 	"github.com/opencontainers/image-spec/specs-go/v1"
 )
@@ -46,8 +45,8 @@ func convertFormats(input string) string {
 func TestBackwardsCompatibilityManifestList(t *testing.T) {
 	for i, tt := range []struct {
 		manifestlist string
-		digest   string
-		fail     bool
+		digest       digest.Digest
+		fail         bool
 	}{
 		{
 			digest: "sha256:219f4b61132fe9d09b0ec5c15517be2ca712e4744b0e0cc3be71295b35b2a467",
@@ -110,8 +109,7 @@ func TestBackwardsCompatibilityManifestList(t *testing.T) {
 			fail: false,
 		},
 	} {
-		sum := sha256.Sum256([]byte(tt.manifestlist))
-		got := fmt.Sprintf("sha256:%s", hex.EncodeToString(sum[:]))
+		got := digest.FromString(tt.manifestlist)
 		if tt.digest != got {
 			t.Errorf("test %d: expected digest %s but got %s", i, tt.digest, got)
 		}
@@ -129,7 +127,7 @@ func TestBackwardsCompatibilityManifestList(t *testing.T) {
 func TestBackwardsCompatibilityManifest(t *testing.T) {
 	for i, tt := range []struct {
 		manifest string
-		digest   string
+		digest   digest.Digest
 		fail     bool
 	}{
 		// manifest pulled from docker hub using hash value
@@ -173,8 +171,7 @@ func TestBackwardsCompatibilityManifest(t *testing.T) {
 			fail: false,
 		},
 	} {
-		sum := sha256.Sum256([]byte(tt.manifest))
-		got := fmt.Sprintf("sha256:%s", hex.EncodeToString(sum[:]))
+		got := digest.FromString(tt.manifest)
 		if tt.digest != got {
 			t.Errorf("test %d: expected digest %s but got %s", i, tt.digest, got)
 		}
@@ -192,7 +189,7 @@ func TestBackwardsCompatibilityManifest(t *testing.T) {
 func TestBackwardsCompatibilityConfig(t *testing.T) {
 	for i, tt := range []struct {
 		config string
-		digest string
+		digest digest.Digest
 		fail   bool
 	}{
 		// config pulled from docker hub blob store
@@ -213,8 +210,7 @@ func TestBackwardsCompatibilityConfig(t *testing.T) {
 			fail:   false,
 		},
 	} {
-		sum := sha256.Sum256([]byte(tt.config))
-		got := fmt.Sprintf("sha256:%s", hex.EncodeToString(sum[:]))
+		got := digest.FromString(tt.config)
 		if tt.digest != got {
 			t.Errorf("test %d: expected digest %s but got %s", i, tt.digest, got)
 		}
