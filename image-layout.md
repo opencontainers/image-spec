@@ -5,7 +5,7 @@ This layout MAY be used in a variety of different transport mechanisms: archive 
 
 Given an image layout and a ref, a tool can create an [OCI Runtime Specification bundle](https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc3/bundle.md) by:
 
-* Following the ref to find a [manifest](manifest.md#image-manifest), possibly via a [manifest list](manifest-list.md#manifest-list)
+* Following the ref to find a [manifest](manifest.md#image-manifest), possibly via an [image index](image-index.md)
 * [Applying the filesystem layers](layer.md#applying) in the specified order
 * Converting the [image configuration](config.md) into an [OCI Runtime Specification `config.json`](https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc3/config.md)
 
@@ -27,7 +27,7 @@ The image layout is as follows:
 - `index.json` file
     - It MUST exist
     - It MUST be a JSON object
-    - It MUST have the base properties of [manifest-list](manifest-list.md).
+    - It MUST have the base properties of an [image index](image-index.md).
     - See [index.json](#indexjson-file) section
 
 ## Example Layout
@@ -143,12 +143,12 @@ The `imageLayoutVersion` value will align with the OCI Image Specification versi
 ## index.json file
 
 This REQUIRED file is the entry point for references and descriptors of the image-layout.
-The [manifest-list](manifest-list.md) is a multi-descriptor entry point.
+The [image index](image-index.md) is a multi-descriptor entry point.
 
 This index provides an established path (`/index.json`) to have an entry point for an image-layout and to discover auxiliary descriptors.
 
 No semantic restriction is given for the "org.opencontainers.ref.name" annotation of descriptors.
-In general the `mediaType` of each [descriptor][descriptors] object in the `manifests` field will be either `application/vnd.oci.image.manifest.list.v1+json` or `application/vnd.oci.image.manifest.v1+json`.
+In general the `mediaType` of each [descriptor][descriptors] object in the `manifests` field will be either `application/vnd.oci.image.index.v1+json` or `application/vnd.oci.image.manifest.v1+json`.
 Future versions of the spec MAY use a different mediatype (i.e. a new versioned format).
 An encountered `mediaType` that is unknown SHOULD be safely ignored.
 
@@ -162,12 +162,12 @@ Those tags will often be represented in an image-layout repository with matching
 
 ### Index Example
 
-```json,title=Manifest%20List&mediatype=application/vnd.oci.image.manifest.list.v1%2Bjson
+```json,title=Manifest%20List&mediatype=application/vnd.oci.image.index.v1%2Bjson
 {
   "schemaVersion": 2,
   "manifests": [
     {
-      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "mediaType": "application/vnd.oci.image.index.v1+json",
       "size": 7143,
       "digest": "sha256:0228f90e926ba6b96e4f39cf294b2586d38fbb5a1e385c05cd1ee40ea54fe7fd",
       "annotations": {
@@ -178,6 +178,10 @@ Those tags will often be represented in an image-layout repository with matching
       "mediaType": "application/vnd.oci.image.manifest.v1+json",
       "size": 7143,
       "digest": "sha256:e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f",
+      "platform": {
+        "architecture": "ppc64le",
+        "os": "linux"
+      },
       "annotations": {
         "org.opencontainers.ref.name": "v1.0"
       }
