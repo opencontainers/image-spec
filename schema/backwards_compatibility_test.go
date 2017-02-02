@@ -27,7 +27,7 @@ import (
 var compatMap = map[string]string{
 	"application/vnd.docker.distribution.manifest.list.v2+json": v1.MediaTypeImageIndex,
 	"application/vnd.docker.distribution.manifest.v2+json":      v1.MediaTypeImageManifest,
-	"application/vnd.docker.image.rootfs.diff.tar.gzip":         v1.MediaTypeImageLayer,
+	"application/vnd.docker.image.rootfs.diff.tar.gzip":         v1.MediaTypeImageLayerGzip,
 	"application/vnd.docker.container.image.v1+json":            v1.MediaTypeImageConfig,
 }
 
