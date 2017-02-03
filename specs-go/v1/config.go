@@ -19,28 +19,28 @@ import "time"
 // ImageConfig defines the execution parameters which should be used as a base when running a container using an image.
 type ImageConfig struct {
 	// User defines the username or UID which the process in the container should run as.
-	User string `json:"User,omitempty"`
+	User string `json:"User"`
 
 	// ExposedPorts a set of ports to expose from a container running this image.
-	ExposedPorts map[string]struct{} `json:"ExposedPorts,omitempty"`
+	ExposedPorts map[string]struct{} `json:"ExposedPorts"`
 
 	// Env is a list of environment variables to be used in a container.
-	Env []string `json:"Env,omitempty"`
+	Env []string `json:"Env"`
 
 	// Entrypoint defines a list of arguments to use as the command to execute when the container starts.
-	Entrypoint []string `json:"Entrypoint,omitempty"`
+	Entrypoint []string `json:"Entrypoint"`
 
 	// Cmd defines the default arguments to the entrypoint of the container.
-	Cmd []string `json:"Cmd,omitempty"`
+	Cmd []string `json:"Cmd"`
 
 	// Volumes is a set of directories which should be created as data volumes in a container running this image.
-	Volumes map[string]struct{} `json:"Volumes,omitempty"`
+	Volumes map[string]struct{} `json:"Volumes"`
 
 	// WorkingDir sets the current working directory of the entrypoint process in the container.
-	WorkingDir string `json:"WorkingDir,omitempty"`
+	WorkingDir string `json:"WorkingDir"`
 
 	// Labels contains arbitrary metadata for the container.
-	Labels map[string]string `json:"labels,omitempty"`
+	Labels map[string]string `json:"labels"`
 }
 
 // RootFS describes a layer content addresses
@@ -55,29 +55,29 @@ type RootFS struct {
 // History describes the history of a layer.
 type History struct {
 	// Created is the combined date and time at which the layer was created, formatted as defined by RFC 3339, section 5.6.
-	Created time.Time `json:"created,omitempty"`
+	Created time.Time `json:"created"`
 
 	// CreatedBy is the command which created the layer.
-	CreatedBy string `json:"created_by,omitempty"`
+	CreatedBy string `json:"created_by"`
 
 	// Author is the author of the build point.
-	Author string `json:"author,omitempty"`
+	Author string `json:"author"`
 
 	// Comment is a custom message set when creating the layer.
-	Comment string `json:"comment,omitempty"`
+	Comment string `json:"comment"`
 
 	// EmptyLayer is used to mark if the history item created a filesystem diff.
-	EmptyLayer bool `json:"empty_layer,omitempty"`
+	EmptyLayer bool `json:"empty_layer"`
 }
 
 // Image is the JSON structure which describes some basic information about the image.
 // This provides the `application/vnd.oci.image.config.v1+json` mediatype when marshalled to JSON.
 type Image struct {
 	// Created is the combined date and time at which the image was created, formatted as defined by RFC 3339, section 5.6.
-	Created time.Time `json:"created,omitempty"`
+	Created time.Time `json:"created"`
 
 	// Author defines the name and/or email address of the person or entity which created and is responsible for maintaining the image.
-	Author string `json:"author,omitempty"`
+	Author string `json:"author"`
 
 	// Architecture is the CPU architecture which the binaries in this image are built to run on.
 	Architecture string `json:"architecture"`
@@ -86,11 +86,11 @@ type Image struct {
 	OS string `json:"os"`
 
 	// Config defines the execution parameters which should be used as a base when running a container using the image.
-	Config ImageConfig `json:"config,omitempty"`
+	Config ImageConfig `json:"config"`
 
 	// RootFS references the layer content addresses used by the image.
 	RootFS RootFS `json:"rootfs"`
 
 	// History describes the history of each layer.
-	History []History `json:"history,omitempty"`
+	History []History `json:"history"`
 }
