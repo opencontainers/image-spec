@@ -49,10 +49,9 @@ func TestBackwardsCompatibilityManifestList(t *testing.T) {
 		fail         bool
 	}{
 		{
-			digest: "sha256:219f4b61132fe9d09b0ec5c15517be2ca712e4744b0e0cc3be71295b35b2a467",
+			digest: "sha256:ce939cd86094ec89abba1168d55257dfe74781f438916737d5c0905d7afb8803",
 			manifestlist: `{
    "schemaVersion": 2,
-   "mediaType": "application/vnd.docker.distribution.manifest.list.v2+json",
    "manifests": [
       {
          "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
@@ -136,10 +135,9 @@ func TestBackwardsCompatibilityManifest(t *testing.T) {
 		// "Accept: application/vnd.docker.distribution.manifest.v2+json" \
 		// https://registry-1.docker.io/v2/library/docker/manifests/sha256:888206c77cd2811ec47e752ba291e5b7734e3ef137dfd222daadaca39a9f17bc
 		{
-			digest: "sha256:888206c77cd2811ec47e752ba291e5b7734e3ef137dfd222daadaca39a9f17bc",
+			digest: "sha256:162eb372f76fe2e505941075c227a3289a26b965680cdf6db6f690acbd60bea2",
 			manifest: `{
    "schemaVersion": 2,
-   "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
    "config": {
       "mediaType": "application/octet-stream",
       "size": 3210,
