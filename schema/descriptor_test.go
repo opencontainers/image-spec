@@ -24,7 +24,7 @@ import (
 func TestDescriptor(t *testing.T) {
 	for i, tt := range []struct {
 		descriptor string
-		fail     bool
+		fail       bool
 	}{
 		// valid descriptor
 		{
