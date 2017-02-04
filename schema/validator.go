@@ -33,7 +33,9 @@ type Validator string
 type validateDescendantsFunc func(r io.Reader) error
 
 var mapValidateDescendants = map[Validator]validateDescendantsFunc{
-	MediaTypeManifest: validateManifestDescendants,
+	MediaTypeImageConfig:  validateConfigDescendants,
+	MediaTypeManifest:     validateManifestDescendants,
+	MediaTypeManifestList: validateManifestListDescendants,
 }
 
 // ValidationError contains all the errors that happened during validation.
@@ -116,4 +118,69 @@ func validateManifestDescendants(r io.Reader) error {
 		}
 	}
 	return nil
+}
+
+func validateManifestListDescendants(r io.Reader) error {
+	header := v1.ManifestList{}
+
+	buf, err := ioutil.ReadAll(r)
+	if err != nil {
+		return errors.Wrapf(err, "error reading the io stream")
+	}
+
+	err = json.Unmarshal(buf, &header)
+	if err != nil {
+		return errors.Wrap(err, "manifestlist format mismatch")
+	}
+
+	for _, manifest := range header.Manifests {
+		if err = checkPlatform(manifest.Platform.OS, manifest.Platform.Architecture); err != nil {
+			return errors.Wrap(err, "check Platform error")
+		}
+	}
+	return nil
+}
+
+func validateConfigDescendants(r io.Reader) error {
+	header := v1.Image{}
+
+	buf, err := ioutil.ReadAll(r)
+	if err != nil {
+		return errors.Wrapf(err, "error reading the io stream")
+	}
+
+	err = json.Unmarshal(buf, &header)
+	if err != nil {
+		return errors.Wrap(err, "config format mismatch")
+	}
+
+	if err = checkPlatform(header.OS, header.Architecture); err != nil {
+		return errors.Wrap(err, "check Platform error")
+	}
+	return nil
+}
+
+func checkPlatform(OS string, Architecture string) error {
+	validCombins := map[string][]string{
+		"android":   {"arm"},
+		"darwin":    {"386", "amd64", "arm", "arm64"},
+		"dragonfly": {"amd64"},
+		"freebsd":   {"386", "amd64", "arm"},
+		"linux":     {"386", "amd64", "arm", "arm64", "ppc64", "ppc64le", "mips64", "mips64le", "s390x"},
+		"netbsd":    {"386", "amd64", "arm"},
+		"openbsd":   {"386", "amd64", "arm"},
+		"plan9":     {"386", "amd64"},
+		"solaris":   {"amd64"},
+		"windows":   {"386", "amd64"}}
+	for os, archs := range validCombins {
+		if os == OS {
+			for _, arch := range archs {
+				if arch == Architecture {
+					return nil
+				}
+			}
+			return fmt.Errorf("Combination of %q and %q is invalid.", OS, Architecture)
+		}
+	}
+	return fmt.Errorf("Operation system %q of the bundle is not supported yet.", OS)
 }
