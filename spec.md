@@ -9,8 +9,11 @@ The goal of this specification is to enable the creation of interoperable tools 
 - [Introduction](spec.md)
 - [Notational Conventions](#notational-conventions)
 - [Overview](#overview)
-    - [Understanding the Specification](#understanding-the-specification)
-    - [Media Types](media-types.md)
+    - [Components](#componets)
+    - [Actions](#actions)
+    - [Packing Images](#packing-images)
+    - [Unpacking Images](#unpacking-images)
+    - [Media Types](#media-types.md)
 - [Content Descriptors](descriptor.md)
 - [Image Layout](image-layout.md)
 - [Image Manifest](manifest.md)
@@ -33,18 +36,7 @@ An implementation is compliant if it satisfies all the MUST, REQUIRED, and SHALL
 
 # Overview
 
-At a high level the image manifest contains metadata about the contents and dependencies of the image including the content-addressable identity of one or more [filesystem layer changeset](layer.md) archives that will be unpacked to make up the final runnable filesystem.
-The image configuration includes information such as application arguments, environments, etc.
-The manifest list is a higher-level manifest which points to one or more manifests.
-Typically, these manifests may provide different implementations of the image, possibly varying by platform or other attributes.
-
-![](img/build-diagram.png)
-
-Once built the OCI Image can then be discovered by name, downloaded, verified by hash, trusted through a signature, and unpacked into an [OCI Runtime Bundle](https://github.com/opencontainers/runtime-spec/blob/master/bundle.md).
-
-![](img/run-diagram.png)
-
-## Understanding the Specification
+## Components
 
 The [OCI Image Media Types](media-types.md) document is a starting point to understanding the overall structure of the specification.
 
@@ -56,4 +48,46 @@ The high-level components of the spec include:
 * Signatures that are based on signing image content address (optional OCI layer)
 * Naming that is federated based on DNS and can be delegated (optional OCI layer)
 
+## Actions
+
+The specified [components](#components) MAY be manipulated with actions.
+
+* **pack**: Create a blob from the local filesystem (or other storage).
+* **unpack**: Update the local filesystem (or other storage) based on data found in a blob.
+* **validate**: Verify that blobs [comply](#notational-conventions) with the specification for their [media type](media-types.md).
+    Blobs can be validated on their own (**intra-blob validation**) or recursively including [referenced](descriptor.md) ancestors (**recursive validation**).
+* **translate**: Convert a blob between similar formats.
+    Translation may be **lossy** or **lossless** depending on how well the formats align.
+* **put**: Add a blob to content-addressable storage like [image layout's `blobs`](image-layout.md#blobs) or a reference to location-addressable storage like [image layout's `refs`](image-layout.md#refs).
+* **get**: Retrieve a blob from content-addressable storage like [image layout's `blobs`](image-layout.md#blobs) or a reference from location-addressable storage like [image layout's `refs`](image-layout.md#refs).
+* **delete**: Remove a blob from content-addressable storage like [image layout's `blobs`](image-layout.md#blobs) or a reference from location-addressable storage like [image layout's `refs`](image-layout.md#refs).
+
+## Packing Images
+
+In packing a new image, an example workflow is:
+
+* The [bundle][]'s [root filesystem][runtime-spec-root] is packed into a [layer](layer.md) (or layers) which are put into content-addressable storage.
+* The [bundle's `config.json`][bundle] is translated into an [image configuration](config.md) which is put into content-addressable storage.
+* The image configuration and layer(s) are packed into a [manifest](manifest.md) which is put into content-addressable storage.
+* That manifest (and potentially other manifests) are packed into a [manifest-list](manifest-list.md) (optional) which is put into content-addressable storage.
+* A reference to the manifest-list (and/or manifest) is put into location-addressable storage.
+
+![](img/build-diagram.png)
+
+## Unpacking Images
+
+In unpacking an existing image, an example workflow is:
+
+* Get an image reference from location-addressable storage like [image layout's `refs`](image-layout.md#refs) or an index based on the [associated annotations](descriptor.md#properties).
+* Get the referenced [manifest-list](manifest-list.md) (optional) from content-addressable storage, validate it, and unpack it to find the appropriate [manifest](manifest.md) for the target platform.
+* Get the referenced [manifest](manifest.md) from content-addressable storage, validate it, and unpack it to find the [image configuration](config.md) and [layer(s)](layer.md).
+* Get the referenced [layer(s)](layer.md) from content-addressable storage, validate it, and unpack it into the [bundle][]'s [root filesystem][runtime-spec-root].
+* Get the referenced [image configuration](config.md) from content-addressable storage, validate it, and translate it to a [runtime configuration][runtime-spec-config].
+    Write the translated configuration to the [bundle's `config.json`][bundle].
+
+![](img/run-diagram.png)
+
 [c99-unspecified]: http://www.open-std.org/jtc1/sc22/wg14/www/C99RationaleV5.10.pdf#page=18
+[bundle]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc2/bundle.md
+[runtime-spec-root]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc2/config.md#root-configuration
+[runtime-spec-config]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc2/config.md

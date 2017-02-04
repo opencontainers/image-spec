@@ -91,7 +91,7 @@ END FOR
 
 With this approach, the link map and links names of a directory could be compared against that of another directory to derive additions and changes to hardlinks.
 
-## Creating
+## Packing
 
 ### Initial Root Filesystem
 
@@ -211,17 +211,17 @@ The resulting tar archive for `rootfs-c9d-v1.s1` has the following entries:
 
 To signify that the resource `./etc/my-app-config` MUST be removed when the changeset is applied, the basename of the entry is prefixed with `.wh.`.
 
-## Applying Changesets
+## Unpacking
 
-Layer Changesets of [media type](media-types.md) `application/vnd.oci.image.layer.v1.tar` are _applied_, rather than simply extracted as tar archives.
+Layer Changesets of [media type](media-types.md) `application/vnd.oci.image.layer.v1.tar` are _unpacked_, rather than simply extracted as tar archives.
 
-Applying a layer changeset requires special consideration for the [whiteout](#whiteouts) files.
+Unpacking a layer changeset requires special consideration for the [whiteout](#whiteouts) files.
 
 In the absence of any [whiteout](#whiteouts) files in a layer changeset, the archive is extracted like a regular tar archive.
 
 ### Changeset over existing files
 
-This section specifies applying an entry from a layer changeset if the target path already exists.
+This section specifies unpacking an entry from a layer changeset if the target path already exists.
 
 If the entry and the existing path are both directories, then the existing path's attributes MUST be replaced by those of the entry in the changeset.
 In all other cases, the implementation MUST do the semantic equivalent of the following:
