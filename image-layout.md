@@ -26,6 +26,7 @@ The image layout MUST also contain an `oci-layout` file:
 - It MUST contain an `imageLayoutVersion` field
     - The `imageLayoutVersion` value will align with the OCI Image Specification version at the time changes to the layout are made, and will pin a given version until changes to the layout are required
 - It MAY include additional fields
+- It MAY contain an `index` field ([described below](#index))
 
 ## Example Layout
 
@@ -154,6 +155,42 @@ $ cat ./blobs/sha256/5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a43335
 ```
 $ cat ./blobs/sha256/e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f
 [tar stream]
+```
+
+## Index
+
+Index is intended to be generated from the content in an image-layout after any updates have been made.
+Allows for mapping objects in the image-layout, and needing only to read from the `oci-layout` once to collect this index.
+
+**index** *array of objects*, OPTIONAL
+
+  Provides a single access to top-level information about the layout.
+
+  - Each object has the base properties of [descriptor][descriptors]
+  - OPTIONAL **annotations** field with the same constraints as [manifest `annotations`](manifest.md#image-manifest-property-descriptions)
+
+### Index Example
+
+```json
+{
+  "imageLayoutVersion": "1.0.0",
+  "index": [
+    {
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "digest": "sha256:0169d60159b9e6cf7aad602377ad6e3f551a7b0d01c51c8620cea5358f71546e",
+      "size": 426
+    },
+    {
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "digest": "sha256:42f20fd615e5ab67f1b43c99f5f4a262d3e952ee6aa70b88f61207c24f2df2fb",
+      "size": 426,
+      "annotations": {
+        "org.waffles.with": "syrup,raspberries",
+        "io.flatpak.app.name": "org.gnome.gedit"
+      }
+    }
+  ]
+}
 ```
 
 [descriptors]: ./descriptor.md
