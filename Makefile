@@ -75,12 +75,14 @@ $(OUTPUT_DIRNAME)/$(DOC_FILENAME).html: $(DOC_FILES) $(FIGURE_FILES)
 	ls -sh $(shell readlink -f $@)
 endif
 
-validate-examples:
+validate-examples: schema/fs.go
 	go test -run TestValidate ./schema
 
-schema-fs:
+schema/fs.go: $(wildcard schema/*.json) schema/gen.go
 	@echo "generating schema fs"
 	@cd schema && printf "%s\n\n%s\n" "$$(cat ../.header)" "$$(go generate)" > fs.go
+
+schema-fs: schema/fs.go
 
 check-license:
 	@echo "checking license headers"
@@ -90,13 +92,11 @@ lint:
 	@echo "checking lint"
 	@./.tool/lint
 
-test:
+test: schema/fs.go
 	go test -race -cover $(shell go list ./... | grep -v /vendor/)
 
 img/%.png: img/%.dot
 	dot -Tpng $^ > $@
-
-.PHONY: .gitvalidation
 
 # When this is running in travis, it will only check the travis commit range
 .gitvalidation:
@@ -106,8 +106,6 @@ ifdef TRAVIS_COMMIT_RANGE
 else
 	git-validation -v -run DCO,short-subject,dangling-whitespace -range $(EPOCH_TEST_COMMIT)..HEAD
 endif
-
-.PHONY: install.tools
 
 install.tools: .install.gitvalidation .install.glide .install.glide-vc
 
@@ -121,7 +119,7 @@ install.tools: .install.gitvalidation .install.glide .install.glide-vc
 	go get -u github.com/sgotti/glide-vc
 
 clean:
-	rm -rf *~ $(OUTPUT_DIRNAME)
+	rm -rf *~ $(OUTPUT_DIRNAME) schema/fs.go
 
 .PHONY: \
 	validate-examples \
@@ -129,4 +127,7 @@ clean:
 	clean \
 	lint \
 	docs \
-	test
+	test \
+	schema/fs.go \
+	install.tools \
+	.gitvalidation
