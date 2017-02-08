@@ -24,7 +24,7 @@ import (
 func TestDescriptor(t *testing.T) {
 	for i, tt := range []struct {
 		descriptor string
-		fail     bool
+		fail       bool
 	}{
 		// valid descriptor
 		{
@@ -38,7 +38,7 @@ func TestDescriptor(t *testing.T) {
 			fail: false,
 		},
 
-		// expected failure: mediaType missing
+		// valid descriptor
 		{
 			descriptor: `
 {
@@ -46,7 +46,7 @@ func TestDescriptor(t *testing.T) {
   "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270"
 }
 `,
-			fail: true,
+			fail: false,
 		},
 
 		// expected failure: mediaType does not match pattern (no subtype)
