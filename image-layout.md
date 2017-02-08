@@ -58,7 +58,7 @@ A blob, referenced with digest `<alg>:<hex>` (per [descriptor](descriptor.md#dig
 The character set of the entry name for `<hex>` and `<alg>` MUST match the respective grammar elements described in [descriptor](descriptor.md#digests-and-verification).
 For example `sha256:5b` will map to the layout `blobs/sha256/5b`.
 
-The blobs directory MAY contain blobs which are not referenced by any of the refs.
+The blobs directory MAY contain blobs which are not referenced by any of the [refs](#indexjson-file).
 
 The blobs directory MAY be missing referenced blobs, in which case the missing blobs SHOULD be fulfilled by an external blob store.
 
