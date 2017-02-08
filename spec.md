@@ -1,4 +1,5 @@
-# Open Container Initiative Image Format Specification
+# Open Container Initiative
+# Image Format Specification
 
 This specification defines an OCI Image, consisting of a [manifest](manifest.md), a [manifest list](manifest-list.md) (optional), a set of [filesystem layers](layer.md), and a [configuration](config.md).
 
