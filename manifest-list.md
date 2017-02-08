@@ -11,7 +11,9 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 - **`schemaVersion`** *int*
 
   This REQUIRED property specifies the image manifest schema version.
-  For this version of the specification, this MUST be `2` to ensure backward compatibility with older versions of Docker. The value of this field will not change. This field MAY be removed in a future version of the specification.
+  For this version of the specification, this MUST be `2` to ensure backward compatibility with older versions of Docker.
+  The value of this field will not change.
+  This field MAY be removed in a future version of the specification.
 
 - **`mediaType`** *string*
 
@@ -20,10 +22,10 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 
 - **`manifests`** *array of objects*
 
-  This REQUIRED property contains a list of manifests for specific platforms.
-  While the property MUST be present, the size of the array MAY be zero.
+  This REQUIRED property contains a list of [manifests](manifest.md) for specific platforms.
+  While this property MUST be present, the size of the array MAY be zero.
 
-  Each object in `manifests` is a [descriptor](descriptor.md) with the following additional properties and restrictions:
+  Each object in `manifests` has the base properties of [descriptor](descriptor.md) with the following additional properties and restrictions:
 
   - **`mediaType`** *string*
 
@@ -33,10 +35,13 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
     - [`application/vnd.oci.image.manifest.v1+json`](manifest.md)
 
     Manifest lists concerned with portability SHOULD use one of the above media types.
+    Future versions of the spec MAY use a different mediatype (i.e. a new versioned format).
+    An encountered `mediaType` that is unknown SHOULD be safely ignored.
 
   - **`platform`** *object*
 
-    This REQUIRED property describes the platform which the image in the manifest runs on.
+    This OPTIONAL property describes the platform which the image in the manifest runs on.
+    This property SHOULD be present if its target is platform-specific.
 
     - **`architecture`** *string*
 
@@ -63,13 +68,6 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
     - **`features`** *array of strings*
 
         This OPTIONAL property specifies an array of strings, each specifying a mandatory CPU feature (for example `sse4` or `aes`).
-
-- **`annotations`** *string-string map*
-
-    This OPTIONAL property contains arbitrary metadata for the manifest list.
-    This OPTIONAL property MUST use the [annotation rules](annotations.md#rules).
-
-    See [Pre-Defined Annotation Keys](annotations.md#pre-defined-annotation-keys).
 
 ## Example Manifest List
 
@@ -107,5 +105,5 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 }
 ```
 
-[runtime-platform2]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc2/config.md#platform
+[runtime-platform2]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc3/config.md#platform
 [matrix]: media-types.md#compatibility-matrix

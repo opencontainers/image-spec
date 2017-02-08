@@ -21,3 +21,4 @@ This specification defines the following annotation keys, intended for but not l
 * **org.opencontainers.homepage** URL to find more information on the image (string, a URL with scheme HTTP or HTTPS)
 * **org.opencontainers.documentation** URL to get documentation on the image (string, a URL with scheme HTTP or HTTPS)
 * **org.opencontainers.source** URL to get source code for the binary files in the image (string, a URL with scheme HTTP or HTTPS)
+* **org.opencontainers.ref.name** Name of the reference (string)

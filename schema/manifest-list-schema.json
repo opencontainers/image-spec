@@ -17,6 +17,12 @@
         "$ref": "defs-image.json#/definitions/manifestDescriptor"
       }
     },
+    "elements": {
+      "type": "array",
+      "items": {
+        "$ref": "content-descriptor.json"
+      }
+    },
     "annotations": {
       "id": "https://opencontainers.org/schema/image/manifest-list/annotations",
       "$ref": "defs-image.json#/definitions/annotations"
