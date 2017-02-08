@@ -14,8 +14,6 @@
 
 package v1
 
-import "regexp"
-
 // ImageLayoutVersion is the version of ImageLayout
 const ImageLayoutVersion = "1.0.0"
 
@@ -24,8 +22,3 @@ const ImageLayoutVersion = "1.0.0"
 type ImageLayout struct {
 	Version string `json:"imageLayoutVersion"`
 }
-
-var (
-	// RefsRegexp matches requirement of image-layout 'refs' charset.
-	RefsRegexp = regexp.MustCompile(`^[a-zA-Z0-9-._]+$`)
-)
