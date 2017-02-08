@@ -205,7 +205,7 @@ var _escData = map[string]*_escFile{
 	"/config-schema.json": {
 		local:   "config-schema.json",
 		size:    774,
-		modtime: 1485388791,
+		modtime: 0,
 		compressed: `
 H4sIAAAJbogA/5SRvW7rMAyFdz+F4WS8ju7QKWsfoEPHooMqUzEDWFRJZgiKvHv1EzcxEBTuEsSH/M4R
 ya+mbbsBxDFGRQrdvu1eIoRnCmoxALfpn8dD+xrBoUdnS9e/jG3FjTDZjIyqcW/MUSj0Vd0RH8zA1mv/
@@ -219,7 +219,7 @@ AP//XlvgsQYDAAA=
 	"/content-descriptor.json": {
 		local:   "content-descriptor.json",
 		size:    956,
-		modtime: 1485388791,
+		modtime: 0,
 		compressed: `
 H4sIAAAJbogA/5STP2/bMBDFd3+KgxIgSxx1CDoYQZZ279BuRQeaPEmXmn96PCNVC3/3HkUpttsigRfD
 fHyP9zvy9HsF0DjMlikJxdBsoPmUMHyIQQwFZCj/MAh8nE2R4XNCSx1ZMyVuyxHX2Q7oTYkPImnTtk85
@@ -234,7 +234,7 @@ xJmFKfQvVt3pIntTLllpqZn1w2r5nVppGH/sibF8BF//HtjTiTl/OF18Wx1WfwIAAP//z1UgVLwDAAA=
 	"/defs-config.json": {
 		local:   "defs-config.json",
 		size:    2236,
-		modtime: 1485388791,
+		modtime: 0,
 		compressed: `
 H4sIAAAJbogA/+RVzY7TMBC+5yksw7Gwd6673JCKVAEHhCo3Ge/OEnvMeIKI0L47TrZ0888qpac9VG0m
 /n7m89j9nSmlC4g5YxAkr98pfQMWPTZPUQXDgnlVGlZCahvAX5MXgx5YpV8Wb9UuQI4Wc9PiN4+EJ4ZE
@@ -250,7 +250,7 @@ jNdz5yFrPg/ZnwAAAP//3oH4m7wIAAA=
 	"/defs-image.json": {
 		local:   "defs-image.json",
 		size:    2916,
-		modtime: 1485388791,
+		modtime: 0,
 		compressed: `
 H4sIAAAJbogA/8SWTU/bTBDH7/kU+xj0cMiLaVUhNUJIVbn0xIGeigIa1uN4qL3r7m6gIfJ3767t+D3Q
 lKg9wc6u//P/zc443owY8wLUXFFqSApvzrxLDEmQW2mWgjLEVzEoZiS7SlF8lsIACVTsSwJLZNcpcgqJ
@@ -270,7 +270,7 @@ wPY1u7t/TOu/YLV/T63trA92OFtW7I1mZo82Q9HlhzNVib7VXIjgKn7YktWqO+31R7RIOTimr4I1J3II
 	"/defs.json": {
 		local:   "defs.json",
 		size:    3193,
-		modtime: 1485388791,
+		modtime: 0,
 		compressed: `
 H4sIAAAJbogA/7RWTXPaMBC98ys8tEfa2PIX9NYp/cghAzOZnjo9uGYBtSCpstxpmuG/VzLGWPZiMKWH
 JPau9r23T6tYzwPHGS4gSyUVinI2fOMMp7CkjJq3zMkzWDhqLXm+WvNc6UdwZgLYO85UQhlI51FASpc0
@@ -289,7 +289,7 @@ MrVJbn8cB+ZnN/gbAAD//0JyEpx5DAAA
 	"/image-layout-schema.json": {
 		local:   "image-layout-schema.json",
 		size:    414,
-		modtime: 1485388791,
+		modtime: 0,
 		compressed: `
 H4sIAAAJbogA/2yPsU7EMAyG9z6FFRhpUySmW286CekGJBbEEFpfmxNNQuIinVDfHSduYbhbWvmPP3/2
 TwWgekxdtIGsd2oH6hjQ7b0jYx1GOExmQHg2Fz8TvHQjTkY9ZOo+ScHESBR2Wp+Td7WkjY+D7qM5Ud0+
@@ -302,7 +302,7 @@ ngEAAA==
 	"/image-manifest-schema.json": {
 		local:   "image-manifest-schema.json",
 		size:    921,
-		modtime: 1485389045,
+		modtime: 0,
 		compressed: `
 H4sIAAAJbogA/5ySMU/rMBSF9/yKq7RjU7/39KauTB0QA4gFMZjkJrlVbQfbRVSo/51ru6Y1ZUAdc+xz
 7ndP/FEB1B261tLkyeh6BfXdhPrGaC9Jo4W1kgPCrdTUo/NwP2FLPbUy3l4E+9y1IyoZrKP300qIjTO6
@@ -317,7 +317,7 @@ AP//UcoRdpkDAAA=
 	"/manifest-list-schema.json": {
 		local:   "manifest-list-schema.json",
 		size:    873,
-		modtime: 1485389045,
+		modtime: 0,
 		compressed: `
 H4sIAAAJbogA/6SSv0/7MBDF9/wVp/Q7flMjxNQVFiQQA4gFMZjk0lzV2OHORVSo/zv+EZdEZUDqUqnP
 fu8+7+KvAqBsUGqmwZE15QrKhwHNtTVOk0GG216vEe61oRbFwR35n8cBa2qp1tHyP2T8k7rDXgd/59yw
