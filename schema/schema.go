@@ -26,6 +26,7 @@ const (
 	MediaTypeManifest     Validator     = v1.MediaTypeImageManifest
 	MediaTypeManifestList Validator     = v1.MediaTypeImageManifestList
 	MediaTypeImageConfig  Validator     = v1.MediaTypeImageConfig
+	TypeImageLayout       Validator     = v1.ImageLayoutFile
 	MediaTypeImageLayer   unimplemented = v1.MediaTypeImageLayer
 )
 
@@ -40,6 +41,7 @@ var (
 		MediaTypeManifest:     "image-manifest-schema.json",
 		MediaTypeManifestList: "manifest-list-schema.json",
 		MediaTypeImageConfig:  "config-schema.json",
+		TypeImageLayout:       "image-layout-schema.json",
 	}
 )
 
