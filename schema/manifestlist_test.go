@@ -239,7 +239,7 @@ func TestManifestList(t *testing.T) {
 		},
 	} {
 		r := strings.NewReader(tt.manifestList)
-		err := schema.MediaTypeManifestList.Validate(r)
+		err := schema.ValidatorMediaTypeManifestList.Validate(r)
 
 		if got := err != nil; tt.fail != got {
 			t.Errorf("test %d: expected validation failure %t but got %t, err %v", i, tt.fail, got, err)
