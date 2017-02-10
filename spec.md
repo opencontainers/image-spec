@@ -1,10 +1,11 @@
-# Open Container Initiative Image Format Specification
+# Open Container Initiative
+## Image Format Specification
 
 This specification defines an OCI Image, consisting of a [manifest](manifest.md), a [manifest list](manifest-list.md) (optional), a set of [filesystem layers](layer.md), and a [configuration](config.md).
 
 The goal of this specification is to enable the creation of interoperable tools for building, transporting, and preparing a container image to run.
 
-## Table of Contents
+### Table of Contents
 
 - [Introduction](spec.md)
 - [Notational Conventions](#notational-conventions)
@@ -22,7 +23,7 @@ The goal of this specification is to enable the creation of interoperable tools 
     - [Extensibility](considerations.md#extensibility)
     - [Canonicalization](considerations.md#canonicalization)
 
-# Notational Conventions
+## Notational Conventions
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" are to be interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119) (Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, March 1997).
 
@@ -31,7 +32,7 @@ The key words "unspecified", "undefined", and "implementation-defined" are to be
 An implementation is not compliant if it fails to satisfy one or more of the MUST, REQUIRED, or SHALL requirements for the protocols it implements.
 An implementation is compliant if it satisfies all the MUST, REQUIRED, and SHALL requirements for the protocols it implements.
 
-# Overview
+## Overview
 
 At a high level the image manifest contains metadata about the contents and dependencies of the image including the content-addressable identity of one or more [filesystem layer changeset](layer.md) archives that will be unpacked to make up the final runnable filesystem.
 The image configuration includes information such as application arguments, environments, etc.
@@ -44,7 +45,7 @@ Once built the OCI Image can then be discovered by name, downloaded, verified by
 
 ![](img/run-diagram.png)
 
-## Understanding the Specification
+### Understanding the Specification
 
 The [OCI Image Media Types](media-types.md) document is a starting point to understanding the overall structure of the specification.
 
