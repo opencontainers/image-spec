@@ -69,6 +69,13 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 
         This OPTIONAL property specifies an array of strings, each specifying a mandatory CPU feature (for example `sse4` or `aes`).
 
+- **`annotations`** *string-string map*
+
+    This OPTIONAL property contains arbitrary metadata for the manifest list.
+    This OPTIONAL property MUST use the [annotation rules](annotations.md#rules).
+
+    See [Pre-Defined Annotation Keys](annotations.md#pre-defined-annotation-keys).
+
 ## Example Manifest List
 
 *Example showing a simple manifest list pointing to image manifests for two platforms:*
