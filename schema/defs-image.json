@@ -86,14 +86,8 @@
     },
     "annotations": {
       "id": "https://opencontainers.org/schema/image/annotations",
-      "oneOf": [
-        {
-          "$ref": "defs.json#/definitions/mapStringString"
-        },
-        {
-          "type": "null"
-        }
-      ]
+      "$ref": "defs.json#/definitions/mapStringString",
+      "x-nullable": true
     }
   }
 }

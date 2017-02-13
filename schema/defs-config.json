@@ -17,40 +17,21 @@
           }
         },
         "Entrypoint": {
-          "oneOf": [
-            {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            {
-              "type": "null"
-            }
-          ]
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "Cmd": {
-          "oneOf": [
-            {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            {
-              "type": "null"
-            }
-          ]
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-nullable": true
         },
         "Volumes": {
-          "oneOf": [
-            {
-              "$ref": "defs.json#/definitions/mapStringObject"
-            },
-            {
-              "type": "null"
-            }
-          ]
+          "$ref": "defs.json#/definitions/mapStringObject",
+          "x-nullable": true
         },
         "WorkingDir": {
           "type": "string"
