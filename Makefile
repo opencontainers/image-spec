@@ -40,7 +40,7 @@ DOC_FILENAME	?= oci-image-spec
 
 EPOCH_TEST_COMMIT ?= v0.2.0
 
-default: help
+default: check-license lint test
 
 help:
 	@echo "Usage: make <target>"
