@@ -1,16 +1,6 @@
 {
   "description": "Definitions particular to OpenContainer Image Specification",
   "definitions": {
-    "mediaType": {
-      "id": "https://opencontainers.org/schema/image/mediaType",
-      "type": "string",
-      "pattern": "^[A-Za-z0-9][A-Za-z0-9!#$&-^_.+]{0,126}/[A-Za-z0-9][A-Za-z0-9!#$&-^_.+]{0,126}$"
-    },
-    "digest": {
-      "description": "the cryptographic checksum digest of the object, in the pattern '<hash>:<hexadecimal digest>'",
-      "type": "string",
-      "pattern": "^[a-z0-9_+.-]+:[a-f0-9]+$"
-    },
     "manifestDescriptor": {
       "id": "https://opencontainers.org/schema/image/manifestDescriptor",
       "type": "object",
@@ -22,7 +12,7 @@
       "properties": {
         "mediaType": {
           "description": "the mediatype of the referenced object",
-          "$ref": "#/definitions/mediaType"
+          "$ref": "defs-descriptor.json#/definitions/mediaType"
         },
         "size": {
           "description": "the size in bytes of the referenced object",
@@ -30,15 +20,11 @@
         },
         "digest": {
           "description": "the cryptographic checksum digest of the object, in the pattern '<hash>:<hexadecimal digest>'",
-          "$ref": "#/definitions/digest"
+          "$ref": "defs-descriptor.json#/definitions/digest"
         },
         "urls": {
           "description": "a list of urls from which this object may be downloaded",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "format": "uri"
-          }
+          "$ref": "defs-descriptor.json#/definitions/urls"
         },
         "platform": {
           "id": "https://opencontainers.org/schema/image/platform",
@@ -80,13 +66,9 @@
         },
         "annotations": {
           "id": "https://opencontainers.org/schema/image/descriptor/annotations",
-          "$ref": "#/definitions/annotations"
+          "$ref": "defs-descriptor.json#/definitions/annotations"
         }
       }
-    },
-    "annotations": {
-      "id": "https://opencontainers.org/schema/image/annotations",
-      "$ref": "defs.json#/definitions/mapStringString"
     }
   }
 }
