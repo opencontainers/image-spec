@@ -148,7 +148,7 @@ The [manifest-list](manifest-list.md) is a multi-descriptor entry point.
 This index provides an established path (`/index.json`) to have an entry point for an image-layout and to discover auxiliary descriptors.
 
 No semantic restriction is given for the "org.opencontainers.ref.name" annotation of descriptors.
-In general the `mediaType` of each [descriptor][descriptors] object in the `manifests` field will be either `application/vnd.oci.image.manifest.list.v1+json` or `application/vnd.oci.image.manifest.v1+json`
+In general the `mediaType` of each [descriptor][descriptors] object in the `manifests` field will be either `application/vnd.oci.image.manifest.list.v1+json` or `application/vnd.oci.image.manifest.v1+json`.
 Future versions of the spec MAY use a different mediatype (i.e. a new versioned format).
 An encountered `mediaType` that is unknown SHOULD be safely ignored.
 
