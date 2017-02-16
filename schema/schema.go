@@ -22,12 +22,12 @@ import (
 
 // Media types for the OCI image formats
 const (
-	ValidatorMediaTypeDescriptor   Validator     = v1.MediaTypeDescriptor
-	ValidatorMediaTypeManifest     Validator     = v1.MediaTypeImageManifest
-	ValidatorMediaTypeManifestList Validator     = v1.MediaTypeImageManifestList
-	ValidatorMediaTypeImageConfig  Validator     = v1.MediaTypeImageConfig
-	ValidatorTypeImageLayout       Validator     = v1.ImageLayoutFile
-	ValidatorMediaTypeImageLayer   unimplemented = v1.MediaTypeImageLayer
+	ValidatorMediaTypeDescriptor  Validator     = v1.MediaTypeDescriptor
+	ValidatorMediaTypeManifest    Validator     = v1.MediaTypeImageManifest
+	ValidatorMediaTypeImageIndex  Validator     = v1.MediaTypeImageIndex
+	ValidatorMediaTypeImageConfig Validator     = v1.MediaTypeImageConfig
+	ValidatorTypeImageLayout      Validator     = v1.ImageLayoutFile
+	ValidatorMediaTypeImageLayer  unimplemented = v1.MediaTypeImageLayer
 )
 
 var (
@@ -37,11 +37,11 @@ var (
 
 	// specs maps OCI schema media types to schema files.
 	specs = map[Validator]string{
-		ValidatorMediaTypeDescriptor:   "content-descriptor.json",
-		ValidatorMediaTypeManifest:     "image-manifest-schema.json",
-		ValidatorMediaTypeManifestList: "manifest-list-schema.json",
-		ValidatorMediaTypeImageConfig:  "config-schema.json",
-		ValidatorTypeImageLayout:       "image-layout-schema.json",
+		ValidatorMediaTypeDescriptor:  "content-descriptor.json",
+		ValidatorMediaTypeManifest:    "image-manifest-schema.json",
+		ValidatorMediaTypeImageIndex:  "image-index-schema.json",
+		ValidatorMediaTypeImageConfig: "config-schema.json",
+		ValidatorTypeImageLayout:      "image-layout-schema.json",
 	}
 )
 

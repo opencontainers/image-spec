@@ -26,7 +26,7 @@ DOC_FILES := \
 	descriptor.md \
 	image-layout.md \
 	manifest.md \
-	manifest-list.md \
+	image-index.md \
 	layer.md \
 	config.md \
 	annotations.md \

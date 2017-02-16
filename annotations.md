@@ -15,7 +15,7 @@ Consumers MUST NOT generate an error if they encounter an unknown annotation key
 
 ## Pre-Defined Annotation Keys
 
-This specification defines the following annotation keys, intended for but not limited to manifest list and image manifest authors:
+This specification defines the following annotation keys, intended for but not limited to [image index](image-index.md) and image [manifest](manifest.md) authors:
 * **org.opencontainers.created** date on which the image was built (string, date-time as defined by [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6)).
 * **org.opencontainers.authors** contact details of the people or organization responsible for the image (freeform string)
 * **org.opencontainers.homepage** URL to find more information on the image (string, a URL with scheme HTTP or HTTPS)
