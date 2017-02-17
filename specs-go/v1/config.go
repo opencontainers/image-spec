@@ -41,6 +41,9 @@ type ImageConfig struct {
 
 	// Labels contains arbitrary metadata for the container.
 	Labels map[string]string `json:"labels,omitempty"`
+
+	// StopSignal contains the system call signal that will be sent to the container to exit.
+	StopSignal string `json:"StopSignal,omitempty"`
 }
 
 // RootFS describes a layer content addresses
