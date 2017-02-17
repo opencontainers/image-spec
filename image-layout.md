@@ -162,7 +162,7 @@ Those tags will often be represented in an image-layout repository with matching
 
 ### Index Example
 
-```json,title=Manifest%20List&mediatype=application/vnd.oci.image.index.v1%2Bjson
+```json,title=Image%20Index&mediatype=application/vnd.oci.image.index.v1%2Bjson
 {
   "schemaVersion": 2,
   "manifests": [
