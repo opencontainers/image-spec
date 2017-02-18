@@ -202,7 +202,7 @@ Those tags will often be represented in an image-layout repository with matching
 }
 ```
 
-This illustrates an index that provides two named manifest references and an auxilary mediatype for this image layout.
+This illustrates an index that provides two named manifest references and an auxiliary mediatype for this image layout.
 
 
 [descriptors]: ./descriptor.md
