@@ -134,7 +134,7 @@ The `imageLayoutVersion` value will align with the OCI Image Specification versi
 
 ### oci-layout Example
 
-```json
+```json,title=OCI%20Layout&mediatype=oci%2Dlayout
 {
     "imageLayoutVersion": "1.0.0"
 }
