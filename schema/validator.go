@@ -26,14 +26,42 @@ import (
 	"github.com/xeipuuv/gojsonschema"
 )
 
+type validateRefMediaFunc func(r io.Reader) error
+
+var validateRefMediaMap = map[Validator]validateRefMediaFunc{
+	ValidatorMediaTypeImageIndex: validateImageIndexRefObject,
+	ValidatorMediaTypeManifest:   validateManifestRefObject,
+}
+
+// ValidateFunc provides the type of function to validate specific object.
+type ValidateFunc func(r io.Reader, v Validator) error
+
 // Validator wraps a media type string identifier
 // and implements validation against a JSON schema.
 type Validator string
 
-type validateDescendantsFunc func(r io.Reader) error
+// Validate validates the given read r to memory and call funcList on the content.
+// r: the given reader.
+// funcList: the optional functions to validate the wrapped media type.
+func (v Validator) Validate(r io.Reader, funcList []ValidateFunc) error {
+	buf, err := ioutil.ReadAll(r)
+	if err != nil {
+		return errors.Wrap(err, "unable to read the document file")
+	}
 
-var mapValidateDescendants = map[Validator]validateDescendantsFunc{
-	ValidatorMediaTypeManifest: validateManifestDescendants,
+	for _, f := range funcList {
+		err := f(bytes.NewReader(buf), v)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+type unimplemented string
+
+func (v unimplemented) Validate(src io.Reader) error {
+	return fmt.Errorf("%s: unimplemented", v)
 }
 
 // ValidationError contains all the errors that happened during validation.
@@ -45,21 +73,13 @@ func (e ValidationError) Error() string {
 	return fmt.Sprintf("%v", e.Errs)
 }
 
-// Validate validates the given reader against the schema of the wrapped media type.
-func (v Validator) Validate(src io.Reader) error {
+// ValidateSchema validates the given reader against the schema of the wrapped media type.
+// src: the given reader.
+// v: the expected media type.
+func ValidateSchema(src io.Reader, v Validator) error {
 	buf, err := ioutil.ReadAll(src)
 	if err != nil {
 		return errors.Wrap(err, "unable to read the document file")
-	}
-
-	if f, ok := mapValidateDescendants[v]; ok {
-		if f == nil {
-			return fmt.Errorf("internal error: mapValidateDescendents[%q] is nil", v)
-		}
-		err = f(bytes.NewReader(buf))
-		if err != nil {
-			return err
-		}
 	}
 
 	sl := gojsonschema.NewReferenceLoaderFileSystem("file:///"+specs[v], fs)
@@ -86,16 +106,26 @@ func (v Validator) Validate(src io.Reader) error {
 	}
 }
 
-type unimplemented string
+// ValidateRefMedia validates the referenced objects against OCI media type defined in spec.
+// src: the given reader.
+// v: the expected media type.
+func ValidateRefMedia(src io.Reader, v Validator) error {
+	f, ok := validateRefMediaMap[v]
+	if ok {
+		if f == nil {
+			return fmt.Errorf("referenced media type validation %q unimplemented", v)
+		}
 
-func (v unimplemented) Validate(src io.Reader) error {
-	return fmt.Errorf("%s: unimplemented", v)
+		return f(src)
+	}
+
+	return nil
 }
 
-func validateManifestDescendants(r io.Reader) error {
+func validateManifestRefObject(src io.Reader) error {
 	header := v1.Manifest{}
 
-	buf, err := ioutil.ReadAll(r)
+	buf, err := ioutil.ReadAll(src)
 	if err != nil {
 		return errors.Wrapf(err, "error reading the io stream")
 	}
@@ -115,6 +145,27 @@ func validateManifestDescendants(r io.Reader) error {
 			layer.MediaType != string(v1.MediaTypeImageLayerNonDistributable) &&
 			layer.MediaType != string(v1.MediaTypeImageLayerNonDistributableGzip) {
 			fmt.Printf("warning: layer %s has an unknown media type: %s\n", layer.Digest, layer.MediaType)
+		}
+	}
+	return nil
+}
+
+func validateImageIndexRefObject(src io.Reader) error {
+	header := v1.ImageIndex{}
+
+	buf, err := ioutil.ReadAll(src)
+	if err != nil {
+		return errors.Wrapf(err, "error reading the io stream")
+	}
+
+	err = json.Unmarshal(buf, &header)
+	if err != nil {
+		return errors.Wrap(err, "manifest list format mismatch")
+	}
+
+	for _, manifest := range header.Manifests {
+		if manifest.MediaType != string(v1.MediaTypeImageManifest) {
+			return fmt.Errorf("manifest %s has an unknown media type: %s", manifest.Digest, manifest.MediaType)
 		}
 	}
 	return nil
