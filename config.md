@@ -124,6 +124,10 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
      If there are no labels then this property MAY either be absent or an empty map.
      Implementations that are reading/processing this configuration file MUST NOT generate an error if they encounter an unknown labels key.
 
+  - **StopSignal** *string*, OPTIONAL
+
+    The field contains the system call signal that will be sent to the container to exit. The signal can be a signal name in the format `SIGNAME`, for instance `SIGKILL` or `SIGRTMIN+3`.
+
 - **rootfs** *object*, REQUIRED
 
    The rootfs key references the layer content addresses used by the image.
