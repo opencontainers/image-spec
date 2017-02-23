@@ -149,9 +149,9 @@ This index provides an established path (`/index.json`) to have an entry point f
 
 If set, the value of the `org.opencontainers.ref.name` annotation in each descriptor MUST be unique to the `index.json`.
 No semantic restriction is given for the `org.opencontainers.ref.name` annotation of descriptors.
-In general the `mediaType` of each [descriptor][descriptors] object in the `manifests` field will be either `application/vnd.oci.image.index.v1+json` or `application/vnd.oci.image.manifest.v1+json`.
+In general, the `mediaType` of each [descriptor][descriptors] object in the `manifests` field SHOULD be either `application/vnd.oci.image.index.v1+json` or `application/vnd.oci.image.manifest.v1+json`.
 Future versions of the spec MAY use a different mediatype (i.e. a new versioned format).
-An encountered `mediaType` that is unknown SHOULD be safely ignored.
+An encountered `mediaType` that is unknown SHOULD be ignored.
 
 
 **Implementor's Note:**
