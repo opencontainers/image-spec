@@ -76,9 +76,9 @@ hex         := /[a-f0-9]+/
 
 Some example digest strings include the following:
 
-digest                                                                            | description                                   |
-----------------------------------------------------------------------------------|------------------------------------------------
-sha256:6c3c624b58dbbcd3c0dd82b4c53f04194d1247c6eebdaab7c610cf7d66709b3b           | Common sha256 based digest                    |
+digest                                                                  | algorithm           |
+------------------------------------------------------------------------|---------------------|
+sha256:6c3c624b58dbbcd3c0dd82b4c53f04194d1247c6eebdaab7c610cf7d66709b3b | [SHA-256](#sha-256) |
 
 Before consuming content targeted by a descriptor from untrusted sources, the byte content SHOULD be verified against the digest.
 Before calculating the digest, the size of the content SHOULD be verified to reduce hash collision space.
@@ -108,6 +108,16 @@ D == ID(C) == '<alg>:' + EncodeHex(H(C))
 ```
 
 The _digest_ is confirmed as the content identifier by independently calculating the _digest_.
+
+#### Registered identifiers
+
+The following algorithm identifiers are defined by this specification:
+
+| identifier | algorithm           |
+|------------|---------------------|
+| `sha256`   | [SHA-256](#sha-256) |
+
+If a useful algorithm is not included in the above table, it SHOULD be submitted to this specification for standardization.
 
 #### SHA-256
 
