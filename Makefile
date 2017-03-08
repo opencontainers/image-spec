@@ -13,7 +13,7 @@ ifeq "$(strip $(PANDOC))" ''
 			-v $(shell pwd)/$(OUTPUT_DIRNAME)/:/$(OUTPUT_DIRNAME)/ \
 			-u $(shell id -u) \
 			--workdir /input \
-			docker.io/vbatts/pandoc:1.16.0.2-1.fc24
+			docker.io/vbatts/pandoc:1.17.0.3-2.fc25.x86_64
 		PANDOC_SRC := /input/
 		PANDOC_DST := /
 	endif
@@ -65,7 +65,7 @@ $(OUTPUT_DIRNAME)/$(DOC_FILENAME).pdf: $(DOC_FILES) $(FIGURE_FILES)
 else
 $(OUTPUT_DIRNAME)/$(DOC_FILENAME).pdf: $(DOC_FILES) $(FIGURE_FILES)
 	@mkdir -p $(OUTPUT_DIRNAME)/ && \
-	$(PANDOC) -f markdown_github -t latex -o $(PANDOC_DST)$@ $(patsubst %,$(PANDOC_SRC)%,$(DOC_FILES))
+	$(PANDOC) -f markdown_github -t latex --latex-engine=xelatex -o $(PANDOC_DST)$@ $(patsubst %,$(PANDOC_SRC)%,$(DOC_FILES))
 	ls -sh $(shell readlink -f $@)
 
 $(OUTPUT_DIRNAME)/$(DOC_FILENAME).html: $(DOC_FILES) $(FIGURE_FILES)
