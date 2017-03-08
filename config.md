@@ -25,7 +25,7 @@ Changing it means creating a new derived image, instead of changing the existing
 
 ### Layer DiffID
 
-A layer DiffID is a SHA256 digest over the layer's uncompressed tar archive and serialized in the descriptor digest format, e.g., `sha256:a9561eb1b190625c9adb5a9513e72c4dedafc1cb2d4c5236c9a6957ec7dfd5a9`.
+A layer DiffID is the digest over the layer's uncompressed tar archive and serialized in the descriptor digest format, e.g., `sha256:a9561eb1b190625c9adb5a9513e72c4dedafc1cb2d4c5236c9a6957ec7dfd5a9`.
 Layers must be packed and unpacked reproducibly to avoid changing the layer DiffID, for example by using tar-split to save the tar headers.
 
 NOTE: Do not confuse DiffIDs with [layer digests](manifest.md#image-manifest-property-descriptions), often referenced in the manifest, which are digests over compressed or uncompressed content.
@@ -33,11 +33,53 @@ NOTE: Do not confuse DiffIDs with [layer digests](manifest.md#image-manifest-pro
 ### Layer ChainID
 
 For convenience, it is sometimes useful to refer to a stack of layers with a single identifier.
-This is called a `ChainID`.
-For a single layer (or the layer at the bottom of a stack), the
-`ChainID` is equal to the layer's `DiffID`.
-Otherwise the `ChainID` is given by the formula:
-`ChainID(layerN) = SHA256hex(ChainID(layerN-1) + " " + DiffID(layerN))`.
+While a layer's `DiffID` identifies a single changeset, the `ChainID` identifies the subsequent application of those changesets.
+This ensures that we have handles referring to both the layer itself, as well as the result of the application of a series of changesets.
+Use in combination with `rootfs.diff_ids` while applying layers to a root filesystem to uniquely and safely identify the result.
+
+#### Definition
+
+The `ChainID` of an applied set of layers is defined with the following recursion:
+
+```
+ChainID(L₀) =  DiffID(L₀)
+ChainID(L₀|...|Lₙ₋₁|Lₙ) = Digest(ChainID(L₀|...|Lₙ₋₁) + " " + DiffID(Lₙ))
+```
+
+For this, we define the binary `|` operation to be the result of applying the right operand to the left operand.
+For example, given base layer `A` and a changeset `B`, we refer to the result of applying `B` to `A` as `A|B`.
+
+Above, we define the `ChainID` for a single layer (`L₀`) as equivalent to the `DiffID` for that layer.
+Otherwise, the `ChainID` for `L₀|...|Lₙ₋₁|Lₙ` is defined as recursion `Digest(ChainID(L₀|...|Lₙ₋₁) + " " + DiffID(Lₙ))`.
+
+#### Explanation
+
+Let's say we have layers A, B, C, ordered from bottom to top, where A is the base and C is the top.
+Defining `|` as a binary application operator, the root filesystem may be `A|B|C`.
+While it is implied that `C` is only useful when applied to `A|B`, the identifier `C` is insufficient to identify this result, as we'd have the equality `C = A|B|C`, which isn't true.
+
+The main issue is when we have two definitions of `C`, `C = C` and `C = A|B|C`. If this is true (with some handwaving), `C = x|C` where `x = any application` must be true.
+This means that if an attacker can define `x`, relying on `C` provides no guarantee that the layers were applied in any order.
+
+The `ChainID` addresses this problem by being defined as a compound hash.
+__We differentiate the changeset `C`, from the order dependent application `A|B|C` by saying that the resulting rootfs is identified by ChainID(A|B|C), which can be calculated by `ImageConfig.rootfs`.__
+
+Let's expand the definition of `ChainID(A|B|C)` to explore its internal structure:
+
+```
+ChainID(A) = DiffID(A)
+ChainID(A|B) = Digest(ChainID(A) + " " + DiffID(B))
+ChainID(A|B|C) = Digest(ChainID(A|B) + " " + DiffID(C))
+```
+
+We can replace the each definition and reduce to a single equality:
+
+```
+ChainID(A|B|C) = Digest(Digest(DiffID(A) + " " + DiffID(B)) + " " + DiffID(C))
+```
+
+Hopefully, the above is illustrative of the _actual_ contents of the `ChainID`.
+Most importantly, we can easily see that `ChainID(C) != ChainID(A|B|C)`, otherwise, `ChainID(C) = DiffID(C)`, which is the base case, could not be true.
 
 ### ImageID
 
