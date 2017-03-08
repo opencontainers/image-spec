@@ -22,7 +22,7 @@ Unlike the [image index](image-index.md), which contains information about a set
 
 - **`mediaType`** *string*
 
-  This property is *reserved* for use, to [maintain compatibility][matrix].
+  This property is *reserved* for use, to [maintain compatibility](media-types.md#compatibility-matrix).
   When used, this field contains the media type of this document, which differs from the [descriptor](descriptor.md#properties) use of `mediaType`.
 
 - **`config`** *[descriptor](descriptor.md)*
