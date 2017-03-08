@@ -9,7 +9,7 @@ This section defines the `application/vnd.oci.image.layer.v1.tar`, `application/
 ## `+gzip` Media Types
 
 The media type `application/vnd.oci.image.layer.v1.tar+gzip` represents an `application/vnd.oci.image.layer.v1.tar` payload which has been compressed with [gzip][rfc1952].
-The media type `application/vnd.oci.image.layer.nondistributable.v1.tar+gzip` represents an `application/vnd.oci.image.layer.nondistributable.v1.tar` payload which has been compressed with [gzip][rfc1952].
+The media type `application/vnd.oci.image.layer.nondistributable.v1.tar+gzip` represents an `application/vnd.oci.image.layer.nondistributable.v1.tar` payload which has been compressed with [gzip][rfc1952_2].
 
 ## Distributable Format
 
@@ -323,5 +323,5 @@ Implementations SHOULD NOT upload layers tagged with this media type; however, s
 
 [libarchive-tar]: https://github.com/libarchive/libarchive/wiki/ManPageTar5#POSIX_ustar_Archives
 [gnu-tar-standard]: http://www.gnu.org/software/tar/manual/html_node/Standard.html
-[rfc1952]: https://tools.ietf.org/html/rfc1952
+[rfc1952_2]: https://tools.ietf.org/html/rfc1952
 [tar-archive]: https://en.wikipedia.org/wiki/Tar_(computing)
