@@ -26,7 +26,7 @@ Changing it means creating a new derived image, instead of changing the existing
 ### Layer DiffID
 
 A layer DiffID is the digest over the layer's uncompressed tar archive and serialized in the descriptor digest format, e.g., `sha256:a9561eb1b190625c9adb5a9513e72c4dedafc1cb2d4c5236c9a6957ec7dfd5a9`.
-Layers must be packed and unpacked reproducibly to avoid changing the layer DiffID, for example by using tar-split to save the tar headers.
+Layers must be packed and unpacked reproducibly to avoid changing the layer DiffID, for example by using [tar-split][] to save the tar headers.
 
 NOTE: Do not confuse DiffIDs with [layer digests](manifest.md#image-manifest-property-descriptions), often referenced in the manifest, which are digests over compressed or uncompressed content.
 
@@ -276,3 +276,4 @@ Here is an example image configuration JSON document:
 
 [rfc3339-s5.6]: https://tools.ietf.org/html/rfc3339#section-5.6
 [runtime-platform]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc3/config.md#platform
+[tar-split]: https://github.com/vbatts/tar-split
