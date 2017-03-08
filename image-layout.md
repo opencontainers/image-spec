@@ -148,6 +148,7 @@ The [image index](image-index.md) is a multi-descriptor entry point.
 This index provides an established path (`/index.json`) to have an entry point for an image-layout and to discover auxiliary descriptors.
 
 No semantic restriction is given for the "org.opencontainers.ref.name" annotation of descriptors.
+The value of "org.opencontainers.ref.name" annotation is a string which MUST NOT include characters outside of the set of "A" to "Z", "a" to "z", "0" to "9", the hyphen `-`, the dot `.`, and the underscore `_`.
 In general the `mediaType` of each [descriptor][descriptors] object in the `manifests` field will be either `application/vnd.oci.image.index.v1+json` or `application/vnd.oci.image.manifest.v1+json`.
 Future versions of the spec MAY use a different mediatype (i.e. a new versioned format).
 An encountered `mediaType` that is unknown SHOULD be safely ignored.
