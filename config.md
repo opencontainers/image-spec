@@ -34,52 +34,44 @@ NOTE: Do not confuse DiffIDs with [layer digests](manifest.md#image-manifest-pro
 
 For convenience, it is sometimes useful to refer to a stack of layers with a single identifier.
 While a layer's `DiffID` identifies a single changeset, the `ChainID` identifies the subsequent application of those changesets.
-This ensures that we have handles referring to both the layer itself, as well as the result of the application of a series of changesets.
-Use in combination with `rootfs.diff_ids` while applying layers to a root filesystem to uniquely and safely identify the result.
+The final string `sₙ` in an array of strings `[s₀, s₁, ..., sₙ]` is not sufficient to uniquely identify the array, because many arrays might end in the same value.
+For example `["a", "b"]` and `["a", "c", "b"]` both end in `b`.
+The `ChainID` of the digests in `rootfs.diff_ids` is a secure identifier for the filesystem resulting from the application of a series of changesets.
 
 #### Definition
 
-The `ChainID` of an applied set of layers is defined with the following recursion:
+The `ChainID` of an array of byte-strings is defined with the following recursion:
 
 ```
-ChainID(L₀) =  DiffID(L₀)
-ChainID(L₀|...|Lₙ₋₁|Lₙ) = Digest(ChainID(L₀|...|Lₙ₋₁) + " " + DiffID(Lₙ))
+ChainID([s₀]) =  s₀
+ChainID([s₀, ..., sₙ₋₁, sₙ]) = Digest(ChainID([s₀, ..., sₙ₋₁]) + " " + sₙ)
 ```
 
-For this, we define the binary `|` operation to be the result of applying the right operand to the left operand.
-For example, given base layer `A` and a changeset `B`, we refer to the result of applying `B` to `A` as `A|B`.
-
-Above, we define the `ChainID` for a single layer (`L₀`) as equivalent to the `DiffID` for that layer.
-Otherwise, the `ChainID` for `L₀|...|Lₙ₋₁|Lₙ` is defined as recursion `Digest(ChainID(L₀|...|Lₙ₋₁) + " " + DiffID(Lₙ))`.
+Above, we define the `ChainID` for an array of a single byte-string (`[s₀]`) as equivalent to that byte-string.
+Otherwise, the `ChainID` for `[s₀, ..., sₙ₋₁, sₙ]` is defined as recursion `Digest(ChainID([s₀, ..., sₙ₋₁]) + " " + sₙ)`.
 
 #### Explanation
 
-Let's say we have layers A, B, C, ordered from bottom to top, where A is the base and C is the top.
-Defining `|` as a binary application operator, the root filesystem may be `A|B|C`.
-While it is implied that `C` is only useful when applied to `A|B`, the identifier `C` is insufficient to identify this result, as we'd have the equality `C = A|B|C`, which isn't true.
-
-The main issue is when we have two definitions of `C`, `C = C` and `C = A|B|C`. If this is true (with some handwaving), `C = x|C` where `x = any application` must be true.
-This means that if an attacker can define `x`, relying on `C` provides no guarantee that the layers were applied in any order.
-
-The `ChainID` addresses this problem by being defined as a compound hash.
-__We differentiate the changeset `C`, from the order dependent application `A|B|C` by saying that the resulting rootfs is identified by ChainID(A|B|C), which can be calculated by `ImageConfig.rootfs`.__
-
-Let's expand the definition of `ChainID(A|B|C)` to explore its internal structure:
+Let's say we have a array of byte-strings `["a", "b", "c"]`.
+Let's expand the definition of `ChainID(["a", "b", "c"])` to explore its internal structure:
 
 ```
-ChainID(A) = DiffID(A)
-ChainID(A|B) = Digest(ChainID(A) + " " + DiffID(B))
-ChainID(A|B|C) = Digest(ChainID(A|B) + " " + DiffID(C))
+ChainID(["a"]) = "a"
+ChainID(["a", "b"]) = Digest(ChainID(["a"]) + " " + "b")
+                    = Digest("a" + " " + "b")
+                    = "sha256:c8687a08aa5d6ed2044328fa6a697ab8e96dc34291e8c2034ae8c38e6fcc6d65"
+ChainID(["a", "b", "c"]) = Digest(ChainID(["a", "b"]) + " " + "c")
+                    = Digest("sha256:c8687a08aa5d6ed2044328fa6a697ab8e96dc34291e8c2034ae8c38e6fcc6d65" + " " + "c")
+                    = "sha256:fd4283a6ddaa46181b8c3bd3f2497dd8f801e80b395b78bd6331197ba8db877d"
 ```
 
-We can replace the each definition and reduce to a single equality:
+Or if we replace each definition without evaluating `Digest`:
 
 ```
-ChainID(A|B|C) = Digest(Digest(DiffID(A) + " " + DiffID(B)) + " " + DiffID(C))
+ChainID(["a", "b", "c"]) = Digest(Digest("a" + " " + "b") + " " + "c")
 ```
 
-Hopefully, the above is illustrative of the _actual_ contents of the `ChainID`.
-Most importantly, we can easily see that `ChainID(C) != ChainID(A|B|C)`, otherwise, `ChainID(C) = DiffID(C)`, which is the base case, could not be true.
+Importantly, we can easily see that `ChainID(["c"]) = "c" != "sha256:fd4283a6ddaa46181b8c3bd3f2497dd8f801e80b395b78bd6331197ba8db877d" = ChainID(["a", "b", "c"])`.
 
 ### ImageID
 
