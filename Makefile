@@ -30,7 +30,8 @@ DOC_FILES := \
 	layer.md \
 	config.md \
 	annotations.md \
-	considerations.md
+	considerations.md \
+	implementations.md
 
 FIGURE_FILES := \
 	img/media-types.png
