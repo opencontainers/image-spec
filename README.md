@@ -73,10 +73,16 @@ When in doubt, start on the [mailing-list](#mailing-list).
 
 ## Weekly Call
 
-The contributors and maintainers of all OCI projects have a weekly meeting Wednesdays at 2:00 PM (USA Pacific).
+The contributors and maintainers of all OCI projects have a weekly meeting on Wednesdays at:
+
+* 8:00 AM (USA Pacific), during [odd weeks][iso-week].
+* 5:00 PM (USA Pacific), during [even weeks][iso-week].
+
+There is an [iCalendar][rfc5545] format for the meetings [here](meeting.ics).
+
 Everyone is welcome to participate via [UberConference web][UberConference] or audio-only: +1-415-968-0849 (no PIN needed).
 An initial agenda will be posted to the [mailing list](#mailing-list) earlier in the week, and everyone is welcome to propose additional topics or suggest other agenda alterations there.
-Minutes are posted to the [mailing list](#mailing-list) and minutes from past calls are archived to the [wiki](https://github.com/opencontainers/runtime-spec/wiki) for those who are unable to join the call.
+Minutes are posted to the [mailing list](#mailing-list) and minutes from past calls are archived to the [wiki][runtime-wiki] for those who are unable to join the call.
 
 ## Mailing List
 
@@ -164,3 +170,6 @@ Read more on [How to Write a Git Commit Message](http://chris.beams.io/posts/git
 
 [UberConference]: https://www.uberconference.com/opencontainers
 [irc-logs]: http://ircbot.wl.linuxfoundation.org/eavesdrop/%23opencontainers/
+[iso-week]: https://en.wikipedia.org/wiki/ISO_week_date#Calculating_the_week_number_of_a_given_date
+[rfc5545]: https://tools.ietf.org/html/rfc5545
+[runtime-wiki]: https://github.com/opencontainers/runtime-spec/wiki
