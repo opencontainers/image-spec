@@ -6,7 +6,7 @@
   "properties": {
     "mediaType": {
       "description": "the mediatype of the referenced object",
-      "$ref": "defs-image.json#/definitions/mediaType"
+      "$ref": "defs-descriptor.json#/definitions/mediaType"
     },
     "size": {
       "description": "the size in bytes of the referenced object",
@@ -14,19 +14,15 @@
     },
     "digest": {
       "description": "the cryptographic checksum digest of the object, in the pattern '<hash>:<hexadecimal digest>'",
-      "$ref": "defs-image.json#/definitions/digest"
+      "$ref": "defs-descriptor.json#/definitions/digest"
     },
     "urls": {
       "description": "a list of urls from which this object may be downloaded",
-      "type": "array",
-      "items": {
-        "type": "string",
-        "format": "uri"
-      }
+      "$ref": "defs-descriptor.json#/definitions/urls"
     },
     "annotations": {
       "id": "https://opencontainers.org/schema/image/descriptor/annotations",
-      "$ref": "defs-image.json#/definitions/annotations"
+      "$ref": "defs-descriptor.json#/definitions/annotations"
     }
   },
   "required": [
