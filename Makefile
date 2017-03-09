@@ -40,6 +40,8 @@ DOC_FILENAME	?= oci-image-spec
 
 EPOCH_TEST_COMMIT ?= v0.2.0
 
+TOOLS := esc gitvalidation glide glide-vc
+
 default: check-license lint test
 
 help:
@@ -111,7 +113,10 @@ else
 	git-validation -v -run DCO,short-subject,dangling-whitespace -range $(EPOCH_TEST_COMMIT)..HEAD
 endif
 
-install.tools: .install.gitvalidation .install.glide .install.glide-vc
+install.tools: $(TOOLS:%=.install.%)
+
+.install.esc:
+	go get -u github.com/mjibson/esc
 
 .install.gitvalidation:
 	go get -u github.com/vbatts/git-validation
@@ -126,6 +131,7 @@ clean:
 	rm -rf *~ $(OUTPUT_DIRNAME) header.html
 
 .PHONY: \
+	$(TOOLS:%=.install.%) \
 	validate-examples \
 	check-license \
 	clean \
