@@ -203,6 +203,21 @@ func TestDescriptor(t *testing.T) {
 			fail: true,
 		},
 
+		// expected success: valid URL entry
+		{
+			descriptor: `
+{
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "size": 7682,
+  "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270",
+  "urls": [
+    "https://example.com/foo"
+  ]
+}
+`,
+			fail: false,
+		},
+
 		// expected failure: urls does not match format (invalide url characters)
 		{
 			descriptor: `
