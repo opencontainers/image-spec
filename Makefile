@@ -68,12 +68,15 @@ $(OUTPUT_DIRNAME)/$(DOC_FILENAME).pdf: $(DOC_FILES) $(FIGURE_FILES)
 	$(PANDOC) -f markdown_github -t latex --latex-engine=xelatex -o $(PANDOC_DST)$@ $(patsubst %,$(PANDOC_SRC)%,$(DOC_FILES))
 	ls -sh $(shell readlink -f $@)
 
-$(OUTPUT_DIRNAME)/$(DOC_FILENAME).html: $(DOC_FILES) $(FIGURE_FILES)
+$(OUTPUT_DIRNAME)/$(DOC_FILENAME).html: header.html $(DOC_FILES) $(FIGURE_FILES)
 	@mkdir -p $(OUTPUT_DIRNAME)/ && \
 	cp -ap img/ $(shell pwd)/$(OUTPUT_DIRNAME)/&& \
-	$(PANDOC) -f markdown_github -t html5 -o $(PANDOC_DST)$@ $(patsubst %,$(PANDOC_SRC)%,$(DOC_FILES))
+	$(PANDOC) -f markdown_github -t html5 -H $(PANDOC_SRC)/header.html --standalone -o $(PANDOC_DST)$@ $(patsubst %,$(PANDOC_SRC)%,$(DOC_FILES))
 	ls -sh $(shell readlink -f $@)
 endif
+
+header.html: .tool/genheader.go specs-go/version.go
+	go run .tool/genheader.go > $@
 
 validate-examples: schema/fs.go
 	go test -run TestValidate ./schema
@@ -98,7 +101,6 @@ test: schema/fs.go
 img/%.png: img/%.dot
 	dot -Tpng $^ > $@
 
-.PHONY: .gitvalidation
 
 # When this is running in travis, it will only check the travis commit range
 .gitvalidation:
@@ -108,8 +110,6 @@ ifdef TRAVIS_COMMIT_RANGE
 else
 	git-validation -v -run DCO,short-subject,dangling-whitespace -range $(EPOCH_TEST_COMMIT)..HEAD
 endif
-
-.PHONY: install.tools
 
 install.tools: .install.gitvalidation .install.glide .install.glide-vc
 
@@ -123,13 +123,16 @@ install.tools: .install.gitvalidation .install.glide .install.glide-vc
 	go get -u github.com/sgotti/glide-vc
 
 clean:
-	rm -rf *~ $(OUTPUT_DIRNAME)
+	rm -rf *~ $(OUTPUT_DIRNAME) header.html
 
 .PHONY: \
 	validate-examples \
 	check-license \
 	clean \
 	lint \
+	install.tools \
 	docs \
 	test \
+	.gitvalidation \
+	schema/fs.go \
 	schema-fs
