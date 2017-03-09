@@ -42,21 +42,12 @@ To support this UX the OCI Image Format contains sufficient information to launc
 A: Distribution, for example using HTTP as both Docker v2.2 and AppC do today, is currently out of scope on the [OCI Scope Table](https://www.opencontainers.org/about/oci-scope-table).
 There has been [some discussion on the TOB mailing list](https://groups.google.com/a/opencontainers.org/d/msg/tob/A3JnmI-D-6Y/tLuptPDHAgAJ) to make distribution an optional layer, but this topic is a work in progress.
 
-**Q: Why a new project?**
-
-A: The [first OCI spec](https://github.com/opencontainers/runtime-spec) centered around defining the run side of a container.
-This is generally seen to be an orthogonal concern to the shipping container component.
-As practical examples of this separation you see many organizations separating these concerns into different teams and organizations: the Docker Distribution project and the Docker containerd project; Amazon ECS and Amazon EC2 Container Registry, etc.
-
-**Q: Why work on this?**
-
-A: We are seeing many independent implementations of container image handling including build systems, registries, and image analysis tools.
-As an organization we would like to encourage this growth and bring people together to ensure a technically correct and open specification continues to evolve reflecting the OCI values.
-
 **Q: What happens to AppC or Docker Image Formats?**
 
 A: Existing formats can continue to be a proving ground for technologies, as needed.
 The OCI Image Format project strives to provide a dependable open specification that can be shared between different tools and be evolved for years or decades of compatibility; as the deb and rpm format have.
+
+Find more [FAQ on the OCI site](https://www.opencontainers.org/faq).
 
 ## Roadmap
 
