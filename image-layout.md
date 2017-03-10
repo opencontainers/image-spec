@@ -147,17 +147,17 @@ The [image index](image-index.md) is a multi-descriptor entry point.
 
 This index provides an established path (`/index.json`) to have an entry point for an image-layout and to discover auxiliary descriptors.
 
-No semantic restriction is given for the "org.opencontainers.ref.name" annotation of descriptors.
+No semantic restriction is given for the "org.opencontainers.image.ref.name" annotation of descriptors.
 In general the `mediaType` of each [descriptor][descriptors] object in the `manifests` field will be either `application/vnd.oci.image.index.v1+json` or `application/vnd.oci.image.manifest.v1+json`.
 Future versions of the spec MAY use a different mediatype (i.e. a new versioned format).
 An encountered `mediaType` that is unknown SHOULD be safely ignored.
 
 
 **Implementor's Note:**
-A common use case of descriptors with a "org.opencontainers.ref.name" annotation is representing a "tag" for a container image.
+A common use case of descriptors with a "org.opencontainers.image.ref.name" annotation is representing a "tag" for a container image.
 For example, an image may have a tag for different versions or builds of the software.
 In the wild you often see "tags" like "v1.0.0-vendor.0", "2.0.0-debug", etc.
-Those tags will often be represented in an image-layout repository with matching "org.opencontainers.ref.name" annotations like "v1.0.0-vendor.0", "2.0.0-debug", etc.
+Those tags will often be represented in an image-layout repository with matching "org.opencontainers.image.ref.name" annotations like "v1.0.0-vendor.0", "2.0.0-debug", etc.
 
 
 ### Index Example
@@ -171,7 +171,7 @@ Those tags will often be represented in an image-layout repository with matching
       "size": 7143,
       "digest": "sha256:0228f90e926ba6b96e4f39cf294b2586d38fbb5a1e385c05cd1ee40ea54fe7fd",
       "annotations": {
-        "org.opencontainers.ref.name": "stable-release"
+        "org.opencontainers.image.ref.name": "stable-release"
       }
     },
     {
@@ -183,7 +183,7 @@ Those tags will often be represented in an image-layout repository with matching
         "os": "linux"
       },
       "annotations": {
-        "org.opencontainers.ref.name": "v1.0"
+        "org.opencontainers.image.ref.name": "v1.0"
       }
     },
     {

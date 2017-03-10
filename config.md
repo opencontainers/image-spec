@@ -162,7 +162,7 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
      Labels MUST be a key-value map where both the key and value MUST be strings.
      Keys MUST be unique within this map, and best practice is to namespace the keys.
      Keys SHOULD be named using a reverse domain notation - e.g. `com.example.myKey`.
-     Keys using the `org.opencontainers` namespace are reserved and MUST NOT be used by subsequent specifications.
+     Keys using the `org.opencontainers.image` namespace are reserved and MUST NOT be used by subsequent specifications.
      If there are no labels then this property MAY either be absent or an empty map.
      Implementations that are reading/processing this configuration file MUST NOT generate an error if they encounter an unknown labels key.
 
