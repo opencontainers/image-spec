@@ -47,7 +47,7 @@ type ManifestDescriptor struct {
 	Descriptor
 
 	// Platform describes the platform which the image in the manifest runs on.
-	Platform Platform `json:"platform"`
+	Platform Platform `json:"platform,omitempty"`
 }
 
 // Index references manifests for various platforms.
