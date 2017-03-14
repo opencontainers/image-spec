@@ -15,7 +15,7 @@ The image layout is as follows:
 
 - `blobs` directory
     - Contains content-addressable blobs
-    - A blob has no schema and should be considered opaque
+    - A blob has no schema and SHOULD be considered opaque
     - Directory MUST exist and MAY be empty
     - See [blobs](#blobs) section
 - `oci-layout` file
