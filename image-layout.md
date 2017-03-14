@@ -1,7 +1,7 @@
 ## OCI Image Layout Specification
 
-The OCI Image Layout is a slash separated layout of OCI content-addressable blobs and [location-addressable](https://en.wikipedia.org/wiki/Content-addressable_storage#Content-addressed_vs._location-addressed) references (refs).
-This layout MAY be used in a variety of different transport mechanisms: archive formats (e.g. tar, zip), shared filesystem environments (e.g. nfs), or networked file fetching (e.g. http, ftp, rsync).
+* The OCI Image Layout is a slash separated layout of OCI content-addressable blobs and [location-addressable](https://en.wikipedia.org/wiki/Content-addressable_storage#Content-addressed_vs._location-addressed) references (refs).
+* This layout MAY be used in a variety of different transport mechanisms: archive formats (e.g. tar, zip), shared filesystem environments (e.g. nfs), or networked file fetching (e.g. http, ftp, rsync).
 
 Given an image layout and a ref, a tool can create an [OCI Runtime Specification bundle](https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc3/bundle.md) by:
 
@@ -53,14 +53,12 @@ afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1f2d51 ./blobs/sha256/
 
 ## Blobs
 
-Object names in the `blobs` subdirectories are composed of a directory for each hash algorithm, the children of which will contain the actual content.
-A blob, referenced with digest `<alg>:<hex>` (per [descriptor](descriptor.md#digests-and-verification)), MUST have its content stored in a file under `blobs/<alg>/<hex>`.
-The character set of the entry name for `<hex>` and `<alg>` MUST match the respective grammar elements described in [descriptor](descriptor.md#digests-and-verification).
-For example `sha256:5b` will map to the layout `blobs/sha256/5b`.
-
-The blobs directory MAY contain blobs which are not referenced by any of the [refs](#indexjson-file).
-
-The blobs directory MAY be missing referenced blobs, in which case the missing blobs SHOULD be fulfilled by an external blob store.
+* Object names in the `blobs` subdirectories are composed of a directory for each hash algorithm, the children of which will contain the actual content.
+* A blob, referenced with digest `<alg>:<hex>` (per [descriptor](descriptor.md#digests-and-verification)), MUST have its content stored in a file under `blobs/<alg>/<hex>`.
+* The character set of the entry name for `<hex>` and `<alg>` MUST match the respective grammar elements described in [descriptor](descriptor.md#digests-and-verification).
+* For example `sha256:5b` will map to the layout `blobs/sha256/5b`.
+* The blobs directory MAY contain blobs which are not referenced by any of the [refs](#indexjson-file).
+* The blobs directory MAY be missing referenced blobs, in which case the missing blobs SHOULD be fulfilled by an external blob store.
 
 ### Example Blobs
 
@@ -147,10 +145,10 @@ The [image index](image-index.md) is a multi-descriptor entry point.
 
 This index provides an established path (`/index.json`) to have an entry point for an image-layout and to discover auxiliary descriptors.
 
-No semantic restriction is given for the "org.opencontainers.image.ref.name" annotation of descriptors.
-In general the `mediaType` of each [descriptor][descriptors] object in the `manifests` field will be either `application/vnd.oci.image.index.v1+json` or `application/vnd.oci.image.manifest.v1+json`.
-Future versions of the spec MAY use a different mediatype (i.e. a new versioned format).
-An encountered `mediaType` that is unknown SHOULD be safely ignored.
+* No semantic restriction is given for the "org.opencontainers.image.ref.name" annotation of descriptors.
+* In general the `mediaType` of each [descriptor][descriptors] object in the `manifests` field will be either `application/vnd.oci.image.index.v1+json` or `application/vnd.oci.image.manifest.v1+json`.
+* Future versions of the spec MAY use a different mediatype (i.e. a new versioned format).
+* An encountered `mediaType` that is unknown SHOULD be safely ignored.
 
 
 **Implementor's Note:**
