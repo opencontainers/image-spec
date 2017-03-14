@@ -112,7 +112,7 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
 
 - **config** *object*, OPTIONAL
 
-  The execution parameters which should be used as a base when running a container using the image.
+  The execution parameters which SHOULD be used as a base when running a container using the image.
   This field can be `null`, in which case any execution parameters should be specified at creation of the container.
 
    - **User** *string*, OPTIONAL
@@ -144,11 +144,11 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
 
      Default arguments to the entrypoint of the container.
      These values act as defaults and are replaced with any specified when creating a container.
-     If an `Entrypoint` value is not specified, then the first entry of the `Cmd` array should be interpreted as the executable to run.
+     If an `Entrypoint` value is not specified, then the first entry of the `Cmd` array SHOULD be interpreted as the executable to run.
 
    - **Volumes** *object*, OPTIONAL
 
-     A set of directories which should be created as data volumes in a container running this image.
+     A set of directories which SHOULD be created as data volumes in a container running this image.
      If a file or folder exists within the image with the same path as a data volume, that file or folder is replaced with the data volume and is never merged.
      **NOTE:** This JSON structure value is unusual because it is a direct JSON serialization of the Go type `map[string]struct{}` and is represented in JSON as an object mapping its keys to an empty object.
 
@@ -212,7 +212,7 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
        This field is used to mark if the history item created a filesystem diff.
        It is set to true if this history item doesn't correspond to an actual layer in the rootfs section (for example, Dockerfile's [ENV](https://docs.docker.com/engine/reference/builder/#/env) command results in no change to the filesystem).
 
-Any extra fields in the Image JSON struct are considered implementation specific and should be ignored by any implementations which are unable to interpret them.
+Any extra fields in the Image JSON struct are considered implementation specific and MUST be ignored by any implementations which are unable to interpret them.
 
 Whitespace is OPTIONAL and implementations MAY have compact JSON with no whitespace.
 
