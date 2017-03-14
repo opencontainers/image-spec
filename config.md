@@ -26,7 +26,7 @@ Changing it means creating a new derived image, instead of changing the existing
 ### Layer DiffID
 
 A layer DiffID is the digest over the layer's uncompressed tar archive and serialized in the descriptor digest format, e.g., `sha256:a9561eb1b190625c9adb5a9513e72c4dedafc1cb2d4c5236c9a6957ec7dfd5a9`.
-Layers must be packed and unpacked reproducibly to avoid changing the layer DiffID, for example by using tar-split to save the tar headers.
+Layers must be packed and unpacked reproducibly to avoid changing the layer DiffID, for example by using [tar-split][] to save the tar headers.
 
 NOTE: Do not confuse DiffIDs with [layer digests](manifest.md#image-manifest-property-descriptions), often referenced in the manifest, which are digests over compressed or uncompressed content.
 
@@ -50,7 +50,7 @@ For this, we define the binary `|` operation to be the result of applying the ri
 For example, given base layer `A` and a changeset `B`, we refer to the result of applying `B` to `A` as `A|B`.
 
 Above, we define the `ChainID` for a single layer (`L₀`) as equivalent to the `DiffID` for that layer.
-Otherwise, the `ChainID` for `L₀|...|Lₙ₋₁|Lₙ` is defined as recursion `Digest(ChainID(L₀|...|Lₙ₋₁) + " " + DiffID(Lₙ))`.
+Otherwise, the `ChainID` for a set of applied layers (`L₀|...|Lₙ₋₁|Lₙ`) is defined as the recursion `Digest(ChainID(L₀|...|Lₙ₋₁) + " " + DiffID(Lₙ))`.
 
 #### Explanation
 
@@ -58,11 +58,12 @@ Let's say we have layers A, B, C, ordered from bottom to top, where A is the bas
 Defining `|` as a binary application operator, the root filesystem may be `A|B|C`.
 While it is implied that `C` is only useful when applied to `A|B`, the identifier `C` is insufficient to identify this result, as we'd have the equality `C = A|B|C`, which isn't true.
 
-The main issue is when we have two definitions of `C`, `C = C` and `C = A|B|C`. If this is true (with some handwaving), `C = x|C` where `x = any application` must be true.
+The main issue is when we have two definitions of `C`, `C = C` and `C = A|B|C`.
+If this is true (with some handwaving), `C = x|C` where `x = any application` must be true.
 This means that if an attacker can define `x`, relying on `C` provides no guarantee that the layers were applied in any order.
 
 The `ChainID` addresses this problem by being defined as a compound hash.
-__We differentiate the changeset `C`, from the order dependent application `A|B|C` by saying that the resulting rootfs is identified by ChainID(A|B|C), which can be calculated by `ImageConfig.rootfs`.__
+__We differentiate the changeset `C`, from the order-dependent application `A|B|C` by saying that the resulting rootfs is identified by ChainID(A|B|C), which can be calculated by `ImageConfig.rootfs`.__
 
 Let's expand the definition of `ChainID(A|B|C)` to explore its internal structure:
 
@@ -72,7 +73,7 @@ ChainID(A|B) = Digest(ChainID(A) + " " + DiffID(B))
 ChainID(A|B|C) = Digest(ChainID(A|B) + " " + DiffID(C))
 ```
 
-We can replace the each definition and reduce to a single equality:
+We can replace each definition and reduce to a single equality:
 
 ```
 ChainID(A|B|C) = Digest(Digest(DiffID(A) + " " + DiffID(B)) + " " + DiffID(C))
@@ -85,7 +86,7 @@ Most importantly, we can easily see that `ChainID(C) != ChainID(A|B|C)`, otherwi
 
 Each image's ID is given by the SHA256 hash of its [configuration JSON](#image-json).
 It is represented as a hexadecimal encoding of 256 bits, e.g., `sha256:a9561eb1b190625c9adb5a9513e72c4dedafc1cb2d4c5236c9a6957ec7dfd5a9`.
-Since the [configuration JSON](#image-json) that gets hashed references hashes of each layer in the image, this formulation of the ImageID makes images content-addresable.
+Since the [configuration JSON](#image-json) that gets hashed references hashes of each layer in the image, this formulation of the ImageID makes images content-addressable.
 
 ## Properties
 
@@ -276,3 +277,4 @@ Here is an example image configuration JSON document:
 
 [rfc3339-s5.6]: https://tools.ietf.org/html/rfc3339#section-5.6
 [runtime-platform]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc3/config.md#platform
+[tar-split]: https://github.com/vbatts/tar-split
