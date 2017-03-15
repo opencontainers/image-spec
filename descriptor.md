@@ -1,13 +1,11 @@
 # OCI Content Descriptors
 
-An OCI image consists of several different components, arranged in a [Merkle Directed Acyclic Graph (DAG)](https://en.wikipedia.org/wiki/Merkle_tree).
-References between components in the graph are expressed through _Content Descriptors_.
-A Content Descriptor (or simply _Descriptor_) describes the disposition of the targeted content.
-A Content Descriptor includes the type of the content, a content identifier (_digest_), and the byte-size of the raw content.
-
-Descriptors SHOULD be embedded in other formats to securely reference external content.
-
-Other formats SHOULD use descriptors to securely reference external content.
+* An OCI image consists of several different components, arranged in a [Merkle Directed Acyclic Graph (DAG)](https://en.wikipedia.org/wiki/Merkle_tree).
+* References between components in the graph are expressed through _Content Descriptors_.
+* A Content Descriptor (or simply _Descriptor_) describes the disposition of the targeted content.
+* A Content Descriptor includes the type of the content, a content identifier (_digest_), and the byte-size of the raw content.
+* Descriptors SHOULD be embedded in other formats to securely reference external content.
+* Other formats SHOULD use descriptors to securely reference external content.
 
 This section defines the `application/vnd.oci.descriptor.v1+json` [media type](media-types.md).
 
@@ -80,10 +78,10 @@ digest                                                                  | algori
 ------------------------------------------------------------------------|---------------------|
 sha256:6c3c624b58dbbcd3c0dd82b4c53f04194d1247c6eebdaab7c610cf7d66709b3b | [SHA-256](#sha-256) |
 
-Before consuming content targeted by a descriptor from untrusted sources, the byte content SHOULD be verified against the digest.
-Before calculating the digest, the size of the content SHOULD be verified to reduce hash collision space.
-Heavy processing before calculating a hash SHOULD be avoided.
-Implementations MAY employ some canonicalization of the underlying content to ensure stable content identifiers.
+* Before consuming content targeted by a descriptor from untrusted sources, the byte content SHOULD be verified against the digest.
+* Before calculating the digest, the size of the content SHOULD be verified to reduce hash collision space.
+* Heavy processing before calculating a hash SHOULD be avoided.
+* Implementations MAY employ some canonicalization of the underlying content to ensure stable content identifiers.
 
 ### Algorithms
 
