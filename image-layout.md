@@ -133,7 +133,7 @@ This section defines the `application/vnd.oci.layout.header.v1+json` [media type
 
 ### oci-layout Example
 
-```json,title=OCI%20Layout&mediatype=oci%2Dlayout
+```json,title=OCI%20Layout&mediatype=application/vnd.oci.layout.header.v1%2Bjson
 {
     "imageLayoutVersion": "1.0.0"
 }
