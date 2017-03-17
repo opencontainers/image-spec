@@ -14,7 +14,11 @@
 
 package v1
 
-import "time"
+import (
+	"time"
+
+	digest "github.com/opencontainers/go-digest"
+)
 
 // ImageConfig defines the execution parameters which should be used as a base when running a container using an image.
 type ImageConfig struct {
@@ -52,7 +56,7 @@ type RootFS struct {
 	Type string `json:"type"`
 
 	// DiffIDs is an array of layer content hashes (DiffIDs), in order from bottom-most to top-most.
-	DiffIDs []string `json:"diff_ids"`
+	DiffIDs []digest.Digest `json:"diff_ids"`
 }
 
 // History describes the history of a layer.
