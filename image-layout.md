@@ -129,10 +129,11 @@ $ cat ./blobs/sha256/e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7f
 
 This JSON object serves as a marker for the base of an Open Container Image Layout and to provide the version of the image-layout in use.
 The `imageLayoutVersion` value will align with the OCI Image Specification version at the time changes to the layout are made, and will pin a given version until changes to the image layout are required.
+This section defines the `application/vnd.oci.layout.header.v1+json` [media type](media-types.md).
 
 ### oci-layout Example
 
-```json,title=OCI%20Layout&mediatype=oci%2Dlayout
+```json,title=OCI%20Layout&mediatype=application/vnd.oci.layout.header.v1%2Bjson
 {
     "imageLayoutVersion": "1.0.0"
 }
