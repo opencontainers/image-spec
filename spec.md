@@ -51,9 +51,12 @@ The [OCI Image Media Types](media-types.md) document is a starting point to unde
 
 The high-level components of the spec include:
 
-* An archival format for container images, consisting of an [image manifest](manifest.md), an [image index](image-index.md) (optional), an [image layout](image-layout.md), a set of [filesystem layers](layer.md), and [image configuration](config.md) (base OCI layer)
-* A [process of referencing container images by a cryptographic hash of their content](descriptor.md) (base OCI layer)
-* A format for [storing CAS blobs and references to them](image-layout.md) (optional OCI layer)
+* [Image Manifest](manifest.md) - Describes the components that make up a container image.
+* [Image Index](image-index.md) - An index of annotated image manifests distributed as a complete unit.
+* [Image Layout](image-layout.md) - The filesystem layout representing the contents of an image
+* [Filesystem Layers](layer.md) - changesets that describe a container's filesystem
+* [Image Configuration](config.md) - The document determining layer ordering and configuration of the image suitable for consumption by runtime-spec
+* [Descriptors](descriptor.md) - Describes the type, metadata and content address of referenced content.
 * Signatures that are based on signing image content address (optional OCI layer)
 * Naming that is federated based on DNS and can be delegated (optional OCI layer)
 
