@@ -55,15 +55,15 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 
     - **`os.version`** *string*
 
-        This OPTIONAL property specifies the operating system version, for example `10.0.10586`.
+        This OPTIONAL property is *reserved* for future versions of the specification and hence SHOULD NOT be used.
 
     - **`os.features`** *array of strings*
 
-        This OPTIONAL property specifies an array of strings, each specifying a mandatory OS feature (for example on Windows `win32k`).
+        This OPTIONAL property is *reserved* for future versions of the specification and hence SHOULD NOT be used.
 
     - **`variant`** *string*
 
-        This OPTIONAL property specifies the variant of the CPU, for example `armv6l` to specify a particular CPU variant of the ARM CPU.
+        This OPTIONAL property is *reserved* for future versions of the specification and hence SHOULD NOT be used.
 
     - **`features`** *array of strings*
 
