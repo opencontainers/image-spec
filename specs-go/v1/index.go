@@ -38,7 +38,7 @@ type Platform struct {
 	Variant string `json:"variant,omitempty"`
 
 	// Features is an optional field specifying an array of strings, each
-	// listing a required CPU feature (for example `sse4` or `aes`).
+	// listing a required CPU feature.
 	Features []string `json:"features,omitempty"`
 }
 
