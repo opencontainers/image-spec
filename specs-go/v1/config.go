@@ -44,7 +44,7 @@ type ImageConfig struct {
 	WorkingDir string `json:"WorkingDir,omitempty"`
 
 	// Labels contains arbitrary metadata for the container.
-	Labels map[string]string `json:"labels,omitempty"`
+	Labels map[string]string `json:"Labels,omitempty"`
 
 	// StopSignal contains the system call signal that will be sent to the container to exit.
 	StopSignal string `json:"StopSignal,omitempty"`
