@@ -67,7 +67,12 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 
     - **`features`** *array of strings*
 
-        This OPTIONAL property specifies an array of strings, each specifying a mandatory CPU feature (for example `sse4` or `aes`).
+        This OPTIONAL property specifies an array of strings, each specifying a mandatory CPU feature.
+
+        When `architecture` is 386 or amd64 Image indexes SHOULD use, and implementations SHOULD understand, values [supported by Linux][cpufeatures.h] with the `X86_FEATURE_` prefix removed and the remainder lowercased (e.g. `fpu` for `X86_FEATURE_FPU` and `vme` for `X86_FEATURE_VME`).
+        On Linux on these architectures, the features supported by host CPUs can be found in the `flags` entries in the `cpuinfo` file provided by the [proc filesystem][proc.5].
+
+        When `architecture` is neither 386 nor amd64, values are implementation-defined.
 
 - **`annotations`** *string-string map*
 
@@ -112,5 +117,7 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 }
 ```
 
+[cpufeatures.h]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/x86/include/asm/cpufeatures.h
+[proc.5]: http://man7.org/linux/man-pages/man5/proc.5.html
 [runtime-platform2]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc3/config.md#platform
 [matrix]: media-types.md#compatibility-matrix
