@@ -62,7 +62,7 @@ type RootFS struct {
 // History describes the history of a layer.
 type History struct {
 	// Created is the combined date and time at which the layer was created, formatted as defined by RFC 3339, section 5.6.
-	Created time.Time `json:"created,omitempty"`
+	Created *time.Time `json:"created,omitempty"`
 
 	// CreatedBy is the command which created the layer.
 	CreatedBy string `json:"created_by,omitempty"`
@@ -81,7 +81,7 @@ type History struct {
 // This provides the `application/vnd.oci.image.config.v1+json` mediatype when marshalled to JSON.
 type Image struct {
 	// Created is the combined date and time at which the image was created, formatted as defined by RFC 3339, section 5.6.
-	Created time.Time `json:"created,omitempty"`
+	Created *time.Time `json:"created,omitempty"`
 
 	// Author defines the name and/or email address of the person or entity which created and is responsible for maintaining the image.
 	Author string `json:"author,omitempty"`
