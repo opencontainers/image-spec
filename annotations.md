@@ -26,4 +26,4 @@ This specification defines the following annotation keys, intended for but not l
 * **org.opencontainers.image.revision** Source control revision identifier for packaged software.
 * **org.opencontainers.image.vendor** Name of the distributing entity, organization or individual.
 * **org.opencontainers.image.licenses** Comma-separated list of licenses under which contained software is distributed, in [SPDX Short identifier]https://spdx.org/licenses/] form.
-* **org.opencontainers.image.ref.name** Name of the reference (string)
+* **org.opencontainers.image.ref.name** Name of the reference for a target (string). SHOULD only be considered valid when on descriptors on `index.json` within [image layout](image-layout.md).
