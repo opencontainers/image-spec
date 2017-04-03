@@ -59,7 +59,7 @@ Defining `|` as a binary application operator, the root filesystem may be `A|B|C
 While it is implied that `C` is only useful when applied to `A|B`, the identifier `C` is insufficient to identify this result, as we'd have the equality `C = A|B|C`, which isn't true.
 
 The main issue is when we have two definitions of `C`, `C = C` and `C = A|B|C`.
-If this is true (with some handwaving), `C = x|C` where `x = any application` must be true.
+If this is true (with some handwaving), `C = x|C` where `x = any application`.
 This means that if an attacker can define `x`, relying on `C` provides no guarantee that the layers were applied in any order.
 
 The `ChainID` addresses this problem by being defined as a compound hash.
