@@ -15,7 +15,7 @@ Projects or Companies currently adopting the OCI Image Specification
  - [containers/build](https://github.com/containers/build)
  - [containers/image](https://github.com/containers/image)
 * [coreos/rkt](https://github.com/coreos/rkt)
-* [erikh/box](https://github.com/erikh/box)
+* [box-builder/box](https://github.com/box-builder/box)
 
 
 _(to add your project please open a [pull-request](https://github.com/opencontainers/image-spec/pulls))_
