@@ -13,6 +13,7 @@ This property contains arbitrary metadata.
 * Keys using the `org.opencontainers.image` namespace are reserved for use in the OCI Image Specification and MUST NOT be used by other specifications and extensions, including other OCI specifications.
 * If there are no annotations then this property MUST either be absent or be an empty map.
 * Consumers MUST NOT generate an error if they encounter an unknown annotation key.
+* There are community conventions available for image labels and annotations, for example [Label Schema](http://label-schema.org/rc1/).
 
 ## Pre-Defined Annotation Keys
 
