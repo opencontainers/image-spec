@@ -59,10 +59,10 @@ Extended _Descriptor_ field additions proposed in other OCI specifications SHOUL
 
 The _digest_ property of a Descriptor acts as a content identifier, enabling [content addressability](http://en.wikipedia.org/wiki/Content-addressable_storage).
 It uniquely identifies content by taking a [collision-resistant hash](https://en.wikipedia.org/wiki/Cryptographic_hash_function) of the bytes.
-If the identifier can be communicated in a secure manner, one can retrieve the content from an insecure source, calculate the digest independently, and be certain that the correct content was obtained.
+If the digest can be communicated in a secure manner, one can retrieve the content from an insecure source, recalculate the digest independently, and be certain that the correct content was obtained.
 
-The value of the digest property, the _digest string_, is a serialized hash result, consisting of an _algorithm_ portion and a _hex_ portion.
-The algorithm identifies the methodology used to calculate the digest; the hex portion is the lowercase hex-encoded result of the hash.
+The value of the digest property is a string consisting of an _algorithm_ portion (the "algorithm identifier") and a _hex_ portion.
+The algorithm identifier specifies the cryptographic hash function used to calculate the digest; the hex portion is the lowercase hex-encoded result of the hash.
 
 The digest string MUST match the following grammar:
 
@@ -74,20 +74,17 @@ hex         := /[a-f0-9]+/
 
 Some example digest strings include the following:
 
-digest                                                                  | algorithm           |
+digest string                                                           | algorithm           |
 ------------------------------------------------------------------------|---------------------|
 sha256:6c3c624b58dbbcd3c0dd82b4c53f04194d1247c6eebdaab7c610cf7d66709b3b | [SHA-256](#sha-256) |
 
-* Before consuming content targeted by a descriptor from untrusted sources, the byte content SHOULD be verified against the digest.
+* Before consuming content targeted by a descriptor from untrusted sources, the byte content SHOULD be verified against the digest string.
 * Before calculating the digest, the size of the content SHOULD be verified to reduce hash collision space.
 * Heavy processing before calculating a hash SHOULD be avoided.
-* Implementations MAY employ some canonicalization of the underlying content to ensure stable content identifiers.
+* Implementations MAY employ [canonicalization](canonicalization.md) of the underlying content to ensure stable content identifiers.
 
-### Algorithms
+### Digest calculations
 
-While the _algorithm_ component of the digest does allow one to utilize a wide variety of algorithms, compliant implementations SHOULD use [SHA-256](#sha-256).
-
-Let's use a simple example in pseudo-code to demonstrate a digest calculation:
 A _digest_ is calculated by the following pseudo-code, where `H` is the selected hash algorithm, identified by string `<alg>`:
 ```
 let ID(C) = Descriptor.digest
@@ -97,7 +94,7 @@ let verified = ID(C) == D
 ```
 Above, we define the content identifier as `ID(C)`, extracted from the `Descriptor.digest` field.
 Content `C` is a string of bytes.
-Function `H` returns the hash of `C` in bytes and is passed to function `EncodeHex` to obtain the _digest_.
+Function `H` returns the hash of `C` in bytes and is passed to function `EncodeHex` and prefixed with the algorithm to obtain the digest.
 The result `verified` is true if `ID(C)` is equal to `D`, confirming that `C` is the content identified by `D`.
 After verification, the following is true:
 
@@ -107,20 +104,22 @@ D == ID(C) == '<alg>:' + EncodeHex(H(C))
 
 The _digest_ is confirmed as the content identifier by independently calculating the _digest_.
 
-#### Registered identifiers
+### Registered algorithms
 
-The following algorithm identifiers are defined by this specification:
+While the _algorithm_ portion (the "algorithm identifier") of the digest string allows the use of a variety of cryptographic algorithms, compliant implementations SHOULD use [SHA-256](#sha-256).
 
-| identifier | algorithm           |
-|------------|---------------------|
-| `sha256`   | [SHA-256](#sha-256) |
-| `sha512`   | [SHA-512](#sha-512) |
+The following algorithm identifiers are currently defined by this specification:
 
-If a useful algorithm is not included in the above table, it SHOULD be submitted to this specification for standardization.
+| algorithm identifier | algorithm           |
+|----------------------|---------------------|
+| `sha256`             | [SHA-256](#sha-256) |
+| `sha512`             | [SHA-512](#sha-512) |
+
+If a useful algorithm is not included in the above table, it SHOULD be submitted to this specification for registration.
 
 #### SHA-256
 
-[SHA-256](https://tools.ietf.org/html/rfc4634#page-7) is a collision-resistant hash function, chosen for ubiquity, reasonable size and secure characteristics.
+[SHA-256][rfc4634-s4.1] is a collision-resistant hash function, chosen for ubiquity, reasonable size and secure characteristics.
 Implementations MUST implement SHA-256 digest verification for use in descriptors.
 
 #### SHA-512
@@ -154,6 +153,7 @@ In the following example, the descriptor indicates that the referenced manifest 
 ```
 
 [rfc3986]: https://tools.ietf.org/html/rfc3986
+[rfc4634-s4.1]: https://tools.ietf.org/html/rfc4634#section-4.1
 [rfc4634-s4.2]: https://tools.ietf.org/html/rfc4634#section-4.2
 [rfc6838]: https://tools.ietf.org/html/rfc6838
 [rfc6838-s4.2]: https://tools.ietf.org/html/rfc6838#section-4.2
