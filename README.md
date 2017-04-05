@@ -7,7 +7,7 @@
 
 The OCI Image Format project creates and maintains the software shipping container image format spec (OCI Image Format).
 
-The specification can be found [here](spec.md).
+**[The specification can be found here](spec.md).**
 
 This repository also provides [Go types](specs-go), [intra-blob validation tooling, and JSON Schema](schema).
 The Go types and validation should be compatible with the current Go release; earlier Go releases are not supported.
