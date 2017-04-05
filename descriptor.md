@@ -12,6 +12,7 @@ This section defines the `application/vnd.oci.descriptor.v1+json` [media type](m
 ## Properties
 
 A descriptor consists of a set of properties encapsulated in key-value fields.
+A descriptor pointing to certain types may include extended fields.
 
 The following fields contain the primary properties that constitute a Descriptor:
 
@@ -43,6 +44,37 @@ The following fields contain the primary properties that constitute a Descriptor
 
     This OPTIONAL property contains arbitrary metadata for this descriptor.
     This OPTIONAL property MUST use the [annotation rules](annotations.md#rules).
+
+- **`platform`** *object*
+
+    This OPTIONAL property describes the platform which the image in the manifest runs on.
+    This SHOULD only be used when referring to a manifest.
+
+    - **`architecture`** *string*
+
+        This REQUIRED property specifies the CPU architecture.
+        Image indexes SHOULD use, and implementations SHOULD understand, values [supported by runtime-spec's `platform.arch`][runtime-platform2].
+
+    - **`os`** *string*
+
+        This REQUIRED property specifies the operating system.
+        Image indexes SHOULD use, and implementations SHOULD understand, values [supported by runtime-spec's `platform.os`][runtime-platform2].
+
+    - **`os.version`** *string*
+
+        This OPTIONAL property specifies the operating system version, for example `10.0.10586`.
+
+    - **`os.features`** *array of strings*
+
+        This OPTIONAL property specifies an array of strings, each specifying a mandatory OS feature (for example on Windows `win32k`).
+
+    - **`variant`** *string*
+
+        This OPTIONAL property specifies the variant of the CPU, for example `armv6l` to specify a particular CPU variant of the ARM CPU.
+
+    - **`features`** *array of strings*
+
+        This OPTIONAL property specifies an array of strings, each specifying a mandatory CPU feature (for example `sse4` or `aes`).
 
 ### Reserved
 
