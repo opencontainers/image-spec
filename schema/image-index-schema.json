@@ -39,42 +39,8 @@
             "$ref": "defs-descriptor.json#/definitions/urls"
           },
           "platform": {
-            "id": "https://opencontainers.org/schema/image/platform",
-            "type": "object",
-            "required": [
-              "architecture",
-              "os"
-            ],
-            "properties": {
-              "architecture": {
-                "id": "https://opencontainers.org/schema/image/platform/architecture",
-                "type": "string"
-              },
-              "os": {
-                "id": "https://opencontainers.org/schema/image/platform/os",
-                "type": "string"
-              },
-              "os.version": {
-                "id": "https://opencontainers.org/schema/image/platform/os.version",
-                "type": "string"
-              },
-              "os.features": {
-                "id": "https://opencontainers.org/schema/image/platform/os.features",
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "variant": {
-                "type": "string"
-              },
-              "features": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
-            }
+            "id": "https://opencontainers.org/schema/image/descriptor/platform",
+            "$ref": "defs-descriptor.json#/definitions/platform"
           },
           "annotations": {
             "id": "https://opencontainers.org/schema/image/descriptor/annotations",
