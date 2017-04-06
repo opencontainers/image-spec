@@ -25,7 +25,7 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
   This REQUIRED property contains a list of [manifests](manifest.md) for specific platforms.
   While this property MUST be present, the size of the array MAY be zero.
 
-  Each object in `manifests` has the base properties of [descriptor](descriptor.md) with the following additional properties and restrictions:
+  Each object in `manifests` has the base properties of [descriptor](descriptor.md) with the following requirements and restrictions:
 
   - **`mediaType`** *string*
 
@@ -42,32 +42,6 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 
     This OPTIONAL property describes the platform which the image in the manifest runs on.
     This property SHOULD be present if its target is platform-specific.
-
-    - **`architecture`** *string*
-
-        This REQUIRED property specifies the CPU architecture.
-        Image indexes SHOULD use, and implementations SHOULD understand, values [supported by runtime-spec's `platform.arch`][runtime-platform2].
-
-    - **`os`** *string*
-
-        This REQUIRED property specifies the operating system.
-        Image indexes SHOULD use, and implementations SHOULD understand, values [supported by runtime-spec's `platform.os`][runtime-platform2].
-
-    - **`os.version`** *string*
-
-        This OPTIONAL property specifies the operating system version, for example `10.0.10586`.
-
-    - **`os.features`** *array of strings*
-
-        This OPTIONAL property specifies an array of strings, each specifying a mandatory OS feature (for example on Windows `win32k`).
-
-    - **`variant`** *string*
-
-        This OPTIONAL property specifies the variant of the CPU, for example `armv6l` to specify a particular CPU variant of the ARM CPU.
-
-    - **`features`** *array of strings*
-
-        This OPTIONAL property specifies an array of strings, each specifying a mandatory CPU feature (for example `sse4` or `aes`).
 
 - **`annotations`** *string-string map*
 
