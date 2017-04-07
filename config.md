@@ -160,7 +160,7 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
    - **Labels** *object*, OPTIONAL
 
      The field contains arbitrary metadata for the container.
-     This OPTIONAL property MUST use the [annotation rules](annotations.md#rules).
+     This property MUST use the [annotation rules](annotations.md#rules).
 
   - **StopSignal** *string*, OPTIONAL
 
