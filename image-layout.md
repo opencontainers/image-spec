@@ -26,8 +26,7 @@ The image layout is as follows:
     - It MAY include additional fields
 - `index.json` file
     - It MUST exist
-    - It MUST be a JSON object
-    - It MUST have the base properties of an [image index](image-index.md).
+    - It MUST be an [image index](image-index.md) JSON object.
     - See [index.json](#indexjson-file) section
 
 ## Example Layout
