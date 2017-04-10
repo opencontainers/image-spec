@@ -25,7 +25,7 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
   This REQUIRED property contains a list of [manifests](manifest.md) for specific platforms.
   While this property MUST be present, the size of the array MAY be zero.
 
-  Each object in `manifests` has the base properties of [descriptor](descriptor.md) with the following additional properties and restrictions:
+  Each object in `manifests` has the REQUIRED properties of [descriptor](descriptor.md) with the following additional properties and restrictions:
 
   - **`mediaType`** *string*
 
