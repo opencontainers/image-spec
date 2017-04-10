@@ -52,7 +52,7 @@ The [OCI Image Media Types](media-types.md) document is a starting point to unde
 The high-level components of the spec include:
 
 * [Image Manifest](manifest.md) - a document describing the components that make up a container image
-* [Image Index](image-index.md) - an annotated index of one or more image manifests
+* [Image Index](image-index.md) - an annotated index of image manifests
 * [Image Layout](image-layout.md) - a filesystem layout representing the contents of an image
 * [Filesystem Layer](layer.md) - a changeset that describes a container's filesystem
 * [Image Configuration](config.md) - a document determining layer ordering and configuration of the image suitable for translation into a [runtime bundle][runtime-spec]
