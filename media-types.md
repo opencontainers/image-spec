@@ -63,6 +63,6 @@ The following figure shows how the above media types reference each other:
 ![](img/media-types.png)
 
 [Descriptors](descriptor.md) are used for all references.
-The image-index being a "fat manifest" references one or more image manifests per target platform. An image manifest references exactly one target configuration and possibly many layers.
+The image-index being a "fat manifest" references a list of image manifests per target platform. An image manifest references exactly one target configuration and possibly many layers.
 
 [rfc1952]: https://tools.ietf.org/html/rfc1952
