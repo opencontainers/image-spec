@@ -163,15 +163,8 @@ Those tags will often be represented in an image-layout repository with matching
 ```json,title=Image%20Index&mediatype=application/vnd.oci.image.index.v1%2Bjson
 {
   "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.index.v1+json",
   "manifests": [
-    {
-      "mediaType": "application/vnd.oci.image.index.v1+json",
-      "size": 7143,
-      "digest": "sha256:0228f90e926ba6b96e4f39cf294b2586d38fbb5a1e385c05cd1ee40ea54fe7fd",
-      "annotations": {
-        "org.opencontainers.image.ref.name": "stable-release"
-      }
-    },
     {
       "mediaType": "application/vnd.oci.image.manifest.v1+json",
       "size": 7143,
@@ -185,7 +178,7 @@ Those tags will often be represented in an image-layout repository with matching
       }
     },
     {
-      "mediaType": "application/xml",
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
       "size": 7143,
       "digest": "sha256:b3d63d132d21c3ff4c35a061adf23cf43da8ae054247e32faa95494d904a007e",
       "annotations": {
