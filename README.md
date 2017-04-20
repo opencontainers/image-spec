@@ -33,7 +33,7 @@ This entire workflow supports the UX that users have come to expect from contain
 * docker run example.com/org/app:v1.0.0
 * rkt run example.com/org/app,version=v1.0.0
 
-To support this UX the OCI Image Format contains sufficient information to launch the application on the target platform (e.g. command, arguments, environment variables, etc).
+To support this UX the OCI Image Format should contains sufficient information to launch the application on the target platform (e.g. command, arguments, environment variables, etc).
 
 ## FAQ
 
