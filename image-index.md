@@ -55,7 +55,9 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 
     - **`os.version`** *string*
 
-        This OPTIONAL property specifies the operating system version, for example `10.0.10586`.
+        This OPTIONAL property specifies the version of the operating system targeted by the referenced blob.
+        Implementations MAY refuse to use manifests where `os.version` is not known to work with the host OS version.
+        Valid values are implementation-defined. e.g. `10.0.14393.1066` on `windows`.
 
     - **`os.features`** *array of strings*
 

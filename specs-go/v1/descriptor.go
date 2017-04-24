@@ -51,7 +51,7 @@ type Platform struct {
 	OS string `json:"os"`
 
 	// OSVersion is an optional field specifying the operating system
-	// version, for example `10.0.10586`.
+	// version, for example on Windows `10.0.14393.1066`.
 	OSVersion string `json:"os.version,omitempty"`
 
 	// OSFeatures is an optional field specifying an array of strings,
