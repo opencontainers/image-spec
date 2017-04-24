@@ -59,7 +59,7 @@ type Platform struct {
 	OSFeatures []string `json:"os.features,omitempty"`
 
 	// Variant is an optional field specifying a variant of the CPU, for
-	// example `ppc64le` to specify a little-endian version of a PowerPC CPU.
+	// example `v7` to specify ARMv7 when architecture is `arm`.
 	Variant string `json:"variant,omitempty"`
 
 	// Features is an optional field specifying an array of strings, each
