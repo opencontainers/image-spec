@@ -200,7 +200,6 @@ func TestDescriptor(t *testing.T) {
   "digest": "sha256:5B0BCABD1ED22E9FB1310CF6C2DEC7CDEF19F0AD69EFA1F392E94A4333501270"
 }
 `,
-			fail: true,
 		},
 
 		// expected success: valid URL entry
