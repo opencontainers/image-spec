@@ -7,7 +7,7 @@
       "pattern": "^[A-Za-z0-9][A-Za-z0-9!#$&-^_.+]{0,126}/[A-Za-z0-9][A-Za-z0-9!#$&-^_.+]{0,126}$"
     },
     "digest": {
-      "description": "the cryptographic checksum digest of the object, in the pattern '<algorithm>:<digest>'",
+      "description": "the cryptographic checksum digest of the object, in the pattern '<algorithm>:<encoded>'",
       "type": "string",
       "pattern": "^[a-z0-9]+(?:[+._-][a-z0-9]+)*:[a-zA-Z0-9]+$"
     },
