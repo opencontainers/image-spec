@@ -22,4 +22,8 @@ This specification defines the following annotation keys, intended for but not l
 * **org.opencontainers.image.homepage** URL to find more information on the image (string, a URL with scheme HTTP or HTTPS)
 * **org.opencontainers.image.documentation** URL to get documentation on the image (string, a URL with scheme HTTP or HTTPS)
 * **org.opencontainers.image.source** URL to get source code for the binary files in the image (string, a URL with scheme HTTP or HTTPS)
+* **org.opencontainers.image.version** [Semantic versioning-compatible](http://semver.org/) version of the packaged software.
+* **org.opencontainers.image.revision** Source control revision identifier for packaged software.
+* **org.opencontainers.image.vendor** Name of the distributing entity, organization or individual.
+* **org.opencontainers.image.licenses** Comma-separated list of licenses under which contained software is distributed, in [SPDX Short identifier]https://spdx.org/licenses/] form.
 * **org.opencontainers.image.ref.name** Name of the reference (string)
