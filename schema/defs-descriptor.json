@@ -9,7 +9,7 @@
     "digest": {
       "description": "the cryptographic checksum digest of the object, in the pattern '<algorithm>:<encoded>'",
       "type": "string",
-      "pattern": "^[a-z0-9]+(?:[+._-][a-z0-9]+)*:[a-zA-Z0-9]+$"
+      "pattern": "^[a-z0-9]+(?:[+._-][a-z0-9]+)*:[a-zA-Z0-9_-]+$"
     },
     "urls": {
       "description": "a list of urls from which this object may be downloaded",

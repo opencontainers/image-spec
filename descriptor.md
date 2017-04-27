@@ -57,7 +57,7 @@ The following field keys are reserved and MUST NOT be used by other specificatio
 All other fields may be included in other OCI specifications.
 Extended _Descriptor_ field additions proposed in other OCI specifications SHOULD first be considered for addition into this specification.
 
-## Digests and Verification
+## Digests
 
 The _digest_ property of a Descriptor acts as a content identifier, enabling [content addressability](http://en.wikipedia.org/wiki/Content-addressable_storage).
 It uniquely identifies content by taking a [collision-resistant hash](https://en.wikipedia.org/wiki/Cryptographic_hash_function) of the bytes.
@@ -71,15 +71,17 @@ A digest string MUST match the following grammar:
 ```
 digest      := algorithm ":" encoded
 algorithm   := /[a-z0-9]+(?:[+._-][a-z0-9]+)*/
-encoded     := /[a-zA-Z0-9]+/
+encoded     := /[a-zA-Z0-9_-]+/
 ```
-Some example digests include the following:
+
+Some example digest strings include the following:
 
 digest                                                                  | algorithm           | Supported |
 ------------------------------------------------------------------------|---------------------|-----------|
 sha256:6c3c624b58dbbcd3c0dd82b4c53f04194d1247c6eebdaab7c610cf7d66709b3b | [SHA-256](#sha-256) | Yes       |
 sha512:401b09eab3c013d4ca54922bb802bec8fd5318192b0a75f201d8b3727429080fb337591abd3e44453b954555b7a0812e1081c39b740293f765eae731f5a65ed1 | [SHA-256](#sha-512) | Yes      |
 multihash+base58:QmRZxt2b1FVZPNqd8hsiykDL3TdBDeTSPX9Kv46HmX4Gx8`        | Multihash           | No        |
+sha256+b64:LCa0a2j_xo_5m0U8HTBBNBNCLXBkg7-g-YpeiGJm564                  | SHA-256 with base64 | No        |
 
 Please see [Registered Algorithms](#registered-identifiers) for a list of supported algorithms.
 
@@ -87,10 +89,12 @@ Implementations SHOULD allow digests that are unsupported to pass validation if 
 While `sha256` will only use hex encoded digests, support for separators in _algorithm_ and alpha numeric in _encoded_ is included to allow for future extension of digest support.
 As an example, we can paramterize the encoding and algorithm as `multihash+base58:QmRZxt2b1FVZPNqd8hsiykDL3TdBDeTSPX9Kv46HmX4Gx8`, which would be considered valid but unsupported by this specification.
 
-* Before consuming content targeted by a descriptor from untrusted sources, the byte content SHOULD be verified against the digest string.
-* Before calculating the digest, the size of the content SHOULD be verified to reduce hash collision space.
-* Heavy processing before calculating a hash SHOULD be avoided.
-* Implementations MAY employ [canonicalization](canonicalization.md) of the underlying content to ensure stable content identifiers.
+### Verification
+
+Before consuming content targeted by a descriptor from untrusted sources, the byte content SHOULD be verified against the digest string.
+Before calculating the digest, the size of the content SHOULD be verified to reduce hash collision space.
+Heavy processing before calculating a hash SHOULD be avoided.
+Implementations MAY employ [canonicalization](canonicalization.md) of the underlying content to ensure stable content identifiers.
 
 ### Digest calculations
 

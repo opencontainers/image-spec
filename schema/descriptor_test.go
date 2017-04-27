@@ -276,6 +276,13 @@ func TestDescriptor(t *testing.T) {
     }`,
 			fail: true,
 		},
+		{
+			descriptor: `{
+				"digest": "sha256+b64:LCa0a2j_xo_5m0U8HTBBNBNCLXBkg7-g-YpeiGJm564",
+				"size": 1000000,
+				"mediaType": "application/vnd.oci.image.config.v1+json"
+			}`,
+		},
 	} {
 		r := strings.NewReader(tt.descriptor)
 		err := schema.ValidatorMediaTypeDescriptor.Validate(r)
