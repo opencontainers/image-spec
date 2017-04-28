@@ -114,6 +114,7 @@ The following algorithm identifiers are defined by this specification:
 | identifier | algorithm           |
 |------------|---------------------|
 | `sha256`   | [SHA-256](#sha-256) |
+| `sha512`   | [SHA-512](#sha-512) |
 
 If a useful algorithm is not included in the above table, it SHOULD be submitted to this specification for standardization.
 
@@ -121,6 +122,11 @@ If a useful algorithm is not included in the above table, it SHOULD be submitted
 
 [SHA-256](https://tools.ietf.org/html/rfc4634#page-7) is a collision-resistant hash function, chosen for ubiquity, reasonable size and secure characteristics.
 Implementations MUST implement SHA-256 digest verification for use in descriptors.
+
+#### SHA-512
+
+[SHA-512][rfc4634-s4.2] is a collision-resistant hash function which [may be more perfomant][sha256-vs-sha512] than [SHA-256](#sha-256) on some CPUs.
+Implementations MAY implement SHA-512 digest verification for use in descriptors.
 
 ## Examples
 
@@ -148,6 +154,8 @@ In the following example, the descriptor indicates that the referenced manifest 
 ```
 
 [rfc3986]: https://tools.ietf.org/html/rfc3986
+[rfc4634-s4.2]: https://tools.ietf.org/html/rfc4634#section-4.2
 [rfc6838]: https://tools.ietf.org/html/rfc6838
 [rfc6838-s4.2]: https://tools.ietf.org/html/rfc6838#section-4.2
 [rfc7230-s2.7]: https://tools.ietf.org/html/rfc7230#section-2.7
+[sha256-vs-sha512]: https://groups.google.com/a/opencontainers.org/forum/#!topic/dev/hsMw7cAwrZE
