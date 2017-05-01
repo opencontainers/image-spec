@@ -64,12 +64,12 @@ If the identifier can be communicated in a secure manner, one can retrieve the c
 The value of the digest property, the _digest string_, is a serialized hash result, consisting of an _algorithm_ portion and a _hex_ portion.
 The algorithm identifies the methodology used to calculate the digest; the hex portion is the lowercase hex-encoded result of the hash.
 
-The digest string MUST match the following grammar:
+The digest string MUST match the following [ABNF][rfc5234]:
 
-```
-digest      := algorithm ":" hex
-algorithm   := /[a-z0-9_+.-]+/
-hex         := /[a-f0-9]+/
+```ABNF
+digest    = algorithm ":" hex
+algorithm = 1*(DIGIT / %x61-7A / "+" / "." / "_" / "-")  ; [0-9a-z+._-]+
+hex       = 1*(DIGIT / %x61-66)  ; [0-9a-f]+
 ```
 
 Some example digest strings include the following:
@@ -148,6 +148,7 @@ In the following example, the descriptor indicates that the referenced manifest 
 ```
 
 [rfc3986]: https://tools.ietf.org/html/rfc3986
+[rfc5234]: https://tools.ietf.org/html/rfc5234
 [rfc6838]: https://tools.ietf.org/html/rfc6838
 [rfc6838-s4.2]: https://tools.ietf.org/html/rfc6838#section-4.2
 [rfc7230-s2.7]: https://tools.ietf.org/html/rfc7230#section-2.7
