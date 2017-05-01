@@ -40,7 +40,7 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 
   - **`platform`** *object*
 
-    This OPTIONAL property describes the platform which the image in the manifest runs on.
+    This OPTIONAL property describes the minimum runtime requirements of the image.
     This property SHOULD be present if its target is platform-specific.
 
     - **`architecture`** *string*
