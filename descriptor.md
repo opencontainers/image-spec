@@ -78,12 +78,12 @@ encoded               := /[a-zA-Z0-9=_-]+/
 
 Some example digest strings include the following:
 
-digest                                                                  | algorithm           | Supported |
-------------------------------------------------------------------------|---------------------|-----------|
-sha256:6c3c624b58dbbcd3c0dd82b4c53f04194d1247c6eebdaab7c610cf7d66709b3b | [SHA-256](#sha-256) | Yes       |
-sha512:401b09eab3c013d4ca54922bb802bec8fd5318192b0a75f201d8b3727429080fb337591abd3e44453b954555b7a0812e1081c39b740293f765eae731f5a65ed1 | [SHA-256](#sha-512) | Yes      |
-multihash+base58:QmRZxt2b1FVZPNqd8hsiykDL3TdBDeTSPX9Kv46HmX4Gx8`        | Multihash           | No        |
-sha256+b64u:LCa0a2j_xo_5m0U8HTBBNBNCLXBkg7-g-YpeiGJm564                  | SHA-256 with urlsafe base64 | No        |
+digest                                                                    | algorithm           | Supported |
+--------------------------------------------------------------------------|---------------------|-----------|
+`sha256:6c3c624b58dbbcd3c0dd82b4c53f04194d1247c6eebdaab7c610cf7d66709b3b` | [SHA-256](#sha-256) | Yes       |
+`sha512:401b09eab3c013d4ca54922bb802bec8fd5318192b0a75f201d8b372742...`   | [SHA-256](#sha-512) | Yes       |
+`multihash+base58:QmRZxt2b1FVZPNqd8hsiykDL3TdBDeTSPX9Kv46HmX4Gx8`         | Multihash           | No        |
+`sha256+b64u:LCa0a2j_xo_5m0U8HTBBNBNCLXBkg7-g-YpeiGJm564`                 | SHA-256 with urlsafe base64 | No|
 
 Please see [Registered Algorithms](#registered-identifiers) for a list of supported algorithms.
 
