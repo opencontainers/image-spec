@@ -278,7 +278,15 @@ func TestDescriptor(t *testing.T) {
 		},
 		{
 			descriptor: `{
-				"digest": "sha256+b64:LCa0a2j_xo_5m0U8HTBBNBNCLXBkg7-g-YpeiGJm564",
+				"digest": "sha256+b64u:LCa0a2j_xo_5m0U8HTBBNBNCLXBkg7-g-YpeiGJm564",
+				"size": 1000000,
+				"mediaType": "application/vnd.oci.image.config.v1+json"
+			}`,
+		},
+		{
+			// test for those who cannot use modulo arithmetic to recover padding.
+			descriptor: `{
+				"digest": "sha256+b64u.unknownlength:LCa0a2j_xo_5m0U8HTBBNBNCLXBkg7-g-YpeiGJm564=",
 				"size": 1000000,
 				"mediaType": "application/vnd.oci.image.config.v1+json"
 			}`,

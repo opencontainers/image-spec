@@ -69,9 +69,11 @@ The _algorithm_ specifies the cryptographic hash function and encoding used for 
 A digest string MUST match the following grammar:
 
 ```
-digest      := algorithm ":" encoded
-algorithm   := /[a-z0-9]+(?:[+._-][a-z0-9]+)*/
-encoded     := /[a-zA-Z0-9_-]+/
+digest                := algorithm ":" encoded
+algorithm             := algorithm-component [algorithm-separator algorithm-component]*
+algorithm-component   := /[a-z0-9]+/
+algorithm-separator   := /[+._-]/
+encoded               := /[a-zA-Z0-9=_-]+/
 ```
 
 Some example digest strings include the following:
@@ -81,7 +83,7 @@ digest                                                                  | algori
 sha256:6c3c624b58dbbcd3c0dd82b4c53f04194d1247c6eebdaab7c610cf7d66709b3b | [SHA-256](#sha-256) | Yes       |
 sha512:401b09eab3c013d4ca54922bb802bec8fd5318192b0a75f201d8b3727429080fb337591abd3e44453b954555b7a0812e1081c39b740293f765eae731f5a65ed1 | [SHA-256](#sha-512) | Yes      |
 multihash+base58:QmRZxt2b1FVZPNqd8hsiykDL3TdBDeTSPX9Kv46HmX4Gx8`        | Multihash           | No        |
-sha256+b64:LCa0a2j_xo_5m0U8HTBBNBNCLXBkg7-g-YpeiGJm564                  | SHA-256 with base64 | No        |
+sha256+b64u:LCa0a2j_xo_5m0U8HTBBNBNCLXBkg7-g-YpeiGJm564                  | SHA-256 with urlsafe base64 | No        |
 
 Please see [Registered Algorithms](#registered-identifiers) for a list of supported algorithms.
 
