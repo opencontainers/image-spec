@@ -44,6 +44,8 @@ The following fields contain the primary properties that constitute a Descriptor
     This OPTIONAL property contains arbitrary metadata for this descriptor.
     This OPTIONAL property MUST use the [annotation rules](annotations.md#rules).
 
+Descriptors pointing to [`application/vnd.oci.image.manifest.v1+json`](manifest.md) SHOULD include the extended field `platform`, see [Image Index Property Descriptions](image-index.md#image-index-property-descriptions) for details.
+
 ### Reserved
 
 The following field keys are reserved and MUST NOT be used by other specifications.
