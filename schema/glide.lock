@@ -1,0 +1,16 @@
+hash: 894fc0b6938501aa9c2cec06fe18bc9531c5c21687184b9ec223efa950c8da2b
+updated: 2017-01-26T14:48:31.457569087-05:00
+imports:
+- name: github.com/pkg/errors
+  version: ""
+- name: github.com/russross/blackfriday
+  version: ""
+- name: github.com/shurcooL/sanitized_anchor_name
+  version: ""
+- name: github.com/xeipuuv/gojsonpointer
+  version: eee8749ab8dd46b26778f6d97a9d59e60aefe5d0
+- name: github.com/xeipuuv/gojsonreference
+  version: eee8749ab8dd46b26778f6d97a9d59e60aefe5d0
+- name: github.com/xeipuuv/gojsonschema
+  version: ""
+testImports: []
