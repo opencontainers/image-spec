@@ -57,33 +57,46 @@ The following field keys are reserved and MUST NOT be used by other specificatio
 All other fields may be included in other OCI specifications.
 Extended _Descriptor_ field additions proposed in other OCI specifications SHOULD first be considered for addition into this specification.
 
-## Digests and Verification
+## Digests
 
 The _digest_ property of a Descriptor acts as a content identifier, enabling [content addressability](http://en.wikipedia.org/wiki/Content-addressable_storage).
 It uniquely identifies content by taking a [collision-resistant hash](https://en.wikipedia.org/wiki/Cryptographic_hash_function) of the bytes.
-If the digest can be communicated in a secure manner, one can retrieve the content from an insecure source, recalculate the digest independently, and be certain that the correct content was obtained.
+If the _digest_ can be communicated in a secure manner, one can verify content from an insecure source by recalculating the digest independently, ensuring the content has not been modified.
 
-The value of the digest property is a string consisting of an _algorithm_ portion (the "algorithm identifier") and a _hex_ portion.
-The algorithm identifier specifies the cryptographic hash function used to calculate the digest; the hex portion is the lowercase hex-encoded result of the hash.
+The value of the `digest` property is a string consisting of an _algorithm_ portion and an _encoded_ portion.
+The _algorithm_ specifies the cryptographic hash function and encoding used for the digest; the _encoded_ portion contains the encoded result of the hash function.
 
-The digest string MUST match the following grammar:
+A digest string MUST match the following grammar:
 
 ```
-digest      := algorithm ":" hex
-algorithm   := /[a-z0-9_+.-]+/
-hex         := /[a-f0-9]+/
+digest                := algorithm ":" encoded
+algorithm             := algorithm-component [algorithm-separator algorithm-component]*
+algorithm-component   := /[a-z0-9]+/
+algorithm-separator   := /[+._-]/
+encoded               := /[a-zA-Z0-9=_-]+/
 ```
 
 Some example digest strings include the following:
 
-digest string                                                           | algorithm           |
-------------------------------------------------------------------------|---------------------|
-sha256:6c3c624b58dbbcd3c0dd82b4c53f04194d1247c6eebdaab7c610cf7d66709b3b | [SHA-256](#sha-256) |
+digest                                                                    | algorithm           | Supported |
+--------------------------------------------------------------------------|---------------------|-----------|
+`sha256:6c3c624b58dbbcd3c0dd82b4c53f04194d1247c6eebdaab7c610cf7d66709b3b` | [SHA-256](#sha-256) | Yes       |
+`sha512:401b09eab3c013d4ca54922bb802bec8fd5318192b0a75f201d8b372742...`   | [SHA-256](#sha-512) | Yes       |
+`multihash+base58:QmRZxt2b1FVZPNqd8hsiykDL3TdBDeTSPX9Kv46HmX4Gx8`         | Multihash           | No        |
+`sha256+b64u:LCa0a2j_xo_5m0U8HTBBNBNCLXBkg7-g-YpeiGJm564`                 | SHA-256 with urlsafe base64 | No|
 
-* Before consuming content targeted by a descriptor from untrusted sources, the byte content SHOULD be verified against the digest string.
-* Before calculating the digest, the size of the content SHOULD be verified to reduce hash collision space.
-* Heavy processing before calculating a hash SHOULD be avoided.
-* Implementations MAY employ [canonicalization](canonicalization.md) of the underlying content to ensure stable content identifiers.
+Please see [Registered Algorithms](#registered-identifiers) for a list of supported algorithms.
+
+Implementations SHOULD allow digests that are unsupported to pass validation if they comply with the above grammar.
+While `sha256` will only use hex encoded digests, support for separators in _algorithm_ and alpha numeric in _encoded_ is included to allow for future extension of digest support.
+As an example, we can paramterize the encoding and algorithm as `multihash+base58:QmRZxt2b1FVZPNqd8hsiykDL3TdBDeTSPX9Kv46HmX4Gx8`, which would be considered valid but unsupported by this specification.
+
+### Verification
+
+Before consuming content targeted by a descriptor from untrusted sources, the byte content SHOULD be verified against the digest string.
+Before calculating the digest, the size of the content SHOULD be verified to reduce hash collision space.
+Heavy processing before calculating a hash SHOULD be avoided.
+Implementations MAY employ [canonicalization](canonicalization.md) of the underlying content to ensure stable content identifiers.
 
 ### Digest calculations
 
@@ -91,24 +104,24 @@ A _digest_ is calculated by the following pseudo-code, where `H` is the selected
 ```
 let ID(C) = Descriptor.digest
 let C = <bytes>
-let D = '<alg>:' + EncodeHex(H(C))
+let D = '<alg>:' + Encode(H(C))
 let verified = ID(C) == D
 ```
 Above, we define the content identifier as `ID(C)`, extracted from the `Descriptor.digest` field.
 Content `C` is a string of bytes.
-Function `H` returns the hash of `C` in bytes and is passed to function `EncodeHex` and prefixed with the algorithm to obtain the digest.
+Function `H` returns the hash of `C` in bytes and is passed to function `Encode` and prefixed with the algorithm to obtain the digest.
 The result `verified` is true if `ID(C)` is equal to `D`, confirming that `C` is the content identified by `D`.
 After verification, the following is true:
 
 ```
-D == ID(C) == '<alg>:' + EncodeHex(H(C))
+D == ID(C) == '<alg>:' + Encode(H(C))
 ```
 
 The _digest_ is confirmed as the content identifier by independently calculating the _digest_.
 
 ### Registered algorithms
 
-While the _algorithm_ portion (the "algorithm identifier") of the digest string allows the use of a variety of cryptographic algorithms, compliant implementations SHOULD use [SHA-256](#sha-256).
+While the _algorithm_ component of the digest string allows the use of a variety of cryptographic algorithms, compliant implementations SHOULD use [SHA-256](#sha-256).
 
 The following algorithm identifiers are currently defined by this specification:
 

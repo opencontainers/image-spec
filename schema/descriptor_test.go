@@ -200,7 +200,6 @@ func TestDescriptor(t *testing.T) {
   "digest": "sha256:5B0BCABD1ED22E9FB1310CF6C2DEC7CDEF19F0AD69EFA1F392E94A4333501270"
 }
 `,
-			fail: true,
 		},
 
 		// expected success: valid URL entry
@@ -231,6 +230,66 @@ func TestDescriptor(t *testing.T) {
 }
 `,
 			fail: true,
+		},
+		{
+			descriptor: `{
+    "mediaType": "application/vnd.oci.image.config.v1+json",
+    "size": 1470,
+    "digest": "sha256+b64:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+}`,
+		},
+		{
+			descriptor: `{
+    "mediaType": "application/vnd.oci.image.config.v1+json",
+    "size": 1470,
+    "digest": "sha256+b64:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+  }`,
+		},
+		{
+			descriptor: `{
+      "mediaType": "application/vnd.oci.image.config.v1+json",
+      "size": 1470,
+      "digest": "sha256+foo-bar:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+    }`,
+		},
+		{
+			descriptor: `
+    {
+      "mediaType": "application/vnd.oci.image.config.v1+json",
+      "size": 1470,
+      "digest": "sha256.foo-bar:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+    }`,
+		},
+		{
+			descriptor: `{
+      "mediaType": "application/vnd.oci.image.config.v1+json",
+      "size": 1470,
+	  "digest": "multihash+base58:QmRZxt2b1FVZPNqd8hsiykDL3TdBDeTSPX9Kv46HmX4Gx8"
+    }`,
+		},
+		{
+			// fail: repeated separators in algorithm
+			descriptor: `{
+      "mediaType": "application/vnd.oci.image.config.v1+json",
+      "size": 1470,
+      "digest": "sha256+foo+-b:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+    }`,
+			fail: true,
+		},
+		{
+			descriptor: `{
+				"digest": "sha256+b64u:LCa0a2j_xo_5m0U8HTBBNBNCLXBkg7-g-YpeiGJm564",
+				"size": 1000000,
+				"mediaType": "application/vnd.oci.image.config.v1+json"
+			}`,
+		},
+		{
+			// test for those who cannot use modulo arithmetic to recover padding.
+			descriptor: `{
+				"digest": "sha256+b64u.unknownlength:LCa0a2j_xo_5m0U8HTBBNBNCLXBkg7-g-YpeiGJm564=",
+				"size": 1000000,
+				"mediaType": "application/vnd.oci.image.config.v1+json"
+			}`,
 		},
 	} {
 		r := strings.NewReader(tt.descriptor)
