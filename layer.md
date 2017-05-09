@@ -8,7 +8,7 @@ This section defines the `application/vnd.oci.image.layer.v1.tar`, `application/
 
 ## `+gzip` Media Types
 
-* The media type `application/vnd.oci.image.layer.v1.tar+gzip` represents an `application/vnd.oci.image.layer.v1.tar` payload which has been compressed with [gzip][rfc1952].
+* The media type `application/vnd.oci.image.layer.v1.tar+gzip` represents an `application/vnd.oci.image.layer.v1.tar` payload which has been compressed with [gzip][rfc1952_2].
 * The media type `application/vnd.oci.image.layer.nondistributable.v1.tar+gzip` represents an `application/vnd.oci.image.layer.nondistributable.v1.tar` payload which has been compressed with [gzip][rfc1952_2].
 
 ## Distributable Format
