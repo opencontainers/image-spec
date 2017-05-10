@@ -191,7 +191,7 @@ func TestDescriptor(t *testing.T) {
 			fail: true,
 		},
 
-		// expected failure: digest does not match pattern (invalid hash characters)
+		// expected failure: digest does not match pattern (characters needs to be lower for sha256)
 		{
 			descriptor: `
 {
@@ -200,6 +200,7 @@ func TestDescriptor(t *testing.T) {
   "digest": "sha256:5B0BCABD1ED22E9FB1310CF6C2DEC7CDEF19F0AD69EFA1F392E94A4333501270"
 }
 `,
+			fail: true,
 		},
 
 		// expected success: valid URL entry

@@ -76,6 +76,9 @@ algorithm-separator   := /[+._-]/
 encoded               := /[a-zA-Z0-9=_-]+/
 ```
 
+Note that _algorithm_ MAY impose algorithm-specific restriction on the grammar of the _encoded_ portion.
+See also [Registered Algorithms](#registered-identifiers).
+
 Some example digest strings include the following:
 
 digest                                                                    | algorithm           | Supported |
@@ -137,10 +140,16 @@ If a useful algorithm is not included in the above table, it SHOULD be submitted
 [SHA-256][rfc4634-s4.1] is a collision-resistant hash function, chosen for ubiquity, reasonable size and secure characteristics.
 Implementations MUST implement SHA-256 digest verification for use in descriptors.
 
+When the _algorithm identifier_ is `sha256`, the _encoded_ portion MUST match `/[a-f0-9]{64}/`.
+Note that `[A-F]` MUST NOT be used here.
+
 #### SHA-512
 
 [SHA-512][rfc4634-s4.2] is a collision-resistant hash function which [may be more perfomant][sha256-vs-sha512] than [SHA-256](#sha-256) on some CPUs.
 Implementations MAY implement SHA-512 digest verification for use in descriptors.
+
+When the _algorithm identifier_ is `sha512`, the _encoded_ portion MUST match `/[a-f0-9]{128}/`.
+Note that `[A-F]` MUST NOT be used here.
 
 ## Examples
 
