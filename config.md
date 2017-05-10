@@ -132,24 +132,24 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
 
    - **Env** *array of strings*, OPTIONAL
 
-     Entries are in the format of `VARNAME="var value"`.
+     Entries are in the format of `VARNAME=VARVALUE`.
      These values act as defaults and are merged with any specified when creating a container.
 
    - **Entrypoint** *array of strings*, OPTIONAL
 
      A list of arguments to use as the command to execute when the container starts.
-     This value acts as a default and is replaced by an entrypoint specified when creating a container.
+     These values act as default and are replaced by an entrypoint specified when creating a container.
 
    - **Cmd** *array of strings*, OPTIONAL
 
      Default arguments to the entrypoint of the container.
-     These values act as defaults and are replaced with any specified when creating a container.
+     These values act as defaults and are replaced by any specified when creating a container.
      If an `Entrypoint` value is not specified, then the first entry of the `Cmd` array SHOULD be interpreted as the executable to run.
 
    - **Volumes** *object*, OPTIONAL
 
      A set of directories which SHOULD be created as data volumes in a container running this image.
-     If a file or folder exists within the image with the same path as a data volume, that file or folder is replaced with the data volume and is never merged.
+     If a file or folder exists within the image with the same path as a data volume, that file or folder is replaced by the data volume and is never merged.
      **NOTE:** This JSON structure value is unusual because it is a direct JSON serialization of the Go type `map[string]struct{}` and is represented in JSON as an object mapping its keys to an empty object.
 
    - **WorkingDir** *string*, OPTIONAL
