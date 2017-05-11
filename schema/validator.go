@@ -20,8 +20,10 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"os"
 
 	"github.com/opencontainers/image-spec/specs-go/v1"
+	"github.com/opencontainers/image-tools/image"
 	"github.com/pkg/errors"
 	"github.com/xeipuuv/gojsonschema"
 )
@@ -118,4 +120,44 @@ func validateManifestDescendants(r io.Reader) error {
 		}
 	}
 	return nil
+}
+
+// Autodect detects the validation type
+func Autodect(f io.ReadSeeker) (string, error) {
+	if _, err := f.Seek(0, os.SEEK_SET); err != nil {
+		return "", errors.Wrap(err, "unable to seek")
+	}
+
+	header := struct {
+		SchemaVersion int         `json:"schemaVersion"`
+		MediaType     string      `json:"mediaType"`
+		RootFS        interface{} `json:"rootfs"`
+	}{}
+
+	if err := json.NewDecoder(f).Decode(&header); err != nil {
+		if _, errSeek := f.Seek(0, os.SEEK_SET); errSeek != nil {
+			return "", errors.Wrap(err, "unable to seek")
+		}
+
+		e := errors.Wrap(
+			WrapSyntaxError(f, err),
+			"unable to parse JSON",
+		)
+
+		return "", e
+	}
+
+	switch {
+	case header.MediaType == string(MediaTypeManifest):
+		return image.TypeManifest, nil
+
+	case header.MediaType == string(MediaTypeManifestList):
+		return image.TypeManifestList, nil
+
+	case header.MediaType == "" && header.SchemaVersion == 0 && header.RootFS != nil:
+		// config files don't have mediaType/schemaVersion header
+		return image.TypeConfig, nil
+	}
+
+	return "", errors.New("unknown media type")
 }
