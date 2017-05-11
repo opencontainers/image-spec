@@ -59,11 +59,8 @@ func TestImageIndex(t *testing.T) {
       "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270",
       "platform": {
         "architecture": "amd64",
-        "os": "linux",
-        "features": [
-          "sse4"
-        ]
-      }
+        "os": "linux"
+	  }
     }
   ]
 }
@@ -82,10 +79,7 @@ func TestImageIndex(t *testing.T) {
       "size": 7682,
       "platform": {
         "architecture": "amd64",
-        "os": "linux",
-        "features": [
-          "sse4"
-        ]
+        "os": "linux"
       }
     }
   ]
@@ -126,10 +120,7 @@ func TestImageIndex(t *testing.T) {
       "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270",
       "platform": {
         "architecture": "amd64",
-        "os": "linux",
-        "features": [
-          "sse4"
-        ]
+        "os": "linux"
       }
     }
   ]
@@ -150,10 +141,7 @@ func TestImageIndex(t *testing.T) {
       "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270",
       "platform": {
         "architecture": "amd64",
-        "os": "linux",
-        "features": [
-          "sse4"
-        ]
+        "os": "linux"
       }
     }
   ]
@@ -183,10 +171,7 @@ func TestImageIndex(t *testing.T) {
       "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270",
       "platform": {
         "architecture": "amd64",
-        "os": "linux",
-        "features": [
-          "sse4"
-        ]
+        "os": "linux"
       }
     }
   ],
