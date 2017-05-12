@@ -45,7 +45,7 @@ var (
 	}
 )
 
-// FileSystem returns an in-memory file system including the schema files.
+// FileSystem returns an in-memory filesystem including the schema files.
 // The schema files are located at the root directory.
 func FileSystem() http.FileSystem {
 	return fs
