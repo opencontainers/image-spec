@@ -138,24 +138,24 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
    - **Entrypoint** *array of strings*, OPTIONAL
 
      A list of arguments to use as the command to execute when the container starts.
-     These values act as default and are replaced by an entrypoint specified when creating a container.
+     These values act as defaults and may be replaced by an entrypoint specified when creating a container.
 
    - **Cmd** *array of strings*, OPTIONAL
 
      Default arguments to the entrypoint of the container.
-     These values act as defaults and are replaced by any specified when creating a container.
+     These values act as defaults and may be replaced by any specified when creating a container.
      If an `Entrypoint` value is not specified, then the first entry of the `Cmd` array SHOULD be interpreted as the executable to run.
 
    - **Volumes** *object*, OPTIONAL
 
      A set of directories which SHOULD be created as data volumes in a container running this image.
-     If a file or folder exists within the image with the same path as a data volume, that file or folder is replaced by the data volume and is never merged.
+     If a file or folder exists within the image with the same path as a data volume, that file or folder will be replaced by the data volume and never be merged.
      **NOTE:** This JSON structure value is unusual because it is a direct JSON serialization of the Go type `map[string]struct{}` and is represented in JSON as an object mapping its keys to an empty object.
 
    - **WorkingDir** *string*, OPTIONAL
 
      Sets the current working directory of the entrypoint process in the container.
-     This value acts as a default and is replaced by a working directory specified when creating a container.
+     This value acts as a default and may be replaced by a working directory specified when creating a container.
 
    - **Labels** *object*, OPTIONAL
 
