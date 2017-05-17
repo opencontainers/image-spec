@@ -63,7 +63,16 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 
     - **`variant`** *string*
 
-        This OPTIONAL property specifies the variant of the CPU, for example `armv6l` to specify a particular CPU variant of the ARM CPU.
+        This OPTIONAL property specifies the variant of the CPU.
+        Image indexes SHOULD use, and implementations SHOULD understand, values listed in the following table.
+        When the variant of the CPU is not listed in the table, values are implementation-defined and SHOULD be submitted to this specification for standardization.
+
+        | ISA/ABI         | `architecture` | `variant`   |
+        |-----------------|----------------|-------------|
+        | ARM 32-bit, v6  | `arm`          | `v6`        |
+        | ARM 32-bit, v7  | `arm`          | `v7`        |
+        | ARM 32-bit, v8  | `arm`          | `v8`        |
+        | ARM 64-bit, v8  | `arm64`        | `v8`        |
 
     - **`features`** *array of strings*
 

@@ -49,7 +49,7 @@ func TestBackwardsCompatibilityImageIndex(t *testing.T) {
 		fail       bool
 	}{
 		{
-			digest: "sha256:219f4b61132fe9d09b0ec5c15517be2ca712e4744b0e0cc3be71295b35b2a467",
+			digest: "sha256:d0ed7cfe33821cb6a15624486e650149e92fff3192ff2014bda0c4b0206c1aa2",
 			imageIndex: `{
    "schemaVersion": 2,
    "mediaType": "application/vnd.docker.distribution.manifest.list.v2+json",
@@ -91,7 +91,7 @@ func TestBackwardsCompatibilityImageIndex(t *testing.T) {
          "platform": {
             "architecture": "arm",
             "os": "linux",
-            "variant": "armv7"
+            "variant": "v7"
          }
       },
       {
@@ -101,7 +101,7 @@ func TestBackwardsCompatibilityImageIndex(t *testing.T) {
          "platform": {
             "architecture": "arm64",
             "os": "linux",
-            "variant": "armv8"
+            "variant": "v8"
          }
       }
    ]
