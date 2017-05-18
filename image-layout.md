@@ -53,9 +53,8 @@ afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1f2d51 ./blobs/sha256/
 ## Blobs
 
 * Object names in the `blobs` subdirectories are composed of a directory for each hash algorithm, the children of which will contain the actual content.
-* A blob, referenced with digest `<alg>:<encoded>` (per [descriptor](descriptor.md#digests-and-verification)), MUST have its content stored in a file under `blobs/<alg>/<encoded>`.
-* The character set of the entry name for `<encoded>` and `<alg>` MUST match the respective grammar elements described in [descriptor](descriptor.md#digests-and-verification).
-* For example `sha256:5b` will map to the layout `blobs/sha256/5b`.
+* The content of `blobs/<alg>/<encoded>` MUST match the digest `<alg>:<encoded>` (referenced per [descriptor](descriptor.md#digests-and-verification)). For example, the content of `blobs/sha256/da39a3ee5e6b4b0d3255bfef95601890afd80709` MUST match the digest `sha256:da39a3ee5e6b4b0d3255bfef95601890afd80709`.
+* The character set of the entry name for `<alg>` and `<encoded>` MUST match the respective grammar elements described in [descriptor](descriptor.md#digests-and-verification).
 * The blobs directory MAY contain blobs which are not referenced by any of the [refs](#indexjson-file).
 * The blobs directory MAY be missing referenced blobs, in which case the missing blobs SHOULD be fulfilled by an external blob store.
 
