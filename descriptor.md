@@ -77,7 +77,7 @@ encoded               := /[a-zA-Z0-9=_-]+/
 ```
 
 Note that _algorithm_ MAY impose algorithm-specific restriction on the grammar of the _encoded_ portion.
-See also [Registered Algorithms](#registered-identifiers).
+See also [Registered Algorithms](#registered-algorithms).
 
 Some example digest strings include the following:
 
