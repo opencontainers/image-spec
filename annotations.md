@@ -25,7 +25,7 @@ This specification defines the following annotation keys, intended for but not l
 * **org.opencontainers.image.version** [Semantic versioning-compatible](http://semver.org/) version of the packaged software. The version MAY match a label or tag in the source code repository.
 * **org.opencontainers.image.revision** Source control revision identifier for the packaged software.
 * **org.opencontainers.image.vendor** Name of the distributing entity, organization or individual.
-* **org.opencontainers.image.licenses** Comma-separated list of licenses under which contained software is distributed, in [SPDX Short identifier](https://spdx.org/licenses/) form.
+* **org.opencontainers.image.licenses** License(s) under which contained software is distributed as a [SPDX License Expression][spdx-license-expression].
 * **org.opencontainers.image.ref.name** Name of the reference for a target (string). SHOULD only be considered valid when on descriptors on `index.json` within [image layout](image-layout.md).
 * **org.opencontainers.image.name** Human-readable name of the software packaged in the image (string)
 * **org.opencontainers.image.description** Human-readable description of the software packaged in the image (string)
@@ -52,3 +52,5 @@ While users are encouraged to use the **org.opencontainers.image** keys, tools M
 | `ref.name` | | No equivalent in Label Schema |
 | | `schema-version`| No equivalent in the OCI Image Spec |
 | | `docker.*`, `rkt.*` | No equivalent in the OCI Image Spec |
+
+[spdx-license-expression]: https://spdx.org/spdx-specification-21-web-version#h.jxpfx0ykyb60
