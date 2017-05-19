@@ -76,7 +76,7 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 
     - **`features`** *array of strings*
 
-        This OPTIONAL property specifies an array of strings, each specifying a mandatory CPU feature (for example `sse4` or `aes`).
+        This property is RESERVED for future versions of the specification.
 
 - **`annotations`** *string-string map*
 
@@ -107,10 +107,7 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
       "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270",
       "platform": {
         "architecture": "amd64",
-        "os": "linux",
-        "os.features": [
-          "sse4"
-        ]
+        "os": "linux"
       }
     }
   ],
