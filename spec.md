@@ -57,8 +57,11 @@ The high-level components of the spec include:
 * [Filesystem Layer](layer.md) - a changeset that describes a container's filesystem
 * [Image Configuration](config.md) - a document determining layer ordering and configuration of the image suitable for translation into a [runtime bundle][runtime-spec]
 * [Descriptor](descriptor.md) - a reference that describes the type, metadata and content address of referenced content
-* Signatures that are based on signing image content address (optional OCI layer)
-* Naming that is federated based on DNS and can be delegated (optional OCI layer)
+
+Future versions of this specification may include the following OPTIONAL features:
+
+* Signatures that are based on signing image content address
+* Naming that is federated based on DNS and can be delegated
 
 [c99-unspecified]: http://www.open-std.org/jtc1/sc22/wg14/www/C99RationaleV5.10.pdf#page=18
 [runtime-spec]: https://github.com/opencontainers/runtime-spec
