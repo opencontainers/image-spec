@@ -60,7 +60,7 @@ func TestImageIndex(t *testing.T) {
       "platform": {
         "architecture": "amd64",
         "os": "linux"
-	  }
+      }
     }
   ]
 }
