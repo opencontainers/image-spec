@@ -71,6 +71,7 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 
         | ISA/ABI         | `architecture` | `variant`   |
         |-----------------|----------------|-------------|
+        | ARM 32-bit, v5  | `arm`          | `v5`        |
         | ARM 32-bit, v6  | `arm`          | `v6`        |
         | ARM 32-bit, v7  | `arm`          | `v7`        |
         | ARM 32-bit, v8  | `arm`          | `v8`        |
