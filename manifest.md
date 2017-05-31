@@ -4,7 +4,7 @@ There are three main goals of the Image Manifest Specification.
 The first goal is content-addressable images, by supporting an image model where the image's configuration can be hashed to generate a unique ID for the image and its components.
 The second goal is to allow multi-architecture images, through a "fat manifest" which references image manifests for platform-specific versions of an image.
 In OCI, this is codified in an [image index](image-index.md).
-The third goal is to be translatable to the [OCI Runtime Specification](https://github.com/opencontainers/runtime-spec).
+The third goal is to be [translatable](conversion.md) to the [OCI Runtime Specification](https://github.com/opencontainers/runtime-spec).
 
 This section defines the `application/vnd.oci.image.manifest.v1+json` [media type](media-types.md).
 For the media type(s) that this is compatible with see the [matrix](media-types.md#compatibility-matrix).
