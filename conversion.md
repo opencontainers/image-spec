@@ -2,11 +2,11 @@
 
 When extracting an OCI Image into an [OCI Runtime bundle][oci-runtime-bundle], two orthogonal components of the extraction are relevant:
 
-1. Extraction of the root filesystem from the set of [filesystem layers](layers.md).
+1. Extraction of the root filesystem from the set of [filesystem layers](layer.md).
 2. Conversion of the [image configuration blob](config.md) to an [OCI Runtime configuration blob][oci-runtime-config].
 
 This section defines how to convert an `application/vnd.oci.image.config.v1+json` blob to an [OCI runtime configuration blob][oci-runtime-config] (the latter component of extraction).
-The former component of extraction is defined [elsewhere](layers.md) and is orthogonal to configuration of a runtime bundle.
+The former component of extraction is defined [elsewhere](layer.md) and is orthogonal to configuration of a runtime bundle.
 The values of runtime configuration properties not specified by this document are implementation-defined.
 
 A converter MUST rely on the OCI image configuration to build the OCI runtime configuration as described by this document; this will create the "default generated runtime configuration".
