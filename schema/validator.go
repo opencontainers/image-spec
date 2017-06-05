@@ -110,6 +110,10 @@ func validateManifest(r io.Reader) error {
 		return errors.Wrap(err, "manifest format mismatch")
 	}
 
+	if len(header.Layers) == 0 {
+		return fmt.Errorf("no layers found")
+	}
+
 	if header.Config.MediaType != string(v1.MediaTypeImageConfig) {
 		fmt.Printf("warning: config %s has an unknown media type: %s\n", header.Config.Digest, header.Config.MediaType)
 	}
