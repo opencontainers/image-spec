@@ -20,7 +20,6 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-	"regexp"
 
 	digest "github.com/opencontainers/go-digest"
 	"github.com/opencontainers/image-spec/specs-go/v1"
@@ -125,11 +124,6 @@ func validateManifest(r io.Reader) error {
 	return nil
 }
 
-var (
-	sha256EncodedRegexp = regexp.MustCompile(`^[a-f0-9]{64}$`)
-	sha512EncodedRegexp = regexp.MustCompile(`^[a-f0-9]{128}$`)
-)
-
 func validateDescriptor(r io.Reader) error {
 	header := v1.Descriptor{}
 
@@ -143,22 +137,13 @@ func validateDescriptor(r io.Reader) error {
 		return errors.Wrap(err, "descriptor format mismatch")
 	}
 
-	if header.Digest.Validate() != nil {
+	err = header.Digest.Validate()
+	if  err == digest.ErrDigestUnsupported {
 		// we ignore unsupported algorithms
 		fmt.Printf("warning: unsupported digest: %q: %v\n", header.Digest, err)
 		return nil
 	}
-	switch header.Digest.Algorithm() {
-	case digest.SHA256:
-		if !sha256EncodedRegexp.MatchString(header.Digest.Hex()) {
-			return errors.Errorf("unexpected sha256 digest: %q", header.Digest)
-		}
-	case digest.SHA512:
-		if !sha512EncodedRegexp.MatchString(header.Digest.Hex()) {
-			return errors.Errorf("unexpected sha512 digest: %q", header.Digest)
-		}
-	}
-	return nil
+	return err
 }
 
 func validateIndex(r io.Reader) error {
