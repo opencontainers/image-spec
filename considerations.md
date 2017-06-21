@@ -60,6 +60,13 @@ range := [A-Z]
 The above symbol "set" would match one character of either "a", "b" or "c".
 The symbol "range" would match any character, "A" to "Z", inclusive.
 Currently, only matching for 7-bit ascii literals and character classes is defined, as that is all that is required by this specification.
+Multiple character ranges and explicit characters can be specified in a single character classes, as follows:
+
+```
+multipleranges := [a-zA-Z=-]
+```
+
+The above matches the characters in the range `A` to `Z`, `a` to `z` and the individual characters `-` and `=`.
 
 Expressions can be made up of one or more expressions, such that one must be followed by the other.
 This is known as an implicit concatenation operator.
