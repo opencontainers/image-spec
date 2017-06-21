@@ -46,12 +46,12 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
     - **`architecture`** *string*
 
         This REQUIRED property specifies the CPU architecture.
-        Image indexes SHOULD use, and implementations SHOULD understand, values [supported by runtime-spec's `platform.arch`][runtime-platform2].
+        Image indexes SHOULD use, and implementations SHOULD understand, values listed in the Go Language document for [`GOARCH`][go-environment2].
 
     - **`os`** *string*
 
         This REQUIRED property specifies the operating system.
-        Image indexes SHOULD use, and implementations SHOULD understand, values [supported by runtime-spec's `platform.os`][runtime-platform2].
+        Image indexes SHOULD use, and implementations SHOULD understand, values listed in the Go Language document for [`GOOS`][go-environment2].
 
     - **`os.version`** *string*
 
@@ -120,5 +120,5 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 }
 ```
 
-[runtime-platform2]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc3/config.md#platform
+[go-environment2]: https://golang.org/doc/install/source#environment
 [matrix]: media-types.md#compatibility-matrix

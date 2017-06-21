@@ -30,8 +30,6 @@ A compliant configuration converter MUST extract the following fields verbatim t
 
 | Image Field         | Runtime Field   | Notes |
 | ------------------- | --------------- | ----- |
-| `architecture`      | `platform.arch` |       |
-| `os`                | `platform.os`   |       |
 | `Config.WorkingDir` | `process.cwd`   |       |
 | `Config.Env`        | `process.env`   | 1     |
 | `Config.Entrypoint` | `process.args`  | 2     |
