@@ -149,8 +149,6 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
    - **Volumes** *object*, OPTIONAL
 
      A set of directories describing where the process is likely write data specific to a container instance.
-     Implementations SHOULD provide mounts for these locations such that application data is not written to the container's root filesystem.
-     If a _new_ image is created from a container based on the image described by this configuration, data in these paths SHOULD NOT be included in the _new_ image.
      **NOTE:** This JSON structure value is unusual because it is a direct JSON serialization of the Go type `map[string]struct{}` and is represented in JSON as an object mapping its keys to an empty object.
 
    - **WorkingDir** *string*, OPTIONAL
