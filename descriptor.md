@@ -66,14 +66,14 @@ If the _digest_ can be communicated in a secure manner, one can verify content f
 The value of the `digest` property is a string consisting of an _algorithm_ portion and an _encoded_ portion.
 The _algorithm_ specifies the cryptographic hash function and encoding used for the digest; the _encoded_ portion contains the encoded result of the hash function.
 
-A digest string MUST match the following grammar:
+A digest string MUST match the following [grammar](considerations.md#ebnf):
 
 ```
-digest                := algorithm ":" encoded
-algorithm             := algorithm-component [algorithm-separator algorithm-component]*
-algorithm-component   := /[a-z0-9]+/
-algorithm-separator   := /[+._-]/
-encoded               := /[a-zA-Z0-9=_-]+/
+digest                ::= algorithm ":" encoded
+algorithm             ::= algorithm-component (algorithm-separator algorithm-component)*
+algorithm-component   ::= [a-z0-9]+
+algorithm-separator   ::= [+._-]
+encoded               ::= [a-zA-Z0-9=_-]+
 ```
 
 Note that _algorithm_ MAY impose algorithm-specific restriction on the grammar of the _encoded_ portion.

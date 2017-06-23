@@ -31,12 +31,12 @@ This specification defines the following annotation keys, intended for but not l
 * **org.opencontainers.image.ref.name** Name of the reference for a target (string).
   * SHOULD only be considered valid when on descriptors on `index.json` within [image layout](image-layout.md).
   * Character set of the value SHOULD conform to alphanum of `A-Za-z0-9` and separator set of `-._:@/+`
-  * An EBNF'esque grammar + regular expression like:
+  * The reference must match the following [grammar](considerations.md#ebnf):
     ```
-    ref := component ["/" component]*
-    component := alphanum [separator alphanum]*
-    alphanum := /[A-Za-z0-9]+/
-    separator := /[-._:@+]/ | "--"
+    ref       ::= component ("/" component)*
+    component ::= alphanum (separator alphanum)*
+    alphanum  ::= [A-Za-z0-9]+
+    separator ::= [-._:@+] | "--"
     ```
 * **org.opencontainers.image.title** Human-readable title of the image (string)
 * **org.opencontainers.image.description** Human-readable description of the software packaged in the image (string)
