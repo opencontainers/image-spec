@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"regexp"
 
 	digest "github.com/opencontainers/go-digest"
 	"github.com/opencontainers/image-spec/specs-go/v1"
@@ -138,7 +139,7 @@ func validateDescriptor(r io.Reader) error {
 	}
 
 	err = header.Digest.Validate()
-	if  err == digest.ErrDigestUnsupported {
+	if err == digest.ErrDigestUnsupported {
 		// we ignore unsupported algorithms
 		fmt.Printf("warning: unsupported digest: %q: %v\n", header.Digest, err)
 		return nil
@@ -183,6 +184,13 @@ func validateConfig(r io.Reader) error {
 	}
 
 	checkPlatform(header.OS, header.Architecture)
+
+	envRegexp := regexp.MustCompile(`^[^=]+=.*$`)
+	for _, e := range header.Config.Env {
+		if !envRegexp.MatchString(e) {
+			return errors.Errorf("unexpected env: %q", e)
+		}
+	}
 
 	return nil
 }
