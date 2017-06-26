@@ -90,7 +90,10 @@ A compliant configuration converter SHOULD provide a way for users to extract th
 
 1. The runtime configuration does not have a corresponding field for this image field.
    However, converters SHOULD set the [`org.opencontainers.image.exposedPorts` annotation](#config.exposedports).
-2. If a converter implements conversion for this field using mountpoints, it SHOULD set the `destination` of the mountpoint to the value specified in `Config.Volumes`.
+2. Implementations SHOULD provide mounts for these locations such that application data is not written to the container's root filesystem.
+   If a converter implements conversion for this field using mountpoints, it SHOULD set the `destination` of the mountpoint to the value specified in `Config.Volumes`.
+   An implementation MAY seed the contents of the mount with data in the image at the same location.
+   If a _new_ image is created from a container based on the image described by this configuration, data in these paths SHOULD NOT be included in the _new_ image.
    The other `mounts` fields are platform and context dependent, and thus are implementation-defined.
    Note that the implementation of `Config.Volumes` need not use mountpoints, as it is effectively a mask of the filesystem.
 
