@@ -30,7 +30,7 @@ Removals are represented using "[whiteout](#whiteouts)" file entries (See [Repre
 
 ### File Types
 
-Throughout this document section, the use of word "files" or "entries" includes:
+Throughout this document section, the use of word "files" or "entries" includes the following, where supported:
 
 * regular files
 * directories
