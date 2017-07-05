@@ -19,8 +19,8 @@ Externally provided inputs are considered to be a modification of the `applicati
 For example, externally provided inputs MAY cause an environment variable to be added, removed or changed.
 However an implementation-defined default SHOULD NOT result in an environment variable being removed or changed.
 
-[oci-runtime-bundle]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc5/bundle.md
-[oci-runtime-config]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0-rc5/config.md
+[oci-runtime-bundle]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0/bundle.md
+[oci-runtime-config]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0/config.md
 
 ## Verbatim Fields
 
