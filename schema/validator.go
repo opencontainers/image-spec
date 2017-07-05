@@ -164,6 +164,9 @@ func validateIndex(r io.Reader) error {
 		if manifest.MediaType != string(v1.MediaTypeImageManifest) {
 			fmt.Printf("warning: manifest %s has an unknown media type: %s\n", manifest.Digest, manifest.MediaType)
 		}
+		if manifest.Platform != nil {
+			checkPlatform(manifest.Platform.OS, manifest.Platform.Architecture)
+		}
 
 	}
 
