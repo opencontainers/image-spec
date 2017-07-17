@@ -294,7 +294,7 @@ func TestDescriptor(t *testing.T) {
 		},
 	} {
 		r := strings.NewReader(tt.descriptor)
-		err := schema.ValidatorMediaTypeDescriptor.Validate(r)
+		err := schema.ValidatorMediaTypeDescriptor.Validate(r, nil)
 
 		if got := err != nil; tt.fail != got {
 			t.Errorf("test %d: expected validation failure %t but got %t, err %v", i, tt.fail, got, err)

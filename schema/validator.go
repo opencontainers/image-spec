@@ -32,7 +32,7 @@ import (
 // and implements validation against a JSON schema.
 type Validator string
 
-type validateFunc func(r io.Reader) error
+type validateFunc func(r io.Reader) ([]error, error)
 
 var mapValidate = map[Validator]validateFunc{
 	ValidatorMediaTypeImageConfig: validateConfig,
@@ -50,18 +50,26 @@ func (e ValidationError) Error() string {
 	return fmt.Sprintf("%v", e.Errs)
 }
 
+// ValidationAudit contains all the audits that happened during validation.
+type ValidationAudit interface {
+	// Warns handle the warned errs as consumer needed.
+	Warns(errs []error) error
+}
+
 // Validate validates the given reader against the schema of the wrapped media type.
-func (v Validator) Validate(src io.Reader) error {
+func (v Validator) Validate(src io.Reader, audit ValidationAudit) error {
 	buf, err := ioutil.ReadAll(src)
 	if err != nil {
 		return errors.Wrap(err, "unable to read the document file")
 	}
 
+	warns := []error{}
 	if f, ok := mapValidate[v]; ok {
 		if f == nil {
 			return fmt.Errorf("internal error: mapValidate[%q] is nil", v)
 		}
-		err = f(bytes.NewReader(buf))
+
+		warns, err = f(bytes.NewReader(buf))
 		if err != nil {
 			return err
 		}
@@ -78,6 +86,9 @@ func (v Validator) Validate(src io.Reader) error {
 	}
 
 	if result.Valid() {
+		if audit != nil {
+			return audit.Warns(warns)
+		}
 		return nil
 	}
 
@@ -93,25 +104,27 @@ func (v Validator) Validate(src io.Reader) error {
 
 type unimplemented string
 
-func (v unimplemented) Validate(src io.Reader) error {
+func (v unimplemented) Validate(src io.Reader, audit ValidationAudit) error {
 	return fmt.Errorf("%s: unimplemented", v)
 }
 
-func validateManifest(r io.Reader) error {
+func validateManifest(r io.Reader) ([]error, error) {
 	header := v1.Manifest{}
 
 	buf, err := ioutil.ReadAll(r)
 	if err != nil {
-		return errors.Wrapf(err, "error reading the io stream")
+		return []error{}, errors.Wrapf(err, "error reading the io stream")
 	}
 
 	err = json.Unmarshal(buf, &header)
 	if err != nil {
-		return errors.Wrap(err, "manifest format mismatch")
+		return []error{}, errors.Wrapf(err, "manifest format mismatch")
 	}
 
+	warns := []error{}
+
 	if header.Config.MediaType != string(v1.MediaTypeImageConfig) {
-		fmt.Printf("warning: config %s has an unknown media type: %s\n", header.Config.Digest, header.Config.MediaType)
+		warns = append(warns, errors.Errorf("warning: config %s has an unknown media type: %s\n", header.Config.Digest, header.Config.MediaType))
 	}
 
 	for _, layer := range header.Layers {
@@ -119,86 +132,88 @@ func validateManifest(r io.Reader) error {
 			layer.MediaType != string(v1.MediaTypeImageLayerGzip) &&
 			layer.MediaType != string(v1.MediaTypeImageLayerNonDistributable) &&
 			layer.MediaType != string(v1.MediaTypeImageLayerNonDistributableGzip) {
-			fmt.Printf("warning: layer %s has an unknown media type: %s\n", layer.Digest, layer.MediaType)
+			warns = append(warns, errors.Errorf("warning: layer %s has an unknown media type: %s\n", layer.Digest, layer.MediaType))
 		}
 	}
-	return nil
+	return warns, nil
 }
 
-func validateDescriptor(r io.Reader) error {
+func validateDescriptor(r io.Reader) ([]error, error) {
 	header := v1.Descriptor{}
 
 	buf, err := ioutil.ReadAll(r)
 	if err != nil {
-		return errors.Wrapf(err, "error reading the io stream")
+		return []error{}, errors.Wrapf(err, "error reading the io stream")
 	}
 
 	err = json.Unmarshal(buf, &header)
 	if err != nil {
-		return errors.Wrap(err, "descriptor format mismatch")
+		return []error{}, errors.Wrapf(err, "descriptor format mismatch")
 	}
 
 	err = header.Digest.Validate()
 	if err == digest.ErrDigestUnsupported {
 		// we ignore unsupported algorithms
-		fmt.Printf("warning: unsupported digest: %q: %v\n", header.Digest, err)
-		return nil
+		return []error{errors.Errorf("warning: unsupported digest: %q: %v\n", header.Digest, err)}, nil
 	}
-	return err
+	return []error{}, err
 }
 
-func validateIndex(r io.Reader) error {
+func validateIndex(r io.Reader) ([]error, error) {
 	header := v1.Index{}
 
 	buf, err := ioutil.ReadAll(r)
 	if err != nil {
-		return errors.Wrapf(err, "error reading the io stream")
+		return []error{}, errors.Wrapf(err, "error reading the io stream")
 	}
 
 	err = json.Unmarshal(buf, &header)
 	if err != nil {
-		return errors.Wrap(err, "manifestlist format mismatch")
+		return []error{}, errors.Wrapf(err, "manifestlist format mismatch")
 	}
+
+	warns := []error{}
 
 	for _, manifest := range header.Manifests {
 		if manifest.MediaType != string(v1.MediaTypeImageManifest) {
-			fmt.Printf("warning: manifest %s has an unknown media type: %s\n", manifest.Digest, manifest.MediaType)
+			warns = append(warns, errors.Errorf("warning: manifest %s has an unknown media type: %s\n",
+				manifest.Digest, manifest.MediaType))
 		}
 		if manifest.Platform != nil {
-			checkPlatform(manifest.Platform.OS, manifest.Platform.Architecture)
+			warns = append(warns, checkPlatform(manifest.Platform.OS, manifest.Platform.Architecture)...)
 		}
 
 	}
 
-	return nil
+	return warns, nil
 }
 
-func validateConfig(r io.Reader) error {
+func validateConfig(r io.Reader) ([]error, error) {
 	header := v1.Image{}
 
 	buf, err := ioutil.ReadAll(r)
 	if err != nil {
-		return errors.Wrapf(err, "error reading the io stream")
+		return []error{}, errors.Wrapf(err, "error reading the io stream")
 	}
 
 	err = json.Unmarshal(buf, &header)
 	if err != nil {
-		return errors.Wrap(err, "config format mismatch")
+		return []error{}, errors.Wrapf(err, "config format mismatch")
 	}
-
-	checkPlatform(header.OS, header.Architecture)
 
 	envRegexp := regexp.MustCompile(`^[^=]+=.*$`)
 	for _, e := range header.Config.Env {
 		if !envRegexp.MatchString(e) {
-			return errors.Errorf("unexpected env: %q", e)
+			return []error{}, errors.Errorf("unexpected env: %q", e)
 		}
 	}
 
-	return nil
+	return checkPlatform(header.OS, header.Architecture), nil
 }
 
-func checkPlatform(OS string, Architecture string) {
+func checkPlatform(OS string, Architecture string) []error {
+	warns := []error{}
+
 	validCombins := map[string][]string{
 		"android":   {"arm"},
 		"darwin":    {"386", "amd64", "arm", "arm64"},
@@ -214,11 +229,12 @@ func checkPlatform(OS string, Architecture string) {
 		if os == OS {
 			for _, arch := range archs {
 				if arch == Architecture {
-					return
+					return warns
 				}
 			}
-			fmt.Printf("warning: combination of %q and %q is invalid.", OS, Architecture)
+			warns = append(warns, errors.Errorf("warning: combination of %q and %q is invalid.", OS, Architecture))
 		}
 	}
-	fmt.Printf("warning: operating system %q of the bundle is not supported yet.", OS)
+
+	return append(warns, errors.Errorf("warning: operating system %q of the bundle is not supported yet.", OS))
 }

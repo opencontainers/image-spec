@@ -77,7 +77,7 @@ func validate(t *testing.T, name string) {
 			continue
 		}
 
-		err = schema.Validator(example.Mediatype).Validate(strings.NewReader(example.Body))
+		err = schema.Validator(example.Mediatype).Validate(strings.NewReader(example.Body), nil)
 		if err == nil {
 			printFields(t, "ok", example.Mediatype, example.Title)
 			t.Log(example.Body, "---")

@@ -47,7 +47,7 @@ func TestImageLayout(t *testing.T) {
 		},
 	} {
 		r := strings.NewReader(tt.imageLayout)
-		err := schema.ValidatorMediaTypeLayoutHeader.Validate(r)
+		err := schema.ValidatorMediaTypeLayoutHeader.Validate(r, nil)
 
 		if got := err != nil; tt.fail != got {
 			t.Errorf("test %d: expected validation failure %t but got %t, err %v", i, tt.fail, got, err)
