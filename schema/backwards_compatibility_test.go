@@ -113,7 +113,7 @@ func TestBackwardsCompatibilityImageIndex(t *testing.T) {
 
 		imageIndex := convertFormats(tt.imageIndex)
 		r := strings.NewReader(imageIndex)
-		err := schema.ValidatorMediaTypeImageIndex.Validate(r)
+		err := schema.ValidatorMediaTypeImageIndex.Validate(r, nil)
 
 		if got := err != nil; tt.fail != got {
 			t.Errorf("test %d: expected validation failure %t but got %t, err %v", i, tt.fail, got, err)
@@ -175,7 +175,7 @@ func TestBackwardsCompatibilityManifest(t *testing.T) {
 
 		manifest := convertFormats(tt.manifest)
 		r := strings.NewReader(manifest)
-		err := schema.ValidatorMediaTypeManifest.Validate(r)
+		err := schema.ValidatorMediaTypeManifest.Validate(r, nil)
 
 		if got := err != nil; tt.fail != got {
 			t.Errorf("test %d: expected validation failure %t but got %t, err %v", i, tt.fail, got, err)
@@ -214,7 +214,7 @@ func TestBackwardsCompatibilityConfig(t *testing.T) {
 
 		config := convertFormats(tt.config)
 		r := strings.NewReader(config)
-		err := schema.ValidatorMediaTypeImageConfig.Validate(r)
+		err := schema.ValidatorMediaTypeImageConfig.Validate(r, nil)
 
 		if got := err != nil; tt.fail != got {
 			t.Errorf("test %d: expected validation failure %t but got %t, err %v", i, tt.fail, got, err)
