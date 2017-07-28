@@ -90,7 +90,7 @@ $ cat ./blobs/sha256/afff3924849e458c5ef237db5f89539274d5e609db5db935ed3959c90f1
     {
       "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
       "size": 32654,
-      "digest": "sha256:e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f"
+      "digest": "sha256:9834876dcfb05cb167a5c24953eba58c4ac89b1adf57f28f2f9d09af107ee8f0"
     },
 ...
 ```
@@ -119,8 +119,8 @@ $ cat ./blobs/sha256/5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a43335
 ```
 
 ```
-$ cat ./blobs/sha256/e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f
-[tar stream]
+$ cat ./blobs/sha256/9834876dcfb05cb167a5c24953eba58c4ac89b1adf57f28f2f9d09af107ee8f0
+[gzipped tar stream]
 ```
 
 ## oci-layout file
