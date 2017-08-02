@@ -139,7 +139,7 @@ This section defines the `application/vnd.oci.layout.header.v1+json` [media type
 
 ## index.json file
 
-This REQUIRED file is the entry point for references and descriptors of the image-layout.
+This OPTIONAL file is the entry point for references and descriptors of the image-layout.
 The [image index](image-index.md) is a multi-descriptor entry point.
 
 This index provides an established path (`/index.json`) to have an entry point for an image-layout and to discover auxiliary descriptors.
