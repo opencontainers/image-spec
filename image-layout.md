@@ -145,7 +145,7 @@ The [image index](image-index.md) is a multi-descriptor entry point.
 This index provides an established path (`/index.json`) to have an entry point for an image-layout and to discover auxiliary descriptors.
 
 * No semantic restriction is given for the "org.opencontainers.image.ref.name" annotation of descriptors.
-* In general the `mediaType` of each [descriptor][descriptors] object in the `manifests` field will be either `application/vnd.oci.image.index.v1+json` or `application/vnd.oci.image.manifest.v1+json`.
+* In general the `mediaType` of each [descriptor][descriptors] object in the `manifests` field will be `application/vnd.oci.image.manifest.v1+json`.
 * Future versions of the spec MAY use a different mediatype (i.e. a new versioned format).
 * An encountered `mediaType` that is unknown SHOULD be safely ignored.
 
@@ -164,7 +164,7 @@ Those tags will often be represented in an image-layout repository with matching
   "schemaVersion": 2,
   "manifests": [
     {
-      "mediaType": "application/vnd.oci.image.index.v1+json",
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
       "size": 7143,
       "digest": "sha256:0228f90e926ba6b96e4f39cf294b2586d38fbb5a1e385c05cd1ee40ea54fe7fd",
       "annotations": {
