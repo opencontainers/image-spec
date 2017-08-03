@@ -199,7 +199,11 @@ Those tags will often be represented in an image-layout repository with matching
 }
 ```
 
-This illustrates an index that provides two named manifest references and an auxiliary mediatype for this image layout.
+This illustrates an index that provides two named references and an auxiliary mediatype for this image layout.
 
+The first named reference (`stable-release`) points to another index that might contain multiple references with distinct platforms and annotations.
+Note that the [`org.opencontainers.image.ref.name` annotation](annotations.md) SHOULD only be considered valid when on descriptors on `index.json`.
+
+The second named reference (`v1.0`) points to a manifest that is specific to the linux/ppc64le platform.
 
 [descriptors]: ./descriptor.md
