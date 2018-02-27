@@ -235,8 +235,8 @@ func TestConfig(t *testing.T) {
 		r := strings.NewReader(tt.config)
 		err := schema.ValidatorMediaTypeImageConfig.Validate(r)
 
-		if got := err != nil; tt.fail != got {
-			t.Errorf("test %d: expected validation failure %t but got %t, err %v", i, tt.fail, got, err)
+		if got := len(err.Errs) != 0; tt.fail != got {
+			t.Errorf("test %d: expected validation failure %t but got %t, err %v", i, tt.fail, got, err.Error())
 		}
 	}
 }
