@@ -6,6 +6,7 @@ digraph G {
     layer [shape=note, label="Layer tar archive\napplication/vnd.oci.image.layer.v1.tar\napplication/vnd.oci.image.layer.v1.tar+gzip\napplication/vnd.oci.image.layer.nondistributable.v1.tar\napplication/vnd.oci.image.layer.nondistributable.v1.tar+gzip"]
   }
 
+  imageIndex -> imageIndex [label="1..*"]
   imageIndex -> manifest [label="1..*"]
   manifest -> config [label="1..1"]
   manifest -> layer [label="1..*"]
