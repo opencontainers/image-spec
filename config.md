@@ -98,7 +98,7 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
 
 - **author** *string*, OPTIONAL
 
-  Gives the name and/or email address of the person or entity which created and is responsible for maintaining the image.
+  Gives the names and/or email addresses of the persons or entities which created and are responsible for maintaining the image. Multiple names should be comma delimted.
 
 - **architecture** *string*, REQUIRED
 
