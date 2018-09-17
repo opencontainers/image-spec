@@ -53,6 +53,7 @@ var (
 		"https://opencontainers.org/schema/image/index/",
 		"https://opencontainers.org/schema/image/manifest/",
 		"https://opencontainers.org/schema/image/",
+		"https://opencontainers.org/schema/descriptor/",
 		"https://opencontainers.org/schema/",
 	}
 
