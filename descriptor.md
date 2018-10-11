@@ -99,7 +99,7 @@ As an example, we can parameterize the encoding and algorithm as `multihash+base
 Before consuming content targeted by a descriptor from untrusted sources, the byte content SHOULD be verified against the digest string.
 Before calculating the digest, the size of the content SHOULD be verified to reduce hash collision space.
 Heavy processing before calculating a hash SHOULD be avoided.
-Implementations MAY employ [canonicalization](canonicalization.md#canonicalization) of the underlying content to ensure stable content identifiers.
+Implementations MAY employ [canonicalization](considerations.md#canonicalization) of the underlying content to ensure stable content identifiers.
 
 ### Digest calculations
 
