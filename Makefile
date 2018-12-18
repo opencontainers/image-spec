@@ -4,6 +4,10 @@ export GO15VENDOREXPERIMENT
 DOCKER ?= $(shell command -v docker 2>/dev/null)
 PANDOC ?= $(shell command -v pandoc 2>/dev/null)
 
+OUTPUT_DIRNAME	?= output/
+DOC_FILENAME	?= oci-image-spec
+
+PANDOC_CONTAINER ?= docker.io/vbatts/pandoc:1.17.0.3-2.fc25.x86_64
 ifeq "$(strip $(PANDOC))" ''
 	ifneq "$(strip $(DOCKER))" ''
 		PANDOC = $(DOCKER) run \
@@ -13,7 +17,7 @@ ifeq "$(strip $(PANDOC))" ''
 			-v $(shell pwd)/$(OUTPUT_DIRNAME)/:/$(OUTPUT_DIRNAME)/ \
 			-u $(shell id -u) \
 			--workdir /input \
-			docker.io/vbatts/pandoc:1.17.0.3-2.fc25.x86_64
+			$(PANDOC_CONTAINER)
 		PANDOC_SRC := /input/
 		PANDOC_DST := /
 	endif
@@ -36,9 +40,6 @@ DOC_FILES := \
 
 FIGURE_FILES := \
 	img/media-types.png
-
-OUTPUT_DIRNAME		?= output/
-DOC_FILENAME	?= oci-image-spec
 
 EPOCH_TEST_COMMIT ?= v0.2.0
 
