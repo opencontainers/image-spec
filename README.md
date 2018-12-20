@@ -1,4 +1,5 @@
 # OCI Image Format Specification
+
 <div>
 <a href="https://travis-ci.org/opencontainers/image-spec">
 <img src="https://travis-ci.org/opencontainers/image-spec.svg?branch=master"></img>
@@ -30,8 +31,8 @@ At this point the OCI Runtime Bundle would be run by an OCI Runtime.
 
 This entire workflow supports the UX that users have come to expect from container engines like Docker and rkt: primarily, the ability to run an image with no additional arguments:
 
-* docker run example.com/org/app:v1.0.0
-* rkt run example.com/org/app,version=v1.0.0
+- docker run example.com/org/app:v1.0.0
+- rkt run example.com/org/app,version=v1.0.0
 
 To support this UX the OCI Image Format contains sufficient information to launch the application on the target platform (e.g. command, arguments, environment variables, etc).
 
@@ -160,7 +161,6 @@ Read more on [How to Write a Git Commit Message](http://chris.beams.io/posts/git
 7. Use the body to explain what and why vs. how
   * If there was important/useful/essential conversation or information, copy or include a reference
 8. When possible, one keyword to scope the change in the subject (i.e. "README: ...", "runtime: ...")
-
 
 [code-of-conduct]: https://github.com/opencontainers/org/blob/master/CODE_OF_CONDUCT.md
 [UberConference]: https://www.uberconference.com/opencontainers

@@ -46,6 +46,6 @@ Specifications have a variety of different timelines in their lifecycle.
   This means a major release like a v1.0.0 or v2.0.0 release will take 1 month at minimum: one week for rc1, one week for rc2, one week for rc3, and one week for the major release itself.
   Maintainers SHOULD strive to make zero breaking changes during this cycle of release candidates and SHOULD restart the three-candidate count when a breaking change is introduced.
   For example if a breaking change is introduced in v1.0.0-rc2 then the series would end with v1.0.0-rc4 and v1.0.0.
-- Minor and patch releases SHOULD be made on an as-needed basis.
+* Minor and patch releases SHOULD be made on an as-needed basis.
 
 [charter]: https://www.opencontainers.org/about/governance

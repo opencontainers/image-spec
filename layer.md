@@ -46,9 +46,9 @@ Where supported, MUST include file attributes for Additions and Modifications in
 
 * Modification Time (`mtime`)
 * User ID (`uid`)
-    * User Name (`uname`) *secondary to `uid`*
-* Group ID (`gid `)
-    * Group Name (`gname`) *secondary to `gid`*
+  * User Name (`uname`) *secondary to `uid`*
+* Group ID (`gid`)
+  * Group Name (`gname`) *secondary to `gid`*
 * Mode (`mode`)
 * Extended Attributes (`xattrs`)
 * Symlink reference (`linkname` + symbolic link type)
@@ -67,7 +67,7 @@ Where supported, MUST include file attributes for Additions and Modifications in
 * Hardlinks are stored in a tar archive with type of a `1` char, per the [GNU Basic Tar Format][gnu-tar-standard] and [libarchive tar(5)][libarchive-tar].
 * While approaches to deriving new or changed hardlinks may vary, a possible approach is:
 
-```
+```EBNF
 SET LinkMap to map[< Major:Minor String >]map[< inode integer >]< path string >
 SET LinkNames to map[< src path string >]< dest path string >
 FOR each path in root path
@@ -109,7 +109,7 @@ The name of the directory is not relevant to the layer itself, only for the purp
 
 Here is an initial empty directory structure for a changeset, with a unique directory name `rootfs-c9d-v1`.
 
-```
+```shell
 rootfs-c9d-v1/
 ```
 
@@ -117,7 +117,7 @@ rootfs-c9d-v1/
 
 Files and directories are then created:
 
-```
+```shell
 rootfs-c9d-v1/
     etc/
         my-app-config
@@ -129,7 +129,7 @@ rootfs-c9d-v1/
 The `rootfs-c9d-v1` directory is then created as a plain [tar archive][tar-archive] with relative path to `rootfs-c9d-v1`.
 Entries for the following files:
 
-```
+```shell
 ./
 ./etc/
 ./etc/my-app-config
@@ -142,8 +142,9 @@ Entries for the following files:
 
 Create a new directory and initialize it with a copy or snapshot of the prior root filesystem.
 Example commands that can preserve [file attributes](#file-attributes) to make this copy are:
+
 * [cp(1)](http://linux.die.net/man/1/cp): `cp -a rootfs-c9d-v1/ rootfs-c9d-v1.s1/`
-* [rsync(1)](http://linux.die.net/man/1/rsync):  `rsync -aHAX rootfs-c9d-v1/ rootfs-c9d-v1.s1/`
+* [rsync(1)](http://linux.die.net/man/1/rsync): `rsync -aHAX rootfs-c9d-v1/ rootfs-c9d-v1.s1/`
 * [tar(1)](http://linux.die.net/man/1/tar): `mkdir rootfs-c9d-v1.s1 && tar --acls --xattrs -C rootfs-c9d-v1/ -c . | tar -C rootfs-c9d-v1.s1/ --acls --xattrs -x` (including `--selinux` where supported)
 
 Any [changes](#change-types) to the snapshot MUST NOT change or affect the directory it was copied from.
@@ -155,7 +156,7 @@ In this way `rootfs-c9d-v1.s1` is prepared for updates and alterations.
 
 Initial layout of the snapshot:
 
-```
+```shell
 rootfs-c9d-v1.s1/
     etc/
         my-app-config
@@ -171,7 +172,7 @@ Also a change (in attribute or file content) to `./bin/my-app-tools` binary to h
 
 Following these changes, the representation of the `rootfs-c9d-v1.s1` directory:
 
-```
+```shell
 rootfs-c9d-v1.s1/
     etc/
         my-app.d/
@@ -204,12 +205,12 @@ This reflects the removal of `/etc/my-app-config` and creation of a file and dir
 
 A [tar archive][tar-archive] is then created which contains *only* this changeset:
 
-- Added and modified files and directories in their entirety
-- Deleted files or directories marked with a [whiteout file](#whiteouts)
+* Added and modified files and directories in their entirety
+* Deleted files or directories marked with a [whiteout file](#whiteouts)
 
 The resulting tar archive for `rootfs-c9d-v1.s1` has the following entries:
 
-```
+```shell
 ./etc/my-app.d/
 ./etc/my-app.d/default.cfg
 ./bin/my-app-tools
@@ -230,8 +231,9 @@ This section specifies applying an entry from a layer changeset if the target pa
 
 If the entry and the existing path are both directories, then the existing path's attributes MUST be replaced by those of the entry in the changeset.
 In all other cases, the implementation MUST do the semantic equivalent of the following:
-- removing the file path (e.g. [`unlink(2)`](http://linux.die.net/man/2/unlink) on Linux systems)
-- recreating the file path, based on the contents and attributes of the changeset entry
+
+* removing the file path (e.g. [`unlink(2)`](http://linux.die.net/man/2/unlink) on Linux systems)
+* recreating the file path, based on the contents and attributes of the changeset entry
 
 ## Whiteouts
 
@@ -244,7 +246,7 @@ In all other cases, the implementation MUST do the semantic equivalent of the fo
 
 The following is a base layer with several resources:
 
-```
+```shell
 a/
 a/b/
 a/b/c/
@@ -253,7 +255,7 @@ a/b/c/bar
 
 When the next layer is created, the original `a/b` directory is deleted and recreated with `a/b/c/foo`:
 
-```
+```shell
 a/
 a/.wh..wh..opq
 a/b/
@@ -264,7 +266,7 @@ a/b/c/foo
 When processing the second layer, `a/.wh..wh..opq` is applied first, before creating the new version of `a/b`, regardless of the ordering in which the whiteout file was encountered.
 For example, the following layer is equivalent to the layer above:
 
-```
+```shell
 a/
 a/b/
 a/b/c/
@@ -281,7 +283,7 @@ Implementations SHOULD generate layers such that the whiteout files appear befor
 
 Let's take the following base layer as an example:
 
-```
+```shell
 etc/
 	my-app-config
 bin/
@@ -293,7 +295,7 @@ bin/
 
 If all children of `bin/` are removed, the next layer would have the following:
 
-```
+```shell
 bin/
 	.wh..wh..opq
 ```
@@ -302,7 +304,7 @@ This is called _opaque whiteout_ format.
 An _opaque whiteout_ file hides _all_ children of the `bin/` including sub-directories and all descendants.
 Using _explicit whiteout_ files, this would be equivalent to the following:
 
-```
+```shell
 bin/
 	.wh.my-app-binary
 	.wh.my-app-tools
