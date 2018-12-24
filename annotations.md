@@ -47,7 +47,7 @@ This specification defines the following annotation keys, intended for but not l
 
 While users are encouraged to use the **org.opencontainers.image** keys, tools MAY choose to support compatible annotations using the **org.label-schema** prefix as follows.
 
-| `org.opencontainers.image` prefix | `org.label-schema prefix` | Compatibility notes |
+| `org.opencontainers.image` prefix | `org.label-schema` prefix | Compatibility notes |
 |---------------------------|-------------------------|---------------------|
 | `created` | `build-date` | Compatible |
 | `url` | `url` | Compatible |
