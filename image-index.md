@@ -4,6 +4,7 @@ The image index is a higher-level manifest which points to specific [image manif
 While the use of an image index is OPTIONAL for image providers, image consumers SHOULD be prepared to process them.
 
 This section defines the `application/vnd.oci.image.index.v1+json` [media type](media-types.md).
+
 For the media type(s) that this document is compatible with, see the [matrix][matrix].
 
 ## *Image Index* Property Descriptions
@@ -40,7 +41,7 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 
     Image indexes concerned with portability SHOULD use one of the above media types.
     Future versions of the spec MAY use a different mediatype (i.e. a new versioned format).
-    An encountered `mediaType` that is unknown SHOULD be safely ignored.
+    An encountered `mediaType` that is unknown to the implementation MUST be ignored.
 
   - **`platform`** *object*
 
