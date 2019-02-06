@@ -61,4 +61,8 @@ type Platform struct {
 	// Variant is an optional field specifying a variant of the CPU, for
 	// example `v7` to specify ARMv7 when architecture is `arm`.
 	Variant string `json:"variant,omitempty"`
+
+	// Features is an optional field specifying an array of strings,
+	// each listing a required general feature (CPU feature like `avx512` or CUDA driver version).
+	Features []string `json:"features,omitempty"`
 }
