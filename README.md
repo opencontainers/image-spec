@@ -14,7 +14,7 @@ The Go types and validation should be compatible with the current Go release; ea
 
 Additional documentation about how this group operates:
 
-- [Code of Conduct](code-of-conduct)
+- [Code of Conduct][code-of-conduct]
 - [Roadmap](#roadmap)
 - [Releases](RELEASES.md)
 - [Project Documentation](project.md)
@@ -162,7 +162,7 @@ Read more on [How to Write a Git Commit Message](http://chris.beams.io/posts/git
 8. When possible, one keyword to scope the change in the subject (i.e. "README: ...", "runtime: ...")
 
 
-[code-of-conduct]: https://github.com/opencontainers/org/blob/master/.github/CODE_OF_CONDUCT.md
+[code-of-conduct]: https://github.com/opencontainers/org/blob/master/CODE_OF_CONDUCT.md
 [UberConference]: https://www.uberconference.com/opencontainers
 [irc-logs]: http://ircbot.wl.linuxfoundation.org/eavesdrop/%23opencontainers/
 [minutes]: http://ircbot.wl.linuxfoundation.org/meetings/opencontainers/
