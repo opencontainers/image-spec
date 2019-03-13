@@ -107,6 +107,7 @@ The following is an example of the image manifest, used for comparison to other 
       "digest": "sha256:9a1a13172ed974323f7c35153e8b23b8fa1c85355b6b26cc3127e640e45ef0aa"
     }
   ]
+}
 ```
 
 ### Doc manifest example
@@ -132,6 +133,7 @@ The manifest uses `config.mediaType`=`application/vnd.tbd.doc.config.v1+json` to
       "digest": "sha256:8a7d13172ed974323f7c35153e8b23b8fa1c85355b6b26cc3127e640712927dd"
     }
   ]
+}
 ```
 
 
@@ -162,6 +164,7 @@ image:tag = `hello-world:1.0`
       "digest": "sha256:7d6da8aa18aa02a2f083292b9448130a3afaa9a3e5fba24fc0aef7845c336c6bd"
     }
   ]
+}
 ```
 
 
