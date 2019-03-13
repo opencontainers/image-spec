@@ -1,0 +1,35 @@
+{
+    "schemaVersion": 1,
+    "mediaTypes": [
+        {
+            "mediaType": "application/vnd.oci.image.config.v1+json",
+            "title": "OCI Image",
+            "description": "OCI Image Format",
+            "icon.svg": "https://github.com/opencontainers/artwork/blob/master/oci/icon/color/oci-icon-color.svg",
+            "icon.png": "https://github.com/opencontainers/artwork/blob/master/oci/icon/color/oci-icon-color.png",
+            "moreInfo": "https://www.opencontainers.org/",
+            "tools": [
+                {
+                    "title": "OCI Tools",
+                    "installer": "https://github.com/opencontainers/runtime-tools"
+                }
+            ],
+            "schemaValidation": "https://github.com/opencontainers/image-spec/blob/master/schema/config-schema.json"
+        },
+        {
+            "mediaType": "application/vnd.cncf.helm.config.v3+json",
+            "title": "Helm Chart",
+            "description": "The package manager for Kubernetes",
+            "icon.svg": "https://github.com/helm/helm/blob/master/docs/logos/helm-blue-vector.svg",
+            "icon.png": "https://github.com/helm/helm/blob/master/docs/logos/helm_logo_transparent.png",
+            "moreInfo": "https://helm.sh/",
+            "tools": [
+                {
+                    "title": "Helm",
+                    "installer": "https://github.com/helm/helm#install"
+                }
+            ],
+            "schemaValidation": "none"
+        }
+    ]
+}
