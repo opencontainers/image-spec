@@ -35,12 +35,19 @@ This entire workflow supports the UX that users have come to expect from contain
 
 To support this UX the OCI Image Format contains sufficient information to launch the application on the target platform (e.g. command, arguments, environment variables, etc).
 
+## Additional Artifact Types
+
+The OCI image spec provides the core elements required for additional artifact types, including [Helm](https://helm.sh/), [CNAB](https://cnab.io) and existing artifacts like Azure Resource Manager (ARM) or AWS Cloud Formation Templates. By utilizing the image-spec core elements, additional tool authors and registry implementors can easily support new artifact types, benefiting from the common infrastructure to deploy container images. 
+
+Within the [image-spec](https://github.com/opencontainers/image-spec/) and [distribution-spec](https://github.com/opencontainers/distribution-spec/), additional details are provided identifying what new artifact authors and registry owners would need to implement and support. 
+
+Tools that work over specific artifact types, like container images, are not required to support other artifact types, like Helm Charts. To discern the artifact type, the spec provides information for identifying the specific artifact type. 
+
+## Distribution
+
+Images and other artifacts may be stored in registries as defined by the [open containers distribution spec](https://github.com/opencontainers/distribution-spec/). 
+
 ## FAQ
-
-**Q: Why doesn't this project mention distribution?**
-
-A: Distribution, for example using HTTP as both Docker v2.2 and AppC do today, is currently out of scope on the [OCI Scope Table](https://www.opencontainers.org/about/oci-scope-table).
-There has been [some discussion on the TOB mailing list](https://groups.google.com/a/opencontainers.org/d/msg/tob/A3JnmI-D-6Y/tLuptPDHAgAJ) to make distribution an optional layer, but this topic is a work in progress.
 
 **Q: What happens to AppC or Docker Image Formats?**
 

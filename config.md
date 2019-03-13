@@ -5,6 +5,8 @@ This specification outlines the JSON format describing images for use with a con
 
 This section defines the `application/vnd.oci.image.config.v1+json` [media type](media-types.md).
 
+For Artifact configuration, see [artifacts/mediaType](./artifacts/mediaTypes.md)
+
 ## Terminology
 
 This specification uses the following terms:
