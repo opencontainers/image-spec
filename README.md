@@ -37,7 +37,7 @@ To support this UX the OCI Image Format contains sufficient information to launc
 
 ## Additional Artifact Types
 
-The OCI image spec provides the core elements required for additional artifact types, including [Helm](https://helm.sh/), [CNAB](https://cnab.io) and existing artifacts like Azure Resource Manager (ARM) or AWS Cloud Formation Templates. By utilizing the image-spec core elements, additional tool authors and registry implementors can easily support new artifact types, benefiting from the common infrastructure to deploy container images. 
+The OCI image spec provides the core elements required for additional artifact types, including [Helm](https://helm.sh/), [CNAB](https://cnab.io) and existing artifacts like Azure Resource Manager (ARM) Templates. By utilizing the image-spec core elements, additional tool authors and registry implementors can easily support new artifact types, benefiting from the common infrastructure to deploy container images. 
 
 Within the [image-spec](https://github.com/opencontainers/image-spec/) and [distribution-spec](https://github.com/opencontainers/distribution-spec/), additional details are provided identifying what new artifact authors and registry owners would need to implement and support. 
 
