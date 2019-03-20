@@ -45,7 +45,7 @@ New artifacts MUST choose from 3 options for how the `config` object is processe
 
 - Support the [`application/vnd.oci.image.config.v1+json`](../config.md) schema
 - Define a new schema, which artifact specific tools would need to support
-- Define a `null` schema, where the artifact only uses the `config.mediaType` to identify it's unique artifact type. 
+- Define a `null` schema, where the artifact only uses the `config.mediaType` to identify its unique artifact type. 
 
 Artifact authors MAY publicize their schema in [./mediaTypeMappings.json]() through a pull request.
 
@@ -139,7 +139,7 @@ The manifest uses `config.mediaType`=`application/vnd.tbd.doc.config.v1+json` to
 
 ## OCI image index
 
-An OCI index is a higher-level manifest which contains a collection of image manifests, typically used for one or more platforms. In this example, the image index is used to group an image an it's associated docs. 
+An OCI index is a higher-level manifest which contains a collection of image manifests, typically used for one or more platforms. In this example, the image index is used to group an image an its associated docs. 
 
 > **Note:**  The artifact spec does not account for a new typed index. The proposal focuses on manifest being the unique artifact type.
 
