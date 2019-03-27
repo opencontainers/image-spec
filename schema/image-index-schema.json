@@ -67,6 +67,12 @@
               },
               "variant": {
                 "type": "string"
+              },
+              "features": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               }
             }
           },
