@@ -91,7 +91,7 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
          - CPU type (*haswell*, *broadwell*, *skylake*, *ryzen*)
          - GPU [NVIDIA Compute Capability](https://developer.nvidia.com/cuda-gpus) (3.7, 6.1)
          - Host name, to separate different types in a data center without flushing out all the specifics (*ComputeNode-20190213*, *storage-2019*)
-        By using this feature flag, a manifest list is able to provide specific images for certain hosts.
+        By using this feature flag, an image index is able to provide specific images for certain hosts.
 
 - **`annotations`** *string-string map*
 
