@@ -90,7 +90,7 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
         This OPTIONAL property specifies an array of strings, each specifying a mandatory hardware/host feature. Examples are:
          - CPU type (*haswell*, *broadwell*, *skylake*, *ryzen*)
          - GPU [NVIDIA Compute Capability](https://developer.nvidia.com/cuda-gpus) (3.7, 6.1)
-         - Host name, to separate different types in a data center without flushing out all the specifics (*ComputeNode-20190213*, *storage-2019*)
+         - Host name, to separate different types in a data center without flushing out all the specifics (*compute-20190213*, *storage-2019*)
         By using this feature flag, an image index is able to provide specific images for certain hosts.
 
 - **`annotations`** *string-string map*
