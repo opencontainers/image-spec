@@ -49,6 +49,10 @@ This specification defines the following annotation keys, intended for but not l
   * This SHOULD be the immediate image sharing zero-indexed layers with the image, such as from a Dockerfile `FROM` statement.
   * This SHOULD NOT reference any other images used to generate the contents of the image (e.g., multi-stage Dockerfile builds).
   * If the `image.base.name` annotation is specified, the `image.base.digest` annotation SHOULD be the digest of the manifest referenced by the `image.ref.name` annotation.
+* **org.opencontainers.image.org.opencontainers.image.enc.keys.pkcs7** Base64 comma separated [PKCS7(RFC2315)](https://tools.ietf.org/html/rfc2315) encrypted messages that contain wrapped PrivateLayerBlockCipherOptions JSON objects for [encryption](layer.md#layer-encryption)
+* **org.opencontainers.image.org.opencontainers.image.enc.keys.jwe** Base64 comma separated [JWE(RFC7516)](https://tools.ietf.org/html/rfc7516) encrypted messages that contain wrapped PrivateLayerBlockCipherOptions JSON objects for [encryption](layer.md#layer-encryption)
+* **org.opencontainers.image.org.opencontainers.image.enc.keys.openpgp** Base64 comma separated [OpenPGP(RFC4880)](https://tools.ietf.org/html/rfc4880) encrypted messages that contain wrapped PrivateLayerBlockCipherOptions JSON objects for [encryption](layer.md#layer-encryption)
+* **org.opencontainers.image.org.opencontainers.image.enc.pubopts** Base64 encoded PublicLayerBlockCipherOptions JSON object for [encryption](layer.md#layer-encryption)
 
 ## Back-compatibility with Label Schema
 

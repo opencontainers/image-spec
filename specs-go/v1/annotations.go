@@ -59,4 +59,16 @@ const (
 
 	// AnnotationBaseImageName is the annotation key for the image reference of the image's base image.
 	AnnotationBaseImageName = "org.opencontainers.image.base.name"
+
+	// AnnotationEncryptionKeysPkcs7 is the annotation key for the base64 encoded encrypted
+	// messages containing metadata for decrypting encrypted data blobs.
+	AnnotationEncryptionKeysPkcs7 = "org.opencontainers.image.enc.keys.pkcs7"
+
+	// AnnotationEncryptionKeysJwe is the annotation key for the base64 encoded encrypted
+	// messages containing metadata for decrypting encrypted data blobs.
+	AnnotationEncryptionKeysJwe = "org.opencontainers.image.enc.keys.jwe"
+
+	// AnnotationEncryptionKeysOpenPgp is the annotation key for the base64 encoded encrypted
+	// messages containing metadata for decrypting encrypted data blobs.
+	AnnotationEncryptionKeysOpenPgp = "org.opencontainers.image.enc.keys.openpgp"
 )

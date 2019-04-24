@@ -30,6 +30,10 @@ const (
 	// MediaTypeImageLayer is the media type used for layers referenced by the manifest.
 	MediaTypeImageLayer = "application/vnd.oci.image.layer.v1.tar"
 
+	// MediaTypeImageLayerEnc is the media type used for encrypted layers
+	// referenced by the manifest.
+	MediaTypeImageLayerEnc = "application/vnd.oci.image.layer.v1.tar+encrypted"
+
 	// MediaTypeImageLayerGzip is the media type used for gzipped layers
 	// referenced by the manifest.
 	MediaTypeImageLayerGzip = "application/vnd.oci.image.layer.v1.tar+gzip"
@@ -37,6 +41,10 @@ const (
 	// MediaTypeImageLayerZstd is the media type used for zstd compressed
 	// layers referenced by the manifest.
 	MediaTypeImageLayerZstd = "application/vnd.oci.image.layer.v1.tar+zstd"
+
+	// MediaTypeImageLayerGzipEnc is the media type used for encrypted
+	// gzipped layers referenced by the manifest.
+	MediaTypeImageLayerGzipEnc = "application/vnd.oci.image.layer.v1.tar+gzip+encrypted"
 
 	// MediaTypeImageLayerNonDistributable is the media type for layers referenced by
 	// the manifest but with distribution restrictions.
@@ -51,6 +59,15 @@ const (
 	// compressed layers referenced by the manifest but with distribution
 	// restrictions.
 	MediaTypeImageLayerNonDistributableZstd = "application/vnd.oci.image.layer.nondistributable.v1.tar+zstd"
+
+	// MediaTypeImageLayerNonDistributableEnc is the media type for encrypted
+	// layers referenced by the manifest but with distribution restrictions.
+	MediaTypeImageLayerNonDistributableEnc = "application/vnd.oci.image.layer.nondistributable.v1.tar+encrypted"
+
+	// MediaTypeImageLayerNonDistributableGzipEnc is the media type for
+	// gzipped and encrypted layers referenced by the manifest but with
+	// distribution restrictions.
+	MediaTypeImageLayerNonDistributableGzipEnc = "application/vnd.oci.image.layer.nondistributable.v1.tar+gzip+encrypted"
 
 	// MediaTypeImageConfig specifies the media type for the image configuration.
 	MediaTypeImageConfig = "application/vnd.oci.image.config.v1+json"
