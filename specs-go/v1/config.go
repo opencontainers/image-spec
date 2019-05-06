@@ -89,6 +89,9 @@ type Image struct {
 	// Architecture is the CPU architecture which the binaries in this image are built to run on.
 	Architecture string `json:"architecture"`
 
+	// Variant is the variant of the specified CPU architecture which image binaries are intended to run on.
+	Variant string `json:"variant,omitempty"`
+
 	// OS is the name of the operating system which the image is built to run on.
 	OS string `json:"os"`
 

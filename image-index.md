@@ -76,15 +76,7 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
     - **`variant`** *string*
 
         This OPTIONAL property specifies the variant of the CPU.
-        Image indexes SHOULD use, and implementations SHOULD understand, values listed in the following table.
-        When the variant of the CPU is not listed in the table, values are implementation-defined and SHOULD be submitted to this specification for standardization.
-
-        | ISA/ABI         | `architecture` | `variant`   |
-        |-----------------|----------------|-------------|
-        | ARM 32-bit, v6  | `arm`          | `v6`        |
-        | ARM 32-bit, v7  | `arm`          | `v7`        |
-        | ARM 32-bit, v8  | `arm`          | `v8`        |
-        | ARM 64-bit, v8  | `arm64`        | `v8`        |
+        Image indexes SHOULD use, and implementations SHOULD understand, `variant` values listed in the [Platform Variants](#platform-variants) table.
 
     - **`features`** *array of strings*
 
@@ -96,6 +88,16 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
     This OPTIONAL property MUST use the [annotation rules](annotations.md#rules).
 
     See [Pre-Defined Annotation Keys](annotations.md#pre-defined-annotation-keys).
+
+## Platform Variants
+When the variant of the CPU is not listed in the table, values are implementation-defined and SHOULD be submitted to this specification for standardization.
+
+| ISA/ABI         | `architecture` | `variant`   |
+|-----------------|----------------|-------------|
+| ARM 32-bit, v6  | `arm`          | `v6`        |
+| ARM 32-bit, v7  | `arm`          | `v7`        |
+| ARM 32-bit, v8  | `arm`          | `v8`        |
+| ARM 64-bit, v8  | `arm64`        | `v8`        |
 
 ## Example Image Index
 

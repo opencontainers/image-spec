@@ -105,6 +105,11 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
   The CPU architecture which the binaries in this image are built to run on.
   Configurations SHOULD use, and implementations SHOULD understand, values listed in the Go Language document for [`GOARCH`][go-environment].
 
+- **variant** *string*, OPTIONAL
+
+  The variant of the specified CPU architecture.
+  Configurations SHOULD use, and implementations SHOULD understand, `variant` values listed in the [Platform Variants](image-index.md#platform-variants) table.
+
 - **os** *string*, REQUIRED
 
   The name of the operating system which the image is built to run on.
