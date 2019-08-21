@@ -4,12 +4,17 @@ This document describes how to serialize a filesystem and filesystem changes lik
 One or more layers are applied on top of each other to create a complete filesystem.
 This document will use a concrete example to illustrate how to create and consume these filesystem layers.
 
-This section defines the `application/vnd.oci.image.layer.v1.tar`, `application/vnd.oci.image.layer.v1.tar+gzip`, `application/vnd.oci.image.layer.nondistributable.v1.tar`, and `application/vnd.oci.image.layer.nondistributable.v1.tar+gzip` [media types](media-types.md).
+This section defines the `application/vnd.oci.image.layer.v1.tar`, `application/vnd.oci.image.layer.v1.tar+gzip`, `application/vnd.oci.image.layer.v1.tar+zstd`, `application/vnd.oci.image.layer.nondistributable.v1.tar`, `application/vnd.oci.image.layer.nondistributable.v1.tar+gzip`, and `application/vnd.oci.image.layer.nondistributable.v1.tar+zstd` [media types](media-types.md).
 
 ## `+gzip` Media Types
 
 * The media type `application/vnd.oci.image.layer.v1.tar+gzip` represents an `application/vnd.oci.image.layer.v1.tar` payload which has been compressed with [gzip][rfc1952_2].
 * The media type `application/vnd.oci.image.layer.nondistributable.v1.tar+gzip` represents an `application/vnd.oci.image.layer.nondistributable.v1.tar` payload which has been compressed with [gzip][rfc1952_2].
+
+## `+zstd` Media Types
+
+* The media type `application/vnd.oci.image.layer.v1.tar+zstd` represents an `application/vnd.oci.image.layer.v1.tar` payload which has been compressed with [zstd][rfc8478].
+* The media type `application/vnd.oci.image.layer.nondistributable.v1.tar+zstd` represents an `application/vnd.oci.image.layer.nondistributable.v1.tar` payload which has been compressed with [zstd][rfc8478].
 
 ## Distributable Format
 
@@ -331,3 +336,4 @@ Implementations SHOULD NOT upload layers tagged with this media type; however, s
 [gnu-tar-standard]: http://www.gnu.org/software/tar/manual/html_node/Standard.html
 [rfc1952_2]: https://tools.ietf.org/html/rfc1952
 [tar-archive]: https://en.wikipedia.org/wiki/Tar_(computing)
+[rfc8478]: https://tools.ietf.org/html/rfc8478
