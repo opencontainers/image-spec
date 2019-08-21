@@ -9,8 +9,10 @@ The following media types identify the formats described here and their referenc
 - `application/vnd.oci.image.config.v1+json`: [Image config](config.md)
 - `application/vnd.oci.image.layer.v1.tar`: ["Layer", as a tar archive](layer.md)
 - `application/vnd.oci.image.layer.v1.tar+gzip`: ["Layer", as a tar archive](layer.md#gzip-media-types) compressed with [gzip][rfc1952]
+- `application/vnd.oci.image.layer.v1.tar+zstd`: ["Layer", as a tar archive](layer.md#zstd-media-types) compressed with [zstd][rfc8478]
 - `application/vnd.oci.image.layer.nondistributable.v1.tar`: ["Layer", as a tar archive with distribution restrictions](layer.md#non-distributable-layers)
 - `application/vnd.oci.image.layer.nondistributable.v1.tar+gzip`: ["Layer", as a tar archive with distribution restrictions](layer.md#gzip-media-types) compressed with [gzip][rfc1952]
+- `application/vnd.oci.image.layer.nondistributable.v1.tar+zstd`: ["Layer", as a tar archive with distribution restrictions](layer.md#zstd-media-types) compressed with [zstd][rfc8478]
 
 ## Media Type Conflicts
 
@@ -66,3 +68,4 @@ The following figure shows how the above media types reference each other:
 The image-index being a "fat manifest" references a list of image manifests per target platform. An image manifest references exactly one target configuration and possibly many layers.
 
 [rfc1952]: https://tools.ietf.org/html/rfc1952
+[rfc8478]: https://tools.ietf.org/html/rfc8478
