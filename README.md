@@ -73,9 +73,8 @@ When in doubt, start on the [mailing-list](#mailing-list).
 
 ## Meetings
 
-Please see the [OCI org repository README](https://github.com/opencontainers/org#meetings) for the most up-to-date
-information on OCI contributor and maintainer meeting schedules. You can also find links to meeting agendas and
-minutes for all prior meetings.
+Please see the [OCI org repository README](https://github.com/opencontainers/org#meetings) for the most up-to-date information on OCI contributor and maintainer meeting schedules. 
+You can also find links to meeting agendas and minutes for all prior meetings.
 
 ## Mailing List
 
