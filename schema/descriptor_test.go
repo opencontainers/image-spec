@@ -97,7 +97,7 @@ func TestDescriptor(t *testing.T) {
 			fail: false,
 		},
 
-		// expected success: mediaType does not match pattern (type too long)
+		// expected failure: mediaType does not match pattern (type too long)
 		{
 			descriptor: `
 {
@@ -109,7 +109,7 @@ func TestDescriptor(t *testing.T) {
 			fail: true,
 		},
 
-		// expected success: mediaType does not match pattern (subtype too long)
+		// expected failure: mediaType does not match pattern (subtype too long)
 		{
 			descriptor: `
 {
