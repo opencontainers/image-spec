@@ -352,7 +352,7 @@ The encryption metadata consists of 2 parts: PublicLayerBlockCipherOptions and P
 
 Below are golang definitions of these JSON objects:
 
-```
+```go
 // LayerCipherType is the ciphertype as specified in the layer metadata
 type LayerCipherType string
 
