@@ -41,7 +41,7 @@ DOC_FILES := \
 FIGURE_FILES := \
 	img/media-types.png
 
-EPOCH_TEST_COMMIT ?= v0.2.0
+EPOCH_TEST_COMMIT ?= v1.0.1
 
 TOOLS := esc gitvalidation glide glide-vc
 
