@@ -44,7 +44,7 @@ FIGURE_FILES := \
 
 EPOCH_TEST_COMMIT ?= 5f4a1bf342431c59a27617c6471ff3d41a1dbf81
 
-TOOLS := lint esc gitvalidation glide glide-vc
+TOOLS := lint esc gitvalidation
 
 default: check-license lint test
 
@@ -128,12 +128,6 @@ install.tools: $(TOOLS:%=.install.%)
 
 .install.gitvalidation:
 	go get -u github.com/vbatts/git-validation
-
-.install.glide:
-	go get -u github.com/Masterminds/glide
-
-.install.glide-vc:
-	go get -u github.com/sgotti/glide-vc
 
 clean:
 	rm -rf *~ $(OUTPUT_DIRNAME) header.html
