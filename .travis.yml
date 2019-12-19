@@ -1,8 +1,8 @@
 language: go
 go:
-  - 1.10.x
   - 1.11.x
   - 1.12.x
+  - 1.13.x
 
 sudo: required
 
@@ -13,11 +13,9 @@ before_script:
   - export PATH=$HOME/gopath/bin:$PATH
 
 before_install:
-  - docker pull vbatts/pandoc
-  - make install.tools
-  - go get -u github.com/alecthomas/gometalinter
-  - gometalinter --install
+  - go mod vendor || true
   - go get -t -d ./...
+  - make install.tools
 
 install: true
 

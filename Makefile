@@ -41,9 +41,9 @@ DOC_FILES := \
 FIGURE_FILES := \
 	img/media-types.png
 
-EPOCH_TEST_COMMIT ?= v1.0.1
+EPOCH_TEST_COMMIT ?= 5f4a1bf342431c59a27617c6471ff3d41a1dbf81
 
-TOOLS := esc gitvalidation glide glide-vc
+TOOLS := lint esc gitvalidation glide glide-vc
 
 default: check-license lint test
 
@@ -98,7 +98,7 @@ check-license:
 
 lint:
 	@echo "checking lint"
-	@./.tool/lint
+	@golangci-lint run -v
 
 test: schema/fs.go
 	go test -race -cover $(shell go list ./... | grep -v /vendor/)
@@ -117,6 +117,10 @@ else
 endif
 
 install.tools: $(TOOLS:%=.install.%)
+
+# copied from their docs https://github.com/golangci/golangci-lint#binary
+.install.lint:
+	curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(shell go env GOPATH)/bin v1.21.0
 
 .install.esc:
 	go get -u github.com/mjibson/esc
