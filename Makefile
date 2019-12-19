@@ -13,6 +13,7 @@ ifeq "$(strip $(PANDOC))" ''
 		PANDOC = $(DOCKER) run \
 			-it \
 			--rm \
+			--security-opt='label=disable' \
 			-v $(shell pwd)/:/input/:ro \
 			-v $(shell pwd)/$(OUTPUT_DIRNAME)/:/$(OUTPUT_DIRNAME)/ \
 			-u $(shell id -u) \
