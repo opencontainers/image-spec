@@ -90,6 +90,7 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
     See [Pre-Defined Annotation Keys](annotations.md#pre-defined-annotation-keys).
 
 ## Platform Variants
+
 When the variant of the CPU is not listed in the table, values are implementation-defined and SHOULD be submitted to this specification for standardization.
 
 | ISA/ABI         | `architecture` | `variant`   |
