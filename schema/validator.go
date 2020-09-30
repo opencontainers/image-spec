@@ -23,7 +23,7 @@ import (
 	"regexp"
 
 	digest "github.com/opencontainers/go-digest"
-	"github.com/opencontainers/image-spec/specs-go/v1"
+	v1 "github.com/opencontainers/image-spec/specs-go/v1"
 	"github.com/pkg/errors"
 	"github.com/xeipuuv/gojsonschema"
 )
@@ -204,8 +204,8 @@ func validateConfig(r io.Reader) error {
 
 func checkArchitecture(Architecture string, Variant string) {
 	validCombins := map[string][]string{
-		"arm":      {"v6", "v7", "v8"},
-		"arm64":    {"v8"},
+		"arm":      {"", "v6", "v7", "v8"},
+		"arm64":    {"", "v8"},
 		"386":      {""},
 		"amd64":    {""},
 		"ppc64":    {""},
@@ -246,7 +246,7 @@ func checkPlatform(OS string, Architecture string) {
 					return
 				}
 			}
-			fmt.Printf("warning: combination of OS %q and architecture %q is invalid.\n", OS, Architecture)
+			fmt.Printf("warning: combination of os %q and architecture %q is invalid.\n", OS, Architecture)
 		}
 	}
 	fmt.Printf("warning: operating system %q of the bundle is not supported yet.\n", OS)
