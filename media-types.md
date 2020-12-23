@@ -38,25 +38,40 @@ This section shows where the OCI Image Specification is compatible with formats 
 
 **Similar/related schema**
 
-- [application/vnd.docker.distribution.manifest.list.v2+json](https://github.com/docker/distribution/blob/master/docs/spec/manifest-v2-2.md#manifest-list) - mediaType is different
+- [application/vnd.docker.distribution.manifest.list.v2+json](https://github.com/distribution/distribution/blob/master/docs/spec/manifest-v2-2.md#manifest-list)
+  - `.mediaType`: only present in Docker, and reserved in OCI
+  - `.annotations`: only present in OCI
+  - `.[]manifests.annotations`: only present in OCI
+  - `.[]manifests.urls`: only present in OCI
 
 ### application/vnd.oci.image.manifest.v1+json
 
 **Similar/related schema**
 
-- [application/vnd.docker.distribution.manifest.v2+json](https://github.com/docker/distribution/blob/master/docs/spec/manifest-v2-2.md#image-manifest-field-descriptions)
+- [application/vnd.docker.distribution.manifest.v2+json](https://github.com/distribution/distribution/blob/master/docs/spec/manifest-v2-2.md#image-manifest-field-descriptions)
+  - `.mediaType`: only present in Docker, and reserved in OCI
+  - `.annotations`: only present in OCI
+  - `.config.annotations`: only present in OCI
+  - `.config.urls`: only present in OCI
+  - `.[]layers.annotations`: only present in OCI
 
 ### application/vnd.oci.image.layer.v1.tar+gzip
 
 **Interchangeable and fully compatible mime-types**
 
-- [application/vnd.docker.image.rootfs.diff.tar.gzip](https://github.com/docker/docker/blob/master/image/spec/v1.md#creating-an-image-filesystem-changeset)
+- [application/vnd.docker.image.rootfs.diff.tar.gzip](https://github.com/moby/moby/blob/v20.10.8/image/spec/v1.2.md#creating-an-image-filesystem-changeset)
 
 ### application/vnd.oci.image.config.v1+json
 
 **Similar/related schema**
 
-- [application/vnd.docker.container.image.v1+json](https://github.com/docker/docker/blob/master/image/spec/v1.md#image-json-description)
+- [application/vnd.docker.container.image.v1+json](https://github.com/moby/moby/blob/v20.10.8/image/spec/v1.2.md#image-json-description) (Docker Image Spec v1.2)
+  - `.config.Memory`: only present in Docker, and reserved in OCI
+  - `.config.MemorySwap`: only present in Docker, and reserved in OCI
+  - `.config.CpuShares`: only present in Docker, and reserved in OCI
+  - `.config.Healthcheck`: only present in Docker, and reserved in OCI
+
+`.config.StopSignal` and `.config.Labels` are accidentally undocumented in Docker Image Spec v1.2, but these fields are not OCI-specific concepts.
 
 ## Relations
 
