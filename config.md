@@ -183,6 +183,22 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
 
     The field contains the system call signal that will be sent to the container to exit. The signal can be a signal name in the format `SIGNAME`, for instance `SIGKILL` or `SIGRTMIN+3`.
 
+  - **Memory** *integer*, OPTIONAL
+
+    This property is *reserved* for use, to [maintain compatibility](media-types.md#compatibility-matrix).
+
+  - **MemorySwap** *integer*, OPTIONAL
+
+    This property is *reserved* for use, to [maintain compatibility](media-types.md#compatibility-matrix).
+
+  - **CpuShares** *integer*, OPTIONAL
+
+    This property is *reserved* for use, to [maintain compatibility](media-types.md#compatibility-matrix).
+
+  - **Healthcheck** *object*, OPTIONAL
+
+    This property is *reserved* for use, to [maintain compatibility](media-types.md#compatibility-matrix).
+
 - **rootfs** *object*, REQUIRED
 
    The rootfs key references the layer content addresses used by the image.
