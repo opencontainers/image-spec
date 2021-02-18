@@ -53,4 +53,10 @@ const (
 
 	// AnnotationDescription is the annotation key for the human-readable description of the software packaged in the image.
 	AnnotationDescription = "org.opencontainers.image.description"
+
+	// AnnotationBaseImageDigest is the annotation key for the digest of the image's base image.
+	AnnotationBaseImageDigest = "org.opencontainers.image.base.digest"
+
+	// AnnotationBaseImageRefName is the annotation key for the image reference of the image's base image.
+	AnnotationBaseImageRefName = "org.opencontainers.image.base.ref.name"
 )
