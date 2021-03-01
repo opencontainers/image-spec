@@ -19,8 +19,6 @@ Additional documentation about how this group operates:
 - [Releases](RELEASES.md)
 - [Project Documentation](project.md)
 
-The _optional_ and _base_ layers of all OCI projects are tracked in the [OCI Scope Table](https://www.opencontainers.org/about/oci-scope-table).
-
 ## Running an OCI Image
 
 The OCI Image Format partner project is the [OCI Runtime Spec project](https://github.com/opencontainers/runtime-spec).
