@@ -35,6 +35,9 @@ type Descriptor struct {
 	// Annotations contains arbitrary metadata relating to the targeted content.
 	Annotations map[string]string `json:"annotations,omitempty"`
 
+	// Data is an embedding of the targeted content.
+	Data []byte `json:"data,omitempty"`
+
 	// Platform describes the platform which the image in the manifest runs on.
 	//
 	// This should only be used when referring to a manifest.

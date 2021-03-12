@@ -41,20 +41,18 @@ The following fields contain the primary properties that constitute a Descriptor
 
 - **`annotations`** *string-string map*
 
-    This OPTIONAL property contains arbitrary metadata for this descriptor.
-    This OPTIONAL property MUST use the [annotation rules](annotations.md#rules).
+  This OPTIONAL property contains arbitrary metadata for this descriptor.
+  This OPTIONAL property MUST use the [annotation rules](annotations.md#rules).
+
+- **`data`** *string*
+
+  This OPTIONAL property contains an embedded representation of the referenced content.
+  Values MUST conform to the Base 64 encoding, as defined in [RFC 4648][rfc4648-s4].
 
 Descriptors pointing to [`application/vnd.oci.image.manifest.v1+json`](manifest.md) SHOULD include the extended field `platform`, see [Image Index Property Descriptions](image-index.md#image-index-property-descriptions) for details.
 
 ### Reserved
 
-The following field keys are reserved and MUST NOT be used by other specifications.
-
-- **`data`** *string*
-
-  This key is RESERVED for future versions of the specification.
-
-All other fields may be included in other OCI specifications.
 Extended _Descriptor_ field additions proposed in other OCI specifications SHOULD first be considered for addition into this specification.
 
 ## Digests
@@ -179,6 +177,7 @@ In the following example, the descriptor indicates that the referenced manifest 
 [rfc3986]: https://tools.ietf.org/html/rfc3986
 [rfc4634-s4.1]: https://tools.ietf.org/html/rfc4634#section-4.1
 [rfc4634-s4.2]: https://tools.ietf.org/html/rfc4634#section-4.2
+[rfc4648-s4]: https://tools.ietf.org/html/rfc4648#section-4
 [rfc6838]: https://tools.ietf.org/html/rfc6838
 [rfc6838-s4.2]: https://tools.ietf.org/html/rfc6838#section-4.2
 [rfc7230-s2.7]: https://tools.ietf.org/html/rfc7230#section-2.7
