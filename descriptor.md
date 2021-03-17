@@ -48,6 +48,8 @@ The following fields contain the primary properties that constitute a Descriptor
 
   This OPTIONAL property contains an embedded representation of the referenced content.
   Values MUST conform to the Base 64 encoding, as defined in [RFC 4648][rfc4648-s4].
+  The decoded data MUST be identical to the referenced content and SHOULD be verified against the [`digest`](#digests) and `size` fields.
+  See [Embedded Content](#embedded-content) for when this is appropriate.
 
 Descriptors pointing to [`application/vnd.oci.image.manifest.v1+json`](manifest.md) SHOULD include the extended field `platform`, see [Image Index Property Descriptions](image-index.md#image-index-property-descriptions) for details.
 
@@ -148,6 +150,17 @@ Implementations MAY implement SHA-512 digest verification for use in descriptors
 
 When the _algorithm identifier_ is `sha512`, the _encoded_ portion MUST match `/[a-f0-9]{128}/`.
 Note that `[A-F]` MUST NOT be used here.
+
+## Embedded Content
+
+In many contexts, such as when downloading content over a network, resolving a descriptor to its content has a measurable fixed "roundtrip" latency cost.
+For large blobs, the fixed cost is usually inconsequental, as the majority of time will be spent actually fetching the content.
+For very small blobs, the fixed cost will be quite significant.
+
+Implementations MAY choose to embed small pieces of content directly within a descriptor to avoid roundtrips.
+
+Implementations SHOULD NOT populate the `data` field in situations where doing so would unexpectedly modify content identifiers.
+For example, a registry SHOULD NOT arbitrarily populate `data` fields within uploaded manifests, as that would modify the content address of those manifests.
 
 ## Examples
 
