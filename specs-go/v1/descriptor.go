@@ -39,6 +39,9 @@ type Descriptor struct {
 	//
 	// This should only be used when referring to a manifest.
 	Platform *Platform `json:"platform,omitempty"`
+
+	// Reference refers to the subject of this descriptor.
+	Reference *Descriptor `json:"reference,omitempty"`
 }
 
 // Platform describes the platform which the image in the manifest runs on.

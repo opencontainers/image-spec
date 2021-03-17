@@ -72,6 +72,11 @@ Unlike the [image index](image-index.md), which contains information about a set
 
     See [Pre-Defined Annotation Keys](annotations.md#pre-defined-annotation-keys).
 
+- **`reference`** *descriptor*
+
+    This OPTIONAL property contains a [descriptor](descriptor.md) is the subject of the content described by this descriptor.
+    This is used to associate multiple pieces of content.
+
 ## Example Image Manifest
 
 *Example showing an image manifest:*

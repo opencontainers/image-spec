@@ -26,4 +26,7 @@ type Index struct {
 
 	// Annotations contains arbitrary metadata for the image index.
 	Annotations map[string]string `json:"annotations,omitempty"`
+
+	// Reference refers to the subject this image index.
+	Reference *Descriptor `json:"reference,omitempty"`
 }

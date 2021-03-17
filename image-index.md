@@ -97,6 +97,11 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 
     See [Pre-Defined Annotation Keys](annotations.md#pre-defined-annotation-keys).
 
+- **`reference`** *descriptor*
+
+    This OPTIONAL property contains a [descriptor](descriptor.md) is the subject of the content described by this descriptor.
+    This is used to associate multiple pieces of content.
+
 ## Example Image Index
 
 *Example showing a simple image index pointing to image manifests for two platforms:*
