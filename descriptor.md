@@ -155,12 +155,15 @@ Note that `[A-F]` MUST NOT be used here.
 
 In many contexts, such as when downloading content over a network, resolving a descriptor to its content has a measurable fixed "roundtrip" latency cost.
 For large blobs, the fixed cost is usually inconsequental, as the majority of time will be spent actually fetching the content.
-For very small blobs, the fixed cost will be quite significant.
+For very small blobs, the fixed cost can be quite significant.
 
 Implementations MAY choose to embed small pieces of content directly within a descriptor to avoid roundtrips.
 
 Implementations SHOULD NOT populate the `data` field in situations where doing so would unexpectedly modify content identifiers.
 For example, a registry SHOULD NOT arbitrarily populate `data` fields within uploaded manifests, as that would modify the content address of those manifests.
+
+Implementations SHOULD consider limitations of storage systems when deciding whether or not to embed data.
+Many implementations will refuse to accept or parse manifests that violate the limitations of their storage systems, so descriptors concerned with portability SHOULD avoid embedding large amounts of data.
 
 ## Examples
 
