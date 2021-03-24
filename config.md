@@ -165,6 +165,10 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
 
     The field contains the system call signal that will be sent to the container to exit. The signal can be a signal name in the format `SIGNAME`, for instance `SIGKILL` or `SIGRTMIN+3`.
 
+  - **ArgsEscaped** *boolean*, OPTIONAL
+
+    This field is used for Windows images to indicate that the `Entrypoint` and `Cmd` fields will have only a single element, which has already been escaped. In this case their values should be used as-is without further escaping.
+
 - **rootfs** *object*, REQUIRED
 
    The rootfs key references the layer content addresses used by the image.
