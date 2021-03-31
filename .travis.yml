@@ -13,7 +13,7 @@ before_script:
   - export PATH=$HOME/gopath/bin:$PATH
 
 before_install:
-  - docker pull vbatts/pandoc
+  - docker pull quay.io/oci/pandoc:1.17.0.3-2.fc25.x86_64
   - make install.tools
   - go get -u github.com/alecthomas/gometalinter
   - gometalinter --install

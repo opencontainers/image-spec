@@ -7,7 +7,7 @@ PANDOC ?= $(shell command -v pandoc 2>/dev/null)
 OUTPUT_DIRNAME	?= output/
 DOC_FILENAME	?= oci-image-spec
 
-PANDOC_CONTAINER ?= docker.io/vbatts/pandoc:1.17.0.3-2.fc25.x86_64
+PANDOC_CONTAINER ?= quay.io/oci/pandoc:1.17.0.3-2.fc25.x86_64
 ifeq "$(strip $(PANDOC))" ''
 	ifneq "$(strip $(DOCKER))" ''
 		PANDOC = $(DOCKER) run \
