@@ -159,8 +159,9 @@ For very small blobs, the fixed cost can be quite significant.
 
 Implementations MAY choose to embed small pieces of content directly within a descriptor to avoid roundtrips.
 
-Implementations SHOULD NOT populate the `data` field in situations where doing so would unexpectedly modify content identifiers.
-For example, a registry SHOULD NOT arbitrarily populate `data` fields within uploaded manifests, as that would modify the content address of those manifests.
+Implementations MUST NOT populate the `data` field in situations where doing so would modify existing content identifiers.
+For example, a registry MUST NOT arbitrarily populate `data` fields within uploaded manifests, as that would modify the content identifier of those manifests.
+In contrast, a client MAY populate the `data` field before uploading a manifest, because the manifest would not yet have a content identifier in the registry.
 
 Implementations SHOULD consider limitations of storage systems when deciding whether or not to embed data.
 Many implementations will refuse to accept or parse manifests that violate the limitations of their storage systems, so descriptors concerned with portability SHOULD avoid embedding large amounts of data.
