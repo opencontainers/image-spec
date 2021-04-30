@@ -1,5 +1,4 @@
-GO15VENDOREXPERIMENT=1
-export GO15VENDOREXPERIMENT
+EPOCH_TEST_COMMIT ?= v0.2.0
 
 DOCKER ?= $(shell command -v docker 2>/dev/null)
 PANDOC ?= $(shell command -v pandoc 2>/dev/null)
@@ -7,7 +6,7 @@ PANDOC ?= $(shell command -v pandoc 2>/dev/null)
 OUTPUT_DIRNAME	?= output
 DOC_FILENAME	?= oci-image-spec
 
-PANDOC_CONTAINER ?= quay.io/oci/pandoc:1.17.0.3-2.fc25.x86_64
+PANDOC_CONTAINER ?= ghcr.io/opencontainers/pandoc:2.9.2.1-8.fc33.x86_64@sha256:5d81ff930a043295a557be8b003ece2a33d14e91b28c50d368413b83372f8d28
 ifeq "$(strip $(PANDOC))" ''
 	ifneq "$(strip $(DOCKER))" ''
 		PANDOC = $(DOCKER) run \
@@ -40,8 +39,6 @@ DOC_FILES := \
 FIGURE_FILES := \
 	img/media-types.png
 
-EPOCH_TEST_COMMIT ?= v0.2.0
-
 TOOLS := esc gitvalidation glide glide-vc
 
 default: check-license lint test
@@ -69,13 +66,13 @@ $(OUTPUT_DIRNAME)/$(DOC_FILENAME).pdf: $(DOC_FILES) $(FIGURE_FILES)
 else
 $(OUTPUT_DIRNAME)/$(DOC_FILENAME).pdf: $(DOC_FILES) $(FIGURE_FILES)
 	@mkdir -p $(OUTPUT_DIRNAME)/ && \
-	$(PANDOC) -f markdown_github -t latex --latex-engine=xelatex -o $(PANDOC_DST)$@ $(patsubst %,$(PANDOC_SRC)%,$(DOC_FILES))
+	$(PANDOC) -f gfm -t latex --pdf-engine=xelatex -V geometry:margin=0.5in,bottom=0.8in -V block-headings -o $(PANDOC_DST)$@ $(patsubst %,$(PANDOC_SRC)%,$(DOC_FILES))
 	ls -sh $(realpath $@)
 
 $(OUTPUT_DIRNAME)/$(DOC_FILENAME).html: header.html $(DOC_FILES) $(FIGURE_FILES)
 	@mkdir -p $(OUTPUT_DIRNAME)/ && \
 	cp -ap img/ $(shell pwd)/$(OUTPUT_DIRNAME)/&& \
-	$(PANDOC) -f markdown_github -t html5 -H $(PANDOC_SRC)header.html --standalone -o $(PANDOC_DST)$@ $(patsubst %,$(PANDOC_SRC)%,$(DOC_FILES))
+	$(PANDOC) -f gfm -t html5 -H $(PANDOC_SRC)header.html --standalone -o $(PANDOC_DST)$@ $(patsubst %,$(PANDOC_SRC)%,$(DOC_FILES))
 	ls -sh $(realpath $@)
 endif
 
