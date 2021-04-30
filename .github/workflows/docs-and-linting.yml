@@ -1,0 +1,49 @@
+name: Render and Lint Documentation
+
+on:
+  pull_request:
+    branches_ignore: []
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: ['1.10', '1.11', '1.12']
+
+    name: Documentation and Linting
+    steps:
+
+      - uses: actions/checkout@v2
+        with:
+          path: go/src/github.com/opencontainers/image-spec
+
+                               # commit for v1 release
+      - uses: actions/setup-go@0caeaed6fd66a828038c2da3c0f662a42862658f
+        with:
+          go-version: ${{ matrix.go }}
+
+      - name: Render and Lint
+        env:
+          GOPATH: /home/runner/work/image-spec/image-spec/go
+        run: |
+          export PATH=$GOPATH/bin:$PATH
+          docker pull quay.io/oci/pandoc:1.17.0.3-2.fc25.x86_64
+          cd go/src/github.com/opencontainers/image-spec
+          make install.tools
+          go get -u github.com/alecthomas/gometalinter
+          gometalinter --install
+          go get -t -d ./...
+          ls ../
+          make
+          make .gitvalidation
+          make lint
+          make check-license
+          make test
+          make docs
+
+      - name: documentation artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: oci-docs
+          path: go/src/github.com/opencontainers/image-spec/output
