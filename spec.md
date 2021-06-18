@@ -7,7 +7,6 @@ The goal of this specification is to enable the creation of interoperable tools 
 
 ### Table of Contents
 
-- [Introduction](spec.md)
 - [Notational Conventions](#notational-conventions)
 - [Overview](#overview)
     - [Understanding the Specification](#understanding-the-specification)
