@@ -148,7 +148,7 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
 
    - **Volumes** *object*, OPTIONAL
 
-     A set of directories describing where the process is likely write data specific to a container instance.
+     A set of directories describing where the process is likely to write data specific to a container instance.
      **NOTE:** This JSON structure value is unusual because it is a direct JSON serialization of the Go type `map[string]struct{}` and is represented in JSON as an object mapping its keys to an empty object.
 
    - **WorkingDir** *string*, OPTIONAL
