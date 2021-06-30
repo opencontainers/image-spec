@@ -48,6 +48,7 @@ This specification defines the following annotation keys, intended for but not l
   * This SHOULD be a fully qualified reference name, without any assumed default registry. (e.g., `index.docker.io/my-org/my-image:tag` instead of `my-org/my-image:tag`).
   * This SHOULD be the immediate image sharing zero-indexed layers with the image, such as from a Dockerfile `FROM` statement.
   * This SHOULD NOT reference any other images used to generate the contents of the image (e.g., multi-stage Dockerfile builds).
+  * If the `image.base.ref.name` annotation is specified, the `image.base.digest` annotation SHOULD be the digest of the manifest referenced by the `image.base.ref.name` annotation.
 
 ## Back-compatibility with Label Schema
 
