@@ -57,6 +57,6 @@ const (
 	// AnnotationBaseImageDigest is the annotation key for the digest of the image's base image.
 	AnnotationBaseImageDigest = "org.opencontainers.image.base.digest"
 
-	// AnnotationBaseImageRefName is the annotation key for the image reference of the image's base image.
-	AnnotationBaseImageRefName = "org.opencontainers.image.base.ref.name"
+	// AnnotationBaseImageName is the annotation key for the image reference of the image's base image.
+	AnnotationBaseImageName = "org.opencontainers.image.base.name"
 )
