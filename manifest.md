@@ -60,7 +60,13 @@ Unlike the [image index](image-index.md), which contains information about a set
         - [`application/vnd.oci.image.layer.nondistributable.v1.tar+gzip`](layer.md#gzip-media-types)
 
         Manifests concerned with portability SHOULD use one of the above media types.
-        An encountered `mediaType` that is unknown to the implementation MUST be ignored.
+        An encountered `mediaType` that is unknown to the implementation and cannot be processed MUST be ignored.
+
+        For example, an image transport tool which does not unpack layers can
+        process layers with mime types it does not understand, since it does
+        not need to inspect the content of the layers. However, a runtime which
+        cannot unpack a layer MUST fail, since it cannot render the final
+        filesystem layout as described above.
 
 
         Entries in this field will frequently use the `+gzip` types.
