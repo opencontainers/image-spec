@@ -46,17 +46,23 @@ These fields all affect the `annotations` of the runtime configuration, and are 
 | ------------------- | --------------- | ----- |
 | `os`                | `annotations`   | 1,2   |
 | `architecture`      | `annotations`   | 1,3   |
-| `author`            | `annotations`   | 1,4   |
-| `created`           | `annotations`   | 1,5   |
+| `variant`           | `annotations`   | 1,4   |
+| `os.version`         | `annotations`   | 1,5   |
+| `os.features`        | `annotations`   | 1,6   |
+| `author`            | `annotations`   | 1,7   |
+| `created`           | `annotations`   | 1,8   |
 | `Config.Labels`     | `annotations`   |       |
-| `Config.StopSignal` | `annotations`   | 1,6   |
+| `Config.StopSignal` | `annotations`   | 1,9   |
 
 1. If a user has explicitly specified this annotation with `Config.Labels`, then the value specified in this field takes lower [precedence](#annotations) and the converter MUST instead use the value from `Config.Labels`.
 2. The value of this field MUST be set as the value of `org.opencontainers.image.os` in `annotations`.
 3. The value of this field MUST be set as the value of `org.opencontainers.image.architecture` in `annotations`.
-4. The value of this field MUST be set as the value of `org.opencontainers.image.author` in `annotations`.
-5. The value of this field MUST be set as the value of `org.opencontainers.image.created` in `annotations`.
-6. The value of this field MUST be set as the value of `org.opencontainers.image.stopSignal` in `annotations`.
+4. The value of this field MUST be set as the value of `org.opencontainers.image.variant` in `annotations`.
+5. The value of this field MUST be set as the value of `org.opencontainers.image.os.version` in `annotations`.
+6. The value of this field MUST be set as the value of `org.opencontainers.image.os.features` in `annotations`.
+7. The value of this field MUST be set as the value of `org.opencontainers.image.author` in `annotations`.
+8. The value of this field MUST be set as the value of `org.opencontainers.image.created` in `annotations`.
+9. The value of this field MUST be set as the value of `org.opencontainers.image.stopSignal` in `annotations`.
 
 ## Parsed Fields
 
