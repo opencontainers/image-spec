@@ -53,4 +53,16 @@ const (
 
 	// AnnotationDescription is the annotation key for the human-readable description of the software packaged in the image.
 	AnnotationDescription = "org.opencontainers.image.description"
+
+	// AnnotationEncryptionKeysPkcs7 is the annotation key for the base64 encoded encrypted
+	// messages containing metadata for decrypting encrypted data blobs.
+	AnnotationEncryptionKeysPkcs7 = "org.opencontainers.image.enc.keys.pkcs7"
+
+	// AnnotationEncryptionKeysJwe is the annotation key for the base64 encoded encrypted
+	// messages containing metadata for decrypting encrypted data blobs.
+	AnnotationEncryptionKeysJwe = "org.opencontainers.image.enc.keys.jwe"
+
+	// AnnotationEncryptionKeysOpenPgp is the annotation key for the base64 encoded encrypted
+	// messages containing metadata for decrypting encrypted data blobs.
+	AnnotationEncryptionKeysOpenPgp = "org.opencontainers.image.enc.keys.openpgp"
 )

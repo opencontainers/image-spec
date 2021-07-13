@@ -40,6 +40,10 @@ This specification defines the following annotation keys, intended for but not l
     ```
 * **org.opencontainers.image.title** Human-readable title of the image (string)
 * **org.opencontainers.image.description** Human-readable description of the software packaged in the image (string)
+* **org.opencontainers.image.org.opencontainers.image.enc.keys.pkcs7** Base64 comma separated [PKCS7(RFC2315)](https://tools.ietf.org/html/rfc2315) encrypted messages that contain wrapped PrivateLayerBlockCipherOptions JSON objects for [encryption](layer.md#layer-encryption)
+* **org.opencontainers.image.enc.keys.jwe** Base64 comma separated [JWE(RFC7516)](https://tools.ietf.org/html/rfc7516) encrypted messages that contain wrapped PrivateLayerBlockCipherOptions JSON objects for [encryption](layer.md#layer-encryption)
+* **org.opencontainers.image.enc.keys.openpgp** Base64 comma separated [OpenPGP(RFC4880)](https://tools.ietf.org/html/rfc4880) encrypted messages that contain wrapped PrivateLayerBlockCipherOptions JSON objects for [encryption](layer.md#layer-encryption)
+* **org.opencontainers.image.enc.pubopts** Base64 encoded PublicLayerBlockCipherOptions JSON object for [encryption](layer.md#layer-encryption)
 
 ## Back-compatibility with Label Schema
 
