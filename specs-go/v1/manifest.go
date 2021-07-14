@@ -29,4 +29,7 @@ type Manifest struct {
 
 	// Annotations contains arbitrary metadata for the image manifest.
 	Annotations map[string]string `json:"annotations,omitempty"`
+
+	// Reference refers to the subject this image manifest.
+	Reference *Descriptor `json:"reference,omitempty"`
 }

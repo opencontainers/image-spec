@@ -44,6 +44,11 @@ The following fields contain the primary properties that constitute a Descriptor
     This OPTIONAL property contains arbitrary metadata for this descriptor.
     This OPTIONAL property MUST use the [annotation rules](annotations.md#rules).
 
+- **`reference`** *descriptor*
+
+    This OPTIONAL property contains a descriptor is the subject of the content described by this descriptor.
+    This is used to associate multiple pieces of content.
+
 Descriptors pointing to [`application/vnd.oci.image.manifest.v1+json`](manifest.md) SHOULD include the extended field `platform`, see [Image Index Property Descriptions](image-index.md#image-index-property-descriptions) for details.
 
 ### Reserved
@@ -173,6 +178,21 @@ In the following example, the descriptor indicates that the referenced manifest 
   "urls": [
     "https://example.com/example-manifest"
   ]
+}
+```
+
+In the following example, the descriptor indicates that the referenced manifest is retrievable from a particular URL:
+
+```json
+{
+  "mediaType": "application/vnd.example.signature+json",
+  "size": 3514,
+  "digest": "sha256:19387f68117dbe07daeef0d99e018f7bbf7a660158d24949ea47bc12a3e4ba17",
+  "reference": {
+    "mediaType": "application/vnd.docker.distribution.manifest.list.v2+json",
+    "size": 1201,
+    "digest": "sha256:b4f9e18267eb98998f6130342baacaeb9553f136142d40959a1b46d6401f0f2b"
+  }
 }
 ```
 
