@@ -42,6 +42,23 @@ func TestConfig(t *testing.T) {
 `,
 			fail: true,
 		},
+		// expected failure: field "variant" has numeric value, must be string
+		{
+			config: `
+{
+    "architecture": "arm64",
+    "variant": 123,
+    "os": "linux",
+    "rootfs": {
+      "diff_ids": [
+        "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+      ],
+      "type": "layers"
+    }
+}
+`,
+			fail: true,
+		},
 
 		// expected failure: field "config.User" has numeric value, must be string
 		{
@@ -140,7 +157,8 @@ func TestConfig(t *testing.T) {
 {
     "created": "2015-10-31T22:22:56.015925234Z",
     "author": "Alyssa P. Hacker <alyspdev@example.com>",
-    "architecture": "amd64",
+    "architecture": "arm64",
+    "variant": "v8",
     "os": "linux",
     "config": {
         "User": "1:1",

@@ -14,6 +14,9 @@
     "architecture": {
       "type": "string"
     },
+    "variant": {
+        "type": "string"
+    },
     "os": {
       "type": "string"
     },
