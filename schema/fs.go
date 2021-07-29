@@ -226,19 +226,19 @@ var _escData = map[string]*_escFile{
 	"/config-schema.json": {
 		name:    "config-schema.json",
 		local:   "config-schema.json",
-		size:    2771,
-		modtime: 1619819526,
+		size:    2969,
+		modtime: 1625865937,
 		compressed: `
-H4sIAAAAAAAC/+RWQY/TPBC951dE2T22m+/wnXot3JCKVAGHFarcZNLOEnvMeIKIUP87itNCkjpp6apc
-OEUaz7z35nns+EcUx0kOLmO0gmSSRZysLJglGVFogOMlmQJ38dpChgVmymfNmrJHl+1Bq6ZkL2IXafri
-yMzb6BPxLs1ZFTL/7/+0jT20dZifStwiTcmCyU5szpe12SlqtYM08/xtpdQWmlravkAmbcwyWWBBcMki
-btqJ4yRjUAL5r0Cn1AmjaeF8vCDWSpqVXAnMBTUkfu3QpiSqkj3xBFQ/m7M9CmRSMVxbQ+7azKMXgeyO
-Iz4ecMXHPzjgXmSEscPqc95+t+Qgf08sblj/yFB4A6FwT80IPKQ5FGiwGRWXamXXHnnVagzjm29jshSz
-qpNZdwkF9FDGRCNxfBghFa4toZEhNxlYNT099wj6dJMSJ2RekNqXO5A8qcJUZdlH6uJ8Dlqw1Pk/2/tH
-KisN7sb+b536e3f1ifgLmt0bvOmcv1NbKO9tyTqw8fe0ZC1k17gzqrzakqj7PV2/TCSFe831m2NRbDB3
-f/+uO+ZPdd+jBVPpsx1PSlUDuyTseDRgTRi+Vsj+P/wc8GCoLuoinjzfoxPiOmR636yAUWPbM75BwbfD
-Zbem3hGB8T5/U1ze1FlA42ZbvwKDtIazP98fAIC2Um/8RIyDbIlKUGZkPvunLDoynM9N/1n1+9nUP5dR
-MzuH6GcAAAD//0pj2wvTCgAA
+H4sIAAAAAAAC/+RWsW7bQAzd9RWCkjGJOnTymnYrkAJG2yEojLNE2Ux1xyuPMioU/vdCJzvx2SfZteEu
+XSnyvcdHSuLvJE2zElzBaAXJZJM0e7JgHsmIQgOcPpKpcJFOLRRYYaF81l1XduuKJWjVlSxF7CTPXxyZ
++z76QLzIS1aV3L97n/exm74Oy22Jm+Q5WTDFls35sj47R60WkBeev6+U1kJXS/MXKKSPWSYLLAgum6Rd
+O2maFQxKoHwN7JQ6YTQ9nI9XxFpJ96RUAveCGjL/bN2nZKqRJfEIVJjNxRIFCmkYTq1ZKUZl5NR0cqdn
+PqyAXT/WUysqUJ34KIliVu2bdyigd/MGwNN0HZBsJhrB35mrj0dm6+NfHHAQGWR+ZfU5H39ZclB+Jha3
+X3/LUPk1gMo9dIt8k5dQocFu4V2ulZ165KdeYxzfrIZkhdYN2DfayNbGQ1Lh1hIGG9RP08BT19NzQBDS
+jUockXlEaih3T/KoCtPUdYi0i/M9asGjLv/b3r9S3WhwZ/Z/7tZfu6tvxD/QLD7gWe/5JzWH+tqWTCOD
+v6YlUyE7xYVR9cmWRD+/TCSVu+TzW2JVzbB0//5bt8kf6z6gBdPog4lntWqBXRZ3PNljzRh+Nsj+mniO
+eLCvLtlF3Hq+RCfE7WX/1L3xDA8oegEdd2vsGoqs9+FldHyodxGNs3l7AQZpDQd/vr8AAG2lnfmNGAaZ
+E9WgzMB+hm9ZsmE43JvwOHy75sL3Mul2Z538CQAA//9C38scmQsAAA==
 `,
 	},
 
@@ -246,7 +246,7 @@ MzuH6GcAAAD//0pj2wvTCgAA
 		name:    "content-descriptor.json",
 		local:   "content-descriptor.json",
 		size:    1079,
-		modtime: 1619819526,
+		modtime: 1625865919,
 		compressed: `
 H4sIAAAAAAAC/5yTsW7cMAyGdz8F4QTIkos6BB2MIEu7d2i3ooNOok5Mz5JK8RBci7x7QcvX2G2RILfZ
 xP+Rn2zqVwfQe6yOqQjl1A/QfyqYPuQklhIy6BMmgY9zKDN8LugokLMTca0tLquLOFrFo0gZjHmoOW1a
@@ -262,7 +262,7 @@ dIbaEm+G3WzZM/44EKMqff37riz3dL0uHcC37qn7HQAA//9DKIMKNwQAAA==
 		name:    "defs-descriptor.json",
 		local:   "defs-descriptor.json",
 		size:    844,
-		modtime: 1619819526,
+		modtime: 1625865919,
 		compressed: `
 H4sIAAAAAAAC/5SST2/TTBDG7/kU826jt0DiOHBAqlWKKnrnUE6t0mi6O7aneP9od6IqVPnuaG03SYtA
 cLC1+2jmefwbz9MEQBlKOnIQ9k5VoK6oZsf5liBgFNabDiOIh6+B3BfvBNlRhKuxzUe4DqS5Zo29x3ww
@@ -279,7 +279,7 @@ TAMAAA==
 		name:    "defs.json",
 		local:   "defs.json",
 		size:    1670,
-		modtime: 1619819526,
+		modtime: 1625865903,
 		compressed: `
 H4sIAAAAAAAC/7STza6bMBCF9zzFyO2S9oJtbGDb7hMpy6oLSiaJq2AjY6RWEe9e8RNChFuJKneRgGc8
 3zmeMbcAgByxKa2qnTKa5EC+4klp1a8aaBs8grtY054vpnXgLgi7GvUXo12hNFo41FiqkyqLoTwceTOA
@@ -295,7 +295,7 @@ fIvD7in0ryMEy+fK1G6UfmdTE+tvpoL+1wV/AgAA//96IpqyhgYAAA==
 		name:    "image-index-schema.json",
 		local:   "image-index-schema.json",
 		size:    2993,
-		modtime: 1619819526,
+		modtime: 1625865919,
 		compressed: `
 H4sIAAAAAAAC/6yWz0/jOhDH7/0rRgGJC5CnJ/QOFeLy9sJpD4v2suJg7EkybGNnx1Ogu+r/vrJN2qRJ
 C4Te2rHnO5/vxL/+zAAyg14zNULOZnPIvjZo/3dWFFlkuK1ViXBrDb7AtwY1FaRVnHoeck+9rrBWIa8S
@@ -316,7 +316,7 @@ VmZjL8HOE24GcD9bz/4GAAD//yCnv52xCwAA
 		name:    "image-layout-schema.json",
 		local:   "image-layout-schema.json",
 		size:    439,
-		modtime: 1619819526,
+		modtime: 1625865903,
 		compressed: `
 H4sIAAAAAAAC/2yPQUvEMBCF7/0VQ/Sg4DYVPOW6pwVhD4IX8VDTaTvLNonJVFik/12SaRXRU5g38+W9
 91kBqA6TjRSYvFMG1DGg23vHLTmMcJjaAeGxvfiZ4cmOOLXqLlPXSQYDamQORutT8m4nau3joLvY9rxr
@@ -330,7 +330,7 @@ HrRoV8JRtyHJaO0DOruZpYLJtaZsrM/FWEi+BMysfzuhXbUQfcDIhEkZyG2yQyYl8TPGJLVk97fth1yA
 		name:    "image-manifest-schema.json",
 		local:   "image-manifest-schema.json",
 		size:    921,
-		modtime: 1619819526,
+		modtime: 1625865903,
 		compressed: `
 H4sIAAAAAAAC/5ySMW8iMRCF+/0VI0MJ+O501bZXUZxSJEoTpXB2x7uDWNsZmygo4r9HtnHAkCKifTvv
 zTdv/dEAiB59x+QCWSNaEHcOzT9rgiKDDOtJDQj/lSGNPsC9w440dSpNL6J97rsRJxWtYwiulXLjrVlm

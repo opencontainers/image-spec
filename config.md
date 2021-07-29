@@ -110,6 +110,24 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
   The name of the operating system which the image is built to run on.
   Configurations SHOULD use, and implementations SHOULD understand, values listed in the Go Language document for [`GOOS`][go-environment].
 
+- **os.version** *string*, OPTIONAL
+
+  This OPTIONAL property specifies the version of the operating system targeted by the referenced blob.
+  Implementations MAY refuse to use manifests where `os.version` is not known to work with the host OS version.
+  Valid values are implementation-defined. e.g. `10.0.14393.1066` on `windows`.
+
+- **os.features** *array of strings*, OPTIONAL
+
+  This OPTIONAL property specifies an array of strings, each specifying a mandatory OS feature.
+  When `os` is `windows`, image indexes SHOULD use, and implementations SHOULD understand the following values:
+
+  - `win32k`: image requires `win32k.sys` on the host (Note: `win32k.sys` is missing on Nano Server)
+
+- **variant** *string*, OPTIONAL
+
+  The variant of the specified CPU architecture.
+  Configurations SHOULD use, and implementations SHOULD understand, `variant` values listed in the [Platform Variants](image-index.md#platform-variants) table.
+
 - **config** *object*, OPTIONAL
 
   The execution parameters which SHOULD be used as a base when running a container using the image.
