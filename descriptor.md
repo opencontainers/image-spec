@@ -48,7 +48,7 @@ The following fields contain the primary properties that constitute a Descriptor
 
   This OPTIONAL property contains an embedded representation of the referenced content.
   Values MUST conform to the Base 64 encoding, as defined in [RFC 4648][rfc4648-s4].
-  The decoded data MUST be identical to the referenced content and SHOULD be verified against the [`digest`](#digests) and `size` fields.
+  The decoded data MUST be identical to the referenced content and SHOULD be verified against the [`digest`](#digests) and `size` fields by content consumers.
   See [Embedded Content](#embedded-content) for when this is appropriate.
 
 Descriptors pointing to [`application/vnd.oci.image.manifest.v1+json`](manifest.md) SHOULD include the extended field `platform`, see [Image Index Property Descriptions](image-index.md#image-index-property-descriptions) for details.
