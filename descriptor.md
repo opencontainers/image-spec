@@ -145,7 +145,7 @@ Note that `[A-F]` MUST NOT be used here.
 
 #### SHA-512
 
-[SHA-512][rfc4634-s4.2] is a collision-resistant hash function which [may be more perfomant][sha256-vs-sha512] than [SHA-256](#sha-256) on some CPUs.
+[SHA-512][rfc4634-s4.2] is a collision-resistant hash function which [may be more performant][sha256-vs-sha512] than [SHA-256](#sha-256) on some CPUs.
 Implementations MAY implement SHA-512 digest verification for use in descriptors.
 
 When the _algorithm identifier_ is `sha512`, the _encoded_ portion MUST match `/[a-f0-9]{128}/`.
