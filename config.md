@@ -298,6 +298,10 @@ Here is an example image configuration JSON document:
         "created": "2015-10-31T22:22:55.613815829Z",
         "created_by": "/bin/sh -c #(nop) CMD [\"sh\"]",
         "empty_layer": true
+      },
+      {
+        "created": "2015-10-31T22:22:56.329850019Z",
+        "created_by": "/bin/sh -c apk add curl"
       }
     ]
 }
