@@ -9,7 +9,7 @@ Projects or Companies currently adopting the OCI Image Specification
 * [Mesos plans](https://issues.apache.org/jira/browse/MESOS-5011) ([design doc](https://docs.google.com/document/d/1Pus7D-inIBoLSIPyu3rl_apxvUhtp3rp0_b0Ttr2Xww/edit#heading=h.hrvk2wboog4p))
 * [Docker](https://github.com/docker)
   - [docker/docker (`docker save/load` WIP)](https://github.com/docker/docker/pull/26369)
-  - [docker/distribution (registry PR)](https://github.com/docker/distribution/pull/2076)
+  - [distribution/distribution (registry PR)](https://github.com/distribution/distribution/pull/2076)
 * [containerd/containerd](https://github.com/containerd/containerd)
 * [Containers](https://github.com/containers/)
   - [containers/build](https://github.com/containers/build)
