@@ -17,8 +17,9 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 
 - **`mediaType`** *string*
 
-  This property is *reserved* for use, to [maintain compatibility][matrix].
-  When used, this field contains the media type of this document, which differs from the [descriptor](descriptor.md#properties) use of `mediaType`.
+  This property SHOULD be used and [remain compatible][matrix] with earlier versions of this specification and with other similar external formats.
+  When used, this field MUST contain the media type `application/vnd.oci.image.index.v1+json`.
+  This field usage differs from the [descriptor](descriptor.md#properties) use of `mediaType`.
 
 - **`manifests`** *array of objects*
 
