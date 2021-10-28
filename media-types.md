@@ -39,7 +39,6 @@ This section shows where the OCI Image Specification is compatible with formats 
 **Similar/related schema**
 
 - [application/vnd.docker.distribution.manifest.list.v2+json](https://github.com/distribution/distribution/blob/master/docs/spec/manifest-v2-2.md#manifest-list)
-  - `.mediaType`: only present in Docker, and reserved in OCI
   - `.annotations`: only present in OCI
   - `.[]manifests.annotations`: only present in OCI
   - `.[]manifests.urls`: only present in OCI
@@ -49,7 +48,6 @@ This section shows where the OCI Image Specification is compatible with formats 
 **Similar/related schema**
 
 - [application/vnd.docker.distribution.manifest.v2+json](https://github.com/distribution/distribution/blob/master/docs/spec/manifest-v2-2.md#image-manifest-field-descriptions)
-  - `.mediaType`: only present in Docker, and reserved in OCI
   - `.annotations`: only present in OCI
   - `.config.annotations`: only present in OCI
   - `.config.urls`: only present in OCI
