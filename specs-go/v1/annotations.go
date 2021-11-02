@@ -68,4 +68,7 @@ const (
 
 	// AnnotationReferrersFiltersApplied is the annotation key for the comma separated list of filters applied by the registry in the referrers listing.
 	AnnotationReferrersFiltersApplied = "org.opencontainers.referrers.filtersApplied"
+
+	// AnnotationTOCDigest is the annotation key for the digest of the TOC JSON of eStargz layer.
+	AnnotationTOCDigest = "org.opencontainers.image.estargz.toc.digest"
 )
