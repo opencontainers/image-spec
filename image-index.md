@@ -83,6 +83,8 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 
         This property is RESERVED for future versions of the specification.
 
+  If multiple manifests match a client or runtime's requirements, the first matching entry SHOULD be used.
+
 - **`annotations`** *string-string map*
 
     This OPTIONAL property contains arbitrary metadata for the image index.
