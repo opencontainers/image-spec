@@ -39,7 +39,7 @@ DOC_FILES := \
 FIGURE_FILES := \
 	img/media-types.png
 
-TOOLS := esc gitvalidation glide glide-vc
+TOOLS := esc gitvalidation 
 
 default: check-license lint test
 
@@ -119,12 +119,6 @@ install.tools: $(TOOLS:%=.install.%)
 
 .install.gitvalidation:
 	go get -u github.com/vbatts/git-validation
-
-.install.glide:
-	go get -u github.com/Masterminds/glide
-
-.install.glide-vc:
-	go get -u github.com/sgotti/glide-vc
 
 clean:
 	rm -rf *~ $(OUTPUT_DIRNAME) header.html
