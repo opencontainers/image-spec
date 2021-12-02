@@ -17,7 +17,7 @@ package schema
 import (
 	"net/http"
 
-	"github.com/opencontainers/image-spec/specs-go/v1"
+	v1 "github.com/opencontainers/image-spec/specs-go/v1"
 )
 
 // Media types for the OCI image formats
