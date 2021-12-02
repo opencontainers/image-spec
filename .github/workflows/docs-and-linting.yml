@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        go: ['1.10', '1.11', '1.12']
+        go: ['1.15', '1.16', '1.17']
 
     name: Documentation and Linting
     steps:
