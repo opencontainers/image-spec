@@ -49,7 +49,6 @@ help:
 	@echo " * 'docs' - produce document in the $(OUTPUT_DIRNAME) directory"
 	@echo " * 'fmt' - format the json with indentation"
 	@echo " * 'validate-examples' - validate the examples in the specification markdown files"
-	@echo " * 'schema-fs' - regenerate the virtual schema http/FileSystem"
 	@echo " * 'check-license' - check license headers in source files"
 	@echo " * 'lint' - Execute the source code linter"
 	@echo " * 'test' - Execute the unit tests"
@@ -79,14 +78,8 @@ endif
 header.html: .tool/genheader.go specs-go/version.go
 	go run .tool/genheader.go > $@
 
-validate-examples: schema/fs.go
+validate-examples: schema/schema.go
 	go test -run TestValidate ./schema
-
-schema/fs.go: $(wildcard schema/*.json) schema/gen.go
-	cd schema && printf "%s\n\n%s\n" "$$(cat ../.header)" "$$(go generate)" > fs.go
-
-schema-fs: schema/fs.go
-	@echo "generating schema fs"
 
 check-license:
 	@echo "checking license headers"
@@ -116,9 +109,6 @@ install.tools: $(TOOLS:%=.install.%)
 
 .install.lint:
 	go get github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-
-.install.esc:
-	go get -u github.com/mjibson/esc
 
 .install.gitvalidation:
 	go get -u github.com/vbatts/git-validation
