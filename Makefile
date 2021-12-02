@@ -94,7 +94,7 @@ check-license:
 
 lint: .install.lint
 	@echo "checking lint"
-	@./.tool/lint
+	@GO111MODULE=on golangci-lint run
 
 test: schema/fs.go
 	go test -race -cover $(shell go list ./... | grep -v /vendor/)
