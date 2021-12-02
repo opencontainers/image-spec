@@ -21,7 +21,7 @@ import (
 
 	"github.com/opencontainers/go-digest"
 	"github.com/opencontainers/image-spec/schema"
-	"github.com/opencontainers/image-spec/specs-go/v1"
+	v1 "github.com/opencontainers/image-spec/specs-go/v1"
 )
 
 var compatMap = map[string]string{
