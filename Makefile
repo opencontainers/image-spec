@@ -92,7 +92,7 @@ check-license:
 	@echo "checking license headers"
 	@./.tool/check-license
 
-lint:
+lint: .install.lint
 	@echo "checking lint"
 	@./.tool/lint
 
@@ -113,6 +113,9 @@ else
 endif
 
 install.tools: $(TOOLS:%=.install.%)
+
+.install.lint:
+	go get github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 
 .install.esc:
 	go get -u github.com/mjibson/esc
