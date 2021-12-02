@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        go: ['1.15', '1.16', '1.17']
+        go: ['1.16', '1.17']
 
     name: Documentation and Linting
     steps:
@@ -30,8 +30,6 @@ jobs:
           export PATH=$GOPATH/bin:$PATH
           cd go/src/github.com/opencontainers/image-spec
           make install.tools
-          go get -u github.com/alecthomas/gometalinter
-          gometalinter --install
           go get -t -d ./...
           ls ../
           make

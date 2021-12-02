@@ -95,7 +95,6 @@ func validate(t *testing.T, name string) {
 		}
 
 		for _, err := range errs {
-			// TOOD(stevvooe): This is nearly useless without file, line no.
 			printFields(t, "invalid", example.Mediatype, example.Title)
 			t.Error(err)
 			fmt.Println(example.Body, "---")

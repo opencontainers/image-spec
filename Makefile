@@ -92,9 +92,9 @@ check-license:
 	@echo "checking license headers"
 	@./.tool/check-license
 
-lint:
+lint: .install.lint
 	@echo "checking lint"
-	@./.tool/lint
+	@GO111MODULE=on golangci-lint run
 
 test: schema/fs.go
 	go test -race -cover $(shell go list ./... | grep -v /vendor/)
@@ -113,6 +113,9 @@ else
 endif
 
 install.tools: $(TOOLS:%=.install.%)
+
+.install.lint:
+	go get github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 
 .install.esc:
 	go get -u github.com/mjibson/esc
