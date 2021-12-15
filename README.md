@@ -37,7 +37,7 @@ To support this UX the OCI Image Format contains sufficient information to launc
 
 **Q: Why doesn't this project mention distribution?**
 
-A: Distribution, for example using HTTP as both Docker v2.2 and AppC do today, is currently out of scope on the [OCI Scope Table](https://www.opencontainers.org/about/oci-scope-table).
+A: Distribution, for example using HTTP as both Docker v2.2 and AppC do today, is currently out of scope.
 There has been [some discussion on the TOB mailing list](https://groups.google.com/a/opencontainers.org/d/msg/tob/A3JnmI-D-6Y/tLuptPDHAgAJ) to make distribution an optional layer, but this topic is a work in progress.
 
 **Q: What happens to AppC or Docker Image Formats?**
