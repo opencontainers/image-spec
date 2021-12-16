@@ -40,6 +40,15 @@ This specification defines the following annotation keys, intended for but not l
     ```
 * **org.opencontainers.image.title** Human-readable title of the image (string)
 * **org.opencontainers.image.description** Human-readable description of the software packaged in the image (string)
+* **org.opencontainers.image.base.digest** [Digest](descriptor.md#digests) of the image this image is based on (string)
+  * This SHOULD be the immediate image sharing zero-indexed layers with the image, such as from a Dockerfile `FROM` statement.
+  * This SHOULD NOT reference any other images used to generate the contents of the image (e.g., multi-stage Dockerfile builds).
+* **org.opencontainers.image.base.name** Image reference of the image this image is based on (string)
+  * This SHOULD be image references in the format defined by [distribution/distribution](https://github.com/distribution/distribution/blob/d0deff9cd6c2b8c82c6f3d1c713af51df099d07b/reference/reference.go).
+  * This SHOULD be a fully qualified reference name, without any assumed default registry. (e.g., `registry.example.com/my-org/my-image:tag` instead of `my-org/my-image:tag`).
+  * This SHOULD be the immediate image sharing zero-indexed layers with the image, such as from a Dockerfile `FROM` statement.
+  * This SHOULD NOT reference any other images used to generate the contents of the image (e.g., multi-stage Dockerfile builds).
+  * If the `image.base.name` annotation is specified, the `image.base.digest` annotation SHOULD be the digest of the manifest referenced by the `image.ref.name` annotation.
 
 ## Back-compatibility with Label Schema
 

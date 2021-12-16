@@ -110,6 +110,24 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
   The name of the operating system which the image is built to run on.
   Configurations SHOULD use, and implementations SHOULD understand, values listed in the Go Language document for [`GOOS`][go-environment].
 
+- **os.version** *string*, OPTIONAL
+
+  This OPTIONAL property specifies the version of the operating system targeted by the referenced blob.
+  Implementations MAY refuse to use manifests where `os.version` is not known to work with the host OS version.
+  Valid values are implementation-defined. e.g. `10.0.14393.1066` on `windows`.
+
+- **os.features** *array of strings*, OPTIONAL
+
+  This OPTIONAL property specifies an array of strings, each specifying a mandatory OS feature.
+  When `os` is `windows`, image indexes SHOULD use, and implementations SHOULD understand the following values:
+
+  - `win32k`: image requires `win32k.sys` on the host (Note: `win32k.sys` is missing on Nano Server)
+
+- **variant** *string*, OPTIONAL
+
+  The variant of the specified CPU architecture.
+  Configurations SHOULD use, and implementations SHOULD understand, `variant` values listed in the [Platform Variants](image-index.md#platform-variants) table.
+
 - **config** *object*, OPTIONAL
 
   The execution parameters which SHOULD be used as a base when running a container using the image.
@@ -148,7 +166,7 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
 
    - **Volumes** *object*, OPTIONAL
 
-     A set of directories describing where the process is likely write data specific to a container instance.
+     A set of directories describing where the process is likely to write data specific to a container instance.
      **NOTE:** This JSON structure value is unusual because it is a direct JSON serialization of the Go type `map[string]struct{}` and is represented in JSON as an object mapping its keys to an empty object.
 
    - **WorkingDir** *string*, OPTIONAL
@@ -164,6 +182,22 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
   - **StopSignal** *string*, OPTIONAL
 
     The field contains the system call signal that will be sent to the container to exit. The signal can be a signal name in the format `SIGNAME`, for instance `SIGKILL` or `SIGRTMIN+3`.
+
+  - **Memory** *integer*, OPTIONAL
+
+    This property is *reserved* for use, to [maintain compatibility](media-types.md#compatibility-matrix).
+
+  - **MemorySwap** *integer*, OPTIONAL
+
+    This property is *reserved* for use, to [maintain compatibility](media-types.md#compatibility-matrix).
+
+  - **CpuShares** *integer*, OPTIONAL
+
+    This property is *reserved* for use, to [maintain compatibility](media-types.md#compatibility-matrix).
+
+  - **Healthcheck** *object*, OPTIONAL
+
+    This property is *reserved* for use, to [maintain compatibility](media-types.md#compatibility-matrix).
 
 - **rootfs** *object*, REQUIRED
 
@@ -264,6 +298,10 @@ Here is an example image configuration JSON document:
         "created": "2015-10-31T22:22:55.613815829Z",
         "created_by": "/bin/sh -c #(nop) CMD [\"sh\"]",
         "empty_layer": true
+      },
+      {
+        "created": "2015-10-31T22:22:56.329850019Z",
+        "created_by": "/bin/sh -c apk add curl"
       }
     ]
 }
