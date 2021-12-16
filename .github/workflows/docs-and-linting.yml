@@ -2,7 +2,7 @@ name: Render and Lint Documentation
 
 on:
   pull_request:
-    branches_ignore: []
+    branches_ignore: [] 
 
 jobs:
   build:
