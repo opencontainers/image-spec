@@ -15,6 +15,8 @@ Projects or Companies currently adopting the OCI Image Specification
 * [Containers](https://github.com/containers/)
   - [containers/build](https://github.com/containers/build)
   - [containers/image](https://github.com/containers/image)
+  - [containers/oci-spec-rs](https://github.com/containers/oci-spec-rs)
+  - [containers/libocispec](https://github.com/containers/libocispec)
 * [coreos/rkt](https://github.com/coreos/rkt)
 * [box-builder/box](https://github.com/box-builder/box)
 * [coolljt0725/docker2oci](https://github.com/coolljt0725/docker2oci)
