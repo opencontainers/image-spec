@@ -186,6 +186,36 @@ rootfs-c9d-v1.s1/
         my-app-tools
 ```
 
+### Symbolic Links
+
+When applying a changeset, (assessing the changeset, or creating the original comparison filesystem) symlinks SHOULD NOT be followed that are either:
+
+- Already existing in a previous layer
+- Added in the current layer
+
+
+If the path of a changeset contains a symlink component, the symlink component MUST be removed and replaced with a directory as well as any necessary subdirectories to reconstruct the path of the changeset. 
+If there are changeset entries for any of these directories, the corresponding changeset MUST still be applied on those directories so that they have the correct metadata. If there is not a changeset entry for a directory created in this manner, the metadata of the created directory is implementation-defined but implementations SHOULD strive to make the results consistent. 
+Implementations SHOULD NOT produce changesets which have paths that contain symlink components.
+
+However, an implementation MAY choose to provide a means to allow the user to explicitly ask to follow symlink path components.
+As an example, [umoci](https://github.com/opencontainers/umoci) provides a flag `--keep-dirlinks`. 
+Given such a directive to follow symlinks, such links SHOULD only be followed within the scope of the root of the comparison filesystem.
+
+Implementations SHOULD NOT restrict the target of a symlink, because symlinks are not resolved at linking time and thus adding restrictions on the target of a symlink is not necessary -- the container process will be restricted in its ability to resolve paths outside of the container root filesystem.
+
+### Hard Links
+
+NOTE: Since directories cannot be hard-linked, most of the directory-specific discussions for symlinks are not relevant.
+
+When applying a changeset, the target of a hard link MUST be followed within the scope of the root of the comparison filesystem. 
+In other words, implementations MUST NOT create hard links to paths outside of the container root filesystem.
+An implementation MAY choose to provide a means for a user to create hard-links outside of the container’s root filesystem 
+
+NOTE: Hard-link behaviour is undefined if you modify a file that has hardlinks in a subsequent layer. 
+If there aren’t hardlink entries in the top layer, the implementation currently is free to either keep the hardlink intact (meaning that it doesn’t delete the target inode and simply `O_WRONLY|O_TRUNC` the file which is not necessarily safe to do in all cases) or to replace it, invalidating the other hardlinks.
+
+
 ### Determining Changes
 
 When two directories are compared, the relative root is the top-level directory.
