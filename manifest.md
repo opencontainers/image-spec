@@ -79,6 +79,7 @@ Unlike the [image index](image-index.md), which contains information about a set
 ```json,title=Manifest&mediatype=application/vnd.oci.image.manifest.v1%2Bjson
 {
   "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
   "config": {
     "mediaType": "application/vnd.oci.image.config.v1+json",
     "size": 7023,

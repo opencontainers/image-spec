@@ -109,6 +109,7 @@ When the variant of the CPU is not listed in the table, values are implementatio
 ```json,title=Image%20Index&mediatype=application/vnd.oci.image.index.v1%2Bjson
 {
   "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.index.v1+json",
   "manifests": [
     {
       "mediaType": "application/vnd.oci.image.manifest.v1+json",
