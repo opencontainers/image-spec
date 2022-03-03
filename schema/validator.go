@@ -67,7 +67,7 @@ func (v Validator) Validate(src io.Reader) error {
 		}
 	}
 
-	sl := newFSLoaderFactory(schemaNamespaces, fs).New(specs[v])
+	sl := newFSLoaderFactory(schemaNamespaces, FileSystem()).New(specs[v])
 	ml := gojsonschema.NewStringLoader(string(buf))
 
 	result, err := gojsonschema.Validate(sl, ml)

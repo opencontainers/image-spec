@@ -21,6 +21,8 @@ import (
 	"io/ioutil"
 	"net/url"
 	"os"
+	"path/filepath"
+	"reflect"
 	"strings"
 	"testing"
 
@@ -51,6 +53,31 @@ func TestValidateImageLayout(t *testing.T) {
 
 func TestValidateConfig(t *testing.T) {
 	validate(t, "../config.md")
+}
+
+func TestSchemaFS(t *testing.T) {
+	expectedSchemaFileNames, err := filepath.Glob("*.json")
+	if err != nil {
+		t.Error(err)
+	}
+
+	dir, err := schema.FileSystem().Open("/")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	files, err := dir.Readdir(-1)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var schemaFileNames []string
+	for _, f := range files {
+		schemaFileNames = append(schemaFileNames, f.Name())
+	}
+
+	if !reflect.DeepEqual(schemaFileNames, expectedSchemaFileNames) {
+		t.Fatalf("got %v, expected %v", schemaFileNames, expectedSchemaFileNames)
+	}
 }
 
 // TODO(sur): include examples from all specification files
