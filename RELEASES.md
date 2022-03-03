@@ -48,4 +48,4 @@ Specifications have a variety of different timelines in their lifecycle.
   For example if a breaking change is introduced in v1.0.0-rc2 then the series would end with v1.0.0-rc4 and v1.0.0.
 - Minor and patch releases SHOULD be made on an as-needed basis.
 
-[charter]: https://www.opencontainers.org/about/governance
+[charter]: https://github.com/opencontainers/tob/blob/main/CHARTER.md
