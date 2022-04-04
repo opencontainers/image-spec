@@ -27,6 +27,21 @@ This specification defines the following annotation keys, intended for but not l
   * version MAY be [Semantic versioning-compatible](http://semver.org/)
 * **org.opencontainers.image.revision** Source control revision identifier for the packaged software.
 * **org.opencontainers.image.vendor** Name of the distributing entity, organization or individual.
+* **org.opencontainers.image.support.end-of-life** Date after which the software won’t receive new features/updates from the publisher. Users should stop using this OCI image and move to a newer version. Publishers may or may not continue to ship security updates. On this day, the OCI image is deprecated.
+  * This MAY be specified (optional field)
+  * This SHOULD be specified for maintained software with predictable end of life
+  * If not empty,
+    * this MUST be a valid ISO 8601 (YYYY-MM-DD) date format [2]
+    * `org.opencontainers.image.vendor` MUST provide contact information to the entity responsible for support
+    * `org.opencontainers.image.support.info` SHOULD provide necessary information for the end user to access the support services
+* **org.opencontainers.image.support.end-of-support** Date after which the software won’t receive service, support, or security updates from the publisher. Users must stop using this OCI image. On this day, the OCI image is considered outdated, dangerous to use, and might become unavailable.
+  * This MAY be specified (optional field)
+  * This SHOULD be specified only when `support.end-of-life` is also specified
+  * If not empty,
+    * this MUST be a valid ISO 8601 (YYYY-MM-DD) date format [2]
+* **org.opencontainers.image.support.info** URL or text to provide more information about vendor support and upgrade options.
+  * This MAY be specified (optional field)
+  * This SHOULD be displayed by tooling advertising the deprecation status
 * **org.opencontainers.image.licenses** License(s) under which contained software is distributed as an [SPDX License Expression][spdx-license-expression].
 * **org.opencontainers.image.ref.name** Name of the reference for a target (string).
   * SHOULD only be considered valid when on descriptors on `index.json` within [image layout](image-layout.md).
