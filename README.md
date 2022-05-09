@@ -93,7 +93,7 @@ For example, this paragraph will span three lines in the Markdown source.
 ### Sign your work
 
 The sign-off is a simple line at the end of the explanation for the patch, which certifies that you wrote it or otherwise have the right to pass it on as an open-source patch.
-The rules are pretty simple: if you can certify the below (from [developercertificate.org](http://developercertificate.org/)):
+The rules are pretty simple: if you can certify the below (from [developercertificate.org](https://developercertificate.org/)):
 
 ```
 Developer Certificate of Origin
@@ -145,7 +145,7 @@ You can add the sign off when creating the git commit via `git commit -s`.
 ### Commit Style
 
 Simple house-keeping for clean git history.
-Read more on [How to Write a Git Commit Message](http://chris.beams.io/posts/git-commit/) or the Discussion section of [`git-commit(1)`](http://git-scm.com/docs/git-commit).
+Read more on [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/) or the Discussion section of [`git-commit(1)`](https://git-scm.com/docs/git-commit).
 
 1. Separate the subject from body with a blank line
 2. Limit the subject line to 50 characters
