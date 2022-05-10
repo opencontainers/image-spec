@@ -108,7 +108,7 @@ endif
 install.tools: $(TOOLS:%=.install.%)
 
 .install.lint:
-	go get github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+	go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.45.2
 
 .install.gitvalidation:
 	go get -u github.com/vbatts/git-validation
