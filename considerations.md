@@ -20,10 +20,10 @@ Implementations:
 
 * [Go][]: [github.com/docker/go][], which claims to implement [canonical JSON][canonical-json] except for Unicode normalization.
 
-[canonical-json]: http://wiki.laptop.org/go/Canonical_JSON
+[canonical-json]: https://wiki.laptop.org/go/Canonical_JSON
 [github.com/docker/go]: https://github.com/docker/go/
 [Go]: https://golang.org/
-[JSON]: http://json.org/
+[JSON]: https://json.org/
 
 # EBNF
 
