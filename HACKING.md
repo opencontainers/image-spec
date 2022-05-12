@@ -96,7 +96,7 @@ $ make clean
 This target generates PNG image files from DOT source files in the `img` directory.
 
 Prerequisites:
-* [graphviz](http://www.graphviz.org/)
+* [graphviz](https://www.graphviz.org/)
 
 Invocation:
 ```
