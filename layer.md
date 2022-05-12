@@ -63,7 +63,7 @@ Where supported, MUST include file attributes for Additions and Modifications in
 
 #### Hardlinks
 
-* Hardlinks are a [POSIX concept](http://pubs.opengroup.org/onlinepubs/9699919799/functions/link.html) for having one or more directory entries for the same file on the same device.
+* Hardlinks are a [POSIX concept](https://pubs.opengroup.org/onlinepubs/9699919799/functions/link.html) for having one or more directory entries for the same file on the same device.
 * Not all filesystems support hardlinks (e.g. [FAT](https://en.wikipedia.org/wiki/File_Allocation_Table)).
 * Hardlinks are possible with all [file types](#file-types) except `directories`.
 * Non-directory files are considered "hardlinked" when their link count is greater than 1.
@@ -147,9 +147,9 @@ Entries for the following files:
 
 Create a new directory and initialize it with a copy or snapshot of the prior root filesystem.
 Example commands that can preserve [file attributes](#file-attributes) to make this copy are:
-* [cp(1)](http://linux.die.net/man/1/cp): `cp -a rootfs-c9d-v1/ rootfs-c9d-v1.s1/`
-* [rsync(1)](http://linux.die.net/man/1/rsync):  `rsync -aHAX rootfs-c9d-v1/ rootfs-c9d-v1.s1/`
-* [tar(1)](http://linux.die.net/man/1/tar): `mkdir rootfs-c9d-v1.s1 && tar --acls --xattrs -C rootfs-c9d-v1/ -c . | tar -C rootfs-c9d-v1.s1/ --acls --xattrs -x` (including `--selinux` where supported)
+* [cp(1)](https://linux.die.net/man/1/cp): `cp -a rootfs-c9d-v1/ rootfs-c9d-v1.s1/`
+* [rsync(1)](https://linux.die.net/man/1/rsync):  `rsync -aHAX rootfs-c9d-v1/ rootfs-c9d-v1.s1/`
+* [tar(1)](https://linux.die.net/man/1/tar): `mkdir rootfs-c9d-v1.s1 && tar --acls --xattrs -C rootfs-c9d-v1/ -c . | tar -C rootfs-c9d-v1.s1/ --acls --xattrs -x` (including `--selinux` where supported)
 
 Any [changes](#change-types) to the snapshot MUST NOT change or affect the directory it was copied from.
 
@@ -235,7 +235,7 @@ This section specifies applying an entry from a layer changeset if the target pa
 
 If the entry and the existing path are both directories, then the existing path's attributes MUST be replaced by those of the entry in the changeset.
 In all other cases, the implementation MUST do the semantic equivalent of the following:
-- removing the file path (e.g. [`unlink(2)`](http://linux.die.net/man/2/unlink) on Linux systems)
+- removing the file path (e.g. [`unlink(2)`](https://linux.die.net/man/2/unlink) on Linux systems)
 - recreating the file path, based on the contents and attributes of the changeset entry
 
 ## Whiteouts
@@ -333,7 +333,7 @@ Implementations SHOULD NOT upload layers tagged with this media type; however, s
 [Descriptors](descriptor.md) referencing non-distributable layers MAY include `urls` for downloading these layers directly; however, the presence of the `urls` field SHOULD NOT be used to determine whether or not a layer is non-distributable.
 
 [libarchive-tar]: https://github.com/libarchive/libarchive/wiki/ManPageTar5#POSIX_ustar_Archives
-[gnu-tar-standard]: http://www.gnu.org/software/tar/manual/html_node/Standard.html
+[gnu-tar-standard]: https://www.gnu.org/software/tar/manual/html_node/Standard.html
 [rfc1952_2]: https://tools.ietf.org/html/rfc1952
 [tar-archive]: https://en.wikipedia.org/wiki/Tar_(computing)
 [rfc8478]: https://tools.ietf.org/html/rfc8478

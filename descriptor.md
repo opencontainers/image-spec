@@ -59,7 +59,7 @@ Extended _Descriptor_ field additions proposed in other OCI specifications SHOUL
 
 ## Digests
 
-The _digest_ property of a Descriptor acts as a content identifier, enabling [content addressability](http://en.wikipedia.org/wiki/Content-addressable_storage).
+The _digest_ property of a Descriptor acts as a content identifier, enabling [content addressability](https://en.wikipedia.org/wiki/Content-addressable_storage).
 It uniquely identifies content by taking a [collision-resistant hash](https://en.wikipedia.org/wiki/Cryptographic_hash_function) of the bytes.
 If the _digest_ can be communicated in a secure manner, one can verify content from an insecure source by recalculating the digest independently, ensuring the content has not been modified.
 

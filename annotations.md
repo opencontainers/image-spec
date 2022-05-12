@@ -24,7 +24,7 @@ This specification defines the following annotation keys, intended for but not l
 * **org.opencontainers.image.source** URL to get source code for building the image (string)
 * **org.opencontainers.image.version** version of the packaged software
   * The version MAY match a label or tag in the source code repository
-  * version MAY be [Semantic versioning-compatible](http://semver.org/)
+  * version MAY be [Semantic versioning-compatible](https://semver.org/)
 * **org.opencontainers.image.revision** Source control revision identifier for the packaged software.
 * **org.opencontainers.image.vendor** Name of the distributing entity, organization or individual.
 * **org.opencontainers.image.licenses** License(s) under which contained software is distributed as an [SPDX License Expression][spdx-license-expression].
