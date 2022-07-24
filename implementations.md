@@ -21,5 +21,6 @@ Projects or Companies currently adopting the OCI Image Specification
 * [coreos/rkt](https://github.com/coreos/rkt)
 * [box-builder/box](https://github.com/box-builder/box)
 * [coolljt0725/docker2oci](https://github.com/coolljt0725/docker2oci)
+* [regclient/regclient](https://github.com/regclient/regclient)
 
 _(to add your project please open a [pull-request](https://github.com/opencontainers/image-spec/pulls))_
