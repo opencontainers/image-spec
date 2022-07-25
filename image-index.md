@@ -35,6 +35,7 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
     Implementations MUST support at least the following media types:
 
     - [`application/vnd.oci.image.manifest.v1+json`](manifest.md)
+    - [`application/vnd.oci.artifact.manifest.v1+json`](artifact.md)
 
     Also, implementations SHOULD support the following media types:
 
@@ -128,6 +129,41 @@ When the variant of the CPU is not listed in the table, values are implementatio
         "architecture": "amd64",
         "os": "linux"
       }
+    }
+  ],
+  "annotations": {
+    "com.example.key1": "value1",
+    "com.example.key2": "value2"
+  }
+}
+```
+
+## Example Image Index with multiple media types
+
+*Example showing an image index pointing to manifests with multiple media types:*
+```json,title=Image%20Index&mediatype=application/vnd.oci.image.index.v1%2Bjson
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.index.v1+json",
+  "manifests": [
+    {
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "size": 7143,
+      "digest": "sha256:e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f",
+      "platform": {
+        "architecture": "ppc64le",
+        "os": "linux"
+      }
+    },
+    {
+      "mediaType": "application/vnd.oci.artifact.manifest.v1+json",
+      "size": 7682,
+      "digest": "sha256:601570aaff1b68a61eb9c85b8beca1644e698003e0cdb5bce960f193d265a8b7",
+      "artifactType": "application/example",
+      "annotations": {
+          "com.example.artifactKey1": "value1",
+          "com.example.artifactKey2": "value2"
+        }
     }
   ],
   "annotations": {

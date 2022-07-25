@@ -16,8 +16,11 @@ This property contains arbitrary metadata.
 
 ## Pre-Defined Annotation Keys
 
-This specification defines the following annotation keys, intended for but not limited to [image index](image-index.md) and image [manifest](manifest.md) authors:
-* **org.opencontainers.image.created** date and time on which the image was built (string, date-time as defined by [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6)).
+This specification defines the following annotation keys, intended for but not limited to [image index](image-index.md), image [manifest](manifest.md), [artifact](artifact.md), and [descriptor](descriptor.md) authors.
+
+* **org.opencontainers.artifact.created** date and time on which the artifact was built, conforming to [RFC 3339][rfc3339].
+* **org.opencontainers.artifact.description**: human readable description for the artifact (string)
+* **org.opencontainers.image.created** date and time on which the image was built, conforming to [RFC 3339][rfc3339].
 * **org.opencontainers.image.authors** contact details of the people or organization responsible for the image (freeform string)
 * **org.opencontainers.image.url** URL to find more information on the image (string)
 * **org.opencontainers.image.documentation** URL to get documentation on the image (string)
@@ -49,6 +52,7 @@ This specification defines the following annotation keys, intended for but not l
   * This SHOULD be the immediate image sharing zero-indexed layers with the image, such as from a Dockerfile `FROM` statement.
   * This SHOULD NOT reference any other images used to generate the contents of the image (e.g., multi-stage Dockerfile builds).
   * If the `image.base.name` annotation is specified, the `image.base.digest` annotation SHOULD be the digest of the manifest referenced by the `image.ref.name` annotation.
+* **org.opencontainers.referrers.filtersApplied** Comma separated list of filters applied by the registry in the [referrers listing](https://github.com/opencontainers/distribution-spec/blob/main/spec.md#listing-referrers) (string)
 
 ## Back-compatibility with Label Schema
 
@@ -74,3 +78,5 @@ While users are encouraged to use the **org.opencontainers.image** keys, tools M
 | | `docker.*`, `rkt.*` | No equivalent in the OCI Image Spec |
 
 [spdx-license-expression]: https://spdx.org/spdx-specification-21-web-version#h.jxpfx0ykyb60
+
+[rfc3339]:     https://tools.ietf.org/html/rfc3339#section-5.6

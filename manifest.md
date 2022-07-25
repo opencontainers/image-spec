@@ -65,6 +65,11 @@ Unlike the [image index](image-index.md), which contains information about a set
 
         Entries in this field will frequently use the `+gzip` types.
 
+- **`refers`** *[descriptor](descriptor.md)*
+
+    This OPTIONAL property specifies a [descriptor](descriptor.md) of another manifest.
+    This value, used by the [`referrers` API](https://github.com/opencontainers/distribution-spec/blob/main/spec.md#listing-referrers), indicates a relationship to the specified manifest.
+
 - **`annotations`** *string-string map*
 
     This OPTIONAL property contains arbitrary metadata for the image manifest.
@@ -101,6 +106,11 @@ Unlike the [image index](image-index.md), which contains information about a set
       "digest": "sha256:ec4b8955958665577945c89419d1af06b5f7636b4ac3da7f12184802ad867736"
     }
   ],
+  "refers": {
+    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+    "size": 7682,
+    "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270"
+  },
   "annotations": {
     "com.example.key1": "value1",
     "com.example.key2": "value2"
