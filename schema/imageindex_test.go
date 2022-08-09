@@ -31,6 +31,7 @@ func TestImageIndex(t *testing.T) {
 			imageIndex: `
 {
   "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.index.v1+json",
   "manifests": [
     {
       "mediaType": "invalid",
@@ -52,6 +53,7 @@ func TestImageIndex(t *testing.T) {
 			imageIndex: `
 {
   "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.index.v1+json",
   "manifests": [
     {
       "mediaType": "application/vnd.oci.image.manifest.v1+json",
@@ -73,6 +75,7 @@ func TestImageIndex(t *testing.T) {
 			imageIndex: `
 {
   "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.index.v1+json",
   "manifests": [
     {
       "mediaType": "application/vnd.oci.image.manifest.v1+json",
@@ -93,6 +96,7 @@ func TestImageIndex(t *testing.T) {
 			imageIndex: `
 {
   "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.index.v1+json",
   "manifests": [
     {
       "mediaType": "application/vnd.oci.image.manifest.v1+json",
@@ -113,6 +117,7 @@ func TestImageIndex(t *testing.T) {
 			imageIndex: `
 {
   "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.index.v1+json",
   "manifests": [
     {
       "mediaType": "invalid",
@@ -134,6 +139,7 @@ func TestImageIndex(t *testing.T) {
 			imageIndex: `
 {
   "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.index.v1+json",
   "manifests": [
     {
       "mediaType": "",
@@ -155,6 +161,7 @@ func TestImageIndex(t *testing.T) {
 			imageIndex: `
 {
   "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.index.v1+json",
   "manifests": [
     {
       "mediaType": "application/vnd.oci.image.manifest.v1+json",
@@ -189,6 +196,7 @@ func TestImageIndex(t *testing.T) {
 			imageIndex: `
 {
   "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.index.v1+json",
   "manifests": [
     {
       "mediaType": "application/vnd.oci.image.manifest.v1+json",
@@ -206,6 +214,7 @@ func TestImageIndex(t *testing.T) {
 			imageIndex: `
 {
   "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.index.v1+json",
   "manifests": [
     {
       "mediaType": "application/customized.manifest+json",
