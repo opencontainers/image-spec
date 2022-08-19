@@ -1,7 +1,7 @@
 # Open Container Initiative
 ## Image Format Specification
 
-This specification defines an OCI Image, consisting of a [manifest](manifest.md), an [image index](image-index.md) (optional), a set of [filesystem layers](layer.md), and a [configuration](config.md).
+This specification defines an OCI Image, which is a `tar.gz` file consisting of a [manifest](manifest.md), an [image index](image-index.md) (optional), a set of [filesystem layers](layer.md), and a [configuration](config.md).
 
 The goal of this specification is to enable the creation of interoperable tools for building, transporting, and preparing a container image to run.
 
