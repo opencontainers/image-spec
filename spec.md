@@ -1,7 +1,7 @@
 # Open Container Initiative
 ## Image Format Specification
 
-This specification defines an OCI Image, consisting of a [manifest](manifest.md), an [image index](image-index.md) (optional), a set of [filesystem layers](layer.md), and a [configuration](config.md).
+This specification defines an OCI Image, consisting of an [image manifest](manifest.md), an [image index](image-index.md) (optional), a set of [filesystem layers](layer.md), and a [configuration](config.md).
 
 The goal of this specification is to enable the creation of interoperable tools for building, transporting, and preparing a container image to run.
 
@@ -39,11 +39,11 @@ The image configuration includes information such as application arguments, envi
 The image index is a higher-level manifest which points to a list of manifests and descriptors.
 Typically, these manifests may provide different implementations of the image, possibly varying by platform or other attributes.
 
-![](img/build-diagram.png)
+![build diagram](img/build-diagram.png)
 
 Once built the OCI Image can then be discovered by name, downloaded, verified by hash, trusted through a signature, and unpacked into an [OCI Runtime Bundle](https://github.com/opencontainers/runtime-spec/blob/master/bundle.md).
 
-![](img/run-diagram.png)
+![runtime diagram](img/run-diagram.png)
 
 ### Understanding the Specification
 
@@ -52,7 +52,8 @@ The [OCI Image Media Types](media-types.md) document is a starting point to unde
 The high-level components of the spec include:
 
 * [Image Manifest](manifest.md) - a document describing the components that make up a container image
-* [Image Index](image-index.md) - an annotated index of image manifests
+* [Image Index](image-index.md) - an annotated list of manifests
+* [Artifact Manifest](artifact.md) - a document describing the components that make up an artifact
 * [Image Layout](image-layout.md) - a filesystem layout representing the contents of an image
 * [Filesystem Layer](layer.md) - a changeset that describes a container's filesystem
 * [Image Configuration](config.md) - a document determining layer ordering and configuration of the image suitable for translation into a [runtime bundle][runtime-spec]
