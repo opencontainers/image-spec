@@ -31,6 +31,7 @@ func TestManifest(t *testing.T) {
 			manifest: `
 {
   "schemaVersion": 2,
+  "mediaType" : "application/vnd.oci.image.manifest.v1+json",
   "config": {
     "mediaType": "invalid",
     "size": 1470,
@@ -53,6 +54,8 @@ func TestManifest(t *testing.T) {
 			manifest: `
 {
   "schemaVersion": 2,
+  "mediaType" : "application/vnd.oci.image.manifest.v1+json",
+  "config": {
   "config": {
     "mediaType": "application/vnd.oci.image.config.v1+json",
     "size": "1470",
@@ -75,6 +78,7 @@ func TestManifest(t *testing.T) {
 			manifest: `
 {
   "schemaVersion": 2,
+  "mediaType" : "application/vnd.oci.image.manifest.v1+json",
   "config": {
     "mediaType": "application/vnd.oci.image.config.v1+json",
     "size": 1470,
@@ -97,6 +101,7 @@ func TestManifest(t *testing.T) {
 			manifest: `
 {
   "schemaVersion": 2,
+  "mediaType" : "application/vnd.oci.image.manifest.v1+json",
   "config": {
     "mediaType": "application/vnd.oci.image.config.v1+json",
     "size": 1470,
@@ -133,6 +138,7 @@ func TestManifest(t *testing.T) {
 			manifest: `
 {
   "schemaVersion": 2,
+  "mediaType" : "application/vnd.oci.image.manifest.v1+json",
   "config": {
     "mediaType": "application/vnd.oci.image.config.v1+json",
     "size": 1470,
@@ -165,6 +171,7 @@ func TestManifest(t *testing.T) {
 			manifest: `
 {
   "schemaVersion": 2,
+  "mediaType" : "application/vnd.oci.image.manifest.v1+json",
   "config": {
     "mediaType": "application/vnd.oci.image.config.v1+json",
     "size": 1470,
@@ -181,6 +188,7 @@ func TestManifest(t *testing.T) {
 			manifest: `
 {
   "schemaVersion": 2,
+  "mediaType" : "application/vnd.oci.image.manifest.v1+json",
   "config": {
     "mediaType": "application/vnd.oci.image.config.v1+json",
     "size": 1470,
@@ -212,6 +220,7 @@ func TestManifest(t *testing.T) {
 			manifest: `
 {
   "schemaVersion": 2,
+  "mediaType" : "application/vnd.oci.image.manifest.v1+json",
   "config": {
     "mediaType": "application/vnd.oci.image.config.v1+json",
     "size": 1470,
