@@ -11,6 +11,10 @@
       "minimum": 2,
       "maximum": 2
     },
+    "mediaType": {
+      "description": "the mediatype of the referenced object",
+      "$ref": "defs-descriptor.json#/definitions/mediaType"
+    },
     "manifests": {
       "type": "array",
       "items": {
