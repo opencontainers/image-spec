@@ -18,7 +18,6 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -183,7 +182,7 @@ func parseExample(lang, body string) (e example) {
 }
 
 func extractExamples(rd io.Reader) ([]example, error) {
-	p, err := ioutil.ReadAll(rd)
+	p, err := io.ReadAll(rd)
 	if err != nil {
 		return nil, err
 	}
