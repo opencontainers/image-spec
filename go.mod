@@ -1,6 +1,6 @@
 module github.com/opencontainers/image-spec
 
-go 1.16
+go 1.17
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
@@ -12,3 +12,5 @@ require (
 	github.com/xeipuuv/gojsonschema v1.2.0
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )
+
+require github.com/xeipuuv/gojsonpointer v0.0.0-20180127040702-4e3ac2762d5f // indirect
