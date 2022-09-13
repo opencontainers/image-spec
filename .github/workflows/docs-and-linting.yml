@@ -9,17 +9,16 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        go: ['1.16', '1.17']
+        go: ['1.17', '1.18', '1.19']
 
     name: Documentation and Linting
     steps:
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           path: go/src/github.com/opencontainers/image-spec
 
-                               # commit for v1 release
-      - uses: actions/setup-go@0caeaed6fd66a828038c2da3c0f662a42862658f
+      - uses: actions/setup-go@v3
         with:
           go-version: ${{ matrix.go }}
 
@@ -40,7 +39,7 @@ jobs:
           make docs
 
       - name: documentation artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: oci-docs
           path: go/src/github.com/opencontainers/image-spec/output

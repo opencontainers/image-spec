@@ -3,6 +3,8 @@ EPOCH_TEST_COMMIT ?= v0.2.0
 DOCKER ?= $(shell command -v docker 2>/dev/null)
 PANDOC ?= $(shell command -v pandoc 2>/dev/null)
 
+GOPATH:=$(shell go env GOPATH)
+
 OUTPUT_DIRNAME	?= output
 DOC_FILENAME	?= oci-image-spec
 
@@ -87,7 +89,7 @@ check-license:
 
 lint: .install.lint
 	@echo "checking lint"
-	@GO111MODULE=on golangci-lint run
+	@GO111MODULE=on $(GOPATH)/bin/golangci-lint run
 
 test: schema/fs.go
 	go test -race -cover $(shell go list ./... | grep -v /vendor/)
@@ -100,18 +102,22 @@ img/%.png: img/%.dot
 .gitvalidation:
 	@which git-validation > /dev/null 2>/dev/null || (echo "ERROR: git-validation not found. Consider 'make install.tools' target" && false)
 ifdef GITHUB_SHA
-	git-validation -q -run DCO,short-subject,dangling-whitespace -range $(GITHUB_SHA)..HEAD
+	$(GOPATH)/bin/git-validation -q -run DCO,short-subject,dangling-whitespace -range $(GITHUB_SHA)..HEAD
 else
-	git-validation -v -run DCO,short-subject,dangling-whitespace -range $(EPOCH_TEST_COMMIT)..HEAD
+	$(GOPATH)/bin/git-validation -v -run DCO,short-subject,dangling-whitespace -range $(EPOCH_TEST_COMMIT)..HEAD
 endif
 
 install.tools: $(TOOLS:%=.install.%)
 
 .install.lint:
-	go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.45.2
+	case "$$(go env GOVERSION)" in \
+	go1.17.*)	go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.47.3;; \
+	go1.18.*)	go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.47.3;; \
+	*) go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest;; \
+	esac
 
 .install.gitvalidation:
-	go get -u github.com/vbatts/git-validation
+	go install github.com/vbatts/git-validation@latest
 
 clean:
 	rm -rf *~ $(OUTPUT_DIRNAME) header.html
