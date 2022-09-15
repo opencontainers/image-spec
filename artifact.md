@@ -28,7 +28,7 @@ For the media type(s) that this is compatible with see the [matrix](media-types.
   Each descriptor represents an artifact of any IANA mediaType.
   The list MAY be ordered for certain artifact types like scan results.
 
-- **`refers`** *[descriptor](descriptor.md)*
+- **`subject`** *[descriptor](descriptor.md)*
 
   This OPTIONAL property specifies a [descriptor](descriptor.md) of another manifest.
   This value, used by the [`referrers` API](https://github.com/opencontainers/distribution-spec/blob/main/spec.md#listing-referrers), indicates a relationship to the specified manifest.
@@ -57,7 +57,7 @@ For the media type(s) that this is compatible with see the [matrix](media-types.
       "digest": "sha256:87923725d74f4bfb94c9e86d64170f7521aad8221a5de834851470ca142da630"
     }
   ],
-  "refers": {
+  "subject": {
     "mediaType": "application/vnd.oci.image.manifest.v1+json",
     "size": 1234,
     "digest": "sha256:cc06a2839488b8bd2a2b99dcdc03d5cfd818eed72ad08ef3cc197aac64c0d0a0"
