@@ -75,7 +75,7 @@ Releases usually follow a few steps:
 ```
 Hey everyone,
 
-There have been $numPRs PRs merged since $priorTag release (https://github.com/opencontainers/runtime-spec/compare/$priorTag...$versionBumpCommit).
+There have been $numPRs PRs merged since $priorTag release (https://github.com/opencontainers/image-spec/compare/$priorTag...$versionBumpCommit).
 
 $linkToPullRequest
 
