@@ -1,0 +1,29 @@
+{
+  "description": "OpenContainer Artifact Manifest Specification",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://opencontainers.org/schema/artifact",
+  "type": "object",
+  "properties": {
+    "mediaType": {
+      "description": "the mediatype of the referenced object",
+      "$ref": "defs-descriptor.json#/definitions/mediaType"
+    },
+    "artifactType": {
+      "description": "The IANA mediatype of the referenced objects properties",
+      "$ref": "defs-descriptor.json#/definitions/mediaType"
+    }, 
+    "blobs": {
+      "type": "array",
+      "items": {
+        "$ref": "content-descriptor.json"
+      }
+    },
+    "subject": {
+      "$ref": "content-descriptor.json"
+    },
+    "annotations": {
+      "id": "https://opencontainers.org/schema/image/manifest/annotations",
+      "$ref": "defs-descriptor.json#/definitions/annotations"
+    }
+  }
+}

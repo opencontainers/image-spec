@@ -54,6 +54,10 @@ func TestValidateConfig(t *testing.T) {
 	validate(t, "../config.md")
 }
 
+func TestValidateArtifactManifest(t *testing.T) {
+	validate(t, "../artifact.md")
+}
+
 func TestSchemaFS(t *testing.T) {
 	expectedSchemaFileNames, err := filepath.Glob("*.json")
 	if err != nil {

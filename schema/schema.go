@@ -29,6 +29,7 @@ const (
 	ValidatorMediaTypeImageIndex   Validator     = v1.MediaTypeImageIndex
 	ValidatorMediaTypeImageConfig  Validator     = v1.MediaTypeImageConfig
 	ValidatorMediaTypeImageLayer   unimplemented = v1.MediaTypeImageLayer
+	ValidatorMediaTypeArtifact     Validator     = v1.MediaTypeArtifactManifest
 )
 
 var (
@@ -68,6 +69,7 @@ var (
 		ValidatorMediaTypeManifest:     "https://opencontainers.org/schema/image/image-manifest-schema.json",
 		ValidatorMediaTypeImageIndex:   "https://opencontainers.org/schema/image/image-index-schema.json",
 		ValidatorMediaTypeImageConfig:  "https://opencontainers.org/schema/image/config-schema.json",
+		ValidatorMediaTypeArtifact:     "https://opencontainers.org/schema/artifact-manifest-schema.json",
 	}
 )
 

@@ -38,6 +38,7 @@ var mapValidate = map[Validator]validateFunc{
 	ValidatorMediaTypeDescriptor:  validateDescriptor,
 	ValidatorMediaTypeImageIndex:  validateIndex,
 	ValidatorMediaTypeManifest:    validateManifest,
+	ValidatorMediaTypeArtifact:    validateArtifact,
 }
 
 // ValidationError contains all the errors that happened during validation.
@@ -249,4 +250,23 @@ func checkPlatform(OS string, Architecture string) {
 		}
 	}
 	fmt.Printf("warning: operating system %q of the bundle is not supported yet.\n", OS)
+}
+
+func validateArtifact(r io.Reader) error {
+	header := v1.Artifact{}
+
+	buf, err := io.ReadAll(r)
+	if err != nil {
+		return errors.Wrapf(err, "error reading the io stream")
+	}
+
+	err = json.Unmarshal(buf, &header)
+	if err != nil {
+		return errors.Wrap(err, "manifest format mismatch")
+	}
+
+	if header.MediaType != string(v1.MediaTypeArtifactManifest) {
+		fmt.Printf("warning: Artifact has an unknown media type: %s\n", header.MediaType)
+	}
+	return nil
 }
