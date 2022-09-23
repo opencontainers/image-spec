@@ -1,8 +1,12 @@
 digraph G {
   {
     imageIndex [shape=note, label="Image Index\n<<optional>>\napplication/vnd.oci.image.index.v1+json"]
-    manifest [shape=note, label="Image manifest\napplication/vnd.oci.image.manifest.v1+json"]
-    config [shape=note, label="Image JSON\napplication/vnd.oci.image.config.v1+json"]
+    {
+      rank=same
+      manifest [shape=note, label="Image manifest\napplication/vnd.oci.image.manifest.v1+json"]
+      artifact [shape=note, label="Artifact Manifest\napplication/vnd.oci.artifact.manifest.v1+json"]
+    }
+    config [shape=note, label="Image config JSON\napplication/vnd.oci.image.config.v1+json"]
     layer [shape=note, label="Layer tar archive\napplication/vnd.oci.image.layer.v1.tar\napplication/vnd.oci.image.layer.v1.tar+gzip\napplication/vnd.oci.image.layer.nondistributable.v1.tar\napplication/vnd.oci.image.layer.nondistributable.v1.tar+gzip"]
   }
 
@@ -10,4 +14,9 @@ digraph G {
   imageIndex -> manifest [label="1..*"]
   manifest -> config [label="1..1"]
   manifest -> layer [label="1..*"]
+  artifact -> manifest [label="0..1"] [constraint = false];
+  artifact -> artifact [label="0..1"];
+  manifest -> manifest [label="0..1"];
+  artifact -> imageIndex [label="0..1"]
+  artifact -> layer[label="0..*"]
 }

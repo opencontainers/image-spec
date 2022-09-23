@@ -30,6 +30,7 @@ DOC_FILES := \
 	descriptor.md \
 	image-layout.md \
 	manifest.md \
+	artifact.md \
 	image-index.md \
 	layer.md \
 	config.md \
