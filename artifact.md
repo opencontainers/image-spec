@@ -49,7 +49,7 @@ For the media type(s) that this is compatible with see the [matrix](media-types.
 ```jsonc,title=Manifest&mediatype=application/vnd.oci.artifact.manifest.v1%2Bjson
 {
   "mediaType": "application/vnd.oci.artifact.manifest.v1+json",
-  "artifactType": "application/vnd.example.sbom.v1"
+  "artifactType": "application/vnd.example.sbom.v1",
   "blobs": [
     {
       "mediaType": "application/gzip",
