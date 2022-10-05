@@ -69,6 +69,8 @@ This section shows where the OCI Image Specification is compatible with formats 
   - `.config.MemorySwap`: only present in Docker, and reserved in OCI
   - `.config.CpuShares`: only present in Docker, and reserved in OCI
   - `.config.Healthcheck`: only present in Docker, and reserved in OCI
+- [Moby/Docker](https://github.com/moby/moby)
+  - `.config.ArgsEscaped`: Windows-specific Moby/Docker extension, deprecated in OCI, available for compatibility with older images.
 
 `.config.StopSignal` and `.config.Labels` are accidentally undocumented in Docker Image Spec v1.2, but these fields are not OCI-specific concepts.
 

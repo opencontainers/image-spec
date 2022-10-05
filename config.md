@@ -183,6 +183,13 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
 
     The field contains the system call signal that will be sent to the container to exit. The signal can be a signal name in the format `SIGNAME`, for instance `SIGKILL` or `SIGRTMIN+3`.
 
+  - **ArgsEscaped** *boolean*, OPTIONAL
+
+    `[Deprecated]` - This field is present only for legacy compatibility with Docker and should not be used by new image builders.
+    It is used by Docker for Windows images to indicate that the `Entrypoint` or `Cmd` or both, contains only a single element array, that is a pre-escaped, and combined into a single string `CommandLine`.
+    If `true` the value in `Entrypoint` or `Cmd` should be used as-is to avoid double escaping.
+    Note, the exact behavior of `ArgsEscaped` is complex and subject to implementation details in Moby project.
+
   - **Memory** *integer*, OPTIONAL
 
     This property is *reserved* for use, to [maintain compatibility](media-types.md#compatibility-matrix).
