@@ -100,7 +100,57 @@ func TestArtifact(t *testing.T) {
 			fail: true,
 		},
 
-		// valid manifest with optional fields
+		// valid manifest with minimal fields
+		{
+			manifest: `
+{
+  "mediaType": "application/vnd.oci.artifact.manifest.v1+json"
+}
+`,
+			fail: false,
+		},
+		// valid manifest with artifactType and blobs
+		{
+			manifest: `
+{
+  "mediaType": "application/vnd.oci.artifact.manifest.v1+json",
+  "artifactType": "application/example",
+  "blobs": [
+    {
+      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+      "size": 675598,
+      "digest": "sha256:9d3dd9504c685a304985025df4ed0283e47ac9ffa9bd0326fddf4d59513f0827"
+    },
+    {
+      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+      "size": 156,
+      "digest": "sha256:2b689805fbd00b2db1df73fae47562faac1a626d5f61744bfe29946ecff5d73d"
+    },
+    {
+      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+      "size": 148,
+      "digest": "sha256:c57089565e894899735d458f0fd4bb17a0f1e0df8d72da392b85c9b35ee777cd"
+    }
+  ]
+}
+`,
+			fail: false,
+		},
+		// valid manifest with annotations
+		{
+			manifest: `
+{
+  "mediaType": "application/vnd.oci.artifact.manifest.v1+json",
+  "artifactType": "application/example",
+  "annotations": {
+    "key1": "value1",
+    "key2": "value2"
+  }
+}
+`,
+			fail: false,
+		},
+		// valid manifest with all optional fields
 		{
 			manifest: `
 {
