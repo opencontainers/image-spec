@@ -10,10 +10,13 @@ The following media types identify the formats described here and their referenc
 - `application/vnd.oci.image.layer.v1.tar`: ["Layer", as a tar archive](layer.md)
 - `application/vnd.oci.image.layer.v1.tar+gzip`: ["Layer", as a tar archive](layer.md#gzip-media-types) compressed with [gzip][rfc1952]
 - `application/vnd.oci.image.layer.v1.tar+zstd`: ["Layer", as a tar archive](layer.md#zstd-media-types) compressed with [zstd][rfc8478]
-- `application/vnd.oci.image.layer.nondistributable.v1.tar`: ["Layer", as a tar archive with distribution restrictions](layer.md#non-distributable-layers)
+- `application/vnd.oci.artifact.manifest.v1+json`: [Artifact manifest](artifact.md)
+
+The following media types identify a ["Layer" with distribution restrictions](layer.md#non-distributable-layers), but are **deprecated** and not recommended for future use:
+
+- `application/vnd.oci.image.layer.nondistributable.v1.tar`: "Layer", as a tar archive
 - `application/vnd.oci.image.layer.nondistributable.v1.tar+gzip`: ["Layer", as a tar archive with distribution restrictions](layer.md#gzip-media-types) compressed with [gzip][rfc1952]
 - `application/vnd.oci.image.layer.nondistributable.v1.tar+zstd`: ["Layer", as a tar archive with distribution restrictions](layer.md#zstd-media-types) compressed with [zstd][rfc8478]
-- `application/vnd.oci.artifact.manifest.v1+json`: [Artifact manifest](artifact.md)
 
 ## Media Type Conflicts
 
