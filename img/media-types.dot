@@ -1,22 +1,31 @@
 digraph G {
-  {
-    imageIndex [shape=note, label="Image Index\n<<optional>>\napplication/vnd.oci.image.index.v1+json"]
-    {
-      rank=same
-      manifest [shape=note, label="Image manifest\napplication/vnd.oci.image.manifest.v1+json"]
-      artifact [shape=note, label="Artifact Manifest\napplication/vnd.oci.artifact.manifest.v1+json"]
-    }
-    config [shape=note, label="Image config JSON\napplication/vnd.oci.image.config.v1+json"]
-    layer [shape=note, label="Layer tar archive\napplication/vnd.oci.image.layer.v1.tar\napplication/vnd.oci.image.layer.v1.tar+gzip\napplication/vnd.oci.image.layer.nondistributable.v1.tar\napplication/vnd.oci.image.layer.nondistributable.v1.tar+gzip"]
+  compound=true
+  invisM[shape=point height=0] // invisible node needed for some links to parent
+  subgraph manifest {
+    label="Manifest"
+    cluster=true
+    { cluster=false; index -> {rank=same; image -> artifact[style=invis]} [style=invis] } // order nodes
+    invisSubM [style=invis shape=point height=0] // invisible node inside manifest
+    index [shape=note label="Image Index\napplication/vnd.oci.image.index.v1+json"]
+    image [shape=note label="Image Manifest\napplication/vnd.oci.image.manifest.v1+json"]
+    artifact [shape=note label="Artifact Manifest\napplication/vnd.oci.artifact.manifest.v1+json"]
+  }
+  subgraph blob {
+    label="Blob"
+    cluster=true
+    { cluster=false; rank=same; config -> layer -> other [style=invis] } // order nodes
+    config [shape=note label="Image Config JSON\napplication/vnd.oci.image.config.v1+json"]
+    layer [shape=note label="Layer tar archive\napplication/vnd.oci.image.layer.v1.tar\napplication/vnd.oci.image.layer.v1.tar+gzip"]
+    other [shape=note label="Other blobs\n*/*"]
   }
 
-  imageIndex -> imageIndex [label="1..*"]
-  imageIndex -> manifest [label="1..*"]
-  manifest -> config [label="1..1"]
-  manifest -> layer [label="1..*"]
-  artifact -> manifest [label="0..1"] [constraint = false];
-  artifact -> artifact [label="0..1"];
-  manifest -> manifest [label="0..1"];
-  artifact -> imageIndex [label="0..1"]
-  artifact -> layer[label="0..*"]
+  index -> index [label="1..*"];
+  index -> image [label="1..*"];
+  index -> artifact [label="1..*"];
+  image -> config [label="1..1"];
+  image -> layer [label="1..*"];
+  image -> invisM:e [dir=none label="0..1\nsubject" constraint = false];
+  artifact -> layer [lhead="blob" label="0..*"];
+  artifact -> invisM:e [dir=none label="0..1\nsubject" constraint = false];
+  invisM:w -> invisSubM [lhead=manifest];
 }
