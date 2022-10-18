@@ -21,7 +21,7 @@ type Artifact struct {
 	MediaType string `json:"mediaType"`
 
 	// ArtifactType is the IANA media type of the artifact this schema refers to.
-	ArtifactType string `json:"artifactType"`
+	ArtifactType string `json:"artifactType,omitempty"`
 
 	// Blobs is a collection of blobs referenced by this manifest.
 	Blobs []Descriptor `json:"blobs,omitempty"`
