@@ -17,6 +17,7 @@ The goal of this specification is to enable the creation of interoperable tools 
 - [Image Index](image-index.md)
 - [Filesystem Layers](layer.md)
 - [Image Configuration](config.md)
+- [Artifact Manifest](artifact.md)
 - [Annotations](annotations.md)
 - [Conversion](conversion.md)
 - [Considerations](considerations.md)
