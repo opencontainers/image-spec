@@ -55,13 +55,10 @@ The following fields contain the primary properties that constitute a Descriptor
 - **`artifactType`** *string*
 
   This OPTIONAL property contains the type of an artifact when the descriptor points to an artifact.
-  This is the value of `artifactType` when the descriptor references an [artifact manifest](artifact.md).
   This is the value of the config descriptor `mediaType` when the descriptor references an [image manifest](manifest.md).
   If defined, the value MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2], and MAY be registered with [IANA][iana].
 
 Descriptors pointing to [`application/vnd.oci.image.manifest.v1+json`](manifest.md) SHOULD include the extended field `platform`, see [Image Index Property Descriptions](image-index.md#image-index-property-descriptions) for details.
-
-Descriptors pointing to [`application/vnd.oci.artifact.manifest.v1+json`](artifact.md) SHOULD include the extended field `artifactType`.
 
 ### Reserved
 
@@ -206,7 +203,7 @@ In the following example, the descriptor indicates the type of artifact it is re
 
 ```json,title=Content%20Descriptor&mediatype=application/vnd.oci.descriptor.v1%2Bjson
 {
-  "mediaType": "application/vnd.oci.artifact.manifest.v1+json",
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
   "size": 123,
   "digest": "sha256:87923725d74f4bfb94c9e86d64170f7521aad8221a5de834851470ca142da630",
   "artifactType": "application/vnd.example.sbom.v1"

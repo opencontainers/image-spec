@@ -35,7 +35,6 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
     Implementations MUST support at least the following media types:
 
     - [`application/vnd.oci.image.manifest.v1+json`](manifest.md)
-    - [`application/vnd.oci.artifact.manifest.v1+json`](artifact.md)
 
     Also, implementations SHOULD support the following media types:
 
@@ -157,14 +156,9 @@ When the variant of the CPU is not listed in the table, values are implementatio
       }
     },
     {
-      "mediaType": "application/vnd.oci.artifact.manifest.v1+json",
+      "mediaType": "application/vnd.oci.image.index.v1+json",
       "size": 7682,
-      "digest": "sha256:601570aaff1b68a61eb9c85b8beca1644e698003e0cdb5bce960f193d265a8b7",
-      "artifactType": "application/example",
-      "annotations": {
-          "com.example.artifactKey1": "value1",
-          "com.example.artifactKey2": "value2"
-        }
+      "digest": "sha256:601570aaff1b68a61eb9c85b8beca1644e698003e0cdb5bce960f193d265a8b7"
     }
   ],
   "annotations": {

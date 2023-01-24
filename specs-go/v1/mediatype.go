@@ -72,7 +72,4 @@ const (
 
 	// MediaTypeScratch specifies the media type for an unused blob containing the value `{}`
 	MediaTypeScratch = "application/vnd.oci.scratch.v1+json"
-
-	// MediaTypeArtifactManifest specifies the media type for a content descriptor.
-	MediaTypeArtifactManifest = "application/vnd.oci.artifact.manifest.v1+json"
 )
