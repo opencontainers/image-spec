@@ -324,6 +324,9 @@ Any given image is likely to be composed of several of these Image Filesystem Ch
 
 # Non-Distributable Layers
 
+> **NOTE**: Non-distributable layers are deprecated, and not recommended for future use.
+> Implementations SHOULD NOT produce new non-distributable layers.
+
 Due to legal requirements, certain layers may not be regularly distributable.
 Such "non-distributable" layers are typically downloaded directly from a distributor but never uploaded.
 
