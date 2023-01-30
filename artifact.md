@@ -1,5 +1,7 @@
 # OCI Artifact Manifest Specification
 
+Implementations concerned with portability SHOULD NOT use the Artifact Manifest.
+
 The goal of the Artifact Manifest Specification is to define content addressable artifacts in order to store them along side container images in a registry.
 Like [OCI Images](manifest.md), OCI Artifacts may be referenced by the hash of their manifest.
 Unlike OCI Images, OCI Artifacts are not meant to be used by any container runtime.
