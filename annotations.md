@@ -53,6 +53,7 @@ This specification defines the following annotation keys, intended for but not l
   * This SHOULD NOT reference any other images used to generate the contents of the image (e.g., multi-stage Dockerfile builds).
   * If the `image.base.name` annotation is specified, the `image.base.digest` annotation SHOULD be the digest of the manifest referenced by the `image.ref.name` annotation.
 * **org.opencontainers.referrers.filtersApplied** Comma separated list of filters applied by the registry in the [referrers listing](https://github.com/opencontainers/distribution-spec/blob/main/spec.md#listing-referrers) (string)
+* **org.opencontainers.image.estargz.toc.digest** Digest of the TOC JSON of [eStargz](estargz.md) layer.
 
 ## Back-compatibility with Label Schema
 
