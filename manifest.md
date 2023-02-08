@@ -40,6 +40,8 @@ Unlike the [image index](image-index.md), which contains information about a set
 
         Manifests concerned with portability SHOULD use one of the above media types.
 
+        If the manifest uses a different media type than the above, it MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2], and MAY be registered with [IANA][iana].
+
 - **`layers`** *array of objects*
 
     Each item in the array MUST be a [descriptor](descriptor.md).
@@ -64,6 +66,8 @@ Unlike the [image index](image-index.md), which contains information about a set
         An encountered `mediaType` that is unknown to the implementation MUST be ignored.
 
         Entries in this field will frequently use the `+gzip` types.
+
+        If the manifest uses a different media type than the above, it MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2], and MAY be registered with [IANA][iana].
 
 - **`subject`** *[descriptor](descriptor.md)*
 
@@ -117,3 +121,7 @@ Unlike the [image index](image-index.md), which contains information about a set
   }
 }
 ```
+
+[iana]:         https://www.iana.org/assignments/media-types/media-types.xhtml
+[rfc6838]:      https://tools.ietf.org/html/rfc6838
+[rfc6838-s4.2]: https://tools.ietf.org/html/rfc6838#section-4.2
