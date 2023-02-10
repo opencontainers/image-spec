@@ -83,7 +83,7 @@ For Unix-like systems, this MAY involve resolution through NSS or parsing `/etc/
 
 In addition, a converter SHOULD set the value of `process.user.additionalGids` to a value corresponding to the user in the container's context described by `Config.User`.
 For Unix-like systems, this MAY involve resolution through NSS or parsing `/etc/group` and determining the group memberships of the user specified in `process.user.uid`.
-If the value of [`user`](config.md#properties) in `Config.User` is numeric, the converter SHOULD NOT modify `process.user.additionalGids`.
+The converter SHOULD NOT modify `process.user.additionalGids` if the value of [`user`](config.md#properties) in `Config.User` is numeric or if `Config.User` specifies a group.
 
 If `Config.User` is not defined, the converted `process.user` value is implementation-defined.
 If `Config.User` does not correspond to a user in the container's context, the converter MUST return an error.
