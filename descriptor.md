@@ -21,6 +21,8 @@ The following fields contain the primary properties that constitute a Descriptor
   This REQUIRED property contains the media type of the referenced content.
   Values MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2].
 
+  For the config descriptor of an [image manifest](manifest.md) with a subject field, this is the `artifactType` of that manifest.
+
   The OCI image specification defines [several of its own MIME types](media-types.md) for resources defined in the specification.
 
 - **`digest`** *string*

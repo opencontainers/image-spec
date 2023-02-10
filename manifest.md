@@ -110,6 +110,30 @@ Unlike the [image index](image-index.md), which contains information about a set
       "digest": "sha256:ec4b8955958665577945c89419d1af06b5f7636b4ac3da7f12184802ad867736"
     }
   ],
+  "annotations": {
+    "com.example.key1": "value1",
+    "com.example.key2": "value2"
+  }
+}
+```
+
+*Example showing an artifact referenced by an image manifest:*
+```json,title=Manifest&mediatype=application/vnd.oci.image.manifest.v1%2Bjson
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "config": {
+    "mediaType": "image/gif",
+    "size": 3540101,
+    "digest": "sha256:725c49c527a83669901d00392768df9f653b1964a056c54232bc4c93003ddb48"
+  },
+  "layers": [
+    {
+      "mediaType": "application/octet-stream",
+      "size": 0,
+      "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
   "subject": {
     "mediaType": "application/vnd.oci.image.manifest.v1+json",
     "size": 7682,
