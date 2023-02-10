@@ -45,10 +45,11 @@ Unlike the [image index](image-index.md), which contains information about a set
 - **`layers`** *array of objects*
 
     Each item in the array MUST be a [descriptor](descriptor.md).
-    The array MUST have the base layer at index 0.
+    This is an ordered array where the base layer MUST begin at index 0.
     Subsequent layers MUST then follow in stack order (i.e. from `layers[0]` to `layers[len(layers)-1]`).
     The final filesystem layout MUST match the result of [applying](layer.md#applying-changesets) the layers to an empty directory.
     The [ownership, mode, and other attributes](layer.md#file-attributes) of the initial empty directory are unspecified.
+    This MAY be a zero length array (no).
 
     Beyond the [descriptor requirements](descriptor.md#properties), the value has the following additional restrictions:
 
