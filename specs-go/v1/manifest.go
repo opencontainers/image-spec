@@ -28,7 +28,7 @@ type Manifest struct {
 	Config Descriptor `json:"config"`
 
 	// Layers is an indexed list of layers referenced by the manifest.
-	Layers []Descriptor `json:"layers"`
+	Layers []Descriptor `json:"layers,omitempty"`
 
 	// Subject is an optional link from the image manifest to another manifest forming an association between the image manifest and the other manifest.
 	Subject *Descriptor `json:"subject,omitempty"`

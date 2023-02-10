@@ -166,7 +166,7 @@ func TestManifest(t *testing.T) {
 			fail: false,
 		},
 
-		// expected failure: empty layer, expected at least one
+		// expected success: layers may be empty
 		{
 			manifest: `
 {
@@ -180,7 +180,23 @@ func TestManifest(t *testing.T) {
   "layers": []
 }
 `,
-			fail: true,
+			fail: false,
+		},
+
+		// expected success: layers is OPTIONAL
+		{
+			manifest: `
+{
+  "schemaVersion": 2,
+  "mediaType" : "application/vnd.oci.image.manifest.v1+json",
+  "config": {
+    "mediaType": "application/vnd.oci.image.config.v1+json",
+    "size": 1470,
+    "digest": "sha256:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+  }
+}
+`,
+			fail: false,
 		},
 
 		// expected pass: test bounds of algorithm field in digest.

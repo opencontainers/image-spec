@@ -44,6 +44,8 @@ Unlike the [image index](image-index.md), which contains information about a set
 
 - **`layers`** *array of objects*
 
+    This OPTIONAL property specifies an array of [descriptor](descriptor.md).
+    
     Each item in the array MUST be a [descriptor](descriptor.md).
     The array MUST have the base layer at index 0.
     Subsequent layers MUST then follow in stack order (i.e. from `layers[0]` to `layers[len(layers)-1]`).
