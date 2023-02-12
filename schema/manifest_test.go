@@ -215,6 +215,58 @@ func TestManifest(t *testing.T) {
 `,
 		},
 
+		// expected success: subject field with a valid descriptor
+		{
+			manifest: `
+{
+  "schemaVersion": 2,
+  "mediaType" : "application/vnd.oci.image.manifest.v1+json",
+  "subject" : {
+    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+    "size": 1234,
+    "digest": "sha256:220a60ecd4a3c32c282622a625a54db9ba0ff55b5ba9c29c7064a2bc358b6a3e"
+  },
+  "config": {
+    "mediaType": "application/vnd.oci.image.config.v1+json",
+    "size": 1470,
+    "digest": "sha256:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+      "size": 1470,
+      "digest": "sha256:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+    }
+  ]
+}
+`,
+			fail: false,
+		},
+
+		// expected failure: subject field with invalid value (something that is not a descriptor)
+		{
+			manifest: `
+{
+  "schemaVersion": 2,
+  "mediaType" : "application/vnd.oci.image.manifest.v1+json",
+  "subject" : ".nope",
+  "config": {
+    "mediaType": "application/vnd.oci.image.config.v1+json",
+    "size": 1470,
+    "digest": "sha256:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+      "size": 1470,
+      "digest": "sha256:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+    }
+  ]
+}
+`,
+			fail: true,
+		},
+
 		// expected failure: push bounds of algorithm field in digest too far.
 		{
 			manifest: `
