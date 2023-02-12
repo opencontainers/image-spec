@@ -232,6 +232,46 @@ func TestDescriptor(t *testing.T) {
 `,
 			fail: true,
 		},
+
+		// expected success: artifactType is present and an IANA compliant value
+		{
+			descriptor: `
+		{
+			"mediaType": "application/vnd.oci.image.manifest.v1+json",
+			"artifactType": "application/vnd.oci.image.manifest.v1+json",
+			"size": 7682,
+			"digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270"
+		}
+		`,
+			fail: false,
+		},
+
+		// expected failure: artifactType does not match pattern (invalid first subtype character)
+		{
+			descriptor: `
+		{
+			"mediaType": "application/vnd.oci.image.manifest.v1+json",
+			"artifactType": "foo/.bar",
+			"size": 7682,
+			"digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270"
+		}
+		`,
+			fail: true,
+		},
+
+		// expected success: data field is present and has base64 content
+		{
+			descriptor: `
+		{
+			"mediaType": "text/plain",
+			"size": 34,
+			"data": "aHR0cHM6Ly9naXRodWIuY29tL29wZW5jb250YWluZXJzCg==",
+			"digest": "sha256:2690af59371e9eca9453dc29882643f46e5ca47ec2862bd517b5e17351325153"
+		}
+		`,
+			fail: false,
+		},
+
 		{
 			descriptor: `{
     "mediaType": "application/vnd.oci.image.config.v1+json",
@@ -291,6 +331,17 @@ func TestDescriptor(t *testing.T) {
 				"size": 1000000,
 				"mediaType": "application/vnd.oci.image.config.v1+json"
 			}`,
+		},
+		{
+			descriptor: `
+		{
+			"mediaType": "text/plain",
+			"size": 34,
+			"data": "aHR0cHM6Ly9naXRodWIuY29tL29wZW5jb250YWluZXJzCg",
+			"digest": "sha256:2690af59371e9eca9453dc29882643f46e5ca47ec2862bd517b5e17351325153"
+		}
+		`,
+			fail: true,
 		},
 	} {
 		r := strings.NewReader(tt.descriptor)
