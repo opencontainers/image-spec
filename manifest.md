@@ -34,13 +34,9 @@ Unlike the [image index](image-index.md), which contains information about a set
     - **`mediaType`** *string*
 
         This [descriptor property](descriptor.md#properties) has additional restrictions for `config`.
-        Implementations MUST support at least the following media types:
+        Implementations MUST support any media type that complies with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2], and MAY be registered with [IANA][iana].
 
-        - [`application/vnd.oci.image.config.v1+json`](config.md)
-
-        Manifests concerned with portability SHOULD use one of the above media types.
-
-        If the manifest uses a different media type than the above, it MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2], and MAY be registered with [IANA][iana].
+        Manifests for container images concerned with portability SHOULD use the [`application/vnd.oci.image.config.v1+json`](config.md) media type.
 
 - **`layers`** *array of objects*
 
