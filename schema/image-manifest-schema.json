@@ -18,6 +18,9 @@
     "config": {
       "$ref": "content-descriptor.json"
     },
+    "subject": {
+      "$ref": "content-descriptor.json"
+    },
     "layers": {
       "type": "array",
       "minItems": 1,
