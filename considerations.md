@@ -1,7 +1,6 @@
 # Extensibility
 
 Implementations that are reading/processing [manifests](manifest.md) or [image indexes](image-index.md) MUST NOT generate an error if they encounter an unknown property.
-Instead they MUST ignore unknown properties.
 
 # Canonicalization
 

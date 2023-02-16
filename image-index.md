@@ -43,7 +43,7 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 
     Image indexes concerned with portability SHOULD use one of the above media types.
     Future versions of the spec MAY use a different mediatype (i.e. a new versioned format).
-    An encountered `mediaType` that is unknown to the implementation MUST be ignored.
+    An encountered `mediaType` that is unknown to the implementation MUST NOT generate an error.
 
   - **`platform`** *object*
 

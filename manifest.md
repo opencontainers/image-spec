@@ -39,6 +39,7 @@ Unlike the [image index](image-index.md), which contains information about a set
         - [`application/vnd.oci.image.config.v1+json`](config.md)
 
         Manifests concerned with portability SHOULD use one of the above media types.
+        An encountered `mediaType` that is unknown to the implementation MUST NOT generate an error.
 
 - **`layers`** *array of objects*
 
@@ -61,7 +62,7 @@ Unlike the [image index](image-index.md), which contains information about a set
         - [`application/vnd.oci.image.layer.nondistributable.v1.tar+gzip`](layer.md#gzip-media-types)
 
         Manifests concerned with portability SHOULD use one of the above media types.
-        An encountered `mediaType` that is unknown to the implementation MUST be ignored.
+        An encountered `mediaType` that is unknown to the implementation MUST NOT generate an error.
 
         Entries in this field will frequently use the `+gzip` types.
 
