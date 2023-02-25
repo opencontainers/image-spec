@@ -39,4 +39,6 @@ type Manifest struct {
 
 // ScratchDigestSHA256 is the digest of a blob with content of `{}` (size of 2)
 const ScratchDigestSHA256 = `sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a`
-const ScratchDigestData = `{}`
+
+// ScratchData is the content of an unused blob in an artifact packaged with an image manifest
+const ScratchData = `{}`
