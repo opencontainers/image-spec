@@ -1,6 +1,8 @@
 # Extensibility
 
-Implementations that are reading/processing [manifests](manifest.md) or [image indexes](image-index.md) MUST NOT generate an error if they encounter an unknown property.
+Implementations storing or copying content MUST NOT generate error if they encounter an unknown manifest media type (e.g.: [image manifest](manifest.md)) or an unknown property in a manifest.
+
+Implementations processing content MUST NOT generate an error if they encounter an unknown property in a known media type.
 
 # Canonicalization
 

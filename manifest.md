@@ -39,7 +39,18 @@ Unlike the [image index](image-index.md), which contains information about a set
         - [`application/vnd.oci.image.config.v1+json`](config.md)
 
         Manifests concerned with portability SHOULD use one of the above media types.
-        An encountered `mediaType` that is unknown to the implementation MUST NOT generate an error.
+
+        **Legacy artifact types**
+
+        Artifacts using [image manifest](manifest.md) MAY set the `mediaType` of their `config` property to one of the following:
+
+        - `application/vnd.cncf.helm.config.v1+json`, describing a Helm Chart artifact
+
+        - `application/vnd.sylabs.sif.config.v1+json`, describing a Singularity
+
+        This list may be amended as needed to describe use of image manifest prior to OCI 1.1.
+
+        Implementations SHOULD NOT attempt to parse the referenced content or the layers of unexpected media types, and SHOULD treat unknown data as opaque data (e.g.: `application/octet-stream`).
 
 - **`layers`** *array of objects*
 
