@@ -36,3 +36,7 @@ type Manifest struct {
 	// Annotations contains arbitrary metadata for the image manifest.
 	Annotations map[string]string `json:"annotations,omitempty"`
 }
+
+// ScratchDigestSHA256 is the digest of a blob with content of `{}` (size of 2)
+const ScratchDigestSHA256 = `sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a`
+const ScratchDigestData = `{}`
