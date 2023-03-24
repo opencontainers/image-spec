@@ -15,6 +15,10 @@
       "description": "the mediatype of the referenced object",
       "$ref": "defs-descriptor.json#/definitions/mediaType"
     },
+    "artifactType": {
+      "description": "the artifact mediatype of the referenced object",
+      "$ref": "defs-descriptor.json#/definitions/mediaType"
+    },
     "config": {
       "$ref": "content-descriptor.json"
     },

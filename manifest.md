@@ -26,6 +26,12 @@ Unlike the [image index](image-index.md), which contains information about a set
   When used, this field MUST contain the media type `application/vnd.oci.image.manifest.v1+json`.
   This field usage differs from the [descriptor](descriptor.md#properties) use of `mediaType`.
 
+- **`artifactType`** *string*
+
+  This OPTIONAL property contains the type of an artifact when the manifest is used for an artifact.
+  This MUST be set when `config.mediaType` is set to the [scratch value](#example-of-a-scratch-config-or-layer-descriptor).
+  If defined, the value MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2], and MAY be registered with [IANA][iana].
+
 - **`config`** *[descriptor](descriptor.md)*
 
     This REQUIRED property references a configuration object for a container, by digest.
@@ -38,7 +44,8 @@ Unlike the [image index](image-index.md), which contains information about a set
 
         - [`application/vnd.oci.image.config.v1+json`](config.md)
 
-        Manifests concerned with portability SHOULD use one of the above media types.
+        Manifests for container images concerned with portability SHOULD use one of the above media types.
+        Manifests for artifacts concerned with portability SHOULD use `config.mediaType` as described in [Guidelines for Artifact Usage](#guidelines-for-artifact-usage).
 
         If the manifest uses a different media type than the above, it MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2], and MAY be registered with [IANA][iana].
 
@@ -77,6 +84,8 @@ Unlike the [image index](image-index.md), which contains information about a set
         Entries in this field will frequently use the `+gzip` types.
 
         If the manifest uses a different media type than the above, it MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2], and MAY be registered with [IANA][iana].
+
+        See [Guidelines for Artifact Usage](#guidelines-for-artifact-usage) for other uses of the `layers`.
 
 - **`subject`** *[descriptor](descriptor.md)*
 
@@ -133,13 +142,91 @@ Unlike the [image index](image-index.md), which contains information about a set
 
 ## Example of a SCRATCH config or layer descriptor
 
-Notice that the `mediaType` is subject to the usage or context, while the digest is specifically defined as `ScratchDigestSHA256`
+Notice that the `mediaType` is subject to the usage or context, while the digest is specifically defined as `ScratchDigestSHA256`.
+When the `ScratchDigestSHA256` is used, the media type SHOULD be set to `application/vnd.oci.scratch.v1+json` to differentiate the descriptor from one pointing to content.
 
 ```json,title=SCRATCH%20config&mediatype=application/vnd.oci.descriptor.v1%2Bjson
 {
-  "mediaType": "application/vnd.oci.example+json",
+  "mediaType": "application/vnd.oci.scratch.v1+json",
   "size": 2,
   "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+}
+```
+
+## Guidelines for Artifact Usage
+
+Content other than OCI container images MAY be packaged using the image manifest.
+When this is done, the `config.mediaType` value MUST be set to a value specific to the artifact type or the [scratch value](#example-of-a-scratch-config-or-layer-descriptor).
+If the `config.mediaType` is set to the scratch value, the `artifactType` MUST be defined.
+If the artifact does not need layers, a single layer SHOULD be included with a non-zero size.
+The suggested content for an unused layer is the [SCRATCH](#example-of-a-scratch-config-or-layer-descriptor) descriptor.
+
+Here is an example manifest for a typical artifact:
+
+```json,title=Artifact%20with%20config&mediatype=application/vnd.oci.image.manifest.v1%2Bjson
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "config": {
+    "mediaType": "application/vnd.example.config.v1+json",
+    "digest": "sha256:5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03",
+    "size": 123
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.example.data.v1.tar+gzip",
+      "digest": "sha256:e258d248fda94c63753607f7c4494ee0fcbe92f1a76bfdac795c9d84101eb317",
+      "size": 1234
+    }
+  ]
+}
+```
+
+Here is an example manifest for a simple artifact without content in the config, using the scratch descriptor:
+
+```json,title=Artifact%20without%20config&mediatype=application/vnd.oci.image.manifest.v1%2Bjson
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "artifactType": "application/vnd.example+type",
+  "config": {
+    "mediaType": "application/vnd.oci.scratch.v1+json",
+    "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "size": 2
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.example+type",
+      "digest": "sha256:e258d248fda94c63753607f7c4494ee0fcbe92f1a76bfdac795c9d84101eb317",
+      "size": 1234
+    }
+  ]
+}
+```
+
+Here is an example manifest for an artifact with only annotations set, and the content of both blobs set to the scratch descriptor:
+
+```json,title=Minimal%20artifact&mediatype=application/vnd.oci.image.manifest.v1%2Bjson
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "artifactType": "application/vnd.example+type",
+  "config": {
+    "mediaType": "application/vnd.oci.scratch.v1+json",
+    "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "size": 2
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.oci.scratch.v1+json",
+      "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "size": 2
+    }
+  ],
+  "annotations": {
+    "oci.opencontainers.image.created": "2023-01-02T03:04:05Z",
+    "com.example.data": "payload"
+  }
 }
 ```
 
