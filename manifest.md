@@ -53,18 +53,22 @@ Unlike the [image index](image-index.md), which contains information about a set
     While an empty blob (`size` of 0) may be preferable, practice has shown that not to be ubiquitiously supported.
     Instead, the blob payload can be the most minimal content that is still valid JSON object: `{}` (`size` of 2).
     The blob digest of `{}` is `sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a`.
-    See the [example SCRATCH config](#example-of-a-scratch-config-or-layer-descriptor) below, and the `ScratchDescriptor()` of the reference code.
+    See the [example SCRATCH config](#example-of-a-scratch-config-or-layer-descriptor) below, and `ScratchDescriptor` of the reference code.
 
 - **`layers`** *array of objects*
 
     Each item in the array MUST be a [descriptor](descriptor.md).
-    The array MUST have the base layer at index 0.
-    Subsequent layers MUST then follow in stack order (i.e. from `layers[0]` to `layers[len(layers)-1]`).
-    The final filesystem layout MUST match the result of [applying](layer.md#applying-changesets) the layers to an empty directory.
-    The [ownership, mode, and other attributes](layer.md#file-attributes) of the initial empty directory are unspecified.
+    For portability, `layers` SHOULD have at least one entry.
+
+    When the `config.mediaType` is set to `application/vnd.oci.image.config.v1+json`, the following additional restrictions apply:
+
+    - The array MUST have the base layer at index 0.
+    - Subsequent layers MUST then follow in stack order (i.e. from `layers[0]` to `layers[len(layers)-1]`).
+    - The final filesystem layout MUST match the result of [applying](layer.md#applying-changesets) the layers to an empty directory.
+    - The [ownership, mode, and other attributes](layer.md#file-attributes) of the initial empty directory are unspecified.
 
     For broad portability, if a layer is required to be used, use the SCRATCH layer.
-    See the [example SCRATCH layer](#example-of-a-scratch-config-or-layer-descriptor) below, and the `ScratchDescriptor()` of the reference code.
+    See the [example SCRATCH layer](#example-of-a-scratch-config-or-layer-descriptor) below, and `ScratchDescriptor` of the reference code.
 
     Beyond the [descriptor requirements](descriptor.md#properties), the value has the following additional restrictions:
 
