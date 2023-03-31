@@ -92,7 +92,7 @@ func (v Validator) Validate(src io.Reader) error {
 
 type unimplemented string
 
-func (v unimplemented) Validate(src io.Reader) error {
+func (v unimplemented) Validate(_ io.Reader) error {
 	return fmt.Errorf("%s: unimplemented", v)
 }
 
