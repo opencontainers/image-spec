@@ -289,6 +289,53 @@ func TestManifest(t *testing.T) {
 `,
 			fail: true,
 		},
+
+		// valid manifest for an artifact with a dedicated config
+		{
+			manifest: `
+{
+  "schemaVersion": 2,
+  "mediaType" : "application/vnd.oci.image.manifest.v1+json",
+  "config": {
+    "mediaType": "application/vnd.example.config+json",
+    "size": 1470,
+    "digest": "sha256:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.example.data+type",
+      "size": 675598,
+      "digest": "sha256:9d3dd9504c685a304985025df4ed0283e47ac9ffa9bd0326fddf4d59513f0827"
+    }
+  ]
+}
+`,
+			fail: false,
+		},
+
+		// valid manifest for an artifact using the scratch config and artifactType
+		{
+			manifest: `
+{
+  "schemaVersion": 2,
+  "mediaType" : "application/vnd.oci.image.manifest.v1+json",
+  "artifactType": "application/vnd.example+type",
+  "config": {
+    "mediaType": "application/vnd.oci.scratch.v1+json",
+    "size": 2,
+    "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.example+type",
+      "size": 675598,
+      "digest": "sha256:9d3dd9504c685a304985025df4ed0283e47ac9ffa9bd0326fddf4d59513f0827"
+    }
+  ]
+}
+`,
+			fail: false,
+		},
 	} {
 		r := strings.NewReader(tt.manifest)
 		err := schema.ValidatorMediaTypeManifest.Validate(r)
