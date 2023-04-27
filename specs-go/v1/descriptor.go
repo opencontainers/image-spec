@@ -52,7 +52,7 @@ type Descriptor struct {
 // Platform describes the platform which the image in the manifest runs on.
 type Platform struct {
 	// Architecture field specifies the CPU architecture, for example
-	// `amd64` or `ppc64`.
+	// `amd64` or `ppc64le`.
 	Architecture string `json:"architecture"`
 
 	// OS specifies the operating system, for example `linux` or `windows`.
