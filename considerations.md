@@ -1,7 +1,12 @@
 # Extensibility
 
-Implementations that are reading/processing [manifests](manifest.md) or [image indexes](image-index.md) MUST NOT generate an error if they encounter an unknown property.
-Instead they MUST ignore unknown properties.
+Implementations storing or copying content MUST NOT modify or alter the content in a way that would change the digest of the content. Examples of these implementations include:
+* A [registry implementing the distribution specification](https://github.com/opencontainers/distribution-spec/blob/main/spec.md#definitions), including local registries, caching proxies
+* An application which copies content to disk or between registries
+
+Implementations processing content SHOULD NOT generate an error if they encounter an unknown property in a known media type. Examples of these implementations include:
+* A [runtime implementing the runtime specification](https://github.com/opencontainers/runtime-spec/blob/main/spec.md)
+* An implementation using OCI to retrieve and utilize artifacts, e.g.: a WASM runtime
 
 # Canonicalization
 
