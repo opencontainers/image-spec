@@ -44,6 +44,8 @@ Unlike the [image index](image-index.md), which contains information about a set
 
         Implementations MUST NOT attempt to parse the referenced content if this media type is unknown and instead consider the referenced content as arbitrary binary data (e.g.: as `application/octet-stream`).
 
+        Implementations storing or copying image manifests MUST NOT error on encountering a value that is unknown to the implementation.
+
         Implementations MUST support at least the following media types:
 
         - [`application/vnd.oci.image.config.v1+json`](config.md)
