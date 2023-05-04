@@ -58,7 +58,6 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 
         This REQUIRED property specifies the operating system.
         Image indexes SHOULD use, and implementations SHOULD understand, values listed in the Go Language document for [`GOOS`][go-environment2].
-        An exception to this guidance is provided for Wasm applications that rely on the WASI system interface, where the `os` SHOULD be `wasi`.
 
     - **`os.version`** *string*
 
