@@ -128,3 +128,10 @@ If there is a conflict (same key but different value) between an implicit annota
 
 A converter MAY add annotations which have keys not specified in the image.
 A converter MUST NOT modify the values of annotations specified in the image.
+
+Note there is a risk that some annotations might be used by container runtimes to do operations that pose a security risk (such as running container hooks on the host or modifying security-related aspects of the container configuration).
+As with any runtime specification configuration, generators SHOULD verify that the generated container configuration is safe before it is used to create a container.
+A converter MAY choose to not include annotations specified in the image, if the annotations are considered to be unsafe by the converter's security policy.
+If a converter does omit annotations during the conversion, it SHOULD provide feedback to the user to indicate that an annotation has not been converted.
+
+**Implementor's Note:** Some implementations (such as Docker/Moby) are known to indiscriminately and silently exclude all annotations specified in the image. Implementations SHOULD NOT do this.
