@@ -157,6 +157,8 @@ When the `ScratchDigestSHA256` is used, the media type SHOULD be set to `applica
 }
 ```
 
+The content of the scratch blob is `{}` (`size` of 2).
+
 ## Guidelines for Artifact Usage
 
 Content other than OCI container images MAY be packaged using the image manifest.
