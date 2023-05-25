@@ -22,6 +22,11 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
   When used, this field MUST contain the media type `application/vnd.oci.image.index.v1+json`.
   This field usage differs from the [descriptor](descriptor.md#properties) use of `mediaType`.
 
+- **`artifactType`** *string*
+
+  This OPTIONAL property contains the type of an artifact when the manifest is used for an artifact.
+  If defined, the value MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2], and MAY be registered with [IANA][iana].
+
 - **`manifests`** *array of objects*
 
   This REQUIRED property contains a list of [manifests](manifest.md) for specific platforms.
