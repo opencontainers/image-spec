@@ -10,7 +10,7 @@ The following media types identify the formats described here and their referenc
 - `application/vnd.oci.image.layer.v1.tar`: ["Layer", as a tar archive](layer.md)
 - `application/vnd.oci.image.layer.v1.tar+gzip`: ["Layer", as a tar archive](layer.md#gzip-media-types) compressed with [gzip][rfc1952]
 - `application/vnd.oci.image.layer.v1.tar+zstd`: ["Layer", as a tar archive](layer.md#zstd-media-types) compressed with [zstd][rfc8478]
-- `application/vnd.oci.scratch.v1+json`: [Scratch blob](manifest.md#example-of-a-scratch-config-or-layer-descriptor)
+- `application/vnd.oci.empty.v1+json`: [Empty for unused descriptors](manifest.md#guidance-for-an-empty-descriptor)
 
 The following media types identify a ["Layer" with distribution restrictions](layer.md#non-distributable-layers), but are **deprecated** and not recommended for future use:
 
