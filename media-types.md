@@ -10,7 +10,18 @@ The following media types identify the formats described here and their referenc
 - `application/vnd.oci.image.layer.v1.tar`: ["Layer", as a tar archive](layer.md)
 - `application/vnd.oci.image.layer.v1.tar+gzip`: ["Layer", as a tar archive](layer.md#gzip-media-types) compressed with [gzip][rfc1952]
 - `application/vnd.oci.image.layer.v1.tar+zstd`: ["Layer", as a tar archive](layer.md#zstd-media-types) compressed with [zstd][rfc8478]
+
+The following media type is special and used to indicate that the image is in fact an artifact, for example, SBOMs, image signatures, etc.
+
 - `application/vnd.oci.scratch.v1+json`: [Scratch blob](manifest.md#example-of-a-scratch-config-or-layer-descriptor)
+
+**NOTE**: `application/vnd.oci.scratch.v1+json` was introduced to support
+artifacts (which are not regular container images) in a backwards-compatible
+way. This media-type may appear in the `config` and `layer` descriptor.
+However, just the presence of this media-type automatically indicates that the
+image manifest no longer represents a regular container image. Using this
+media-type to describe any part of a regular container image is construed as
+misuse.
 
 The following media types identify a ["Layer" with distribution restrictions](layer.md#non-distributable-layers), but are **deprecated** and not recommended for future use:
 
