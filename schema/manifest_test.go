@@ -313,7 +313,7 @@ func TestManifest(t *testing.T) {
 			fail: false,
 		},
 
-		// valid manifest for an artifact using the scratch config and artifactType
+		// valid manifest for an artifact using the empty config and artifactType
 		{
 			manifest: `
 {
@@ -321,7 +321,7 @@ func TestManifest(t *testing.T) {
   "mediaType" : "application/vnd.oci.image.manifest.v1+json",
   "artifactType": "application/vnd.example+type",
   "config": {
-    "mediaType": "application/vnd.oci.scratch.v1+json",
+    "mediaType": "application/vnd.oci.empty.v1+json",
     "size": 2,
     "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
   },

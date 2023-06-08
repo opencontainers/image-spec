@@ -29,7 +29,7 @@ Unlike the [image index](image-index.md), which contains information about a set
 - **`artifactType`** *string*
 
   This OPTIONAL property contains the type of an artifact when the manifest is used for an artifact.
-  This MUST be set when `config.mediaType` is set to the [scratch value](#example-of-a-scratch-config-or-layer-descriptor).
+  This MUST be set when `config.mediaType` is set to the [empty value](#guidance-for-an-empty-descriptor).
   If defined, the value MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2], and MAY be registered with [IANA][iana].
 
 - **`config`** *[descriptor](descriptor.md)*
@@ -49,16 +49,13 @@ Unlike the [image index](image-index.md), which contains information about a set
 
         If the manifest uses a different media type than the above, it MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2], and MAY be registered with [IANA][iana].
 
-    To set an effectively NULL or SCRATCH config and maintain portability the following is considered GUIDANCE.
-    While an empty blob (`size` of 0) may be preferable, practice has shown that not to be ubiquitiously supported.
-    Instead, the blob payload can be the most minimal content that is still valid JSON object: `{}` (`size` of 2).
-    The blob digest of `{}` is `sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a`.
-    See the [example SCRATCH config](#example-of-a-scratch-config-or-layer-descriptor) below, and `ScratchDescriptor` of the reference code.
+    To set an effectively null or empty config and maintain portability see the [guidance for an empty descriptor](#guidance-for-an-empty-descriptor) below, and `DescriptorEmptyJSON` of the reference code.
 
 - **`layers`** *array of objects*
 
     Each item in the array MUST be a [descriptor](descriptor.md).
     For portability, `layers` SHOULD have at least one entry.
+    See the [guidance for an empty descriptor](#guidance-for-an-empty-descriptor) below, and `DescriptorEmptyJSON` of the reference code.
 
     When the `config.mediaType` is set to `application/vnd.oci.image.config.v1+json`, the following additional restrictions apply:
 
@@ -66,9 +63,6 @@ Unlike the [image index](image-index.md), which contains information about a set
     - Subsequent layers MUST then follow in stack order (i.e. from `layers[0]` to `layers[len(layers)-1]`).
     - The final filesystem layout MUST match the result of [applying](layer.md#applying-changesets) the layers to an empty directory.
     - The [ownership, mode, and other attributes](layer.md#file-attributes) of the initial empty directory are unspecified.
-
-    For broad portability, if a layer is required to be used, use the SCRATCH layer.
-    See the [example SCRATCH layer](#example-of-a-scratch-config-or-layer-descriptor) below, and `ScratchDescriptor` of the reference code.
 
     Beyond the [descriptor requirements](descriptor.md#properties), the value has the following additional restrictions:
 
@@ -89,7 +83,7 @@ Unlike the [image index](image-index.md), which contains information about a set
 
         If the manifest uses a different media type than the above, it MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2], and MAY be registered with [IANA][iana].
 
-        See [Guidelines for Artifact Usage](#guidelines-for-artifact-usage) for other uses of the `layers`.
+    See [Guidelines for Artifact Usage](#guidelines-for-artifact-usage) for other uses of the `layers`.
 
 - **`subject`** *[descriptor](descriptor.md)*
 
@@ -112,30 +106,30 @@ Unlike the [image index](image-index.md), which contains information about a set
   "mediaType": "application/vnd.oci.image.manifest.v1+json",
   "config": {
     "mediaType": "application/vnd.oci.image.config.v1+json",
-    "size": 7023,
-    "digest": "sha256:b5b2b2c507a0944348e0303114d8d93aaaa081732b86451d9bce1f432a537bc7"
+    "digest": "sha256:b5b2b2c507a0944348e0303114d8d93aaaa081732b86451d9bce1f432a537bc7",
+    "size": 7023
   },
   "layers": [
     {
       "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
-      "size": 32654,
-      "digest": "sha256:9834876dcfb05cb167a5c24953eba58c4ac89b1adf57f28f2f9d09af107ee8f0"
+      "digest": "sha256:9834876dcfb05cb167a5c24953eba58c4ac89b1adf57f28f2f9d09af107ee8f0",
+      "size": 32654
     },
     {
       "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
-      "size": 16724,
-      "digest": "sha256:3c3a4604a545cdc127456d94e421cd355bca5b528f4a9c1905b15da2eb4a4c6b"
+      "digest": "sha256:3c3a4604a545cdc127456d94e421cd355bca5b528f4a9c1905b15da2eb4a4c6b",
+      "size": 16724
     },
     {
       "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
-      "size": 73109,
-      "digest": "sha256:ec4b8955958665577945c89419d1af06b5f7636b4ac3da7f12184802ad867736"
+      "digest": "sha256:ec4b8955958665577945c89419d1af06b5f7636b4ac3da7f12184802ad867736",
+      "size": 73109
     }
   ],
   "subject": {
     "mediaType": "application/vnd.oci.image.manifest.v1+json",
-    "size": 7682,
-    "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270"
+    "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270",
+    "size": 7682
   },
   "annotations": {
     "com.example.key1": "value1",
@@ -144,28 +138,35 @@ Unlike the [image index](image-index.md), which contains information about a set
 }
 ```
 
-## Example of a SCRATCH config or layer descriptor
+## Guidance for an Empty Descriptor
 
-Notice that the `mediaType` is subject to the usage or context, while the digest is specifically defined as `ScratchDigestSHA256`.
-When the `ScratchDigestSHA256` is used, the media type SHOULD be set to `application/vnd.oci.scratch.v1+json` to differentiate the descriptor from one pointing to content.
+*Implementers note*: The following is considered GUIDANCE for portability.
 
-```json,title=SCRATCH%20config&mediatype=application/vnd.oci.descriptor.v1%2Bjson
+Parts of the spec necessitate including a descriptor to a blob where some implementations of artifacts do not have associated content.
+While an empty blob (`size` of 0) may be preferable, practice has shown that not to be ubiquitously supported.
+The media type `application/vnd.oci.empty.v1+json` (`MediaTypeEmptyJSON`) has been specified for a descriptor that has no content for the implementation.
+The blob payload is the most minimal content that is still a valid JSON object: `{}` (`size` of 2).
+The blob digest of `{}` is `sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a`.
+The data field is optional, and if included is the base64 encoding of `{}`: `e30=`.
+
+The resulting descriptor shown here is also defined in reference code as `DescriptorEmptyJSON`:
+
+```json,title=empty%20config&mediatype=application/vnd.oci.descriptor.v1%2Bjson
 {
-  "mediaType": "application/vnd.oci.scratch.v1+json",
+  "mediaType": "application/vnd.oci.empty.v1+json",
+  "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
   "size": 2,
-  "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+  "data": "e30="
 }
 ```
-
-The content of the scratch blob is `{}` (`size` of 2).
 
 ## Guidelines for Artifact Usage
 
 Content other than OCI container images MAY be packaged using the image manifest.
-When this is done, the `config.mediaType` value MUST be set to a value specific to the artifact type or the [scratch value](#example-of-a-scratch-config-or-layer-descriptor).
-If the `config.mediaType` is set to the scratch value, the `artifactType` MUST be defined.
+When this is done, the `config.mediaType` value MUST be set to a value specific to the artifact type or the [empty value](#guidance-for-an-empty-descriptor).
+If the `config.mediaType` is set to the empty value, the `artifactType` MUST be defined.
 If the artifact does not need layers, a single layer SHOULD be included with a non-zero size.
-The suggested content for an unused layer is the [SCRATCH](#example-of-a-scratch-config-or-layer-descriptor) descriptor.
+The suggested content for an unused `layers` array is the [empty descriptor](#guidance-for-an-empty-descriptor).
 
 Here is an example manifest for a typical artifact:
 
@@ -188,7 +189,7 @@ Here is an example manifest for a typical artifact:
 }
 ```
 
-Here is an example manifest for a simple artifact without content in the config, using the scratch descriptor:
+Here is an example manifest for a simple artifact without content in the config, using the empty descriptor:
 
 ```json,title=Artifact%20without%20config&mediatype=application/vnd.oci.image.manifest.v1%2Bjson
 {
@@ -196,7 +197,7 @@ Here is an example manifest for a simple artifact without content in the config,
   "mediaType": "application/vnd.oci.image.manifest.v1+json",
   "artifactType": "application/vnd.example+type",
   "config": {
-    "mediaType": "application/vnd.oci.scratch.v1+json",
+    "mediaType": "application/vnd.oci.empty.v1+json",
     "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
     "size": 2
   },
@@ -210,7 +211,7 @@ Here is an example manifest for a simple artifact without content in the config,
 }
 ```
 
-Here is an example manifest for an artifact with only annotations set, and the content of both blobs set to the scratch descriptor:
+Here is an example manifest for an artifact with only annotations set, and the content of both blobs set to the empty descriptor:
 
 ```json,title=Minimal%20artifact&mediatype=application/vnd.oci.image.manifest.v1%2Bjson
 {
@@ -218,13 +219,13 @@ Here is an example manifest for an artifact with only annotations set, and the c
   "mediaType": "application/vnd.oci.image.manifest.v1+json",
   "artifactType": "application/vnd.example+type",
   "config": {
-    "mediaType": "application/vnd.oci.scratch.v1+json",
+    "mediaType": "application/vnd.oci.empty.v1+json",
     "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
     "size": 2
   },
   "layers": [
     {
-      "mediaType": "application/vnd.oci.scratch.v1+json",
+      "mediaType": "application/vnd.oci.empty.v1+json",
       "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
       "size": 2
     }

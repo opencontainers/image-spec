@@ -70,3 +70,11 @@ type Platform struct {
 	// example `v7` to specify ARMv7 when architecture is `arm`.
 	Variant string `json:"variant,omitempty"`
 }
+
+// DescriptorEmptyJSON is the descriptor of a blob with content of `{}`.
+var DescriptorEmptyJSON = Descriptor{
+	MediaType: MediaTypeEmptyJSON,
+	Digest:    `sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a`,
+	Size:      2,
+	Data:      []byte(`{}`),
+}
