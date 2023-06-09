@@ -2,6 +2,7 @@
 
 Implementations that are reading/processing [manifests](manifest.md) or [image indexes](image-index.md) MUST NOT generate an error if they encounter an unknown property.
 Instead they MUST ignore unknown properties.
+Implementations that are storing/returning manifests and blobs in a content addressable store SHALL NOT modify that content, even when encountering unknown properties.
 
 # Canonicalization
 
