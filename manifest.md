@@ -31,6 +31,7 @@ Unlike the [image index](image-index.md), which contains information about a set
   This OPTIONAL property contains the type of an artifact when the manifest is used for an artifact.
   This MUST be set when `config.mediaType` is set to the [empty value](#guidance-for-an-empty-descriptor).
   If defined, the value MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2], and MAY be registered with [IANA][iana].
+  Implementations storing or copying image manifests MUST NOT error on encountering an `artifactType` that is unknown to the implementation.
 
 - **`config`** *[descriptor](descriptor.md)*
 
@@ -40,6 +41,11 @@ Unlike the [image index](image-index.md), which contains information about a set
     - **`mediaType`** *string*
 
         This [descriptor property](descriptor.md#properties) has additional restrictions for `config`.
+
+        Implementations MUST NOT attempt to parse the referenced content if this media type is unknown and instead consider the referenced content as arbitrary binary data (e.g.: as `application/octet-stream`).
+
+        Implementations storing or copying image manifests MUST NOT error on encountering a value that is unknown to the implementation.
+
         Implementations MUST support at least the following media types:
 
         - [`application/vnd.oci.image.config.v1+json`](config.md)
@@ -77,7 +83,7 @@ Unlike the [image index](image-index.md), which contains information about a set
         - [`application/vnd.oci.image.layer.nondistributable.v1.tar+gzip`](layer.md#gzip-media-types)
 
         Manifests concerned with portability SHOULD use one of the above media types.
-        An encountered `mediaType` that is unknown to the implementation MUST be ignored.
+        Implementations storing or copying image manifests MUST NOT error on encountering a `mediaType` that is unknown to the implementation.
 
         Entries in this field will frequently use the `+gzip` types.
 
