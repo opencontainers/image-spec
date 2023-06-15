@@ -90,6 +90,11 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 
   If multiple manifests match a client or runtime's requirements, the first matching entry SHOULD be used.
 
+- **`subject`** *[descriptor](descriptor.md)*
+
+    This OPTIONAL property specifies a [descriptor](descriptor.md) of another manifest.
+    This value, used by the [`referrers` API](https://github.com/opencontainers/distribution-spec/blob/main/spec.md#listing-referrers), indicates a relationship to the specified manifest.
+
 - **`annotations`** *string-string map*
 
     This OPTIONAL property contains arbitrary metadata for the image index.
