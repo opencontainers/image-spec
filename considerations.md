@@ -1,4 +1,6 @@
-# Extensibility
+# Considerations
+
+## Extensibility
 
 Implementations storing or copying content MUST NOT modify or alter the content in a way that would change the digest of the content. Examples of these implementations include:
 
@@ -10,7 +12,7 @@ Implementations processing content SHOULD NOT generate an error if they encounte
 - A [runtime implementing the runtime specification][runtime-spec]
 - An implementation using OCI to retrieve and utilize artifacts, e.g.: a WASM runtime
 
-# Canonicalization
+## Canonicalization
 
 - OCI Images are [content-addressable](https://en.wikipedia.org/wiki/Content-addressable_storage). See [descriptors](descriptor.md) for more.
 - One benefit of content-addressable storage is easy deduplication.
@@ -19,7 +21,7 @@ Implementations processing content SHOULD NOT generate an error if they encounte
 - To allow efficient storage, implementations serializing content for blobs SHOULD use a canonical serialization.
 - This increases the chance that different implementations can push the same semantic content to the store without creating redundant blobs.
 
-## JSON
+### JSON
 
 [JSON][JSON] content SHOULD be serialized as [canonical JSON][canonical-json].
 Of the [OCI Image Format Specification media types](media-types.md), all the types ending in `+json` contain JSON content.
@@ -27,7 +29,7 @@ Implementations:
 
 - [Go][Go]: [github.com/docker/go][docker-go], which claims to implement [canonical JSON][canonical-json] except for Unicode normalization.
 
-# EBNF
+## EBNF
 
 For field formats described in this specification, we use a limited subset of [Extended Backus-Naur Form][ebnf], similar to that used by the [XML specification][xmlebnf].
 Grammars present in the OCI specification are regular and can be converted to a single regular expressions.
@@ -43,7 +45,7 @@ symbol ::= expression
 We can say we have the production identified by symbol if the input is matched by the expression.
 Whitespace is completely ignored in rule definitions.
 
-## Expressions
+### Expressions
 
 The simplest expression is the literal, surrounded by quotes:
 
@@ -104,7 +106,7 @@ oneof ::= A | B
 
 The above indicates that the expression should match one of the expressions, `A` or `B`.
 
-## Precedence
+### Precedence
 
 The operator precedence is in the following order:
 
@@ -118,7 +120,7 @@ The precedence can be better described using grouping to show equivalents.
 Concatenation has higher precedence than alternates, such `A B | C D` is equivalent to `(A B) | (C D)`.
 Unary operators have higher precedence than alternates and concatenation, such that `A+ | B+` is equivalent to `(A+) | (B+)`.
 
-## Examples
+### Examples
 
 The following combines the previous definitions to match a simple, relative path name, describing the individual components:
 

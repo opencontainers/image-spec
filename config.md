@@ -1,6 +1,6 @@
 # OCI Image Configuration
 
-An OCI *Image* is an ordered collection of root filesystem changes and the corresponding execution parameters for use within a container runtime.
+An OCI _Image_ is an ordered collection of root filesystem changes and the corresponding execution parameters for use within a container runtime.
 This specification outlines the JSON format describing images for use with a container runtime and execution tool and its relationship to filesystem changesets, described in [Layers](layer.md).
 
 This section defines the `application/vnd.oci.image.config.v1+json` [media type](media-types.md).
@@ -11,17 +11,17 @@ This specification uses the following terms:
 
 ### [Layer](layer.md)
 
-* Image filesystems are composed of *layers*.
-* Each layer represents a set of filesystem changes in a tar-based [layer format](layer.md), recording files to be added, changed, or deleted relative to its parent layer.
-* Layers do not have configuration metadata such as environment variables or default arguments - these are properties of the image as a whole rather than any particular layer.
-* Using a layer-based or union filesystem such as AUFS, or by computing the diff from filesystem snapshots, the filesystem changeset can be used to present a series of image layers as if they were one cohesive filesystem.
+- Image filesystems are composed of _layers_.
+- Each layer represents a set of filesystem changes in a tar-based [layer format](layer.md), recording files to be added, changed, or deleted relative to its parent layer.
+- Layers do not have configuration metadata such as environment variables or default arguments - these are properties of the image as a whole rather than any particular layer.
+- Using a layer-based or union filesystem such as AUFS, or by computing the diff from filesystem snapshots, the filesystem changeset can be used to present a series of image layers as if they were one cohesive filesystem.
 
 ### Image JSON
 
-* Each image has an associated JSON structure which describes some basic information about the image such as date created, author, as well as execution/runtime configuration like its entrypoint, default arguments, networking, and volumes.
-* The JSON structure also references a cryptographic hash of each layer used by the image, and provides history information for those layers.
-* This JSON is considered to be immutable, because changing it would change the computed [ImageID](#imageid).
-* Changing it means creating a new derived image, instead of changing the existing image.
+- Each image has an associated JSON structure which describes some basic information about the image such as date created, author, as well as execution/runtime configuration like its entrypoint, default arguments, networking, and volumes.
+- The JSON structure also references a cryptographic hash of each layer used by the image, and provides history information for those layers.
+- This JSON is considered to be immutable, because changing it would change the computed [ImageID](#imageid).
+- Changing it means creating a new derived image, instead of changing the existing image.
 
 ### Layer DiffID
 
@@ -41,7 +41,7 @@ Use in combination with `rootfs.diff_ids` while applying layers to a root filesy
 
 The `ChainID` of an applied set of layers is defined with the following recursion:
 
-```
+```text
 ChainID(L₀) =  DiffID(L₀)
 ChainID(L₀|...|Lₙ₋₁|Lₙ) = Digest(ChainID(L₀|...|Lₙ₋₁) + " " + DiffID(Lₙ))
 ```
@@ -63,11 +63,11 @@ If this is true (with some handwaving), `C = x|C` where `x = any application`.
 This means that if an attacker can define `x`, relying on `C` provides no guarantee that the layers were applied in any order.
 
 The `ChainID` addresses this problem by being defined as a compound hash.
-__We differentiate the changeset `C`, from the order-dependent application `A|B|C` by saying that the resulting rootfs is identified by ChainID(A|B|C), which can be calculated by `ImageConfig.rootfs`.__
+**We differentiate the changeset `C`, from the order-dependent application `A|B|C` by saying that the resulting rootfs is identified by ChainID(A|B|C), which can be calculated by `ImageConfig.rootfs`.**
 
 Let's expand the definition of `ChainID(A|B|C)` to explore its internal structure:
 
-```
+```text
 ChainID(A) = DiffID(A)
 ChainID(A|B) = Digest(ChainID(A) + " " + DiffID(B))
 ChainID(A|B|C) = Digest(ChainID(A|B) + " " + DiffID(C))
@@ -75,7 +75,7 @@ ChainID(A|B|C) = Digest(ChainID(A|B) + " " + DiffID(C))
 
 We can replace each definition and reduce to a single equality:
 
-```
+```text
 ChainID(A|B|C) = Digest(Digest(DiffID(A) + " " + DiffID(B)) + " " + DiffID(C))
 ```
 
@@ -92,48 +92,48 @@ Since the [configuration JSON](#image-json) that gets hashed references hashes o
 
 Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being absent.
 
-- **created** *string*, OPTIONAL
+- **created** _string_, OPTIONAL
 
   An combined date and time at which the image was created, formatted as defined by [RFC 3339, section 5.6][rfc3339-s5.6].
 
-- **author** *string*, OPTIONAL
+- **author** _string_, OPTIONAL
 
   Gives the name and/or email address of the person or entity which created and is responsible for maintaining the image.
 
-- **architecture** *string*, REQUIRED
+- **architecture** _string_, REQUIRED
 
   The CPU architecture which the binaries in this image are built to run on.
   Configurations SHOULD use, and implementations SHOULD understand, values listed in the Go Language document for [`GOARCH`][go-environment].
 
-- **os** *string*, REQUIRED
+- **os** _string_, REQUIRED
 
   The name of the operating system which the image is built to run on.
   Configurations SHOULD use, and implementations SHOULD understand, values listed in the Go Language document for [`GOOS`][go-environment].
 
-- **os.version** *string*, OPTIONAL
+- **os.version** _string_, OPTIONAL
 
   This OPTIONAL property specifies the version of the operating system targeted by the referenced blob.
   Implementations MAY refuse to use manifests where `os.version` is not known to work with the host OS version.
   Valid values are implementation-defined. e.g. `10.0.14393.1066` on `windows`.
 
-- **os.features** *array of strings*, OPTIONAL
+- **os.features** _array of strings_, OPTIONAL
 
   This OPTIONAL property specifies an array of strings, each specifying a mandatory OS feature.
   When `os` is `windows`, image indexes SHOULD use, and implementations SHOULD understand the following values:
 
   - `win32k`: image requires `win32k.sys` on the host (Note: `win32k.sys` is missing on Nano Server)
 
-- **variant** *string*, OPTIONAL
+- **variant** _string_, OPTIONAL
 
   The variant of the specified CPU architecture.
   Configurations SHOULD use, and implementations SHOULD understand, `variant` values listed in the [Platform Variants](image-index.md#platform-variants) table.
 
-- **config** *object*, OPTIONAL
+- **config** _object_, OPTIONAL
 
   The execution parameters which SHOULD be used as a base when running a container using the image.
   This field can be `null`, in which case any execution parameters should be specified at creation of the container.
 
-  - **User** *string*, OPTIONAL
+  - **User** _string_, OPTIONAL
 
     The username or UID which is a platform-specific structure that allows specific control over which user the process run as.
     This acts as a default value to use when the value is not specified when creating a container.
@@ -141,7 +141,7 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
     If `group`/`gid` is not specified, the default group and supplementary groups of the given `user`/`uid` in `/etc/passwd` and `/etc/group` from the container are applied.
     If `group`/`gid` is specified, supplementary groups from the container are ignored.
 
-  - **ExposedPorts** *object*, OPTIONAL
+  - **ExposedPorts** _object_, OPTIONAL
 
     A set of ports to expose from a container running this image.
     Its keys can be in the format of:
@@ -149,104 +149,104 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
     These values act as defaults and are merged with any specified when creating a container.
     **NOTE:** This JSON structure value is unusual because it is a direct JSON serialization of the Go type `map[string]struct{}` and is represented in JSON as an object mapping its keys to an empty object.
 
-  - **Env** *array of strings*, OPTIONAL
+  - **Env** _array of strings_, OPTIONAL
 
     Entries are in the format of `VARNAME=VARVALUE`.
     These values act as defaults and are merged with any specified when creating a container.
 
-  - **Entrypoint** *array of strings*, OPTIONAL
+  - **Entrypoint** _array of strings_, OPTIONAL
 
     A list of arguments to use as the command to execute when the container starts.
     These values act as defaults and may be replaced by an entrypoint specified when creating a container.
 
-  - **Cmd** *array of strings*, OPTIONAL
+  - **Cmd** _array of strings_, OPTIONAL
 
     Default arguments to the entrypoint of the container.
     These values act as defaults and may be replaced by any specified when creating a container.
     If an `Entrypoint` value is not specified, then the first entry of the `Cmd` array SHOULD be interpreted as the executable to run.
 
-  - **Volumes** *object*, OPTIONAL
+  - **Volumes** _object_, OPTIONAL
 
     A set of directories describing where the process is likely to write data specific to a container instance.
     **NOTE:** This JSON structure value is unusual because it is a direct JSON serialization of the Go type `map[string]struct{}` and is represented in JSON as an object mapping its keys to an empty object.
 
-  - **WorkingDir** *string*, OPTIONAL
+  - **WorkingDir** _string_, OPTIONAL
 
     Sets the current working directory of the entrypoint process in the container.
     This value acts as a default and may be replaced by a working directory specified when creating a container.
 
-  - **Labels** *object*, OPTIONAL
+  - **Labels** _object_, OPTIONAL
 
     The field contains arbitrary metadata for the container.
     This property MUST use the [annotation rules](annotations.md#rules).
 
-  - **StopSignal** *string*, OPTIONAL
+  - **StopSignal** _string_, OPTIONAL
 
     The field contains the system call signal that will be sent to the container to exit. The signal can be a signal name in the format `SIGNAME`, for instance `SIGKILL` or `SIGRTMIN+3`.
 
-  - **ArgsEscaped** *boolean*, OPTIONAL
+  - **ArgsEscaped** _boolean_, OPTIONAL
 
     `[Deprecated]` - This field is present only for legacy compatibility with Docker and should not be used by new image builders.
     It is used by Docker for Windows images to indicate that the `Entrypoint` or `Cmd` or both, contains only a single element array, that is a pre-escaped, and combined into a single string `CommandLine`.
     If `true` the value in `Entrypoint` or `Cmd` should be used as-is to avoid double escaping.
     Note, the exact behavior of `ArgsEscaped` is complex and subject to implementation details in Moby project.
 
-  - **Memory** *integer*, OPTIONAL
+  - **Memory** _integer_, OPTIONAL
 
-    This property is *reserved* for use, to [maintain compatibility](media-types.md#compatibility-matrix).
+    This property is _reserved_ for use, to [maintain compatibility](media-types.md#compatibility-matrix).
 
-  - **MemorySwap** *integer*, OPTIONAL
+  - **MemorySwap** _integer_, OPTIONAL
 
-    This property is *reserved* for use, to [maintain compatibility](media-types.md#compatibility-matrix).
+    This property is _reserved_ for use, to [maintain compatibility](media-types.md#compatibility-matrix).
 
-  - **CpuShares** *integer*, OPTIONAL
+  - **CpuShares** _integer_, OPTIONAL
 
-    This property is *reserved* for use, to [maintain compatibility](media-types.md#compatibility-matrix).
+    This property is _reserved_ for use, to [maintain compatibility](media-types.md#compatibility-matrix).
 
-  - **Healthcheck** *object*, OPTIONAL
+  - **Healthcheck** _object_, OPTIONAL
 
-    This property is *reserved* for use, to [maintain compatibility](media-types.md#compatibility-matrix).
+    This property is _reserved_ for use, to [maintain compatibility](media-types.md#compatibility-matrix).
 
-- **rootfs** *object*, REQUIRED
+- **rootfs** _object_, REQUIRED
 
    The rootfs key references the layer content addresses used by the image.
    This makes the image config hash depend on the filesystem hash.
 
-    - **type** *string*, REQUIRED
+  - **type** _string_, REQUIRED
 
-       MUST be set to `layers`.
-       Implementations MUST generate an error if they encounter a unknown value while verifying or unpacking an image.
+    MUST be set to `layers`.
+    Implementations MUST generate an error if they encounter a unknown value while verifying or unpacking an image.
 
-    - **diff_ids** *array of strings*, REQUIRED
+  - **diff_ids** _array of strings_, REQUIRED
 
-       An array of layer content hashes (`DiffIDs`), in order from first to last.
+    An array of layer content hashes (`DiffIDs`), in order from first to last.
 
-- **history** *array of objects*, OPTIONAL
+- **history** _array of objects_, OPTIONAL
 
   Describes the history of each layer.
   The array is ordered from first to last.
   The object has the following fields:
 
-    - **created** *string*, OPTIONAL
+  - **created** _string_, OPTIONAL
 
-       A combined date and time at which the layer was created, formatted as defined by [RFC 3339, section 5.6][rfc3339-s5.6].
+    A combined date and time at which the layer was created, formatted as defined by [RFC 3339, section 5.6][rfc3339-s5.6].
 
-    - **author** *string*, OPTIONAL
+  - **author** _string_, OPTIONAL
 
-       The author of the build point.
+    The author of the build point.
 
-    - **created_by** *string*, OPTIONAL
+  - **created_by** _string_, OPTIONAL
 
-       The command which created the layer.
+    The command which created the layer.
 
-    - **comment** *string*, OPTIONAL
+  - **comment** _string_, OPTIONAL
 
-       A custom message set when creating the layer.
+    A custom message set when creating the layer.
 
-    - **empty_layer** *boolean*, OPTIONAL
+  - **empty_layer** _boolean_, OPTIONAL
 
-       This field is used to mark if the history item created a filesystem diff.
-       It is set to true if this history item doesn't correspond to an actual layer in the rootfs section (for example, Dockerfile's [ENV](https://docs.docker.com/engine/reference/builder/#/env) command results in no change to the filesystem).
+    This field is used to mark if the history item created a filesystem diff.
+    It is set to true if this history item doesn't correspond to an actual layer in the rootfs section (for example, Dockerfile's [ENV](https://docs.docker.com/engine/reference/builder/#/env) command results in no change to the filesystem).
 
 Any extra fields in the Image JSON struct are considered implementation specific and MUST NOT generate an error by any implementations which are unable to interpret them.
 

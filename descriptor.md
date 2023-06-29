@@ -125,7 +125,7 @@ Function `H` returns the hash of `C` in bytes and is passed to function `Encode`
 The result `verified` is true if `ID(C)` is equal to `D`, confirming that `C` is the content identified by `D`.
 After verification, the following is true:
 
-```
+```text
 D == ID(C) == '<alg>:' + Encode(H(C))
 ```
 
