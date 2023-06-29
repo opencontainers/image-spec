@@ -8,11 +8,11 @@ This section describes generic rules and procedures for fulfilling that mandate.
 
 ## Proposing a motion
 
-A maintainer SHOULD propose a motion on the dev@opencontainers.org mailing list (except [security issues](#security-issues)) with another maintainer as a co-sponsor.
+A maintainer SHOULD propose a motion on the <dev@opencontainers.org> mailing list (except [security issues](#security-issues)) with another maintainer as a co-sponsor.
 
 ## Voting
 
-Voting on a proposed motion SHOULD happen on the dev@opencontainers.org mailing list (except [security issues](#security-issues)) with maintainers posting LGTM or REJECT.
+Voting on a proposed motion SHOULD happen on the <dev@opencontainers.org> mailing list (except [security issues](#security-issues)) with maintainers posting LGTM or REJECT.
 Maintainers MAY also explicitly not vote by posting ABSTAIN (which is useful to revert a previous vote).
 Maintainers MAY post multiple times (e.g. as they revise their position based on feedback), but only their final post counts in the tally.
 A proposed motion is adopted if two-thirds of votes cast, a quorum having voted, are in favor of the release.
@@ -29,12 +29,12 @@ However, a motion MAY be adopted with REJECTs, as outlined in the previous parag
 
 A quorum is established when at least two-thirds of maintainers have voted.
 
-For projects that are not specifications, a [motion to release](#release-approval) MAY be adopted if the tally is at least three LGTMs and no REJECTs, even if three votes does not meet the usual two-thirds quorum.
+For projects that are not specifications, a [motion to release](#proposing-a-motion) MAY be adopted if the tally is at least three LGTMs and no REJECTs, even if three votes does not meet the usual two-thirds quorum.
 
 ## Security issues
 
-Motions with sensitive security implications MUST be proposed on the security@opencontainers.org mailing list instead of dev@opencontainers.org, but should otherwise follow the standard [proposal](#proposing-a-motion) process.
-The security@opencontainers.org mailing list includes all members of the TOB.
+Motions with sensitive security implications MUST be proposed on the <security@opencontainers.org> mailing list instead of <dev@opencontainers.org>, but should otherwise follow the standard [proposal](#proposing-a-motion) process.
+The <security@opencontainers.org> mailing list includes all members of the TOB.
 The TOB will contact the project maintainers and provide a channel for discussing and voting on the motion, but voting will otherwise follow the standard [voting](#voting) and [quorum](#quorum) rules.
 The TOB and project maintainers will work together to notify affected parties before making an adopted motion public.
 
@@ -48,15 +48,15 @@ The MAINTAINERS of this project governance document is the total set of MAINTAIN
 Maintainers are busy and get lots of email.
 To make project proposals recognizable, proposed motions SHOULD use the following subject templates.
 
-### Proposing a motion
+### Proposing a motion template
 
 > [{project} VOTE]: {motion description} (closes {end of voting window})
 
 For example:
 
-> [runtime-spec VOTE]: Tag 0647920 as 1.0.0-rc (closes 2016-06-03 20:00 UTC)
+> [image-spec VOTE]: Tag 0647920 as 1.0.0-rc (closes 2016-06-03 20:00 UTC)
 
-### Tallying results
+### Tallying results template
 
 After voting closes, a maintainer SHOULD post a tally to the motion thread with a subject template like:
 
@@ -65,6 +65,6 @@ After voting closes, a maintainer SHOULD post a tally to the motion thread with 
 Where `{status}` is either `adopted` or `rejected`.
 For example:
 
-> [runtime-spec adopted]: Tag 0647920 as 1.0.0-rc (+6 -0 #3)
+> [image-spec adopted]: Tag 0647920 as 1.0.0-rc (+6 -0 #3)
 
 [charter]: https://github.com/opencontainers/tob/blob/main/CHARTER.md
