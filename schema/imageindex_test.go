@@ -255,6 +255,56 @@ func TestImageIndex(t *testing.T) {
 `,
 			fail: false,
 		},
+
+		// valid image index with a subject field
+		{
+			imageIndex: `
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.index.v1+json",
+  "manifests": [
+    {
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "size": 7682,
+      "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270",
+      "platform": {
+        "architecture": "amd64",
+        "os": "linux"
+      }
+    }
+  ],
+  "subject" : {
+    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+    "size": 1234,
+    "digest": "sha256:220a60ecd4a3c32c282622a625a54db9ba0ff55b5ba9c29c7064a2bc358b6a3e"
+  }
+}
+`,
+			fail: false,
+		},
+
+		// expected failure, invalid subject field
+		{
+			imageIndex: `
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.index.v1+json",
+  "manifests": [
+    {
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "size": 7682,
+      "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270",
+      "platform": {
+        "architecture": "amd64",
+        "os": "linux"
+      }
+    }
+  ],
+  "subject" : "nope"
+}
+`,
+			fail: true,
+		},
 	} {
 		r := strings.NewReader(tt.imageIndex)
 		err := schema.ValidatorMediaTypeImageIndex.Validate(r)
