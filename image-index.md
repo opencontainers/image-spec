@@ -93,7 +93,7 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 - **`subject`** *[descriptor](descriptor.md)*
 
     This OPTIONAL property specifies a [descriptor](descriptor.md) of another manifest.
-    This value, used by the [`referrers` API](https://github.com/opencontainers/distribution-spec/blob/main/spec.md#listing-referrers), indicates a relationship to the specified manifest.
+    This value, used by the [`referrers` API][referrers-api], indicates a relationship to the specified manifest.
 
 - **`annotations`** *string-string map*
 
@@ -116,6 +116,7 @@ When the variant of the CPU is not listed in the table, values are implementatio
 ## Example Image Index
 
 *Example showing a simple image index pointing to image manifests for two platforms:*
+
 ```json,title=Image%20Index&mediatype=application/vnd.oci.image.index.v1%2Bjson
 {
   "schemaVersion": 2,
@@ -150,6 +151,7 @@ When the variant of the CPU is not listed in the table, values are implementatio
 ## Example Image Index with multiple media types
 
 *Example showing an image index pointing to manifests with multiple media types:*
+
 ```json,title=Image%20Index&mediatype=application/vnd.oci.image.index.v1%2Bjson
 {
   "schemaVersion": 2,
@@ -178,4 +180,8 @@ When the variant of the CPU is not listed in the table, values are implementatio
 ```
 
 [go-environment2]: https://golang.org/doc/install/source#environment
+[iana]: https://www.iana.org/assignments/media-types/media-types.xhtml
 [matrix]: media-types.md#compatibility-matrix
+[referrers-api]: https://github.com/opencontainers/distribution-spec/blob/main/spec.md#listing-referrers
+[rfc6838]: https://tools.ietf.org/html/rfc6838
+[rfc6838-s4.2]: https://tools.ietf.org/html/rfc6838#section-4.2
