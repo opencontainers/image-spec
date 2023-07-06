@@ -1,4 +1,5 @@
 # Annotations
+
 Several components of the specification, like [Image Manifests](manifest.md) and [Descriptors](descriptor.md), feature an optional annotations property, whose format is common and defined in this section.
 
 This property contains arbitrary metadata.
@@ -45,7 +46,7 @@ This specification defines the following annotation keys, intended for but not l
   * This SHOULD be the immediate image sharing zero-indexed layers with the image, such as from a Dockerfile `FROM` statement.
   * This SHOULD NOT reference any other images used to generate the contents of the image (e.g., multi-stage Dockerfile builds).
 * **org.opencontainers.image.base.name** Image reference of the image this image is based on (string)
-  * This SHOULD be image references in the format defined by [distribution/distribution](https://github.com/distribution/distribution/blob/d0deff9cd6c2b8c82c6f3d1c713af51df099d07b/reference/reference.go).
+  * This SHOULD be image references in the format defined by [distribution/distribution][distribution-reference].
   * This SHOULD be a fully qualified reference name, without any assumed default registry. (e.g., `registry.example.com/my-org/my-image:tag` instead of `my-org/my-image:tag`).
   * This SHOULD be the immediate image sharing zero-indexed layers with the image, such as from a Dockerfile `FROM` statement.
   * This SHOULD NOT reference any other images used to generate the contents of the image (e.g., multi-stage Dockerfile builds).
@@ -53,7 +54,7 @@ This specification defines the following annotation keys, intended for but not l
 
 ## Back-compatibility with Label Schema
 
-[Label Schema](https://label-schema.org) defined a number of conventional labels for container images, and these are now superceded by annotations with keys starting **org.opencontainers.image**.
+[Label Schema][label-schema] defined a number of conventional labels for container images, and these are now superceded by annotations with keys starting **org.opencontainers.image**.
 
 While users are encouraged to use the **org.opencontainers.image** keys, tools MAY choose to support compatible annotations using the **org.label-schema** prefix as follows.
 
@@ -74,6 +75,7 @@ While users are encouraged to use the **org.opencontainers.image** keys, tools M
 | | `schema-version`| No equivalent in the OCI Image Spec |
 | | `docker.*`, `rkt.*` | No equivalent in the OCI Image Spec |
 
-[spdx-license-expression]: https://spdx.org/spdx-specification-21-web-version#h.jxpfx0ykyb60
-
+[distribution-reference]: https://github.com/distribution/distribution/blob/d0deff9cd6c2b8c82c6f3d1c713af51df099d07b/reference/reference.go
+[label-schema]: https://github.com/label-schema/label-schema.org/blob/gh-pages/rc1.md
 [rfc3339]:     https://tools.ietf.org/html/rfc3339#section-5.6
+[spdx-license-expression]: https://spdx.org/spdx-specification-21-web-version#h.jxpfx0ykyb60
