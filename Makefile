@@ -41,25 +41,16 @@ DOC_FILES := \
 FIGURE_FILES := \
 	img/media-types.png
 
-TOOLS := esc gitvalidation 
+TOOLS := gitvalidation 
 
 default: check-license lint test
 
-help:
-	@echo "Usage: make <target>"
-	@echo
-	@echo " * 'docs' - produce document in the $(OUTPUT_DIRNAME) directory"
-	@echo " * 'fmt' - format the json with indentation"
-	@echo " * 'validate-examples' - validate the examples in the specification markdown files"
-	@echo " * 'check-license' - check license headers in source files"
-	@echo " * 'lint' - Execute the source code linter"
-	@echo " * 'test' - Execute the unit tests"
-	@echo " * 'img/*.png' - Generate PNG from dot file"
-
-fmt:
+.PHONY: fmt
+fmt: ## format the json with indentation
 	for i in schema/*.json ; do jq --indent 2 -M . "$${i}" > xx && cat xx > "$${i}" && rm xx ; done
 
-docs: $(OUTPUT_DIRNAME)/$(DOC_FILENAME).pdf $(OUTPUT_DIRNAME)/$(DOC_FILENAME).html
+.PHONY: docs
+docs: $(OUTPUT_DIRNAME)/$(DOC_FILENAME).pdf $(OUTPUT_DIRNAME)/$(DOC_FILENAME).html ## generate a PDF/HTML version of the OCI image specification
 
 ifeq "$(strip $(PANDOC))" ''
 $(OUTPUT_DIRNAME)/$(DOC_FILENAME).pdf: $(DOC_FILES) $(FIGURE_FILES)
@@ -80,25 +71,29 @@ endif
 header.html: .tool/genheader.go specs-go/version.go
 	go run .tool/genheader.go > $@
 
-validate-examples: schema/schema.go
+.PHONY: validate-examples
+validate-examples: schema/schema.go ## validate examples in the specification markdown files
 	go test -run TestValidate ./schema
 
-check-license:
+.PHONY: check-license
+check-license: ## check license headers in source files
 	@echo "checking license headers"
 	@./.tool/check-license
 
-lint: .install.lint
+.PHONY: lint
+lint: .install.lint ## lint check of Go files using golangci-lint
 	@echo "checking lint"
 	@GO111MODULE=on $(GOPATH)/bin/golangci-lint run
 
-test: schema/fs.go
+.PHONY: test
+test: ## run the unit tests
 	go test -race -cover $(shell go list ./... | grep -v /vendor/)
 
-img/%.png: img/%.dot
+img/%.png: img/%.dot ## generate PNG from dot file
 	dot -Tpng $^ > $@
 
-
 # When this is running in GitHub, it will only check the commit range
+.PHONY: .gitvalidation
 .gitvalidation:
 	@which git-validation > /dev/null 2>/dev/null || (echo "ERROR: git-validation not found. Consider 'make install.tools' target" && false)
 ifdef GITHUB_SHA
@@ -107,29 +102,24 @@ else
 	$(GOPATH)/bin/git-validation -v -run DCO,short-subject,dangling-whitespace -range $(EPOCH_TEST_COMMIT)..HEAD
 endif
 
+.PHONY: .install.tools
 install.tools: $(TOOLS:%=.install.%)
 
+.PHONY: .install.lint
 .install.lint:
 	case "$$(go env GOVERSION)" in \
 	go1.18.*)	go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.47.3;; \
 	*) go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest;; \
 	esac
 
+.PHONY: .install.gitvalidation
 .install.gitvalidation:
 	go install github.com/vbatts/git-validation@latest
 
-clean:
+.PHONY: clean
+clean: ## clean all generated and compiled artifacts
 	rm -rf *~ $(OUTPUT_DIRNAME) header.html
 
-.PHONY: \
-	$(TOOLS:%=.install.%) \
-	validate-examples \
-	check-license \
-	clean \
-	lint \
-	install.tools \
-	docs \
-	test \
-	.gitvalidation \
-	schema/fs.go \
-	schema-fs
+.PHONY: help
+help: # Display help
+	@awk -F ':|##' '/^[^\t].+?:.*?##/ { printf "\033[36m%-30s\033[0m %s\n", $$1, $$NF }' $(MAKEFILE_LIST)
