@@ -33,12 +33,12 @@ This entire workflow supports the UX that users have come to expect from contain
 
 To support this UX the OCI Image Format contains sufficient information to launch the application on the target platform (e.g. command, arguments, environment variables, etc).
 
+## Distributing an OCI Image
+
+The [OCI Distribution Spec Project](https://github.com/opencontainers/distribution-spec/) defines an API protocol to facilitate and standardize the distribution of content.
+This API includes support for pushing and pulling OCI images to an OCI conformant registry.
+
 ## FAQ
-
-**Q: Why doesn't this project mention distribution?**
-
-A: Distribution, for example using HTTP as both Docker v2.2 and AppC do today, is currently out of scope.
-There has been [some discussion on the TOB mailing list](https://groups.google.com/a/opencontainers.org/d/msg/tob/A3JnmI-D-6Y/tLuptPDHAgAJ) to make distribution an optional layer, but this topic is a work in progress.
 
 **Q: What happens to AppC or Docker Image Formats?**
 
