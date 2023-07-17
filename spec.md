@@ -57,6 +57,7 @@ The high-level components of the spec include:
 * [Filesystem Layer](layer.md) - a changeset that describes a container's filesystem
 * [Image Configuration](config.md) - a document determining layer ordering and configuration of the image suitable for translation into a [runtime bundle][runtime-spec]
 * [Conversion](conversion.md) - a document describing how this translation should occur
+* [Artifacts Guidance](artifacts-guidance.md) - a document describing how to use the spec for packaging content other than OCI images
 * [Descriptor](descriptor.md) - a reference that describes the type, metadata and content address of referenced content
 
 Future versions of this specification may include the following OPTIONAL features:
