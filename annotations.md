@@ -24,6 +24,7 @@ This specification defines the following annotation keys, intended for but not l
 * **org.opencontainers.image.url** URL to find more information on the image (string)
 * **org.opencontainers.image.documentation** URL to get documentation on the image (string)
 * **org.opencontainers.image.source** URL to get source code for building the image (string)
+* **org.opencontainers.image.source.subpath** A relative path within the `source` repository. The path separator MUST be `/`. The path MUST NOT contain “..” (upper dir) component.
 * **org.opencontainers.image.version** version of the packaged software
   * The version MAY match a label or tag in the source code repository
   * version MAY be [Semantic versioning-compatible](https://semver.org/)
