@@ -29,6 +29,12 @@ This specification defines the following annotation keys, intended for but not l
   * version MAY be [Semantic versioning-compatible](https://semver.org/)
 * **org.opencontainers.image.revision** Source control revision identifier for the packaged software.
 * **org.opencontainers.image.vendor** Name of the distributing entity, organization or individual.
+* **org.opencontainers.image.support.end-of-life** Date and time when the image stops receiving new features and bug fixes (security updates may continue). (Date-time as defined by [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6).)
+  * `image.vendor` and `image.support.info` SHOULD also be defined
+* **org.opencontainers.image.support.end-of-support** Date and time when the image stops receiving support, including new features, bug fixes, and security updates. (Date-time as defined by [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6).)
+  * `image.support.end-of-life` SHOULD also be defined
+* **org.opencontainers.image.support.info** URL or text to provide more information about vendor support and upgrade options.
+  * This MAY be displayed by tooling advertising the deprecation status
 * **org.opencontainers.image.licenses** License(s) under which contained software is distributed as an [SPDX License Expression][spdx-license-expression].
 * **org.opencontainers.image.ref.name** Name of the reference for a target (string).
   * SHOULD only be considered valid when on descriptors on `index.json` within [image layout](image-layout.md).
