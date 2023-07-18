@@ -17,6 +17,10 @@ The following media types identify a ["Layer" with distribution restrictions](la
 - `application/vnd.oci.image.layer.nondistributable.v1.tar`: "Layer", as a tar archive
 - `application/vnd.oci.image.layer.nondistributable.v1.tar+gzip`: ["Layer", as a tar archive with distribution restrictions](layer.md#gzip-media-types) compressed with [gzip][rfc1952]
 - `application/vnd.oci.image.layer.nondistributable.v1.tar+zstd`: ["Layer", as a tar archive with distribution restrictions](layer.md#zstd-media-types) compressed with [zstd][rfc8478]
+- `application/vnd.oci.image.layer.v1.tar+encrypted` : ["Layer", as an encrypted tar archive](layer.md#enc-media-types)
+- `application/vnd.oci.image.layer.v1.tar+gzip+encrypted` : ["Layer", as an encrypted gzipped tar archive](layer.md#enc-media-types)
+- `application/vnd.oci.image.layer.nondistributable.v1.tar+encrypted` : ["Layer", as an encrypted tar archive with distribution restrictions](layer.md#enc-media-types)
+- `application/vnd.oci.image.layer.nondistributable.v1.tar+gzip+encrypted` : ["Layer", as an encrypted gzipped tar archive with distribution restrictions](layer.md#enc-media-types)
 
 ## Media Type Conflicts
 
