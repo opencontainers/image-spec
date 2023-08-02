@@ -7,7 +7,7 @@ This section defines the `application/vnd.oci.image.index.v1+json` [media type](
 
 For the media type(s) that this document is compatible with, see the [matrix][matrix].
 
-## *Image Index* Property Descriptions
+## _Image Index_ Property Descriptions
 
 - **`schemaVersion`** *int*
 
@@ -56,33 +56,33 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 
     - **`architecture`** *string*
 
-        This REQUIRED property specifies the CPU architecture.
-        Image indexes SHOULD use, and implementations SHOULD understand, values listed in the Go Language document for [`GOARCH`][go-environment2].
+      This REQUIRED property specifies the CPU architecture.
+      Image indexes SHOULD use, and implementations SHOULD understand, values listed in the Go Language document for [`GOARCH`][go-environment2].
 
     - **`os`** *string*
 
-        This REQUIRED property specifies the operating system.
-        Image indexes SHOULD use, and implementations SHOULD understand, values listed in the Go Language document for [`GOOS`][go-environment2].
+      This REQUIRED property specifies the operating system.
+      Image indexes SHOULD use, and implementations SHOULD understand, values listed in the Go Language document for [`GOOS`][go-environment2].
 
     - **`os.version`** *string*
 
-        This OPTIONAL property specifies the version of the operating system targeted by the referenced blob.
-        Implementations MAY refuse to use manifests where `os.version` is not known to work with the host OS version.
-        Valid values are implementation-defined. e.g. `10.0.14393.1066` on `windows`.
+      This OPTIONAL property specifies the version of the operating system targeted by the referenced blob.
+      Implementations MAY refuse to use manifests where `os.version` is not known to work with the host OS version.
+      Valid values are implementation-defined. e.g. `10.0.14393.1066` on `windows`.
 
     - **`os.features`** *array of strings*
 
-        This OPTIONAL property specifies an array of strings, each specifying a mandatory OS feature.
-        When `os` is `windows`, image indexes SHOULD use, and implementations SHOULD understand the following values:
+      This OPTIONAL property specifies an array of strings, each specifying a mandatory OS feature.
+      When `os` is `windows`, image indexes SHOULD use, and implementations SHOULD understand the following values:
 
-        - `win32k`: image requires `win32k.sys` on the host (Note: `win32k.sys` is missing on Nano Server)
+      - `win32k`: image requires `win32k.sys` on the host (Note: `win32k.sys` is missing on Nano Server)
 
-        When `os` is not `windows`, values are implementation-defined and SHOULD be submitted to this specification for standardization.
+      When `os` is not `windows`, values are implementation-defined and SHOULD be submitted to this specification for standardization.
 
     - **`variant`** *string*
 
-        This OPTIONAL property specifies the variant of the CPU.
-        Image indexes SHOULD use, and implementations SHOULD understand, `variant` values listed in the [Platform Variants](#platform-variants) table.
+      This OPTIONAL property specifies the variant of the CPU.
+      Image indexes SHOULD use, and implementations SHOULD understand, `variant` values listed in the [Platform Variants](#platform-variants) table.
 
     - **`features`** *array of strings*
 

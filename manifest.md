@@ -9,11 +9,11 @@ The third goal is to be [translatable](conversion.md) to the [OCI Runtime Specif
 This section defines the `application/vnd.oci.image.manifest.v1+json` [media type](media-types.md).
 For the media type(s) that this is compatible with see the [matrix](media-types.md#compatibility-matrix).
 
-# Image Manifest
+## Image Manifest
 
 Unlike the [image index](image-index.md), which contains information about a set of images that can span a variety of architectures and operating systems, an image manifest provides a configuration and set of layers for a single container image for a specific architecture and operating system.
 
-## *Image Manifest* Property Descriptions
+## _Image Manifest_ Property Descriptions
 
 - **`schemaVersion`** *int*
 
@@ -35,77 +35,78 @@ Unlike the [image index](image-index.md), which contains information about a set
 
 - **`config`** *[descriptor](descriptor.md)*
 
-    This REQUIRED property references a configuration object for a container, by digest.
-    Beyond the [descriptor requirements](descriptor.md#properties), the value has the following additional restrictions:
+  This REQUIRED property references a configuration object for a container, by digest.
+  Beyond the [descriptor requirements](descriptor.md#properties), the value has the following additional restrictions:
 
-    - **`mediaType`** *string*
+  - **`mediaType`** *string*
 
-        This [descriptor property](descriptor.md#properties) has additional restrictions for `config`.
+    This [descriptor property](descriptor.md#properties) has additional restrictions for `config`.
 
-        Implementations MUST NOT attempt to parse the referenced content if this media type is unknown and instead consider the referenced content as arbitrary binary data (e.g.: as `application/octet-stream`).
+    Implementations MUST NOT attempt to parse the referenced content if this media type is unknown and instead consider the referenced content as arbitrary binary data (e.g.: as `application/octet-stream`).
 
-        Implementations storing or copying image manifests MUST NOT error on encountering a value that is unknown to the implementation.
+    Implementations storing or copying image manifests MUST NOT error on encountering a value that is unknown to the implementation.
 
-        Implementations MUST support at least the following media types:
+    Implementations MUST support at least the following media types:
 
-        - [`application/vnd.oci.image.config.v1+json`](config.md)
+    - [`application/vnd.oci.image.config.v1+json`](config.md)
 
-        Manifests for container images concerned with portability SHOULD use one of the above media types.
-        Manifests for artifacts concerned with portability SHOULD use `config.mediaType` as described in [Guidelines for Artifact Usage](#guidelines-for-artifact-usage).
+    Manifests for container images concerned with portability SHOULD use one of the above media types.
+    Manifests for artifacts concerned with portability SHOULD use `config.mediaType` as described in [Guidelines for Artifact Usage](#guidelines-for-artifact-usage).
 
-        If the manifest uses a different media type than the above, it MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2], and MAY be registered with [IANA][iana].
+    If the manifest uses a different media type than the above, it MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2], and MAY be registered with [IANA][iana].
 
-    To set an effectively null or empty config and maintain portability see the [guidance for an empty descriptor](#guidance-for-an-empty-descriptor) below, and `DescriptorEmptyJSON` of the reference code.
+  To set an effectively null or empty config and maintain portability see the [guidance for an empty descriptor](#guidance-for-an-empty-descriptor) below, and `DescriptorEmptyJSON` of the reference code.
 
 - **`layers`** *array of objects*
 
-    Each item in the array MUST be a [descriptor](descriptor.md).
-    For portability, `layers` SHOULD have at least one entry.
-    See the [guidance for an empty descriptor](#guidance-for-an-empty-descriptor) below, and `DescriptorEmptyJSON` of the reference code.
+  Each item in the array MUST be a [descriptor](descriptor.md).
+  For portability, `layers` SHOULD have at least one entry.
+  See the [guidance for an empty descriptor](#guidance-for-an-empty-descriptor) below, and `DescriptorEmptyJSON` of the reference code.
 
-    When the `config.mediaType` is set to `application/vnd.oci.image.config.v1+json`, the following additional restrictions apply:
+  When the `config.mediaType` is set to `application/vnd.oci.image.config.v1+json`, the following additional restrictions apply:
 
-    - The array MUST have the base layer at index 0.
-    - Subsequent layers MUST then follow in stack order (i.e. from `layers[0]` to `layers[len(layers)-1]`).
-    - The final filesystem layout MUST match the result of [applying](layer.md#applying-changesets) the layers to an empty directory.
-    - The [ownership, mode, and other attributes](layer.md#file-attributes) of the initial empty directory are unspecified.
+  - The array MUST have the base layer at index 0.
+  - Subsequent layers MUST then follow in stack order (i.e. from `layers[0]` to `layers[len(layers)-1]`).
+  - The final filesystem layout MUST match the result of [applying](layer.md#applying-changesets) the layers to an empty directory.
+  - The [ownership, mode, and other attributes](layer.md#file-attributes) of the initial empty directory are unspecified.
 
-    Beyond the [descriptor requirements](descriptor.md#properties), the value has the following additional restrictions:
+  Beyond the [descriptor requirements](descriptor.md#properties), the value has the following additional restrictions:
 
-    - **`mediaType`** *string*
+  - **`mediaType`** *string*
 
-        This [descriptor property](descriptor.md#properties) has additional restrictions for `layers[]`.
-        Implementations MUST support at least the following media types:
+    This [descriptor property](descriptor.md#properties) has additional restrictions for `layers[]`.
+    Implementations MUST support at least the following media types:
 
-        - [`application/vnd.oci.image.layer.v1.tar`](layer.md)
-        - [`application/vnd.oci.image.layer.v1.tar+gzip`](layer.md#gzip-media-types)
-        - [`application/vnd.oci.image.layer.nondistributable.v1.tar`](layer.md#non-distributable-layers)
-        - [`application/vnd.oci.image.layer.nondistributable.v1.tar+gzip`](layer.md#gzip-media-types)
+    - [`application/vnd.oci.image.layer.v1.tar`](layer.md)
+    - [`application/vnd.oci.image.layer.v1.tar+gzip`](layer.md#gzip-media-types)
+    - [`application/vnd.oci.image.layer.nondistributable.v1.tar`](layer.md#non-distributable-layers)
+    - [`application/vnd.oci.image.layer.nondistributable.v1.tar+gzip`](layer.md#gzip-media-types)
 
-        Manifests concerned with portability SHOULD use one of the above media types.
-        Implementations storing or copying image manifests MUST NOT error on encountering a `mediaType` that is unknown to the implementation.
+    Manifests concerned with portability SHOULD use one of the above media types.
+    Implementations storing or copying image manifests MUST NOT error on encountering a `mediaType` that is unknown to the implementation.
 
-        Entries in this field will frequently use the `+gzip` types.
+    Entries in this field will frequently use the `+gzip` types.
 
-        If the manifest uses a different media type than the above, it MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2], and MAY be registered with [IANA][iana].
+    If the manifest uses a different media type than the above, it MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2], and MAY be registered with [IANA][iana].
 
-    See [Guidelines for Artifact Usage](#guidelines-for-artifact-usage) for other uses of the `layers`.
+  See [Guidelines for Artifact Usage](#guidelines-for-artifact-usage) for other uses of the `layers`.
 
 - **`subject`** *[descriptor](descriptor.md)*
 
-    This OPTIONAL property specifies a [descriptor](descriptor.md) of another manifest.
-    This value, used by the [`referrers` API](https://github.com/opencontainers/distribution-spec/blob/main/spec.md#listing-referrers), indicates a relationship to the specified manifest.
+  This OPTIONAL property specifies a [descriptor](descriptor.md) of another manifest.
+  This value, used by the [`referrers` API](https://github.com/opencontainers/distribution-spec/blob/main/spec.md#listing-referrers), indicates a relationship to the specified manifest.
 
 - **`annotations`** *string-string map*
 
-    This OPTIONAL property contains arbitrary metadata for the image manifest.
-    This OPTIONAL property MUST use the [annotation rules](annotations.md#rules).
+  This OPTIONAL property contains arbitrary metadata for the image manifest.
+  This OPTIONAL property MUST use the [annotation rules](annotations.md#rules).
 
-    See [Pre-Defined Annotation Keys](annotations.md#pre-defined-annotation-keys).
+  See [Pre-Defined Annotation Keys](annotations.md#pre-defined-annotation-keys).
 
 ## Example Image Manifest
 
 *Example showing an image manifest:*
+
 ```json,title=Manifest&mediatype=application/vnd.oci.image.manifest.v1%2Bjson
 {
   "schemaVersion": 2,

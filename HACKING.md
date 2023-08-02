@@ -10,8 +10,8 @@ This spec includes several Go packages, and a command line tool considered to be
 
 Prerequisites:
 
-* Go - current release only, earlier releases are not supported
-* make
+- Go - current release only, earlier releases are not supported
+- make
 
 The following make targets are relevant for any work involving the Go packages.
 
@@ -43,7 +43,7 @@ This target auto-formats all JSON files in the `schema` directory using the `jq`
 
 Prerequisites:
 
-* [jq][jq] >=1.5
+- [jq][jq] >=1.5
 
 Invocation:
 
@@ -57,7 +57,7 @@ This target generates a PDF/HTML version of the OCI image specification.
 
 Prerequisites:
 
-* [Docker][docker]
+- [Docker][docker]
 
 Invocation:
 
@@ -91,7 +91,7 @@ This target generates PNG image files from DOT source files in the `img` directo
 
 Prerequisites:
 
-* [graphviz][graphviz]
+- [graphviz][graphviz]
 
 Invocation:
 

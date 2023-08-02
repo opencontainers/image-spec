@@ -41,6 +41,8 @@ DOC_FILES := \
 FIGURE_FILES := \
 	img/media-types.png
 
+MARKDOWN_LINT_VER?=v0.8.1
+
 TOOLS := gitvalidation 
 
 default: check-license lint test
@@ -81,9 +83,19 @@ check-license: ## check license headers in source files
 	@./.tool/check-license
 
 .PHONY: lint
-lint: .install.lint ## lint check of Go files using golangci-lint
-	@echo "checking lint"
+
+.PHONY: lint
+lint: lint-go lint-md ## Run all linters
+
+.PHONY: lint-go
+lint-go: .install.lint ## lint check of Go files using golangci-lint
+	@echo "checking Go lint"
 	@GO111MODULE=on $(GOPATH)/bin/golangci-lint run
+
+.PHONY: lint-md
+lint-md: ## Run linting for markdown
+	docker run --rm -v "$(PWD):/workdir:ro" docker.io/davidanson/markdownlint-cli2:$(MARKDOWN_LINT_VER) \
+	  **/*.md "#vendor"
 
 .PHONY: test
 test: ## run the unit tests
