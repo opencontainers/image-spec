@@ -175,74 +175,87 @@ If the `config.mediaType` is set to the empty value, the `artifactType` MUST be 
 If the artifact does not need layers, a single layer SHOULD be included with a non-zero size.
 The suggested content for an unused `layers` array is the [empty descriptor](#guidance-for-an-empty-descriptor).
 
-Here is an example manifest for a typical artifact:
+The design of the artifact depends on what content is being packaged with the artifact.
+The decision tree below and the associated examples MAY be used to design new artifacts:
 
-```json,title=Artifact%20with%20config&mediatype=application/vnd.oci.image.manifest.v1%2Bjson
-{
-  "schemaVersion": 2,
-  "mediaType": "application/vnd.oci.image.manifest.v1+json",
-  "config": {
-    "mediaType": "application/vnd.example.config.v1+json",
-    "digest": "sha256:5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03",
-    "size": 123
-  },
-  "layers": [
-    {
-      "mediaType": "application/vnd.example.data.v1.tar+gzip",
-      "digest": "sha256:e258d248fda94c63753607f7c4494ee0fcbe92f1a76bfdac795c9d84101eb317",
-      "size": 1234
-    }
-  ]
-}
-```
+1. Does the artifact consist of at least one file or blob?
+   If yes, continue to 2.
+   If no, specify the `artifactType`, and set the `config` and a single `layers` element to the empty descriptor value.
+   Here is an example of this with annotations included:
 
-Here is an example manifest for a simple artifact without content in the config, using the empty descriptor:
+   ```json,title=Minimal%20artifact&mediatype=application/vnd.oci.image.manifest.v1%2Bjson
+   {
+     "schemaVersion": 2,
+     "mediaType": "application/vnd.oci.image.manifest.v1+json",
+     "artifactType": "application/vnd.example+type",
+     "config": {
+       "mediaType": "application/vnd.oci.empty.v1+json",
+       "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+       "size": 2
+     },
+     "layers": [
+       {
+         "mediaType": "application/vnd.oci.empty.v1+json",
+         "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+         "size": 2
+       }
+     ],
+     "annotations": {
+       "oci.opencontainers.image.created": "2023-01-02T03:04:05Z",
+       "com.example.data": "payload"
+     }
+   }
+   ```
 
-```json,title=Artifact%20without%20config&mediatype=application/vnd.oci.image.manifest.v1%2Bjson
-{
-  "schemaVersion": 2,
-  "mediaType": "application/vnd.oci.image.manifest.v1+json",
-  "artifactType": "application/vnd.example+type",
-  "config": {
-    "mediaType": "application/vnd.oci.empty.v1+json",
-    "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
-    "size": 2
-  },
-  "layers": [
-    {
-      "mediaType": "application/vnd.example+type",
-      "digest": "sha256:e258d248fda94c63753607f7c4494ee0fcbe92f1a76bfdac795c9d84101eb317",
-      "size": 1234
-    }
-  ]
-}
-```
+2. Does the artifact have additional JSON formatted metadata as configuration?
+   If yes, continue to 3.
+   If no, specify the `artifactType`, include the artifact in the `layers`, and set `config` to the empty descriptor value.
+   Here is an example of this with a single layer:
 
-Here is an example manifest for an artifact with only annotations set, and the content of both blobs set to the empty descriptor:
+   ```json,title=Artifact%20without%20config&mediatype=application/vnd.oci.image.manifest.v1%2Bjson
+   {
+     "schemaVersion": 2,
+     "mediaType": "application/vnd.oci.image.manifest.v1+json",
+     "artifactType": "application/vnd.example+type",
+     "config": {
+       "mediaType": "application/vnd.oci.empty.v1+json",
+       "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+       "size": 2
+     },
+     "layers": [
+       {
+         "mediaType": "application/vnd.example+type",
+         "digest": "sha256:e258d248fda94c63753607f7c4494ee0fcbe92f1a76bfdac795c9d84101eb317",
+         "size": 1234
+       }
+     ]
+   }
+   ```
 
-```json,title=Minimal%20artifact&mediatype=application/vnd.oci.image.manifest.v1%2Bjson
-{
-  "schemaVersion": 2,
-  "mediaType": "application/vnd.oci.image.manifest.v1+json",
-  "artifactType": "application/vnd.example+type",
-  "config": {
-    "mediaType": "application/vnd.oci.empty.v1+json",
-    "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
-    "size": 2
-  },
-  "layers": [
-    {
-      "mediaType": "application/vnd.oci.empty.v1+json",
-      "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
-      "size": 2
-    }
-  ],
-  "annotations": {
-    "oci.opencontainers.image.created": "2023-01-02T03:04:05Z",
-    "com.example.data": "payload"
-  }
-}
-```
+3. For artifacts with a config blob, specify the `artifactType` to a common value for your artifact tooling, specify the `config` with the metadata for this artifact, and include the artifact in the `layers`.
+   Here is an example of this:
+
+   ```json,title=Artifact%20with%20config&mediatype=application/vnd.oci.image.manifest.v1%2Bjson
+   {
+     "schemaVersion": 2,
+     "mediaType": "application/vnd.oci.image.manifest.v1+json",
+     "artifactType": "application/vnd.example+type",
+     "config": {
+       "mediaType": "application/vnd.example.config.v1+json",
+       "digest": "sha256:5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03",
+       "size": 123
+     },
+     "layers": [
+       {
+         "mediaType": "application/vnd.example.data.v1.tar+gzip",
+         "digest": "sha256:e258d248fda94c63753607f7c4494ee0fcbe92f1a76bfdac795c9d84101eb317",
+         "size": 1234
+       }
+     ]
+   }
+   ```
+
+_Implementers note:_ artifacts have historically been created without an `artifactType` field, and tooling to work with artifacts should fallback to the `config.mediaType` value.
 
 [iana]:         https://www.iana.org/assignments/media-types/media-types.xhtml
 [rfc6838]:      https://tools.ietf.org/html/rfc6838
