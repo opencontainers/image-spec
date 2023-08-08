@@ -180,7 +180,7 @@ The decision tree below MAY be used to structure your artifact:
 
 1. Does the artifact consist of at least one file or blob? If yes, continue to 2. If no, specify the `artifactType`, and set the `config` and `layers` to their empty descriptor values.
 
-    ```json,title=Artifact%20with%20annotations%20and%20artifactType=application/vnd.example%2Btype
+    ```json,title=Artifact%20with%20annotations&mediatype=application/vnd.oci.image.manifest.v1%2Bjson
     {
       "schemaVersion": 2,
       "mediaType": "application/vnd.oci.image.manifest.v1+json",
@@ -206,7 +206,7 @@ The decision tree below MAY be used to structure your artifact:
 
 2. Does the artifact have additional JSON formatted metadata as configuration? If yes, continue to 3. If no, specify the `artifactType`, include the artifact in the `layers`, and set `config` to the empty descriptor value.
 
-    ```json,title=Artifact%20with%20artifactType=application/vnd.example%2Btype%20and%20layers
+    ```json,title=Artifact%20with%20artificatType%20and%20layers&mediatype=application/vnd.oci.image.manifest.v1%2Bjson
     {
       "schemaVersion": 2,
       "mediaType": "application/vnd.oci.image.manifest.v1+json",
@@ -228,7 +228,7 @@ The decision tree below MAY be used to structure your artifact:
 
 3. Does the artifact require a different `artifactType` from the `config.mediaType`, to support multiple configuration formats or versions for the same artifact tooling? If yes, continue to 4. If no, specify the `config` with the metadata, include the artifact in the `layers`, but do not set the `artifactType`.
 
-    ```json,title=Artifact%20with%20metadata%20config.mediaType=application/vnd.example%2Btype%20and%20layers
+    ```json,title=Artifact%20with%20metadata%20and%20layers&mediatype=application/vnd.oci.image.manifest.v1%2Bjson
     {
       "schemaVersion": 2,
       "mediaType": "application/vnd.oci.image.manifest.v1+json",
@@ -249,7 +249,7 @@ The decision tree below MAY be used to structure your artifact:
 
 4. Specify the `artifactType` to a common value for your artifact tooling, specify the `config` with the metadata for this artifact, and include the artifact in the `layers`.
 
-    ```json,title=Artifact%20with%20metadata%20artifactType=application/vnd.example%2Btype%20with%20config.mediaType=application/vnd.example.config.v1%2Bjson%20and%20layers
+    ```json,title=Artifact%20with%20metadata%20and%20layers&mediatype=application/vnd.oci.image.manifest.v1%2Bjson
     {
       "schemaVersion": 2,
       "mediaType": "application/vnd.oci.image.manifest.v1+json",
