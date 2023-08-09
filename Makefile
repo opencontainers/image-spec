@@ -95,7 +95,7 @@ lint-go: .install.lint ## lint check of Go files using golangci-lint
 .PHONY: lint-md
 lint-md: ## Run linting for markdown
 	docker run --rm -v "$(PWD):/workdir:ro" docker.io/davidanson/markdownlint-cli2:$(MARKDOWN_LINT_VER) \
-	  **/*.md "#vendor"
+	  "**/*.md" "#vendor"
 
 .PHONY: test
 test: ## run the unit tests
