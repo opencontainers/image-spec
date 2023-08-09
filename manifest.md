@@ -178,7 +178,9 @@ The suggested content for an unused `layers` array is the [empty descriptor](#gu
 The design of the artifact depends on what content is being packaged with the artifact.
 The decision tree below MAY be used to structure your artifact:
 
-1. Does the artifact consist of at least one file or blob? If yes, continue to 2. If no, specify the `artifactType`, and set the `config` and `layers` to their empty descriptor values.
+Please note that the code blocks acconpanying the guidance here are examples only. They are not part of the manifest specification.
+
+1. Does the artifact consist of at least one file or blob? If yes, continue to 2. If no, specify the `artifactType`, and set the `config` and a single `layers` element to the empty descriptor value.
 
     ```json,title=Artifact%20with%20annotations&mediatype=application/vnd.oci.image.manifest.v1%2Bjson
     {
@@ -233,7 +235,7 @@ The decision tree below MAY be used to structure your artifact:
       "schemaVersion": 2,
       "mediaType": "application/vnd.oci.image.manifest.v1+json",
       "config": {
-        "mediaType": "application/vnd.example+type",
+        "mediaType": "application/vnd.example+json",
         "digest": "sha256:5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03",
         "size": 2
       },
