@@ -48,8 +48,6 @@ Specifications have a variety of different timelines in their lifecycle.
     For example if a breaking change is introduced in v1.0.0-rc2 then the series would end with v1.0.0-rc4 and v1.0.0.
 - Minor and patch releases SHOULD be made on an as-needed basis.
 
-[charter]: https://github.com/opencontainers/tob/blob/main/CHARTER.md
-
 ## Checklist
 
 Releases usually follow a few steps:
@@ -70,7 +68,7 @@ Releases usually follow a few steps:
   - [ ] count the PRs since last release (that this version is tracking, in the cases of multiple branching), like `git log --pretty=oneline --no-merges --decorate $priorTag..$versionBumpCommit  | grep \(pr\/ | wc -l`
   - [ ] get the date for a week from now, like `TZ=UTC date --date='next week'`
   - [ ] OPTIONAL find a cute animal gif to attach to the email, and subsequently the release description
-  - [ ] subject line like `[runtime-spec VOTE] tag $versionBumpCommit as $version (closes $dateWeekFromNowUTC)`
+  - [ ] subject line like `[image-spec VOTE] tag $versionBumpCommit as $version (closes $dateWeekFromNowUTC)`
   - [ ] email body like
 
 ```text
@@ -92,7 +90,10 @@ $sig
 - [ ] produce release documents
   - [ ] git checkout the release tag, like `git checkout $version`
   - [ ] `make docs`
-  - [ ] rename the output PDF and HTML file to include version, like `mv output/oci-runtime-spec.pdf output/oci-runtime-spec-$version.pdf``
-  - [ ] attach these docs to the release on <https://github.com/opencontainers/runtime-spec/releases>
+  - [ ] rename the output PDF and HTML file to include version, like `mv output/oci-image-spec.pdf output/oci-image-spec-$version.pdf``
+  - [ ] attach these docs to the release on <https://github.com/opencontainers/image-spec/releases>
   - [ ] link to the the VOTE thread and include the passing vote count
   - [ ] link to the pull request that merged the release
+- [ ] add release notes to the website <https://github.com/opencontainers/opencontainers.org/tree/main/content/release-notices>
+
+[charter]: https://github.com/opencontainers/tob/blob/main/CHARTER.md
