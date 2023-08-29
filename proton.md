@@ -1,4 +1,4 @@
-# Annotations
+# proton
 
 Several components of the specification, like [Image Manifests](manifest.md) and [Descriptors](descriptor.md), feature an optional annotations property, whose format is common and defined in this section.
 
