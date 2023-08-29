@@ -1,3 +1,10 @@
 /oci-validate-examples
 output
 header.html
+.idea/image-spec.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/runConfigurations/AADSTS50020.xml
+.idea/vcs.xml
+.idea/workspace.xml
+specs-go/v1/WT.mc_id/
