@@ -1,3 +1,11 @@
 /oci-validate-examples
 output
 header.html
+<<<<<<< Updated upstream
+AADSTS50020
+=======
+*.xml
+>>>>>>> Stashed changes
+specs-go/v1/WT.mc_id/
+.idea/image-spec.iml
+annotations.md
