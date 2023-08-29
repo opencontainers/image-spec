@@ -8,3 +8,11 @@ header.html
 .idea/vcs.xml
 .idea/workspace.xml
 specs-go/v1/WT.mc_id/
+<<<<<<< Updated upstream
+=======
+RELEASES.md
+specs-go/v1/descriptor.go
+specs-go/version.go
+specs-go/version.go
+specs-go/v1/descriptor.go
+>>>>>>> Stashed changes
