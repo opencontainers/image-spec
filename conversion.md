@@ -47,8 +47,8 @@ These fields all affect the `annotations` of the runtime configuration, and are 
 | `os`                | `annotations`   | 1,2   |
 | `architecture`      | `annotations`   | 1,3   |
 | `variant`           | `annotations`   | 1,4   |
-| `os.version`         | `annotations`   | 1,5   |
-| `os.features`        | `annotations`   | 1,6   |
+| `os.version`        | `annotations`   | 1,5   |
+| `os.features`       | `annotations`   | 1,6   |
 | `author`            | `annotations`   | 1,7   |
 | `created`           | `annotations`   | 1,8   |
 | `Config.Labels`     | `annotations`   |       |

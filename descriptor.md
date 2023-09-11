@@ -88,12 +88,12 @@ See also [Registered Algorithms](#registered-algorithms).
 
 Some example digest strings include the following:
 
-digest                                                                    | algorithm           | Registered |
---------------------------------------------------------------------------|---------------------|------------|
-`sha256:6c3c624b58dbbcd3c0dd82b4c53f04194d1247c6eebdaab7c610cf7d66709b3b` | [SHA-256](#sha-256) | Yes        |
-`sha512:401b09eab3c013d4ca54922bb802bec8fd5318192b0a75f201d8b372742...`   | [SHA-512](#sha-512) | Yes        |
-`multihash+base58:QmRZxt2b1FVZPNqd8hsiykDL3TdBDeTSPX9Kv46HmX4Gx8`         | Multihash           | No         |
-`sha256+b64u:LCa0a2j_xo_5m0U8HTBBNBNCLXBkg7-g-YpeiGJm564`                 | SHA-256 with urlsafe base64 | No |
+| digest                                                                    | algorithm                   | Registered |
+|---------------------------------------------------------------------------|-----------------------------|------------|
+| `sha256:6c3c624b58dbbcd3c0dd82b4c53f04194d1247c6eebdaab7c610cf7d66709b3b` | [SHA-256](#sha-256)         | Yes        |
+| `sha512:401b09eab3c013d4ca54922bb802bec8fd5318192b0a75f201d8b372742...`   | [SHA-512](#sha-512)         | Yes        |
+| `multihash+base58:QmRZxt2b1FVZPNqd8hsiykDL3TdBDeTSPX9Kv46HmX4Gx8`         | Multihash                   | No         |
+| `sha256+b64u:LCa0a2j_xo_5m0U8HTBBNBNCLXBkg7-g-YpeiGJm564`                 | SHA-256 with urlsafe base64 | No         |
 
 Please see [Registered Algorithms](#registered-algorithms) for a list of registered algorithms.
 
