@@ -16,6 +16,7 @@ package schema_test
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"io"
 	"net/url"
@@ -26,7 +27,6 @@ import (
 	"testing"
 
 	"github.com/opencontainers/image-spec/schema"
-	"github.com/pkg/errors"
 	"github.com/russross/blackfriday"
 )
 
@@ -93,7 +93,7 @@ func validate(t *testing.T, name string) {
 	}
 
 	for _, example := range examples {
-		if example.Err == errFormatInvalid && example.Mediatype == "" { // ignore
+		if errors.Is(example.Err, errFormatInvalid) && example.Mediatype == "" { // ignore
 			continue
 		}
 
@@ -111,7 +111,8 @@ func validate(t *testing.T, name string) {
 		}
 
 		var errs []error
-		if verr, ok := errors.Cause(err).(schema.ValidationError); ok {
+		var verr schema.ValidationError
+		if errors.As(err, &verr) {
 			errs = verr.Errs
 		} else {
 			printFields(t, "error", example.Mediatype, example.Title, err)

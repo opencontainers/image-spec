@@ -22,5 +22,8 @@ Projects or Companies currently adopting the OCI Image Specification
 - [box-builder/box](https://github.com/box-builder/box)
 - [coolljt0725/docker2oci](https://github.com/coolljt0725/docker2oci)
 - [regclient/regclient](https://github.com/regclient/regclient)
+- [ORAS](https://oras.land/)
+  - [oras-project/oras](https://github.com/oras-project/oras/)
+  - [oras-project/oras-go](https://github.com/oras-project/oras-go)
 
 _(to add your project please open a [pull-request](https://github.com/opencontainers/image-spec/pulls))_
