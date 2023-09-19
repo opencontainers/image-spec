@@ -17,13 +17,13 @@ package schema
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"regexp"
 
 	digest "github.com/opencontainers/go-digest"
 	v1 "github.com/opencontainers/image-spec/specs-go/v1"
-	"github.com/pkg/errors"
 	"github.com/xeipuuv/gojsonschema"
 )
 
@@ -53,7 +53,7 @@ func (e ValidationError) Error() string {
 func (v Validator) Validate(src io.Reader) error {
 	buf, err := io.ReadAll(src)
 	if err != nil {
-		return errors.Wrap(err, "unable to read the document file")
+		return fmt.Errorf("unable to read the document file: %w", err)
 	}
 
 	if f, ok := mapValidate[v]; ok {
@@ -71,9 +71,8 @@ func (v Validator) Validate(src io.Reader) error {
 
 	result, err := gojsonschema.Validate(sl, ml)
 	if err != nil {
-		return errors.Wrapf(
-			WrapSyntaxError(bytes.NewReader(buf), err),
-			"schema %s: unable to validate", v)
+		return fmt.Errorf("schema %s: unable to validate: %w", v,
+			WrapSyntaxError(bytes.NewReader(buf), err))
 	}
 
 	if result.Valid() {
@@ -101,12 +100,12 @@ func validateManifest(r io.Reader) error {
 
 	buf, err := io.ReadAll(r)
 	if err != nil {
-		return errors.Wrapf(err, "error reading the io stream")
+		return fmt.Errorf("error reading the io stream: %w", err)
 	}
 
 	err = json.Unmarshal(buf, &header)
 	if err != nil {
-		return errors.Wrap(err, "manifest format mismatch")
+		return fmt.Errorf("manifest format mismatch: %w", err)
 	}
 
 	if header.Config.MediaType != string(v1.MediaTypeImageConfig) {
@@ -131,16 +130,16 @@ func validateDescriptor(r io.Reader) error {
 
 	buf, err := io.ReadAll(r)
 	if err != nil {
-		return errors.Wrapf(err, "error reading the io stream")
+		return fmt.Errorf("error reading the io stream: %w", err)
 	}
 
 	err = json.Unmarshal(buf, &header)
 	if err != nil {
-		return errors.Wrap(err, "descriptor format mismatch")
+		return fmt.Errorf("descriptor format mismatch: %w", err)
 	}
 
 	err = header.Digest.Validate()
-	if err == digest.ErrDigestUnsupported {
+	if errors.Is(err, digest.ErrDigestUnsupported) {
 		// we ignore unsupported algorithms
 		fmt.Printf("warning: unsupported digest: %q: %v\n", header.Digest, err)
 		return nil
@@ -153,12 +152,12 @@ func validateIndex(r io.Reader) error {
 
 	buf, err := io.ReadAll(r)
 	if err != nil {
-		return errors.Wrapf(err, "error reading the io stream")
+		return fmt.Errorf("error reading the io stream: %w", err)
 	}
 
 	err = json.Unmarshal(buf, &header)
 	if err != nil {
-		return errors.Wrap(err, "index format mismatch")
+		return fmt.Errorf("index format mismatch: %w", err)
 	}
 
 	for _, manifest := range header.Manifests {
@@ -180,12 +179,12 @@ func validateConfig(r io.Reader) error {
 
 	buf, err := io.ReadAll(r)
 	if err != nil {
-		return errors.Wrapf(err, "error reading the io stream")
+		return fmt.Errorf("error reading the io stream: %w", err)
 	}
 
 	err = json.Unmarshal(buf, &header)
 	if err != nil {
-		return errors.Wrap(err, "config format mismatch")
+		return fmt.Errorf("config format mismatch: %w", err)
 	}
 
 	checkPlatform(header.OS, header.Architecture)
@@ -194,7 +193,7 @@ func validateConfig(r io.Reader) error {
 	envRegexp := regexp.MustCompile(`^[^=]+=.*$`)
 	for _, e := range header.Config.Env {
 		if !envRegexp.MatchString(e) {
-			return errors.Errorf("unexpected env: %q", e)
+			return fmt.Errorf("unexpected env: %q", e)
 		}
 	}
 

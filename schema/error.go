@@ -17,6 +17,7 @@ package schema
 import (
 	"bufio"
 	"encoding/json"
+	"errors"
 	"io"
 )
 
@@ -34,7 +35,8 @@ func (e *SyntaxError) Error() string { return e.msg }
 // and converts it into a *schema.SyntaxError containing line/col information using the given reader.
 // If the given error is not a *json.SyntaxError it is returned unchanged.
 func WrapSyntaxError(r io.Reader, err error) error {
-	if serr, ok := err.(*json.SyntaxError); ok {
+	var serr *json.SyntaxError
+	if errors.As(err, &serr) {
 		buf := bufio.NewReader(r)
 		line := 0
 		col := 0

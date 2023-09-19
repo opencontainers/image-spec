@@ -5,8 +5,10 @@ linters:
   disable-all: true
   enable:
     - dupl
+    - errorlint
     - gofmt
     - goimports
+    - gomodguard
     - gosimple
     - govet
     - ineffassign
@@ -19,5 +21,12 @@ linters:
 linters-settings:
   gofmt:
     simplify: true
+  gomodguard:
+    blocked:
+      modules:
+        - github.com/pkg/errors:
+            recommendations:
+              - errors
+              - fmt
   dupl:
     threshold: 400
