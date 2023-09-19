@@ -90,7 +90,7 @@ lint: lint-go lint-md ## Run all linters
 .PHONY: lint-go
 lint-go: .install.lint ## lint check of Go files using golangci-lint
 	@echo "checking Go lint"
-	@GO111MODULE=on $(GOPATH)/bin/golangci-lint run --fix
+	@GO111MODULE=on $(GOPATH)/bin/golangci-lint run
 
 .PHONY: lint-md
 lint-md: ## Run linting for markdown
