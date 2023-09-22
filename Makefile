@@ -43,7 +43,7 @@ FIGURE_FILES := \
 
 MARKDOWN_LINT_VER?=v0.8.1
 
-TOOLS := gitvalidation 
+TOOLS := gitvalidation
 
 default: check-license lint test
 
