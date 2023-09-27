@@ -6,6 +6,7 @@ linters:
   enable:
     - dupl
     - errorlint
+    - gci
     - gofmt
     - goimports
     - gomodguard
@@ -19,6 +20,13 @@ linters:
     - staticcheck
 
 linters-settings:
+  dupl:
+    threshold: 400
+  gci:
+    sections:
+      - standard
+      - default
+      - prefix(github.com/opencontainers)
   gofmt:
     simplify: true
   gomodguard:
@@ -28,5 +36,3 @@ linters-settings:
             recommendations:
               - errors
               - fmt
-  dupl:
-    threshold: 400

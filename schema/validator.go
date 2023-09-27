@@ -22,9 +22,10 @@ import (
 	"io"
 	"regexp"
 
+	"github.com/xeipuuv/gojsonschema"
+
 	digest "github.com/opencontainers/go-digest"
 	v1 "github.com/opencontainers/image-spec/specs-go/v1"
-	"github.com/xeipuuv/gojsonschema"
 )
 
 // Validator wraps a media type string identifier

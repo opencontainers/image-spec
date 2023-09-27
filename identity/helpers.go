@@ -17,7 +17,6 @@ package identity
 import (
 	_ "crypto/sha256" // side-effect to install impls, sha256
 	_ "crypto/sha512" // side-effect to install impls, sha384/sh512
-
 	"io"
 
 	digest "github.com/opencontainers/go-digest"
