@@ -255,6 +255,8 @@ The decision tree below and the associated examples MAY be used to design new ar
    }
    ```
 
+   In the case where the artifact may be run by a runtime the `config.mediaType` MAY be `application/vnd.oci.image.config.v1+json`.
+
 _Implementers note:_ artifacts have historically been created without an `artifactType` field, and tooling to work with artifacts should fallback to the `config.mediaType` value.
 
 [iana]:         https://www.iana.org/assignments/media-types/media-types.xhtml
