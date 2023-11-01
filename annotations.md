@@ -80,4 +80,4 @@ While users are encouraged to use the **org.opencontainers.image** keys, tools M
 [distribution-reference]: https://github.com/distribution/distribution/blob/d0deff9cd6c2b8c82c6f3d1c713af51df099d07b/reference/reference.go
 [label-schema]: https://github.com/label-schema/label-schema.org/blob/gh-pages/rc1.md
 [rfc3339]:     https://tools.ietf.org/html/rfc3339#section-5.6
-[spdx-license-expression]: https://spdx.org/spdx-specification-21-web-version#h.jxpfx0ykyb60
+[spdx-license-expression]: https://spdx.github.io/spdx-spec/v2.3/SPDX-license-expressions/
