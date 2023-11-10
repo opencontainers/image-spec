@@ -25,6 +25,8 @@ jobs:
       - name: Render and Lint
         env:
           GOPATH: /home/runner/work/image-spec/image-spec/go
+          # do not automatically upgrade go to a different version: https://go.dev/doc/toolchain
+          GOTOOLCHAIN: local
         run: |
           export PATH=$GOPATH/bin:$PATH
           cd go/src/github.com/opencontainers/image-spec
