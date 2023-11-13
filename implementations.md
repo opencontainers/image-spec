@@ -18,12 +18,17 @@ Projects or Companies currently adopting the OCI Image Specification
   - [containers/oci-spec-rs](https://github.com/containers/oci-spec-rs)
   - [containers/libocispec](https://github.com/containers/libocispec)
 - [krustlet/oci-distribution](https://github.com/krustlet/oci-distribution)
-- [coreos/rkt](https://github.com/coreos/rkt)
 - [box-builder/box](https://github.com/box-builder/box)
 - [coolljt0725/docker2oci](https://github.com/coolljt0725/docker2oci)
 - [regclient/regclient](https://github.com/regclient/regclient)
 - [ORAS](https://oras.land/)
   - [oras-project/oras](https://github.com/oras-project/oras/)
   - [oras-project/oras-go](https://github.com/oras-project/oras-go)
+
+## Former Projects
+
+OCI would like to recognize the following projects that are no longer actively maintained but have contributed to the adoption of OCI
+
+- [coreos/rkt](https://github.com/coreos/rkt) - Project ended and archived on Feb 25, 2020
 
 _(to add your project please open a [pull-request](https://github.com/opencontainers/image-spec/pulls))_
