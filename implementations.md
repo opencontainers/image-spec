@@ -24,6 +24,7 @@ Projects or Companies currently adopting the OCI Image Specification
 - [ORAS](https://oras.land/)
   - [oras-project/oras](https://github.com/oras-project/oras/)
   - [oras-project/oras-go](https://github.com/oras-project/oras-go)
+- [gradle-oci](https://github.com/SgtSilvio/gradle-oci)
 
 ## Former Projects
 
