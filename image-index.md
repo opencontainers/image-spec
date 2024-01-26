@@ -93,7 +93,7 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 - **`subject`** *[descriptor](descriptor.md)*
 
     This OPTIONAL property specifies a [descriptor](descriptor.md) of another manifest.
-    This value, used by the [`referrers` API][referrers-api], indicates a relationship to the specified manifest.
+    This value defines a weak association to a separate [Merkle Directed Acyclic Graph (DAG)][dag] structure, and is used by the [`referrers` API][referrers-api] to include this manifest in the list of responses for the subject digest.
 
 - **`annotations`** *string-string map*
 
@@ -179,9 +179,10 @@ When the variant of the CPU is not listed in the table, values are implementatio
 }
 ```
 
+[dag]:             https://en.wikipedia.org/wiki/Merkle_tree
 [go-environment2]: https://golang.org/doc/install/source#environment
-[iana]: https://www.iana.org/assignments/media-types/media-types.xhtml
-[matrix]: media-types.md#compatibility-matrix
-[referrers-api]: https://github.com/opencontainers/distribution-spec/blob/main/spec.md#listing-referrers
-[rfc6838]: https://tools.ietf.org/html/rfc6838
-[rfc6838-s4.2]: https://tools.ietf.org/html/rfc6838#section-4.2
+[iana]:            https://www.iana.org/assignments/media-types/media-types.xhtml
+[matrix]:          media-types.md#compatibility-matrix
+[referrers-api]:   https://github.com/opencontainers/distribution-spec/blob/main/spec.md#listing-referrers
+[rfc6838]:         https://tools.ietf.org/html/rfc6838
+[rfc6838-s4.2]:    https://tools.ietf.org/html/rfc6838#section-4.2
