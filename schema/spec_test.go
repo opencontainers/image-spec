@@ -26,8 +26,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/opencontainers/image-spec/schema"
 	"github.com/russross/blackfriday"
+
+	"github.com/opencontainers/image-spec/schema"
 )
 
 var (
