@@ -14,11 +14,11 @@ jobs:
     name: Documentation and Linting
     steps:
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           path: go/src/github.com/opencontainers/image-spec
 
-      - uses: actions/setup-go@v3
+      - uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.go }}
 
