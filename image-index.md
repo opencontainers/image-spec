@@ -105,13 +105,15 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 ## Platform Variants
 
 When the variant of the CPU is not listed in the table, values are implementation-defined and SHOULD be submitted to this specification for standardization.
+These values SHOULD match (or be similar to) their analog listed in [the Go Language document][go-environment2].
 
-| ISA/ABI         | `architecture` | `variant`   |
-|-----------------|----------------|-------------|
-| ARM 32-bit, v6  | `arm`          | `v6`        |
-| ARM 32-bit, v7  | `arm`          | `v7`        |
-| ARM 32-bit, v8  | `arm`          | `v8`        |
-| ARM 64-bit, v8  | `arm64`        | `v8`        |
+| ISA/ABI    | `architecture` | `variant`             | Go analog   |
+|------------|----------------|-----------------------|-------------|
+| ARM 32-bit | `arm`          | `v6`, `v7`, `v8`      | `GOARM`     |
+| ARM 64-bit | `arm64`        | `v8`, `v8.1`, …       | `GOARM64`   |
+| POWER8+    | `ppc64le`      | `power8`, `power9`, … | `GOPPC64`   |
+| RISC-V     | `riscv64`      | `rva20u64`, …         | `GORISCV64` |
+| x86-64     | `amd64`        | `v1`, `v2`, `v3`, …   | `GOAMD64`   |
 
 ## Example Image Index
 
