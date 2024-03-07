@@ -57,6 +57,8 @@ Unlike the [image index](image-index.md), which contains information about a set
 
   To set an effectively null or empty config and maintain portability see the [guidance for an empty descriptor](#guidance-for-an-empty-descriptor) below, and `DescriptorEmptyJSON` of the reference code.
 
+  If this image manifest will be "runnable" by a runtime of some kind, it is strongly recommended to ensure it includes enough data to be unique (such as the `rootfs` and `diff_ids` included in `application/vnd.oci.image.config.v1+json`) so that it has a unique [`ImageID`](config.md#imageid).
+
 - **`layers`** *array of objects*
 
   Each item in the array MUST be a [descriptor](descriptor.md).
