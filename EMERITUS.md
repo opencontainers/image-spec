@@ -8,5 +8,6 @@ We would like to acknowledge previous OCI image spec maintainers and their huge 
 - John Starks (@jstarks)
 - Keyang Xie (@xiekeyang)
 - Vincent Batts (@vbatts)
+- Nell Boulle (@jonboulle)
 
 We thank these members for their service to the OCI community.
