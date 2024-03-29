@@ -18,6 +18,17 @@ The following media types identify a ["Layer" with distribution restrictions](la
 - `application/vnd.oci.image.layer.nondistributable.v1.tar+gzip`: ["Layer", as a tar archive with distribution restrictions](layer.md#gzip-media-types) compressed with [gzip][rfc1952]
 - `application/vnd.oci.image.layer.nondistributable.v1.tar+zstd`: ["Layer", as a tar archive with distribution restrictions](layer.md#zstd-media-types) compressed with [zstd][rfc8478]
 
+## Media Type Syntax
+
+Media types values MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2], and MAY be registered with [IANA][iana].
+Media types values MUST have a top-level type and subtype name, separated by a `/`, without any parameters.
+
+The following regular expression may be used to validate media types:
+
+```regexp
+^[A-Za-z0-9][A-Za-z0-9!#$&^_.+-]{0,126}/[A-Za-z0-9][A-Za-z0-9!#$&^_.+-]{0,126}$
+```
+
 ## Media Type Conflicts
 
 [Blob](image-layout.md) retrieval methods MAY return media type metadata.
@@ -86,5 +97,8 @@ The following figure shows how the above media types reference each other:
 [Descriptors](descriptor.md) are used for all references.
 The image-index being a "fat manifest" references a list of image manifests per target platform. An image manifest references exactly one target configuration and possibly many layers.
 
-[rfc1952]: https://tools.ietf.org/html/rfc1952
-[rfc8478]: https://tools.ietf.org/html/rfc8478
+[iana]:          https://www.iana.org/assignments/media-types/media-types.xhtml
+[rfc1952]:       https://tools.ietf.org/html/rfc1952
+[rfc6838]:       https://tools.ietf.org/html/rfc6838
+[rfc6838-s4.2]:  https://tools.ietf.org/html/rfc6838#section-4.2
+[rfc8478]:       https://tools.ietf.org/html/rfc8478

@@ -25,7 +25,7 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 - **`artifactType`** *string*
 
   This OPTIONAL property contains the type of an artifact when the manifest is used for an artifact.
-  If defined, the value MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2], and MAY be registered with [IANA][iana].
+  If defined, the value MUST comply with the [media type syntax](media-types.md#media-type-syntax).
 
 - **`manifests`** *array of objects*
 
@@ -183,8 +183,5 @@ These values SHOULD match (or be similar to) their analog listed in [the Go Lang
 
 [dag]:             https://en.wikipedia.org/wiki/Merkle_tree
 [go-environment2]: https://golang.org/doc/install/source#environment
-[iana]:            https://www.iana.org/assignments/media-types/media-types.xhtml
 [matrix]:          media-types.md#compatibility-matrix
 [referrers-api]:   https://github.com/opencontainers/distribution-spec/blob/main/spec.md#listing-referrers
-[rfc6838]:         https://tools.ietf.org/html/rfc6838
-[rfc6838-s4.2]:    https://tools.ietf.org/html/rfc6838#section-4.2
