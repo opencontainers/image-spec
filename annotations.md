@@ -56,7 +56,7 @@ This specification defines the following annotation keys, intended for but not l
 
 ## Back-compatibility with Label Schema
 
-[Label Schema][label-schema] defined a number of conventional labels for container images, and these are now superceded by annotations with keys starting **org.opencontainers.image**.
+[Label Schema][label-schema] defined a number of conventional labels for container images, and these are now superseded by annotations with keys starting **org.opencontainers.image**.
 
 While users are encouraged to use the **org.opencontainers.image** keys, tools MAY choose to support compatible annotations using the **org.label-schema** prefix as follows.
 
