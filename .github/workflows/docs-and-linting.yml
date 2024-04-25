@@ -9,7 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        go: ['1.19', '1.20', '1.21']
+        # current Go releases plus the version in the go.mod are tested
+        go: ['1.18', '1.21', '1.22']
+
+    env:
+      RELEASE_GO_VER: "1.22"
 
     name: Documentation and Linting
     steps:
@@ -41,7 +45,8 @@ jobs:
           make docs
 
       - name: documentation artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
+        if: matrix.go == env.RELEASE_GO_VER
         with:
           name: oci-docs
           path: go/src/github.com/opencontainers/image-spec/output
