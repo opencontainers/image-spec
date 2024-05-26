@@ -20,90 +20,121 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"os"
 	"regexp"
 
 	digest "github.com/opencontainers/go-digest"
 	v1 "github.com/opencontainers/image-spec/specs-go/v1"
-	"github.com/xeipuuv/gojsonschema"
+	"github.com/santhosh-tekuri/jsonschema/v5"
 )
 
-// Validator wraps a media type string identifier
-// and implements validation against a JSON schema.
+// Validator wraps a media type string identifier and implements validation against a JSON schema.
 type Validator string
 
-type validateFunc func(r io.Reader) error
-
-var mapValidate = map[Validator]validateFunc{
-	ValidatorMediaTypeImageConfig: validateConfig,
-	ValidatorMediaTypeDescriptor:  validateDescriptor,
-	ValidatorMediaTypeImageIndex:  validateIndex,
-	ValidatorMediaTypeManifest:    validateManifest,
-}
-
 // ValidationError contains all the errors that happened during validation.
+//
+// Deprecated: this is no longer used by [Validator].
 type ValidationError struct {
 	Errs []error
 }
 
+// Error returns the error message.
+//
+// Deprecated: this is no longer used by [Validator].
 func (e ValidationError) Error() string {
 	return fmt.Sprintf("%v", e.Errs)
 }
 
 // Validate validates the given reader against the schema of the wrapped media type.
 func (v Validator) Validate(src io.Reader) error {
-	buf, err := io.ReadAll(src)
-	if err != nil {
-		return fmt.Errorf("unable to read the document file: %w", err)
-	}
-
-	if f, ok := mapValidate[v]; ok {
-		if f == nil {
-			return fmt.Errorf("internal error: mapValidate[%q] is nil", v)
+	// run the media type specific validation
+	if fn, ok := validateByMediaType[v]; ok {
+		if fn == nil {
+			return fmt.Errorf("internal error: mapValidate is nil for %s", string(v))
 		}
-		err = f(bytes.NewReader(buf))
+		// buffer the src so the media type validation and the schema validation can both read it
+		buf, err := io.ReadAll(src)
+		if err != nil {
+			return fmt.Errorf("failed to read input: %w", err)
+		}
+		src = bytes.NewReader(buf)
+		err = fn(buf)
 		if err != nil {
 			return err
 		}
 	}
 
-	sl := newFSLoaderFactory(schemaNamespaces, FileSystem()).New(specs[v])
-	ml := gojsonschema.NewStringLoader(string(buf))
+	// json schema validation
+	return v.validateSchema(src)
+}
 
-	result, err := gojsonschema.Validate(sl, ml)
+func (v Validator) validateSchema(src io.Reader) error {
+	if _, ok := specs[v]; !ok {
+		return fmt.Errorf("no validator available for %s", string(v))
+	}
+
+	c := jsonschema.NewCompiler()
+
+	// load the schema files from the embedded FS
+	dir, err := specFS.ReadDir(".")
 	if err != nil {
-		return fmt.Errorf("schema %s: unable to validate: %w", v,
-			WrapSyntaxError(bytes.NewReader(buf), err))
+		return fmt.Errorf("spec embedded directory could not be loaded: %w", err)
+	}
+	for _, file := range dir {
+		if file.IsDir() {
+			continue
+		}
+		specBuf, err := specFS.ReadFile(file.Name())
+		if err != nil {
+			return fmt.Errorf("could not read spec file %s: %w", file.Name(), err)
+		}
+		err = c.AddResource(file.Name(), bytes.NewReader(specBuf))
+		if err != nil {
+			return fmt.Errorf("failed to add spec file %s: %w", file.Name(), err)
+		}
+		if len(specURLs[file.Name()]) == 0 {
+			fmt.Fprintf(os.Stderr, "warning: spec file has no aliases: %s", file.Name())
+		}
+		for _, specURL := range specURLs[file.Name()] {
+			err = c.AddResource(specURL, bytes.NewReader(specBuf))
+			if err != nil {
+				return fmt.Errorf("failed to add spec file %s as url %s: %w", file.Name(), specURL, err)
+			}
+		}
 	}
 
-	if result.Valid() {
-		return nil
+	// compile based on the type of validator
+	schema, err := c.Compile(specs[v])
+	if err != nil {
+		return fmt.Errorf("failed to compile schema %s: %w", string(v), err)
 	}
 
-	errs := make([]error, 0, len(result.Errors()))
-	for _, desc := range result.Errors() {
-		errs = append(errs, fmt.Errorf("%s", desc))
+	// read in the user input and validate
+	var input interface{}
+	err = json.NewDecoder(src).Decode(&input)
+	if err != nil {
+		return fmt.Errorf("unable to parse json to validate: %w", err)
 	}
-
-	return ValidationError{
-		Errs: errs,
+	err = schema.Validate(input)
+	if err != nil {
+		return fmt.Errorf("validation failed: %w", err)
 	}
+	return nil
 }
 
-type unimplemented string
+type validateFunc func([]byte) error
 
-func (v unimplemented) Validate(_ io.Reader) error {
-	return fmt.Errorf("%s: unimplemented", v)
+var validateByMediaType = map[Validator]validateFunc{
+	ValidatorMediaTypeImageConfig: validateConfig,
+	ValidatorMediaTypeDescriptor:  validateDescriptor,
+	ValidatorMediaTypeImageIndex:  validateIndex,
+	ValidatorMediaTypeManifest:    validateManifest,
 }
 
-func validateManifest(r io.Reader) error {
+func validateManifest(buf []byte) error {
 	header := v1.Manifest{}
 
-	buf, err := io.ReadAll(r)
-	if err != nil {
-		return fmt.Errorf("error reading the io stream: %w", err)
-	}
-
-	err = json.Unmarshal(buf, &header)
+	err := json.Unmarshal(buf, &header)
 	if err != nil {
 		return fmt.Errorf("manifest format mismatch: %w", err)
 	}
@@ -125,15 +156,10 @@ func validateManifest(r io.Reader) error {
 	return nil
 }
 
-func validateDescriptor(r io.Reader) error {
+func validateDescriptor(buf []byte) error {
 	header := v1.Descriptor{}
 
-	buf, err := io.ReadAll(r)
-	if err != nil {
-		return fmt.Errorf("error reading the io stream: %w", err)
-	}
-
-	err = json.Unmarshal(buf, &header)
+	err := json.Unmarshal(buf, &header)
 	if err != nil {
 		return fmt.Errorf("descriptor format mismatch: %w", err)
 	}
@@ -147,15 +173,10 @@ func validateDescriptor(r io.Reader) error {
 	return err
 }
 
-func validateIndex(r io.Reader) error {
+func validateIndex(buf []byte) error {
 	header := v1.Index{}
 
-	buf, err := io.ReadAll(r)
-	if err != nil {
-		return fmt.Errorf("error reading the io stream: %w", err)
-	}
-
-	err = json.Unmarshal(buf, &header)
+	err := json.Unmarshal(buf, &header)
 	if err != nil {
 		return fmt.Errorf("index format mismatch: %w", err)
 	}
@@ -174,15 +195,10 @@ func validateIndex(r io.Reader) error {
 	return nil
 }
 
-func validateConfig(r io.Reader) error {
+func validateConfig(buf []byte) error {
 	header := v1.Image{}
 
-	buf, err := io.ReadAll(r)
-	if err != nil {
-		return fmt.Errorf("error reading the io stream: %w", err)
-	}
-
-	err = json.Unmarshal(buf, &header)
+	err := json.Unmarshal(buf, &header)
 	if err != nil {
 		return fmt.Errorf("config format mismatch: %w", err)
 	}

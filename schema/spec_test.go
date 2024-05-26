@@ -106,27 +106,11 @@ func validate(t *testing.T, name string) {
 		err = schema.Validator(example.Mediatype).Validate(strings.NewReader(example.Body))
 		if err == nil {
 			printFields(t, "ok", example.Mediatype, example.Title)
-			t.Log(example.Body, "---")
-			continue
-		}
-
-		var errs []error
-		var verr schema.ValidationError
-		if errors.As(err, &verr) {
-			errs = verr.Errs
 		} else {
 			printFields(t, "error", example.Mediatype, example.Title, err)
 			t.Error(err)
-			t.Log(example.Body, "---")
-			continue
 		}
-
-		for _, err := range errs {
-			printFields(t, "invalid", example.Mediatype, example.Title)
-			t.Error(err)
-			fmt.Println(example.Body, "---")
-			continue
-		}
+		t.Log(example.Body, "---")
 	}
 }
 
