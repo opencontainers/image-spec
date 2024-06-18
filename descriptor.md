@@ -19,7 +19,7 @@ The following fields contain the primary properties that constitute a Descriptor
 - **`mediaType`** *string*
 
   This REQUIRED property contains the media type of the referenced content.
-  Values MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2].
+  Values MUST comply with the [media type syntax](media-types.md#media-type-syntax).
 
   The OCI image specification defines [several of its own MIME types](media-types.md) for resources defined in the specification.
 
@@ -56,7 +56,7 @@ The following fields contain the primary properties that constitute a Descriptor
 
   This OPTIONAL property contains the type of an artifact when the descriptor points to an artifact.
   This is the value of the config descriptor `mediaType` when the descriptor references an [image manifest](manifest.md).
-  If defined, the value MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2], and MAY be registered with [IANA][iana].
+  If defined, the value MUST comply with the [media type syntax](media-types.md#media-type-syntax).
 
 Descriptors pointing to [`application/vnd.oci.image.manifest.v1+json`](manifest.md) SHOULD include the extended field `platform`, see [Image Index Property Descriptions](image-index.md#image-index-property-descriptions) for details.
 
@@ -214,8 +214,5 @@ In the following example, the descriptor indicates the type of artifact it is re
 [rfc4634-s4.1]: https://tools.ietf.org/html/rfc4634#section-4.1
 [rfc4634-s4.2]: https://tools.ietf.org/html/rfc4634#section-4.2
 [rfc4648-s4]: https://tools.ietf.org/html/rfc4648#section-4
-[rfc6838]: https://tools.ietf.org/html/rfc6838
-[rfc6838-s4.2]: https://tools.ietf.org/html/rfc6838#section-4.2
 [rfc7230-s2.7]: https://tools.ietf.org/html/rfc7230#section-2.7
 [sha256-vs-sha512]: https://groups.google.com/a/opencontainers.org/forum/#!topic/dev/hsMw7cAwrZE
-[iana]: https://www.iana.org/assignments/media-types/media-types.xhtml
