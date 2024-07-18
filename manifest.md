@@ -30,7 +30,7 @@ Unlike the [image index](image-index.md), which contains information about a set
 
   This OPTIONAL property contains the type of an artifact when the manifest is used for an artifact.
   This MUST be set when `config.mediaType` is set to the [empty value](#guidance-for-an-empty-descriptor).
-  If defined, the value MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2], and MAY be registered with [IANA][iana].
+  If defined, the value MUST comply with the [media type syntax](media-types.md#media-type-syntax).
   Implementations storing or copying image manifests MUST NOT error on encountering an `artifactType` that is unknown to the implementation.
 
 - **`config`** *[descriptor](descriptor.md)*
@@ -53,7 +53,7 @@ Unlike the [image index](image-index.md), which contains information about a set
     Manifests for container images concerned with portability SHOULD use one of the above media types.
     Manifests for artifacts concerned with portability SHOULD use `config.mediaType` as described in [Guidelines for Artifact Usage](#guidelines-for-artifact-usage).
 
-    If the manifest uses a different media type than the above, it MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2], and MAY be registered with [IANA][iana].
+    If the manifest uses a different media type than the above, it MUST comply with the [media type syntax](media-types.md#media-type-syntax).
 
   To set an effectively null or empty config and maintain portability see the [guidance for an empty descriptor](#guidance-for-an-empty-descriptor) below, and `DescriptorEmptyJSON` of the reference code.
 
@@ -89,7 +89,7 @@ Unlike the [image index](image-index.md), which contains information about a set
 
     Entries in this field will frequently use the `+gzip` types.
 
-    If the manifest uses a different media type than the above, it MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2], and MAY be registered with [IANA][iana].
+    If the manifest uses a different media type than the above, it MUST comply with the [media type syntax](media-types.md#media-type-syntax).
 
   See [Guidelines for Artifact Usage](#guidelines-for-artifact-usage) for other uses of the `layers`.
 
@@ -260,7 +260,4 @@ The decision tree below and the associated examples MAY be used to design new ar
 _Implementers note:_ artifacts have historically been created without an `artifactType` field, and tooling to work with artifacts should fallback to the `config.mediaType` value.
 
 [dag]:           https://en.wikipedia.org/wiki/Merkle_tree
-[iana]:          https://www.iana.org/assignments/media-types/media-types.xhtml
 [referrers-api]: https://github.com/opencontainers/distribution-spec/blob/main/spec.md#listing-referrers
-[rfc6838]:       https://tools.ietf.org/html/rfc6838
-[rfc6838-s4.2]:  https://tools.ietf.org/html/rfc6838#section-4.2

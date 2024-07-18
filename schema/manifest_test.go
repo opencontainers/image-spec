@@ -336,6 +336,30 @@ func TestManifest(t *testing.T) {
 `,
 			fail: false,
 		},
+
+		// invalid artifactType value
+		{
+			manifest: `
+{
+  "schemaVersion": 2,
+  "mediaType" : "application/vnd.oci.image.manifest.v1+json",
+  "artifactType": "application/vnd.example+type;revision=1.5",
+  "config": {
+    "mediaType": "application/vnd.oci.empty.v1+json",
+    "size": 2,
+    "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.example+type;revision=1.5",
+      "size": 675598,
+      "digest": "sha256:9d3dd9504c685a304985025df4ed0283e47ac9ffa9bd0326fddf4d59513f0827"
+    }
+  ]
+}
+`,
+			fail: true,
+		},
 	} {
 		r := strings.NewReader(tt.manifest)
 		err := schema.ValidatorMediaTypeManifest.Validate(r)
