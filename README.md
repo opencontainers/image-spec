@@ -77,10 +77,6 @@ You can also find links to meeting agendas and minutes for all prior meetings.
 
 You can subscribe and join the mailing list on [Google Groups](https://groups.google.com/a/opencontainers.org/forum/#!forum/dev).
 
-### IRC
-
-OCI discussion happens on #opencontainers on Freenode ([logs][irc-logs]).
-
 ### Markdown style
 
 To keep consistency throughout the Markdown files in the Open Container spec all files should be formatted one sentence per line.
@@ -159,4 +155,3 @@ Read more on [How to Write a Git Commit Message](https://chris.beams.io/posts/gi
 8. When possible, one keyword to scope the change in the subject (i.e. "README: ...", "runtime: ...")
 
 [code-of-conduct]: https://github.com/opencontainers/org/blob/master/CODE_OF_CONDUCT.md
-[irc-logs]: http://ircbot.wl.linuxfoundation.org/eavesdrop/%23opencontainers/
