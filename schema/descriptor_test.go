@@ -259,6 +259,19 @@ func TestDescriptor(t *testing.T) {
 			fail: true,
 		},
 
+		// expected failure: artifactType does not match pattern (parameters not allowed)
+		{
+			descriptor: `
+		{
+			"mediaType": "application/vnd.oci.image.manifest.v1+json",
+			"artifactType": "foo/star.bar;version=1.0",
+			"size": 7682,
+			"digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270"
+		}
+		`,
+			fail: true,
+		},
+
 		// expected success: data field is present and has base64 content
 		{
 			descriptor: `
