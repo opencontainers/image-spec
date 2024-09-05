@@ -10,10 +10,10 @@ jobs:
     strategy:
       matrix:
         # current Go releases plus the version in the go.mod are tested
-        go: ['1.18', '1.21', '1.22']
+        go: ['1.18', '1.22', '1.23']
 
     env:
-      RELEASE_GO_VER: "1.22"
+      RELEASE_GO_VER: "1.23"
 
     name: Documentation and Linting
     steps:
