@@ -81,8 +81,8 @@ Unlike the [image index](image-index.md), which contains information about a set
 
     - [`application/vnd.oci.image.layer.v1.tar`](layer.md)
     - [`application/vnd.oci.image.layer.v1.tar+gzip`](layer.md#gzip-media-types)
-    - [`application/vnd.oci.image.layer.nondistributable.v1.tar`](layer.md#non-distributable-layers)
-    - [`application/vnd.oci.image.layer.nondistributable.v1.tar+gzip`](layer.md#gzip-media-types)
+    - [`application/vnd.oci.image.layer.nondistributable.v1.tar`](layer.md#non-distributable-layers) ([deprecation notice](./layer.md#non-distributable-layers))
+    - [`application/vnd.oci.image.layer.nondistributable.v1.tar+gzip`](layer.md#gzip-media-types) ([deprecation notice](./layer.md#non-distributable-layers))
 
     Manifests concerned with portability SHOULD use one of the above media types.
     Implementations storing or copying image manifests MUST NOT error on encountering a `mediaType` that is unknown to the implementation.
