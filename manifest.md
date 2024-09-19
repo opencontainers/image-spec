@@ -85,9 +85,13 @@ Unlike the [image index](image-index.md), which contains information about a set
     - [`application/vnd.oci.image.layer.nondistributable.v1.tar+gzip`](layer.md#gzip-media-types) ([deprecation notice](./layer.md#non-distributable-layers))
 
     Manifests concerned with portability SHOULD use one of the above media types.
-    Implementations storing or copying image manifests MUST NOT error on encountering a `mediaType` that is unknown to the implementation.
-
     Entries in this field will frequently use the `+gzip` types.
+
+    Implementations SHOULD also support the following media types:
+
+    - [`application/vnd.oci.image.layer.v1.tar+zstd`](layer.md#zstd-media-types)
+
+    Implementations storing or copying image manifests MUST NOT error on encountering a `mediaType` that is unknown to the implementation.
 
     If the manifest uses a different media type than the above, it MUST comply with [RFC 6838][rfc6838], including the [naming requirements in its section 4.2][rfc6838-s4.2], and MAY be registered with [IANA][iana].
 
