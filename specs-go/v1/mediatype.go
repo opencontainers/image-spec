@@ -45,6 +45,10 @@ const (
 	// MediaTypeImageLayerZstd is the media type used for zstd compressed
 	// layers referenced by the manifest.
 	MediaTypeImageLayerZstd = "application/vnd.oci.image.layer.v1.tar+zstd"
+
+	// MediaTypeImageLayerRaw is the media type used for layers referenced by the manifest.
+	// the file path is specified by annotation `org.opencontainers.image.layer.path`.
+	MediaTypeImageLayerRaw = "application/vnd.oci.image.layer.v1.raw"
 )
 
 // Non-distributable layer media-types.
