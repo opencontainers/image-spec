@@ -9,7 +9,22 @@ The following media types identify the formats described here and their referenc
 - `application/vnd.oci.image.config.v1+json`: [Image config](config.md)
 - `application/vnd.oci.image.layer.v1.tar`: ["Layer", as a tar archive](layer.md)
 - `application/vnd.oci.image.layer.v1.tar+gzip`: ["Layer", as a tar archive](layer.md#gzip-media-types) compressed with [gzip][rfc1952]
-- `application/vnd.oci.image.layer.v1.tar+zstd`: ["Layer", as a tar archive](layer.md#zstd-media-types) compressed with [zstd][rfc8478]
+- `application/vnd.oci.image.layer.v1.tar+zstd`: ["Layer", as a tar archive](layer.md#zstd-media-typesmedia-types.mdref       ::= component ("/" component)*
+component ::= alphanum (separator alphanum)*
+alphanum  ::= [A-Za-z0-9]+
+separator ::= [-._:@+] | "--"ref       ::= component ("/" component)*media-types.md
+component ::= alphanum (separator alphanum)*
+alphanum  ::= [A-Za-z0-9]+
+separator ::= [-._:@+] | "--"ref       ::= component ("/" component)*
+component ::= alphanum (separator alphanum)*
+alphanum  ::= [A-Za-z0-9]+
+separator ::= [-._:@+] | "--"ref       ::= component ("/" component)*
+component ::= alphanum (separator alphanum)*
+alphanum  ::= [A-Za-z0-9]+
+separator ::= [-._:@+] | "--"ref       ::= component ("/" component)*
+component ::= alphanum (separator alphanum)*
+alphanum  ::= [A-Za-z0-9]+
+separator ::= [-._:@+] | "--") compressed with [zstd][rfc8478]
 - `application/vnd.oci.empty.v1+json`: [Empty for unused descriptors](manifest.md#guidance-for-an-empty-descriptor)
 
 The following media types identify a ["Layer" with distribution restrictions](layer.md#non-distributable-layers), but are **deprecated** and not recommended for future use:
