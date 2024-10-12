@@ -19,9 +19,6 @@ Externally provided inputs are considered to be a modification of the `applicati
 For example, externally provided inputs MAY cause an environment variable to be added, removed or changed.
 However an implementation-defined default SHOULD NOT result in an environment variable being removed or changed.
 
-[oci-runtime-bundle]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0/bundle.md
-[oci-runtime-config]: https://github.com/opencontainers/runtime-spec/blob/v1.0.0/config.md
-
 ## Verbatim Fields
 
 Certain image configuration fields have an identical counterpart in the runtime configuration.
@@ -128,3 +125,6 @@ If there is a conflict (same key but different value) between an implicit annota
 
 A converter MAY add annotations which have keys not specified in the image.
 A converter MUST NOT modify the values of annotations specified in the image.
+
+[oci-runtime-bundle]: https://github.com/opencontainers/runtime-spec/blob/main/bundle.md
+[oci-runtime-config]: https://github.com/opencontainers/runtime-spec/blob/main/config.md
