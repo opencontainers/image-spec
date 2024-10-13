@@ -34,7 +34,7 @@ Maintainers MUST send updates to the <dev@opencontainers.org> with results of th
 Before the specification reaches v1.0.0, the meetings SHOULD be weekly.
 Once a specification has reached v1.0.0, the maintainers may alter the cadence, but a meeting MUST be held within four weeks of the previous meeting.
 
-The release plans, corresponding milestones and estimated due dates MUST be published on GitHub (e.g. <https://github.com/opencontainers/runtime-spec/milestones>).
+The release plans, corresponding milestones and estimated due dates MUST be published on GitHub (e.g. <https://github.com/opencontainers/image-spec/milestones>).
 GitHub milestones and issues are only used for community organization and all releases MUST follow the [project governance](GOVERNANCE.md) rules and procedures.
 
 ### Timelines
@@ -53,7 +53,7 @@ Specifications have a variety of different timelines in their lifecycle.
 Releases usually follow a few steps:
 
 - [ ] prepare a pull-request for the release
-  - [ ] a commit updating `./ChangeLog`
+  - [ ] generate a change log:
     - [ ] `git log --oneline --no-merges --decorate --name-status v1.0.1..HEAD | vim -`
     - [ ] `:% s/(pr\/\(\d*\))\(.*\)/\2 (#\1)/` to move the PR to the end of line and match previous formatting
     - [ ] review `(^M|^A|^D)` for impact of the commit
@@ -61,10 +61,14 @@ Releases usually follow a few steps:
     - [ ] delete the `(^M|^A|^D)` lines, `:%!grep -vE '(^M|^A|^D)'`
     - [ ] merge multi-commit PRs (so each line has a `(#num)` suffix)
     - [ ] drop hash and indent, `:'<,'> s/^\w*  /^I* /`
-  - [ ] a commit bumping `./specs-go/version.go` to next version and empty the `VersionDev` variable
-  - [ ] a commit adding back the "+dev" to `VersionDev`
+  - [ ] a commit for the release:
+    - [ ] bump `./specs-go/version.go` to next version and empty the `VersionDev` variable
+    - [ ] run `.tool/pin-release.sh` to pin the references to other specs
+  - [ ] a commit to revert the main branch for development:
+    - [ ] `git revert -n HEAD`
+    - [ ] bump `./specs-go/version.go` to next version and set the `VersionDev` variable to `+dev`
 - [ ] send email to <dev@opencontainers.org>
-  - [ ] copy the exact commit hash for bumping the version from the pull-request (since master always stays as "-dev")
+  - [ ] copy the exact commit hash for bumping the version from the pull-request (since master always stays as "+dev")
   - [ ] count the PRs since last release (that this version is tracking, in the cases of multiple branching), like `git log --pretty=oneline --no-merges --decorate $priorTag..$versionBumpCommit  | grep \(pr\/ | wc -l`
   - [ ] get the date for a week from now, like `TZ=UTC date --date='next week'`
   - [ ] OPTIONAL find a cute animal gif to attach to the email, and subsequently the release description
