@@ -3,22 +3,34 @@
 set -e
 cd "$(dirname $0)/.."
 
-if [ ! -x "$(command -v curl )" ] || [ ! -x "$(command -v jq )" ] ||  [ ! -x "$(command -v find )" ] ||  [ ! -x "$(command -v sed )" ]; then 
-  echo "This command requires the following to run: curl, find, jq, and sed" >&2
+if ! { command -v jq && command -v find && command -v sed; } > /dev/null; then
+  echo "This command requires the following to run: find, jq, and sed" >&2
   exit 1
 fi
 
-runtime_tag=$(curl -L \
-  -H "Accept: application/vnd.github+json" \
-  -H "X-GitHub-Api-Version: 2022-11-28" \
-  https://api.github.com/repos/opencontainers/runtime-spec/releases/latest \
-| jq -r .tag_name)
+runtime_tag=$(git ls-remote https://github.com/opencontainers/runtime-spec.git 'refs/tags/v[0-9]*' \
+	| jq -rnR '
+		[
+			inputs
+			| split("/")[2] # "commit-hash\trefs/tags/xxx^{}" -> "xxx^{}"
+			| split("^")[0] # "xxx^{}" -> "xxx"
+			| select(contains("-") | not) # ignore pre-releases
+		]
+		| unique_by(ltrimstr("v") | split(".") | map(tonumber? // .)) # very very rough version sorting (and dedupe)
+		| .[-1] # we only care about "latest" (the last entry)
+	')
 
-distribution_tag=$(curl -L \
-  -H "Accept: application/vnd.github+json" \
-  -H "X-GitHub-Api-Version: 2022-11-28" \
-  https://api.github.com/repos/opencontainers/distribution-spec/releases/latest \
-| jq -r .tag_name)
+distribution_tag=$(git ls-remote https://github.com/opencontainers/distribution-spec.git 'refs/tags/v[0-9]*' \
+	| jq -rnR '
+		[
+			inputs
+			| split("/")[2] # "commit-hash\trefs/tags/xxx^{}" -> "xxx^{}"
+			| split("^")[0] # "xxx^{}" -> "xxx"
+			| select(contains("-") | not) # ignore pre-releases
+		]
+		| unique_by(ltrimstr("v") | split(".") | map(tonumber? // .)) # very very rough version sorting (and dedupe)
+		| .[-1] # we only care about "latest" (the last entry)
+	')
 
 find . -name '*.md' -exec sed -i \
   -e "s#https://github.com/opencontainers/runtime-spec/blob/main/#https://github.com/opencontainers/runtime-spec/blob/${runtime_tag}/#g" \
