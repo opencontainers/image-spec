@@ -69,6 +69,8 @@ Where supported, MUST include file attributes for Additions and Modifications in
 - Non-directory files are considered "hardlinked" when their link count is greater than 1.
 - Hardlinked files are on a same device (i.e. comparing Major:Minor pair) and have the same inode.
 - The corresponding files that share the link with the > 1 linkcount may be outside the directory that the changeset is being produced from, in which case the `linkname` is not recorded in the changeset.
+- Union filesystem implementations may have limited or no support for hardlinks, particularly when a change is made to a hardlinked file or a hardlink is created to a file in a lower filesystem. (See the [overlay specification](https://docs.kernel.org/filesystems/overlayfs.html#index) for more details.)
+- Extracting a layer with hardlink references to files outside of the layer may fail.
 - Hardlinks are stored in a tar archive with type of a `1` char, per the [GNU Basic Tar Format][gnu-tar-standard] and [libarchive tar(5)][libarchive-tar].
 - While approaches to deriving new or changed hardlinks may vary, a possible approach is:
 
