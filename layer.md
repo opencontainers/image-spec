@@ -51,9 +51,9 @@ Where supported, MUST include file attributes for Additions and Modifications in
 
 - Modification Time (`mtime`)
 - User ID (`uid`)
-  - User Name (`uname`) *secondary to `uid`*
+  - User Name (`uname`) should be ignored on platforms that support User ID (`uid`)
 - Group ID (`gid`)
-  - Group Name (`gname`) *secondary to `gid`*
+  - Group Name (`gname`) should be ignored on platforms that support Group ID (`gid`)
 - Mode (`mode`)
 - Extended Attributes (`xattrs`)
 - Symlink reference (`linkname` + symbolic link type)
