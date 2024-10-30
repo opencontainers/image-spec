@@ -319,7 +319,7 @@ a/b/c/
 a/b/c/bar
 ```
 
-When the next layer is created, the original `a/b` directory is deleted and recreated with `a/b/c/foo`:
+When the next layer is created, the original `a/` directory is deleted and recreated with `a/b/c/foo`:
 
 ```text
 a/
@@ -329,7 +329,7 @@ a/b/c/
 a/b/c/foo
 ```
 
-When processing the second layer, `a/.wh..wh..opq` is applied first, before creating the new version of `a/b`, regardless of the ordering in which the whiteout file was encountered.
+When processing the second layer, `a/.wh..wh..opq` is applied first, before creating the new version of `a/`, regardless of the ordering in which the whiteout file was encountered.
 For example, the following layer is equivalent to the layer above:
 
 ```text
