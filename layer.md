@@ -265,7 +265,7 @@ a/.wh.file2
 .wh.b
 ```
 
-Note that regardless of the path being deleted, the whiteout file is of regular filetype in the archive.
+Note that regardless of the path being deleted, the whiteout file is a regular file in the archive.
 
 Implementations SHOULD generate layers such that the whiteout files appear before sibling directory entries.
 
