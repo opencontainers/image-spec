@@ -255,6 +255,7 @@ The following is a base layer with several resources:
 file1
 a/file2
 b/
+c/file3
 ```
 
 If we then delete `file1`, `file2`, and `b/`, the next layer looks like:
