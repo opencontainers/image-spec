@@ -264,6 +264,8 @@ If we then delete `file1`, `file2`, and `b/`, while leaving `file3` and adding `
 .wh.file1
 a/.wh.file2
 .wh.b
+c/file3
+file4
 ```
 
 Note that regardless of the path being deleted, the whiteout file is a regular file in the archive.
