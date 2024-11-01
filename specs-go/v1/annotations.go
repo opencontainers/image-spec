@@ -59,4 +59,8 @@ const (
 
 	// AnnotationBaseImageName is the annotation key for the image reference of the image's base image.
 	AnnotationBaseImageName = "org.opencontainers.image.base.name"
+
+	// AnnotationImageLayerPath is the annotation key for the layer path.
+	// SHOULD only work for media type `application/vnd.oci.image.layer.v1.raw`
+	AnnotationImageLayerPath = "org.opencontainers.image.layer.path"
 )
