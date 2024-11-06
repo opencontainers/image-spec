@@ -252,32 +252,22 @@ In all other cases, the implementation MUST do the semantic equivalent of the fo
 The following is a base layer with several resources:
 
 ```text
-a/
-a/b/
-a/b/c/
-a/b/c/bar
+file1
+a/file2
+b/
+c/file3
 ```
 
-When the next layer is created, the original `a/b` directory is deleted and recreated with `a/b/c/foo`:
+If we then delete `file1`, `file2`, and `b/`, while leaving `file3` and adding `file4, the next layer looks like:
 
 ```text
-a/
-a/.wh..wh..opq
-a/b/
-a/b/c/
-a/b/c/foo
+.wh.file1
+a/.wh.file2
+.wh.b
+file4
 ```
 
-When processing the second layer, `a/.wh..wh..opq` is applied first, before creating the new version of `a/b`, regardless of the ordering in which the whiteout file was encountered.
-For example, the following layer is equivalent to the layer above:
-
-```text
-a/
-a/b/
-a/b/c/
-a/b/c/foo
-a/.wh..wh..opq
-```
+Note that regardless of the path being deleted, the whiteout file is a regular file in the archive.
 
 Implementations SHOULD generate layers such that the whiteout files appear before sibling directory entries.
 
@@ -321,6 +311,36 @@ If there were more children of `bin/` in the base layer, there would be an entry
 Note that this opaque file will apply to _all_ children, including sub-directories, other resources and all descendants.
 
 Implementations SHOULD generate layers using _explicit whiteout_ files, but MUST accept both.
+
+As another example, consider the following base layer:
+
+```text
+a/
+a/b/
+a/b/c/
+a/b/c/bar
+```
+
+When the next layer is created, the original `a/b` directory is deleted and recreated with `a/b/c/foo`:
+
+```text
+a/
+a/.wh..wh..opq
+a/b/
+a/b/c/
+a/b/c/foo
+```
+
+When processing the second layer, `a/.wh..wh..opq` is applied first, before creating the new version of `a/b`, regardless of the ordering in which the whiteout file was encountered.
+For example, the following layer is equivalent to the layer above:
+
+```text
+a/
+a/b/
+a/b/c/
+a/b/c/foo
+a/.wh..wh..opq
+```
 
 Any given image is likely to be composed of several of these Image Filesystem Changeset tar archives.
 
