@@ -28,6 +28,7 @@ jobs:
         with:
           go-version: ${{ matrix.go != 'go.mod' && matrix.go || null }}
           go-version-file: ${{ matrix.go == 'go.mod' && 'go/src/github.com/opencontainers/image-spec/go.mod' || null }}
+          cache-dependency-path: go/src/github.com/opencontainers/image-spec/go.sum
 
       - name: Render and Lint
         env:
