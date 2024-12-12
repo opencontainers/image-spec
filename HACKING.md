@@ -10,7 +10,7 @@ This spec includes several Go packages, and a command line tool considered to be
 
 Prerequisites:
 
-- Go - current release only, earlier releases are not supported
+- Go - latest version is recommended, see the [go.mod](go.mod) file for the minimum requirement
 - make
 
 The following make targets are relevant for any work involving the Go packages.
