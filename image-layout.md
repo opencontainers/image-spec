@@ -29,6 +29,11 @@ The image layout is as follows:
   - It MUST be an [image index](image-index.md) JSON object.
   - See [index.json](#indexjson-file) section
 
+**Implementor's Note:**
+For extensibility and future expansion, additional files may be included in the directory.
+Implementations should not error when encountering unknown files.
+A common usage includes the `manifest.json` file associated with a backwards compatible `docker save` format.
+
 ## Example Layout
 
 This is an example image layout:
