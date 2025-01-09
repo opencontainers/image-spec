@@ -7,6 +7,7 @@
   Optionally, it includes the type of artifact it is describing.
 - Descriptors SHOULD be embedded in other formats to securely reference external content.
 - Other formats SHOULD use descriptors to securely reference external content.
+- When other formats contain multiple descriptors, unless otherwise specified, those descriptors are independent of each other, allowing fields like the `mediaType` and the algorithm for the `digest` to vary within that external content.
 
 This section defines the `application/vnd.oci.descriptor.v1+json` [media type](media-types.md).
 
