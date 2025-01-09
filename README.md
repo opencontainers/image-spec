@@ -16,7 +16,6 @@ Additional documentation about how this group operates:
 - [Code of Conduct][code-of-conduct]
 - [Roadmap](#roadmap)
 - [Releases](RELEASES.md)
-- [Project Documentation](project.md)
 
 ## Running an OCI Image
 
