@@ -10,7 +10,9 @@ jobs:
     strategy:
       matrix:
         # current Go releases plus the version in the go.mod are tested
-        go: ['1.18', '1.22', '1.23']
+        go: ['go.mod', 'oldstable', 'stable']
+        # https://github.com/actions/setup-go/tree/v5#getting-go-version-from-the-gomod-file
+        # https://github.com/actions/setup-go/tree/v5#using-stableoldstable-aliases
 
     env:
       RELEASE_GO_VER: "1.23"
@@ -24,7 +26,9 @@ jobs:
 
       - uses: actions/setup-go@v5
         with:
-          go-version: ${{ matrix.go }}
+          go-version: ${{ matrix.go != 'go.mod' && matrix.go || null }}
+          go-version-file: ${{ matrix.go == 'go.mod' && 'go/src/github.com/opencontainers/image-spec/go.mod' || null }}
+          cache-dependency-path: go/src/github.com/opencontainers/image-spec/go.sum
 
       - name: Render and Lint
         env:
