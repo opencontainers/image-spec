@@ -177,12 +177,12 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
 
   - **Labels** _object_, OPTIONAL
 
-    The field contains arbitrary metadata for the container.
+    This field contains arbitrary metadata for the container.
     This property MUST use the [annotation rules](annotations.md#rules).
 
   - **StopSignal** _string_, OPTIONAL
 
-    The field contains the system call signal that will be sent to the container to exit. The signal can be a signal name in the format `SIGNAME`, for instance `SIGKILL` or `SIGRTMIN+3`.
+    This field contains the system call signal that will be sent to the container to exit. The signal can be a signal name in the format `SIGNAME`, for instance `SIGKILL` or `SIGRTMIN+3`.
 
   - **ArgsEscaped** _boolean_, OPTIONAL
 
