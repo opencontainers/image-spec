@@ -42,7 +42,7 @@ Typically, these manifests may provide different implementations of the image, p
 
 ![build diagram](img/build-diagram.png)
 
-Once built the OCI Image can then be discovered by name, downloaded, verified by hash, trusted through a signature, and unpacked into an [OCI Runtime Bundle](https://github.com/opencontainers/runtime-spec/blob/v1.2.0/bundle.md).
+Once built the OCI Image can then be discovered by name, downloaded, verified by hash, trusted through a signature, and unpacked into an [OCI Runtime Bundle](https://github.com/opencontainers/runtime-spec/blob/main/bundle.md).
 
 ![runtime diagram](img/run-diagram.png)
 

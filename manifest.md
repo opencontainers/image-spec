@@ -265,6 +265,6 @@ _Implementers note:_ artifacts have historically been created without an `artifa
 
 [dag]:           https://en.wikipedia.org/wiki/Merkle_tree
 [iana]:          https://www.iana.org/assignments/media-types/media-types.xhtml
-[referrers-api]: https://github.com/opencontainers/distribution-spec/blob/v1.1.1/spec.md#listing-referrers
+[referrers-api]: https://github.com/opencontainers/distribution-spec/blob/main/spec.md#listing-referrers
 [rfc6838]:       https://tools.ietf.org/html/rfc6838
 [rfc6838-s4.2]:  https://tools.ietf.org/html/rfc6838#section-4.2

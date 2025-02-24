@@ -126,5 +126,5 @@ If there is a conflict (same key but different value) between an implicit annota
 A converter MAY add annotations which have keys not specified in the image.
 A converter MUST NOT modify the values of annotations specified in the image.
 
-[oci-runtime-bundle]: https://github.com/opencontainers/runtime-spec/blob/v1.2.0/bundle.md
-[oci-runtime-config]: https://github.com/opencontainers/runtime-spec/blob/v1.2.0/config.md
+[oci-runtime-bundle]: https://github.com/opencontainers/runtime-spec/blob/main/bundle.md
+[oci-runtime-config]: https://github.com/opencontainers/runtime-spec/blob/main/config.md
