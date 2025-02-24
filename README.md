@@ -20,7 +20,7 @@ Additional documentation about how this group operates:
 ## Running an OCI Image
 
 The OCI Image Format partner project is the [OCI Runtime Spec project](https://github.com/opencontainers/runtime-spec).
-The Runtime Specification outlines how to run a "[filesystem bundle](https://github.com/opencontainers/runtime-spec/blob/main/bundle.md)" that is unpacked on disk.
+The Runtime Specification outlines how to run a "[filesystem bundle](https://github.com/opencontainers/runtime-spec/blob/v1.2.0/bundle.md)" that is unpacked on disk.
 At a high-level an OCI implementation would download an OCI Image then unpack that image into an OCI Runtime filesystem bundle.
 At this point the OCI Runtime Bundle would be run by an OCI Runtime.
 

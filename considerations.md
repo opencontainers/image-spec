@@ -138,10 +138,10 @@ The above can be converted into the following regular expression:
 ```
 
 [canonical-json]: https://wiki.laptop.org/go/Canonical_JSON
-[distribution-spec]: https://github.com/opencontainers/distribution-spec/blob/main/spec.md
+[distribution-spec]: https://github.com/opencontainers/distribution-spec/blob/v1.1.1/spec.md
 [docker-go]: https://github.com/docker/go/
 [ebnf]: https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form
 [Go]: https://golang.org/
 [JSON]: https://json.org/
-[runtime-spec]: https://github.com/opencontainers/runtime-spec/blob/main/spec.md
+[runtime-spec]: https://github.com/opencontainers/runtime-spec/blob/v1.2.0/spec.md
 [xmlebnf]: https://www.w3.org/TR/REC-xml/#sec-notation
