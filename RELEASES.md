@@ -99,5 +99,6 @@ $sig
   - [ ] link to the the VOTE thread and include the passing vote count
   - [ ] link to the pull request that merged the release
 - [ ] add release notes to the website <https://github.com/opencontainers/opencontainers.org/tree/main/content/release-notices>
+- [ ] update the version number at <https://github.com/opencontainers/specs.opencontainers.org> in `_data/specs.yaml`
 
 [charter]: https://github.com/opencontainers/tob/blob/main/CHARTER.md
