@@ -1,8 +1,11 @@
 name: Render and Lint Documentation
 
 on:
+  push:
+    branches: [ 'main' ]
+    tags: [ 'v*.*.*' ]
   pull_request:
-    branches_ignore: []
+    branches: [ 'main' ]
 
 jobs:
   build:
