@@ -21,13 +21,17 @@ Implementations processing content SHOULD NOT generate an error if they encounte
 - To allow efficient storage, implementations serializing content for blobs SHOULD use a canonical serialization.
 - This increases the chance that different implementations can push the same semantic content to the store without creating redundant blobs.
 
-### JSON
+## JSON
 
-[JSON][JSON] content SHOULD be serialized as [canonical JSON][canonical-json].
 Of the [OCI Image Format Specification media types](media-types.md), all the types ending in `+json` contain JSON content.
-Implementations:
+All [JSON][JSON] content MUST follow the I-JSON limitations in [RFC 7493][rfc7493]:
 
-- [Go][Go]: [github.com/docker/go][docker-go], which claims to implement [canonical JSON][canonical-json] except for Unicode normalization.
+- The encoding MUST be [UTF-8][rfc3629]
+- Numbers SHOULD be limited to IEEE 754 double precision
+- Objects MUST NOT contain duplicate names
+
+The order of entries in JSON objects is not significant.
+Implementations MAY implement Canonical JSON documented in [RFC 8785][rfc8785].
 
 ## EBNF
 
@@ -137,11 +141,11 @@ The above can be converted into the following regular expression:
 [a-z]+(?:/[a-z]+)*
 ```
 
-[canonical-json]: https://wiki.laptop.org/go/Canonical_JSON
 [distribution-spec]: https://github.com/opencontainers/distribution-spec/blob/main/spec.md
-[docker-go]: https://github.com/docker/go/
 [ebnf]: https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form
-[Go]: https://golang.org/
 [JSON]: https://json.org/
+[rfc3629]: https://datatracker.ietf.org/doc/html/rfc3629
+[rfc7493]: https://datatracker.ietf.org/doc/html/rfc7493
+[rfc8785]: https://datatracker.ietf.org/doc/html/rfc8785
 [runtime-spec]: https://github.com/opencontainers/runtime-spec/blob/main/spec.md
 [xmlebnf]: https://www.w3.org/TR/REC-xml/#sec-notation
