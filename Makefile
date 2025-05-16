@@ -75,7 +75,7 @@ header.html: .tool/genheader.go specs-go/version.go
 
 .PHONY: validate-examples
 validate-examples: schema/schema.go ## validate examples in the specification markdown files
-	go test -run TestValidate ./schema
+	cd schema && go test -run TestValidate .
 
 .PHONY: check-license
 check-license: ## check license headers in source files
@@ -91,6 +91,7 @@ lint: lint-go lint-md ## Run all linters
 lint-go: .install.lint ## lint check of Go files using golangci-lint
 	@echo "checking Go lint"
 	@GO111MODULE=on $(GOPATH)/bin/golangci-lint run
+	@[ "$$BUILD_SPEC_MODULE_ONLY" = true ] || { cd schema && GO111MODULE=on $(GOPATH)/bin/golangci-lint run; }
 
 .PHONY: lint-md
 lint-md: ## Run linting for markdown
@@ -99,7 +100,8 @@ lint-md: ## Run linting for markdown
 
 .PHONY: test
 test: ## run the unit tests
-	go test -race -cover $(shell go list ./... | grep -v /vendor/)
+	go test -race -cover ./...
+	[ "$$BUILD_SPEC_MODULE_ONLY" = true ] || { cd schema && go test -race -cover ./...; }
 
 img/%.png: img/%.dot ## generate PNG from dot file
 	dot -Tpng $^ > $@

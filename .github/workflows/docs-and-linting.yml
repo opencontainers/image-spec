@@ -9,8 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # current Go releases plus the version in the go.mod are tested
-        go: ['go.mod', 'oldstable', 'stable']
+        # Current Go releases plus the versions in **/go.mod are tested.
+        # See also BUILD_SPEC_MODULE_ONLY below.
+        go: ['go.mod', 'schema/go.mod', 'oldstable', 'stable']
         # https://github.com/actions/setup-go/tree/v5#getting-go-version-from-the-gomod-file
         # https://github.com/actions/setup-go/tree/v5#using-stableoldstable-aliases
 
@@ -26,19 +27,21 @@ jobs:
 
       - uses: actions/setup-go@v5
         with:
-          go-version: ${{ matrix.go != 'go.mod' && matrix.go || null }}
-          go-version-file: ${{ matrix.go == 'go.mod' && 'go/src/github.com/opencontainers/image-spec/go.mod' || null }}
-          cache-dependency-path: go/src/github.com/opencontainers/image-spec/go.sum
+          go-version: ${{ !endsWith(matrix.go, 'go.mod') && matrix.go || null }}
+          go-version-file: ${{ endsWith(matrix.go, 'go.mod') && format('go/src/github.com/opencontainers/image-spec/{0}', matrix.go) || null }}
+          cache-dependency-path: go/src/github.com/opencontainers/image-spec/**/go.sum
 
       - name: Render and Lint
         env:
           GOPATH: /home/runner/work/image-spec/image-spec/go
           # do not automatically upgrade go to a different version: https://go.dev/doc/toolchain
           GOTOOLCHAIN: local
+          BUILD_SPEC_MODULE_ONLY: ${{ matrix.go == 'go.mod' }}
         run: |
           export PATH=$GOPATH/bin:$PATH
           cd go/src/github.com/opencontainers/image-spec
           make install.tools
+          go work init . schema
           go get -t -d ./...
           ls ../
           make

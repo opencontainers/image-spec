@@ -13,6 +13,12 @@ Prerequisites:
 - Go - latest version is recommended, see the [go.mod](go.mod) file for the minimum requirement
 - make
 
+While developing features spanning `specs-go` and `schema`, to break the dependency cycle on an uncommitted work:
+
+```shell
+go work init . schema
+```
+
 The following make targets are relevant for any work involving the Go packages.
 
 ### Linting
