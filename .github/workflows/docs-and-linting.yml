@@ -19,8 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # current Go releases plus the version in the go.mod are tested
-        go: ['go.mod', 'oldstable', 'stable']
+        # Current Go releases plus the versions in **/go.mod are tested.
+        # See also BUILD_SPEC_MODULE_ONLY below.
+        go: ['go.mod', 'schema/go.mod', 'oldstable', 'stable']
         # https://github.com/actions/setup-go/tree/v5#getting-go-version-from-the-gomod-file
         # https://github.com/actions/setup-go/tree/v5#using-stableoldstable-aliases
 
@@ -31,17 +32,19 @@ jobs:
 
       - uses: actions/setup-go@v5
         with:
-          go-version: ${{ matrix.go != 'go.mod' && matrix.go || null }}
-          go-version-file: ${{ matrix.go == 'go.mod' && 'go.mod' || null }}
-          # cache-dependency-path: go.sum
+          go-version: ${{ !endsWith(matrix.go, 'go.mod') && matrix.go || null }}
+          go-version-file: ${{ endsWith(matrix.go, 'go.mod') && matrix.go || null }}
+          cache-dependency-path: ./**/go.sum
 
       - name: Render and Lint
         env:
           # do not automatically upgrade go to a different version: https://go.dev/doc/toolchain
           GOTOOLCHAIN: local
+          BUILD_SPEC_MODULE_ONLY: ${{ matrix.go == 'go.mod' }}
         run: |
           export PATH="$(go env GOPATH)/bin:$PATH"
           make install.tools
+          go work init . schema
           go get -t -d ./...
           ls ../
           make
