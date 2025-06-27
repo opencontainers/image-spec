@@ -1,8 +1,18 @@
 name: Render and Lint Documentation
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
-    branches_ignore: []
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
   build:
