@@ -24,30 +24,23 @@ jobs:
         # https://github.com/actions/setup-go/tree/v5#getting-go-version-from-the-gomod-file
         # https://github.com/actions/setup-go/tree/v5#using-stableoldstable-aliases
 
-    env:
-      RELEASE_GO_VER: "1.23"
-
     name: Documentation and Linting
     steps:
 
       - uses: actions/checkout@v4
-        with:
-          path: go/src/github.com/opencontainers/image-spec
 
       - uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.go != 'go.mod' && matrix.go || null }}
-          go-version-file: ${{ matrix.go == 'go.mod' && 'go/src/github.com/opencontainers/image-spec/go.mod' || null }}
-          cache-dependency-path: go/src/github.com/opencontainers/image-spec/go.sum
+          go-version-file: ${{ matrix.go == 'go.mod' && 'go.mod' || null }}
+          # cache-dependency-path: go.sum
 
       - name: Render and Lint
         env:
-          GOPATH: /home/runner/work/image-spec/image-spec/go
           # do not automatically upgrade go to a different version: https://go.dev/doc/toolchain
           GOTOOLCHAIN: local
         run: |
-          export PATH=$GOPATH/bin:$PATH
-          cd go/src/github.com/opencontainers/image-spec
+          export PATH="$(go env GOPATH)/bin:$PATH"
           make install.tools
           go get -t -d ./...
           ls ../
@@ -60,7 +53,7 @@ jobs:
 
       - name: documentation artifacts
         uses: actions/upload-artifact@v4
-        if: matrix.go == env.RELEASE_GO_VER
+        if: matrix.go == 'stable'
         with:
           name: oci-docs
-          path: go/src/github.com/opencontainers/image-spec/output
+          path: output
