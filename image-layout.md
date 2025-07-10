@@ -6,7 +6,7 @@
 Given an image layout and a ref, a tool can create an [OCI Runtime Specification bundle](https://github.com/opencontainers/runtime-spec/blob/main/bundle.md) by:
 
 - Following the ref to find a [manifest](manifest.md#image-manifest), possibly via an [image index](image-index.md)
-- [Applying the filesystem layers](layer.md#applying) in the specified order
+- [Applying the filesystem layers](layer.md#applying-changesets) in the specified order
 - Converting the [image configuration](config.md) into an [OCI Runtime Specification `config.json`](https://github.com/opencontainers/runtime-spec/blob/main/config.md)
 
 ## Content
