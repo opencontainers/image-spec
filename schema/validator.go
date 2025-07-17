@@ -24,7 +24,7 @@ import (
 
 	digest "github.com/opencontainers/go-digest"
 	v1 "github.com/opencontainers/image-spec/specs-go/v1"
-	"github.com/santhosh-tekuri/jsonschema/v5"
+	"github.com/santhosh-tekuri/jsonschema/v6"
 )
 
 // Validator wraps a media type string identifier and implements validation against a JSON schema.
@@ -83,11 +83,16 @@ func (v Validator) validateSchema(src io.Reader) error {
 		if file.IsDir() {
 			continue
 		}
-		specBuf, err := specFS.ReadFile(file.Name())
+		specFile, err := specFS.Open(file.Name())
 		if err != nil {
 			return fmt.Errorf("could not read spec file %s: %w", file.Name(), err)
 		}
-		err = c.AddResource(file.Name(), bytes.NewReader(specBuf))
+		defer specFile.Close()
+		spec, err := jsonschema.UnmarshalJSON(specFile)
+		if err != nil {
+			return fmt.Errorf("could not decode spec file %s: %w", file.Name(), err)
+		}
+		err = c.AddResource(file.Name(), spec)
 		if err != nil {
 			return fmt.Errorf("failed to add spec file %s: %w", file.Name(), err)
 		}
@@ -96,7 +101,7 @@ func (v Validator) validateSchema(src io.Reader) error {
 			return fmt.Errorf("spec file has no aliases: %s", file.Name())
 		}
 		for _, specURL := range specURLs[file.Name()] {
-			err = c.AddResource(specURL, bytes.NewReader(specBuf))
+			err = c.AddResource(specURL, spec)
 			if err != nil {
 				return fmt.Errorf("failed to add spec file %s as url %s: %w", file.Name(), specURL, err)
 			}
@@ -110,8 +115,7 @@ func (v Validator) validateSchema(src io.Reader) error {
 	}
 
 	// read in the user input and validate
-	var input interface{}
-	err = json.NewDecoder(src).Decode(&input)
+	input, err := jsonschema.UnmarshalJSON(src)
 	if err != nil {
 		return fmt.Errorf("unable to parse json to validate: %w", err)
 	}

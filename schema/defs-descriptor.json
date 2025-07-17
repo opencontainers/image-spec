@@ -1,5 +1,6 @@
 {
   "description": "Definitions particular to OpenContainer Descriptor Specification",
+  "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {
     "mediaType": {
       "id": "https://opencontainers.org/schema/image/descriptor/mediaType",
