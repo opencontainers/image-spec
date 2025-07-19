@@ -8,18 +8,17 @@ GOPATH:=$(shell go env GOPATH)
 OUTPUT_DIRNAME	?= output
 DOC_FILENAME	?= oci-image-spec
 
-PANDOC_CONTAINER ?= ghcr.io/opencontainers/pandoc:2.9.2.1-8.fc33.x86_64@sha256:5d81ff930a043295a557be8b003ece2a33d14e91b28c50d368413b83372f8d28
+# pinned to a 3.1 release due to a regression, see https://github.com/jgm/pandoc/issues/10952 before upgrading
+PANDOC_CONTAINER ?= docker.io/pandoc/latex:3.1@sha256:1cf54d9214a9b52de2f58cf5895cc596a5960711a54d7938dc72f2b23473caf3
 ifeq "$(strip $(PANDOC))" ''
 	ifneq "$(strip $(DOCKER))" ''
 		PANDOC = $(DOCKER) run \
 			--rm \
-			-v $(shell pwd)/:/input/:ro \
-			-v $(shell pwd)/$(OUTPUT_DIRNAME)/:/$(OUTPUT_DIRNAME)/ \
-			-u $(shell id -u) \
-			--workdir /input \
+			-v "$(CURDIR)/:/workdir/:ro" \
+			-v "$(CURDIR)/$(OUTPUT_DIRNAME)/:/workdir/$(OUTPUT_DIRNAME)/" \
+			-u "$(shell id -u):$(shell id -g)" \
+			--workdir /workdir \
 			$(PANDOC_CONTAINER)
-		PANDOC_SRC := /input/
-		PANDOC_DST := /
 	endif
 endif
 
@@ -55,23 +54,21 @@ fmt: ## format the json with indentation
 docs: $(OUTPUT_DIRNAME)/$(DOC_FILENAME).pdf $(OUTPUT_DIRNAME)/$(DOC_FILENAME).html ## generate a PDF/HTML version of the OCI image specification
 
 ifeq "$(strip $(PANDOC))" ''
-$(OUTPUT_DIRNAME)/$(DOC_FILENAME).pdf: $(DOC_FILES) $(FIGURE_FILES)
+$(OUTPUT_DIRNAME)/$(DOC_FILENAME).%: $(DOC_FILES) $(FIGURE_FILES)
 	$(error cannot build $@ without either pandoc or docker)
 else
 $(OUTPUT_DIRNAME)/$(DOC_FILENAME).pdf: $(DOC_FILES) $(FIGURE_FILES)
 	@mkdir -p $(OUTPUT_DIRNAME)/ && \
-	$(PANDOC) -f gfm -t latex --pdf-engine=xelatex -V geometry:margin=0.5in,bottom=0.8in -V block-headings -o $(PANDOC_DST)$@ $(patsubst %,$(PANDOC_SRC)%,$(DOC_FILES))
-	ls -sh $(realpath $@)
+	version="v$$(go run .tool/curver.go)" && \
+	$(PANDOC) -f gfm -t latex -o $@ --metadata "title=image-spec $${version}" --standalone --file-scope --pdf-engine=xelatex -V geometry:margin=0.5in,bottom=0.8in -V block-headings $(DOC_FILES)
+	ls -sh $@
 
-$(OUTPUT_DIRNAME)/$(DOC_FILENAME).html: header.html $(DOC_FILES) $(FIGURE_FILES)
+$(OUTPUT_DIRNAME)/$(DOC_FILENAME).html: $(DOC_FILES) $(FIGURE_FILES)
 	@mkdir -p $(OUTPUT_DIRNAME)/ && \
-	cp -ap img/ $(shell pwd)/$(OUTPUT_DIRNAME)/&& \
-	$(PANDOC) -f gfm -t html5 -H $(PANDOC_SRC)header.html --standalone -o $(PANDOC_DST)$@ $(patsubst %,$(PANDOC_SRC)%,$(DOC_FILES))
-	ls -sh $(realpath $@)
+	version="v$$(go run .tool/curver.go)" && \
+	$(PANDOC) -f gfm -t html5 -o $@ --metadata "title=image-spec $${version}" --standalone --file-scope --embed-resources -V "maxwidth:95%" $(DOC_FILES)
+	ls -sh $@
 endif
-
-header.html: .tool/genheader.go specs-go/version.go
-	go run .tool/genheader.go > $@
 
 .PHONY: validate-examples
 validate-examples: schema/schema.go ## validate examples in the specification markdown files
