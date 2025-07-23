@@ -59,4 +59,14 @@ const (
 
 	// AnnotationBaseImageName is the annotation key for the image reference of the image's base image.
 	AnnotationBaseImageName = "org.opencontainers.image.base.name"
+
+	// AnnotationReferrerSubject is the annotation key for the digest of the subject referenced by the referrers response.
+	// This SHOULD only be considered valid when on descriptors on `index.json` within image layout.
+	// The descriptor SHOULD be the referrers response for the subject digest.
+	AnnotationReferrerSubject = "org.opencontainers.image.referrer.subject"
+
+	// AnnotationReferrerConvert is the annotation key that is set to "true" when tooling has converted any referrers from the fallback tag to using the `org.opencontainers.image.referrer.subject` annotation.
+	// This SHOULD only be considered valid when on the manifest of the `index.json` within image layout.
+	// Tooling that reads an image layout MAY skip the referrers conversion process when the annotation is detected.
+	AnnotationReferrerConvert = "org.opencontainers.image.referrer.convert"
 )
