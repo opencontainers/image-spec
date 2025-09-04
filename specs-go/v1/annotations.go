@@ -59,4 +59,7 @@ const (
 
 	// AnnotationBaseImageName is the annotation key for the image reference of the image's base image.
 	AnnotationBaseImageName = "org.opencontainers.image.base.name"
+
+	// AnnotationSecurity is the annotation key for the URL to get the security policy on the image.
+	AnnotationSecurity = "org.opencontainers.image.security"
 )
