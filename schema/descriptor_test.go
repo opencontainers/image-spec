@@ -38,6 +38,18 @@ func TestDescriptor(t *testing.T) {
 			fail: false,
 		},
 
+		// zero length blob
+		{
+			descriptor: `
+{
+  "mediaType": "application/octet-stream",
+  "size": 0,
+  "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}
+`,
+			fail: false,
+		},
+
 		// expected failure: mediaType missing
 		{
 			descriptor: `
@@ -236,111 +248,149 @@ func TestDescriptor(t *testing.T) {
 		// expected success: artifactType is present and an IANA compliant value
 		{
 			descriptor: `
-		{
-			"mediaType": "application/vnd.oci.image.manifest.v1+json",
-			"artifactType": "application/vnd.oci.image.manifest.v1+json",
-			"size": 7682,
-			"digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270"
-		}
-		`,
+{
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "artifactType": "application/vnd.oci.image.manifest.v1+json",
+  "size": 7682,
+  "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270"
+}
+`,
 			fail: false,
 		},
 
 		// expected failure: artifactType does not match pattern (invalid first subtype character)
 		{
 			descriptor: `
-		{
-			"mediaType": "application/vnd.oci.image.manifest.v1+json",
-			"artifactType": "foo/.bar",
-			"size": 7682,
-			"digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270"
-		}
-		`,
+{
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "artifactType": "foo/.bar",
+  "size": 7682,
+  "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270"
+}
+`,
 			fail: true,
 		},
 
 		// expected success: data field is present and has base64 content
 		{
 			descriptor: `
-		{
-			"mediaType": "text/plain",
-			"size": 34,
-			"data": "aHR0cHM6Ly9naXRodWIuY29tL29wZW5jb250YWluZXJzCg==",
-			"digest": "sha256:2690af59371e9eca9453dc29882643f46e5ca47ec2862bd517b5e17351325153"
-		}
-		`,
+{
+  "mediaType": "text/plain",
+  "size": 34,
+  "data": "aHR0cHM6Ly9naXRodWIuY29tL29wZW5jb250YWluZXJzCg==",
+  "digest": "sha256:2690af59371e9eca9453dc29882643f46e5ca47ec2862bd517b5e17351325153"
+}
+`,
 			fail: false,
 		},
 
-		{
-			descriptor: `{
-    "mediaType": "application/vnd.oci.image.config.v1+json",
-    "size": 1470,
-    "digest": "sha256+b64:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
-}`,
-		},
-		{
-			descriptor: `{
-    "mediaType": "application/vnd.oci.image.config.v1+json",
-    "size": 1470,
-    "digest": "sha256+b64:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
-  }`,
-		},
-		{
-			descriptor: `{
-      "mediaType": "application/vnd.oci.image.config.v1+json",
-      "size": 1470,
-      "digest": "sha256+foo-bar:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
-    }`,
-		},
+		// expected success: test for alternate digest algorithm
 		{
 			descriptor: `
-    {
-      "mediaType": "application/vnd.oci.image.config.v1+json",
-      "size": 1470,
-      "digest": "sha256.foo-bar:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
-    }`,
+{
+  "mediaType": "application/vnd.oci.image.config.v1+json",
+  "size": 1470,
+  "digest": "sha256+b64:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+}`,
+			fail: false,
 		},
+
+		// expected success: test for alternate digest algorithm
 		{
-			descriptor: `{
-      "mediaType": "application/vnd.oci.image.config.v1+json",
-      "size": 1470,
-	  "digest": "multihash+base58:QmRZxt2b1FVZPNqd8hsiykDL3TdBDeTSPX9Kv46HmX4Gx8"
-    }`,
+			descriptor: `
+{
+  "mediaType": "application/vnd.oci.image.config.v1+json",
+  "size": 1470,
+  "digest": "sha256+b64:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+}`,
+			fail: false,
 		},
+
+		// expected success: test for alternate digest algorithm
 		{
-			// fail: repeated separators in algorithm
-			descriptor: `{
-      "mediaType": "application/vnd.oci.image.config.v1+json",
-      "size": 1470,
-      "digest": "sha256+foo+-b:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
-    }`,
+			descriptor: `
+{
+  "mediaType": "application/vnd.oci.image.config.v1+json",
+  "size": 1470,
+  "digest": "sha256+foo-bar:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+}`,
+			fail: false,
+		},
+
+		// expected success: test for alternate digest algorithm
+		{
+			descriptor: `
+{
+  "mediaType": "application/vnd.oci.image.config.v1+json",
+  "size": 1470,
+  "digest": "sha256.foo-bar:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+}`,
+			fail: false,
+		},
+
+		// expected success: test for alternate digest algorithm
+		{
+			descriptor: `
+{
+  "mediaType": "application/vnd.oci.image.config.v1+json",
+  "size": 1470,
+  "digest": "multihash+base58:QmRZxt2b1FVZPNqd8hsiykDL3TdBDeTSPX9Kv46HmX4Gx8"
+}`,
+			fail: false,
+		},
+
+		// fail: repeated separators in algorithm
+		{
+			descriptor: `
+{
+  "mediaType": "application/vnd.oci.image.config.v1+json",
+  "size": 1470,
+  "digest": "sha256+foo+-b:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+}`,
 			fail: true,
 		},
-		{
-			descriptor: `{
-				"digest": "sha256+b64u:LCa0a2j_xo_5m0U8HTBBNBNCLXBkg7-g-YpeiGJm564",
-				"size": 1000000,
-				"mediaType": "application/vnd.oci.image.config.v1+json"
-			}`,
-		},
-		{
-			// test for those who cannot use modulo arithmetic to recover padding.
-			descriptor: `{
-				"digest": "sha256+b64u.unknownlength:LCa0a2j_xo_5m0U8HTBBNBNCLXBkg7-g-YpeiGJm564=",
-				"size": 1000000,
-				"mediaType": "application/vnd.oci.image.config.v1+json"
-			}`,
-		},
+
+		// expected success: test for alternate digest encoding
 		{
 			descriptor: `
+{
+  "digest": "sha256+b64u:LCa0a2j_xo_5m0U8HTBBNBNCLXBkg7-g-YpeiGJm564",
+  "size": 1000000,
+  "mediaType": "application/vnd.oci.image.config.v1+json"
+}`,
+			fail: false,
+		},
+
+		// expected success: test for those who cannot use modulo arithmetic to recover padding.
 		{
-			"mediaType": "text/plain",
-			"size": 34,
-			"data": "aHR0cHM6Ly9naXRodWIuY29tL29wZW5jb250YWluZXJzCg",
-			"digest": "sha256:2690af59371e9eca9453dc29882643f46e5ca47ec2862bd517b5e17351325153"
-		}
-		`,
+			descriptor: `
+{
+  "digest": "sha256+b64u.unknownlength:LCa0a2j_xo_5m0U8HTBBNBNCLXBkg7-g-YpeiGJm564=",
+  "size": 1000000,
+  "mediaType": "application/vnd.oci.image.config.v1+json"
+}`,
+		},
+
+		// expected failure: invalid data base64, missing padding
+		{
+			descriptor: `
+{
+  "mediaType": "text/plain",
+  "size": 34,
+  "data": "aHR0cHM6Ly9naXRodWIuY29tL29wZW5jb250YWluZXJzCg",
+  "digest": "sha256:2690af59371e9eca9453dc29882643f46e5ca47ec2862bd517b5e17351325153"
+}`,
+			fail: true,
+		},
+
+		// expected failure: negative size
+		{
+			descriptor: `
+{
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "size": -7682,
+  "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270"
+}`,
 			fail: true,
 		},
 	} {
