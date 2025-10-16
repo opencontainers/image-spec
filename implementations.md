@@ -2,7 +2,6 @@
 
 Projects or Companies currently adopting the OCI Image Specification
 
-- [projectatomic/skopeo](https://github.com/projectatomic/skopeo)
 - [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-manifest-formats.html) ([announcement](https://aws.amazon.com/about-aws/whats-new/2017/01/amazon-ecr-supports-docker-image-manifest-v2-schema-2/))
 - [Azure Container Registry (ACR)](https://docs.microsoft.com/azure/container-registry/container-registry-image-formats#oci-images)
 - [openSUSE/umoci](https://github.com/openSUSE/umoci)
@@ -17,18 +16,19 @@ Projects or Companies currently adopting the OCI Image Specification
   - [containers/image](https://github.com/containers/image)
   - [containers/oci-spec-rs](https://github.com/containers/oci-spec-rs)
   - [containers/libocispec](https://github.com/containers/libocispec)
-- [krustlet/oci-distribution](https://github.com/krustlet/oci-distribution)
-- [box-builder/box](https://github.com/box-builder/box)
+  - [containers/skopeo](https://github.com/containers/skopeo)
 - [coolljt0725/docker2oci](https://github.com/coolljt0725/docker2oci)
 - [regclient/regclient](https://github.com/regclient/regclient)
 - [ORAS](https://oras.land/)
   - [oras-project/oras](https://github.com/oras-project/oras/)
   - [oras-project/oras-go](https://github.com/oras-project/oras-go)
+  - [oras-project/rust-oci-client](https://github.com/oras-project/rust-oci-client)
 
 ## Former Projects
 
 OCI would like to recognize the following projects that are no longer actively maintained but have contributed to the adoption of OCI
 
 - [coreos/rkt](https://github.com/coreos/rkt) - Project ended and archived on Feb 25, 2020
+- [box-builder/box](https://github.com/box-builder/box) - Project ended and archived on Sep 28, 2020
 
 _(to add your project please open a [pull-request](https://github.com/opencontainers/image-spec/pulls))_
