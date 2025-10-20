@@ -60,3 +60,29 @@ jobs:
         with:
           name: oci-docs
           path: output
+
+  security-scan:
+    runs-on: ubuntu-latest
+    name: Security Vulnerability Scan
+    steps:
+      - uses: actions/checkout@v4
+
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+          cache-dependency-path: ./**/go.sum
+
+
+      - name: Install govulncheck
+        run: go install golang.org/x/vuln/cmd/govulncheck@latest
+
+
+      - name: Run govulncheck on root module
+        run: govulncheck ./...
+
+
+      - name: Run govulncheck on schema module
+        run: |
+          cd schema
+          govulncheck ./...
