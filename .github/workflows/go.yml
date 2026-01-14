@@ -4,7 +4,6 @@
 This repository contains a minimal React app configured to run entirely on Firebase: Authentication (Email/Password + Google), Firestore (simple notes collection), and Hosting — ready for one-command deploy.
 
 ## Quick steps (summary)
-1. Install dependencies: `npm install` or `yarn`
 2. Create a Firebase project in the Firebase Console.
 3. Replace the Firebase config in `src/firebaseConfig.js` with your project's values (or set env variables for production).
 4. Login to Firebase CLI: `firebase login`
