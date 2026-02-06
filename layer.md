@@ -260,7 +260,7 @@ b/
 c/file3
 ```
 
-If we then delete `file1`, `file2`, and `b/`, while leaving `file3` and adding `file4, the next layer looks like:
+If we then delete `file1`, `file2`, and `b/`, while leaving `file3` and adding `file4`, the next layer looks like:
 
 ```text
 .wh.file1
