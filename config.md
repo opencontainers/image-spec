@@ -131,7 +131,7 @@ Note: Any OPTIONAL field MAY also be set to null, which is equivalent to being a
 - **config** _object_, OPTIONAL
 
   The execution parameters which SHOULD be used as a base when running a container using the image.
-  This field can be `null`, in which case any execution parameters should be specified at creation of the container.
+  If the `config` object is omitted, any execution parameters should be specified at creation of the container.
 
   - **User** _string_, OPTIONAL
 
