@@ -30,6 +30,8 @@ Layers SHOULD be packed and unpacked reproducibly to avoid changing the layer Di
 
 NOTE: Do not confuse DiffIDs with [layer digests](manifest.md#image-manifest-property-descriptions), often referenced in the manifest, which are digests over compressed or uncompressed content.
 
+For erofs and squashfs layers, a layer DiffID is the digest over the layer itself.
+
 ### Layer ChainID
 
 For convenience, it is sometimes useful to refer to a stack of layers with a single identifier.
