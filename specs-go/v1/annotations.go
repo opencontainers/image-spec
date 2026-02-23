@@ -59,4 +59,9 @@ const (
 
 	// AnnotationBaseImageName is the annotation key for the image reference of the image's base image.
 	AnnotationBaseImageName = "org.opencontainers.image.base.name"
+
+	// AnnotationReferrerSubject is the annotation key for the digest of the subject referenced by the referrers response.
+	// This SHOULD only be considered valid when on descriptors on `index.json` within image layout.
+	// The descriptor SHOULD be the referrers response for the subject digest.
+	AnnotationReferrerSubject = "org.opencontainers.image.referrer.subject"
 )
