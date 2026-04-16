@@ -151,7 +151,7 @@ Create a new directory and initialize it with a copy or snapshot of the prior ro
 Example commands that can preserve [file attributes](#file-attributes) to make this copy are:
 
 - [cp(1)](https://linux.die.net/man/1/cp): `cp -a rootfs-c9d-v1/ rootfs-c9d-v1.s1/`
-- [rsync(1)](https://linux.die.net/man/1/rsync):  `rsync -aHAX rootfs-c9d-v1/ rootfs-c9d-v1.s1/`
+- [rsync(1)](https://linux.die.net/man/1/rsync): `rsync -aHAX rootfs-c9d-v1/ rootfs-c9d-v1.s1/`
 - [tar(1)](https://linux.die.net/man/1/tar): `mkdir rootfs-c9d-v1.s1 && tar --acls --xattrs -C rootfs-c9d-v1/ -c . | tar -C rootfs-c9d-v1.s1/ --acls --xattrs -x` (including `--selinux` where supported)
 
 Any [changes](#change-types) to the snapshot MUST NOT change or affect the directory it was copied from.
@@ -159,7 +159,7 @@ Any [changes](#change-types) to the snapshot MUST NOT change or affect the direc
 For example `rootfs-c9d-v1.s1` is an identical snapshot of `rootfs-c9d-v1`.
 In this way `rootfs-c9d-v1.s1` is prepared for updates and alterations.
 
-**Implementor's Note**: *a copy-on-write or union filesystem can efficiently make directory snapshots*
+**Implementor's Note**: _a copy-on-write or union filesystem can efficiently make directory snapshots_
 
 Initial layout of the snapshot:
 
@@ -246,6 +246,7 @@ In all other cases, the implementation MUST do the semantic equivalent of the fo
 
 - A whiteout file is an empty file with a special filename that signifies a path should be deleted.
 - A whiteout filename consists of the prefix `.wh.` plus the basename of the path to be deleted.
+- A `.wh.` file, without a basename to delete, is invalid and implementations SHOULD return an error when encountering such an entry.
 - As files prefixed with `.wh.` are special whiteout markers, it is not possible to create a filesystem which has a file or directory with a name beginning with `.wh.`.
 - Once a whiteout is applied, the whiteout itself MUST also be hidden.
 - Whiteout files MUST only apply to resources in lower/parent layers.
