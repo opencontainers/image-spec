@@ -97,8 +97,7 @@ With this approach, the link map and links names of a directory could be compare
 
 #### Platform-specific attributes
 
-Implementations on Windows MUST support these additional attributes, encoded in [PAX vendor
-extensions](https://github.com/libarchive/libarchive/wiki/ManPageTar5#pax-interchange-format) as follows:
+Implementations on Windows MUST support these additional attributes, encoded in [PAX vendor extensions](https://github.com/libarchive/libarchive/wiki/ManPageTar5#pax-interchange-format) as follows:
 
 - [Windows file attributes](https://msdn.microsoft.com/en-us/library/windows/desktop/gg258117(v=vs.85).aspx) (`MSWINDOWS.fileattr`)
 - [Security descriptor](https://msdn.microsoft.com/en-us/library/cc230366.aspx) (`MSWINDOWS.rawsd`): base64-encoded self-relative binary security descriptor
