@@ -53,6 +53,9 @@ This specification defines the following annotation keys, intended for but not l
   - This SHOULD be the immediate image sharing zero-indexed layers with the image, such as from a Dockerfile `FROM` statement.
   - This SHOULD NOT reference any other images used to generate the contents of the image (e.g., multi-stage Dockerfile builds).
   - If the `image.base.name` annotation is specified, the `image.base.digest` annotation SHOULD be the digest of the manifest referenced by the `image.ref.name` annotation.
+- **org.opencontainers.image.referrer.subject** Digest of the subject referenced by the referrers response (string)
+  - This SHOULD only be considered valid when on descriptors on `index.json` within [image layout](image-layout.md).
+  - The descriptor SHOULD be the referrers response for the subject digest.
 
 ## Back-compatibility with Label Schema
 
