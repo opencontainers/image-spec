@@ -1,0 +1,29 @@
+<button onclick="ekleRSM()" style="padding: 15px 30px; background-color: #f3ba2f; border: none; cursor: pointer; font-weight: bold; border-radius: 8px;">
+  RSM Token'ı Cüzdana Ekle 🦁
+</button>
+
+<script>
+async function ekleRSM() {
+  if (window.ethereum) {
+    try {
+      await window.ethereum.request({
+        method: 'wallet_watchAsset',
+        params: {
+          type: 'ERC20',
+          options: {
+            address: '0xaD5392cE8D331563d2e3F3862400BC894B507fC5', // Token Adresin
+            symbol: 'RSM',
+            decimals: 18,
+            image: 'https://raw.githubusercontent.com/risasi-hup/KARAKUZULAR0659/main/logo.png', // Logonun linki
+          },
+        },
+      });
+      alert('RSM cüzdana eklendi!');
+    } catch (error) {
+      console.error(error);
+    }
+  } else {
+    alert('Lütfen MetaMask veya web3 destekli bir cüzdan kullanın.');
+  }
+}
+</script>
