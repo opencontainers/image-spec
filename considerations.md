@@ -2,12 +2,14 @@
 
 ## Extensibility
 
-Implementations storing or copying content MUST NOT modify or alter the content in a way that would change the digest of the content. Examples of these implementations include:
+Implementations storing or copying content MUST NOT modify or alter the content in a way that would change the digest of the content.
+Examples of these implementations include:
 
 - A [registry implementing the distribution specification][distribution-spec], including local registries, caching proxies
 - An application which copies content to disk or between registries
 
-Implementations processing content SHOULD NOT generate an error if they encounter an unknown property in a known media type. Examples of these implementations include:
+Implementations processing content SHOULD NOT generate an error if they encounter an unknown property in a known media type.
+Examples of these implementations include:
 
 - A [runtime implementing the runtime specification][runtime-spec]
 - An implementation using OCI to retrieve and utilize artifacts, e.g.: a WASM runtime

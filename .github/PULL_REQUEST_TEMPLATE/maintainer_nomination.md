@@ -10,7 +10,8 @@ Name of the new maintainer with GitHub username
 
 ## Justification
 
-Highlight any work contributed by the new maintainer. Examples of contributions may be:
+Highlight any work contributed by the new maintainer.
+Examples of contributions may be:
 
 - Community involvement in mailing lists and meetings
 - Involvement in any OCI working groups

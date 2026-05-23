@@ -166,8 +166,7 @@ Note that `[A-F]` MUST NOT be used here.
 
 #### BLAKE3
 
-[BLAKE3][blake3] is a high performance, highly parallelizable, collision-resistant hash function which [is more performant][blake3-vs-sha2] than
-[SHA-256][rfc4634-s4.1].
+[BLAKE3][blake3] is a high performance, highly parallelizable, collision-resistant hash function which [is more performant][blake3-vs-sha2] than [SHA-256][rfc4634-s4.1].
 The hash output length MUST be 256 bits.
 Implementations MAY implement BLAKE3 digest verification for use in descriptors.
 
