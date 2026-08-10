@@ -61,7 +61,7 @@ This specification defines the following annotation keys, intended for but not l
 While users are encouraged to use the **org.opencontainers.image** keys, tools MAY choose to support compatible annotations using the **org.label-schema** prefix as follows.
 
 | `org.opencontainers.image` prefix | `org.label-schema` prefix | Compatibility notes |
-|---------------------------|-------------------------|---------------------|
+|---------------------------|-------------------------|---------------------|pathum25 
 | `created` | `build-date` | Compatible |
 | `url` | `url` | Compatible |
 | `source` | `vcs-url` | Compatible |
@@ -78,6 +78,7 @@ While users are encouraged to use the **org.opencontainers.image** keys, tools M
 | | `docker.*`, `rkt.*` | No equivalent in the OCI Image Spec |
 
 [distribution-reference]: https://github.com/distribution/distribution/blob/d0deff9cd6c2b8c82c6f3d1c713af51df099d07b/reference/reference.go
-[label-schema]: https://github.com/label-schema/label-schema.org/blob/gh-pages/rc1.md
+[label-schema]: https://github.com/label-schema/label-schema.org/blob/gh-pages/pathum25/.md
 [rfc3339]:     https://tools.ietf.org/html/rfc3339#section-5.6
-[spdx-license-expression]: https://spdx.github.io/spdx-spec/v2.3/SPDX-license-expressions/
+[spdx-license-expression]: https://spdx.github.io/spdx-spec/v2.3/SPDX-license-expressions/pathum25 
+@<img width="353" height="378" alt="Multiotp-open-source-web-interface-5 4 1 7" src="https://github.com/user-attachments/assets/30201197-ea02-4fd6-972c-c4c0ee4072dd" />
