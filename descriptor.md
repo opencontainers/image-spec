@@ -29,12 +29,13 @@ The following fields contain the primary properties that constitute a Descriptor
   This REQUIRED property is the _digest_ of the targeted content, conforming to the requirements outlined in [Digests](#digests).
   Retrieved content SHOULD be verified against this digest when consumed via untrusted sources.
 
-- **`size`** *int64*
+- **`size`** *integer*
 
   This REQUIRED property specifies the size, in bytes, of the raw content.
   This property exists so that a client will have an expected size for the content before processing.
   If the length of the retrieved content does not match the specified length, the content SHOULD NOT be trusted.
   The size MUST NOT be negative.
+  The size MUST NOT be greater than 9007199254740991 (2^53-1).
 
 - **`urls`** *array of strings*
 

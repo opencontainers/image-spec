@@ -15,7 +15,7 @@ Unlike the [image index](image-index.md), which contains information about a set
 
 ## _Image Manifest_ Property Descriptions
 
-- **`schemaVersion`** *int*
+- **`schemaVersion`** *integer*
 
   This REQUIRED property specifies the image manifest schema version.
   For this version of the specification, this MUST be `2` to ensure backward compatibility with older versions of Docker. The value of this field will not change. This field MAY be removed in a future version of the specification.

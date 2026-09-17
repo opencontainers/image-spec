@@ -9,7 +9,7 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 
 ## _Image Index_ Property Descriptions
 
-- **`schemaVersion`** *int*
+- **`schemaVersion`** *integer*
 
   This REQUIRED property specifies the image manifest schema version.
   For this version of the specification, this MUST be `2` to ensure backward compatibility with older versions of Docker.
