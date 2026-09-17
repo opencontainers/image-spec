@@ -107,7 +107,7 @@
         "diff_ids": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "defs-descriptor.json#/definitions/digest"
           }
         },
         "type": {

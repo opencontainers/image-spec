@@ -249,6 +249,75 @@ func TestConfig(t *testing.T) {
 `,
 			fail: true,
 		},
+
+		// expected failure: diff_ids entry is empty, must be in the digest format
+		{
+			config: `
+{
+    "architecture": "amd64",
+    "os": "linux",
+    "rootfs": {
+      "diff_ids": [
+        ""
+      ],
+      "type": "layers"
+    }
+}
+`,
+			fail: true,
+		},
+
+		// expected failure: diff_ids entry is not a digest
+		{
+			config: `
+{
+    "architecture": "amd64",
+    "os": "linux",
+    "rootfs": {
+      "diff_ids": [
+        "this is not a digest at all"
+      ],
+      "type": "layers"
+    }
+}
+`,
+			fail: true,
+		},
+
+		// expected failure: diff_ids entry carries a path rather than a digest
+		{
+			config: `
+{
+    "architecture": "amd64",
+    "os": "linux",
+    "rootfs": {
+      "diff_ids": [
+        "../../../../etc/shadow"
+      ],
+      "type": "layers"
+    }
+}
+`,
+			fail: true,
+		},
+
+		// expected success: a well formed diff_ids entry, so the three cases
+		// above fail on their value and not on the surrounding document
+		{
+			config: `
+{
+    "architecture": "amd64",
+    "os": "linux",
+    "rootfs": {
+      "diff_ids": [
+        "sha256:e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f"
+      ],
+      "type": "layers"
+    }
+}
+`,
+			fail: false,
+		},
 	} {
 		r := strings.NewReader(tt.config)
 		err := schema.ValidatorMediaTypeImageConfig.Validate(r)
