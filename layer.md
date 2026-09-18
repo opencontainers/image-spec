@@ -61,6 +61,20 @@ Where supported, MUST include file attributes for Additions and Modifications in
 
 [Sparse files](https://en.wikipedia.org/wiki/Sparse_file) SHOULD NOT be used because they lack consistent support across tar implementations.
 
+#### Implied Directories
+
+As the tar format describes directory hierarchies using a flat datastructure, it is possible to have so-called "implied directories" where not all parent directories implied by an entries' path in the archive have their own entry.
+
+When applying a layer, implementations MUST create any parent directories implied by an entries' path, even if it is otherwise absent from the archive. Attributes of the created parent directories MUST be set as follows:
+
+* `mtime` is set to the Unix epoch (`0`)
+* `uid` is set to the `0`
+* `gid` is set to the `0`
+* `mode` is set to `0755`
+* `xattrs` are empty
+
+Layer authors SHOULD ensure directory entries are fully present for all directory hierarchies in their layers, as previous versions of this specification did not specify this behavior and results may be implementation defined.
+
 #### Hardlinks
 
 - Hardlinks are a [POSIX concept](https://pubs.opengroup.org/onlinepubs/9699919799/functions/link.html) for having one or more directory entries for the same file on the same device.
