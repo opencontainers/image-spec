@@ -45,6 +45,14 @@ const (
 	// MediaTypeImageLayerZstd is the media type used for zstd compressed
 	// layers referenced by the manifest.
 	MediaTypeImageLayerZstd = "application/vnd.oci.image.layer.v1.tar+zstd"
+
+	// MediaTypeErofs specifies the media type as erofs filesystem layer
+	// https://www.iana.org/assignments/media-types/application/vnd.erofs
+	MediaTypeErofs = "application/vnd.oci.image.layer.v1.erofs"
+
+	// MediaTypeSquashfs specifies the media type as squashfs filesystem layer
+	// https://github.com/plougher/squashfs-tools
+	MediaTypeSquashfs = "application/vnd.oci.image.layer.v1.squashfs"
 )
 
 // Non-distributable layer media-types.

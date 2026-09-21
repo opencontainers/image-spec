@@ -20,6 +20,8 @@ This section defines the `application/vnd.oci.image.layer.v1.tar`, `application/
 
 - Layer Changesets for the [media type](media-types.md) `application/vnd.oci.image.layer.v1.tar` MUST be packaged in [tar archive][tar-archive].
 - Layer Changesets for the [media type](media-types.md) `application/vnd.oci.image.layer.v1.tar` MUST NOT include duplicate entries for file paths in the resulting [tar archive][tar-archive].
+- Layer Changesets for the [media type](media-types.md) `application/vnd.oci.image.layer.v1.erofs` MUST be packaged in [erofs file][erofs].
+- Layer Changesets for the [media type](media-types.md) `application/vnd.oci.image.layer.v1.squashfs` MUST be packaged in [squashfs file][squashfs].
 
 ## Change Types
 
@@ -365,3 +367,5 @@ Implementations SHOULD NOT upload layers tagged with this media type; however, s
 [rfc1952_2]: https://tools.ietf.org/html/rfc1952
 [tar-archive]: https://en.wikipedia.org/wiki/Tar_(computing)
 [rfc8478]: https://tools.ietf.org/html/rfc8478
+[squashfs]: https://github.com/plougher/squashfs-tools
+[erofs]: https://erofs.docs.kernel.org/
