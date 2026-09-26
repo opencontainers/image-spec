@@ -160,6 +160,10 @@ For example, an image may have a tag for different versions or builds of the sof
 In the wild you often see "tags" like "v1.0.0-vendor.0", "2.0.0-debug", etc.
 Those tags will often be represented in an image-layout repository with matching "org.opencontainers.image.ref.name" annotations like "v1.0.0-vendor.0", "2.0.0-debug", etc.
 
+**Referrers Support:**
+Manifests included in an OCI Layout that contain a `subject` field SHOULD be listed in a [referrers response][referrers-response].
+The referrers response is then saved as a blob and listed in the `index.json` with the media type set to `application/vnd.oci.image.index.v1+json` and the annotation `org.opencontainers.image.referrer.subject` set to the `subject` digest value.
+
 ### Index Example
 
 ```json,title=Image%20Index&mediatype=application/vnd.oci.image.index.v1%2Bjson
@@ -195,6 +199,14 @@ Those tags will often be represented in an image-layout repository with matching
         "org.freedesktop.specifications.metainfo.version": "1.0",
         "org.freedesktop.specifications.metainfo.type": "AppStream"
       }
+    },
+    {
+      "mediaType": "application/vnd.oci.image.index.v1+json",
+      "size": 7143,
+      "digest": "sha256:1efe7ab979c486a5af7a29d2c4603d84a3b934a7253d61b37e8573afecf47c03",
+      "annotations": {
+        "org.opencontainers.image.referrer.subject": "sha256:0228f90e926ba6b96e4f39cf294b2586d38fbb5a1e385c05cd1ee40ea54fe7fd"
+      }
     }
   ],
   "annotations": {
@@ -206,8 +218,9 @@ Those tags will often be represented in an image-layout repository with matching
 This illustrates an index that provides two named references and an auxiliary mediatype for this image layout.
 
 The first named reference (`stable-release`) points to another index that might contain multiple references with distinct platforms and annotations.
-Note that the [`org.opencontainers.image.ref.name` annotation](annotations.md) SHOULD only be considered valid when on descriptors on `index.json`.
+Note that the [`org.opencontainers.image.ref.name` and `org.opencontainers.image.referrer.subject` annotations](annotations.md) SHOULD only be considered valid when on descriptors on `index.json`.
 
 The second named reference (`v1.0`) points to a manifest that is specific to the linux/ppc64le platform.
 
 [descriptors]: ./descriptor.md
+[referrers-response]: https://github.com/opencontainers/distribution-spec/blob/v1.1.1/spec.md#listing-referrers
