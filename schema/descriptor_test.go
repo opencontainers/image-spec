@@ -393,6 +393,17 @@ func TestDescriptor(t *testing.T) {
 }`,
 			fail: true,
 		},
+
+		// expected failure: size is outside the safe integer range of a double
+		{
+			descriptor: `
+{
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "size": 9007199254740992,
+  "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270"
+}`,
+			fail: true,
+		},
 	} {
 		r := strings.NewReader(tt.descriptor)
 		err := schema.ValidatorMediaTypeDescriptor.Validate(r)

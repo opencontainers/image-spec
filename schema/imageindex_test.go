@@ -305,6 +305,50 @@ func TestImageIndex(t *testing.T) {
 `,
 			fail: true,
 		},
+
+		// expected failure: negative manifest size
+		{
+			imageIndex: `
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.index.v1+json",
+  "manifests": [
+    {
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "size": -7682,
+      "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270",
+      "platform": {
+        "architecture": "amd64",
+        "os": "linux"
+      }
+    }
+  ]
+}
+`,
+			fail: true,
+		},
+
+		// expected failure: manifest size is outside the safe integer range of a double
+		{
+			imageIndex: `
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.index.v1+json",
+  "manifests": [
+    {
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "size": 9007199254740992,
+      "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270",
+      "platform": {
+        "architecture": "amd64",
+        "os": "linux"
+      }
+    }
+  ]
+}
+`,
+			fail: true,
+		},
 	} {
 		r := strings.NewReader(tt.imageIndex)
 		err := schema.ValidatorMediaTypeImageIndex.Validate(r)
