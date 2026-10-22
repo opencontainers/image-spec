@@ -53,6 +53,7 @@ This specification defines the following annotation keys, intended for but not l
   - This SHOULD be the immediate image sharing zero-indexed layers with the image, such as from a Dockerfile `FROM` statement.
   - This SHOULD NOT reference any other images used to generate the contents of the image (e.g., multi-stage Dockerfile builds).
   - If the `image.base.name` annotation is specified, the `image.base.digest` annotation SHOULD be the digest of the manifest referenced by the `image.ref.name` annotation.
+- **org.opencontainers.image.security** URL to get the image security policy (for a possible format, see [RFC 9116][rfc9116]). (string)
 
 ## Back-compatibility with Label Schema
 
@@ -74,10 +75,12 @@ While users are encouraged to use the **org.opencontainers.image** keys, tools M
 | `authors` |  | No equivalent in Label Schema |
 | `licenses` | | No equivalent in Label Schema |
 | `ref.name` | | No equivalent in Label Schema |
+| `security` | | No equivalent in Label Schema |
 | | `schema-version`| No equivalent in the OCI Image Spec |
 | | `docker.*`, `rkt.*` | No equivalent in the OCI Image Spec |
 
 [distribution-reference]: https://github.com/distribution/distribution/blob/d0deff9cd6c2b8c82c6f3d1c713af51df099d07b/reference/reference.go
 [label-schema]: https://github.com/label-schema/label-schema.org/blob/gh-pages/rc1.md
-[rfc3339]:     https://tools.ietf.org/html/rfc3339#section-5.6
+[rfc3339]: https://datatracker.ietf.org/doc/html/rfc3339#section-5.6
+[rfc9116]: https://datatracker.ietf.org/doc/html/rfc9116
 [spdx-license-expression]: https://spdx.github.io/spdx-spec/v2.3/SPDX-license-expressions/
