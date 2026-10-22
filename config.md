@@ -84,9 +84,10 @@ Most importantly, we can easily see that `ChainID(C) != ChainID(A|B|C)`, otherwi
 
 ### ImageID
 
-Each image's ID is given by the SHA256 hash of its [configuration JSON](#image-json).
-It is represented as a hexadecimal encoding of 256 bits, e.g., `sha256:a9561eb1b190625c9adb5a9513e72c4dedafc1cb2d4c5236c9a6957ec7dfd5a9`.
-Since the [configuration JSON](#image-json) that gets hashed references hashes of each layer in the image, this formulation of the ImageID makes images content-addressable.
+*Implementers note*: Previously, the ImageID has been documented as the "SHA256 hash of its [configuration JSON](#image-json)".
+With the packaging of artifacts, it is possible that this value is no longer unique.
+In addition, more tooling supports managing OCI content by the the digest of the [index](image-index.md) or [manifest](manifest.md).
+As a result, implementations have diverged from the original ImageID definition and the specification no longer defines how implementations create this value.
 
 ## Properties
 
