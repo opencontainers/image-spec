@@ -336,6 +336,80 @@ func TestManifest(t *testing.T) {
 `,
 			fail: false,
 		},
+
+		// expected failure: config.digest is not a valid sha256 digest (uppercase characters)
+		{
+			manifest: `
+{
+  "schemaVersion": 2,
+  "mediaType" : "application/vnd.oci.image.manifest.v1+json",
+  "config": {
+    "mediaType": "application/vnd.oci.image.config.v1+json",
+    "size": 1470,
+    "digest": "sha256:C86F7763873B6C0AAE22D963BAB59B4F5DEBBED6685761B5951584F6EFB0633B"
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+      "size": 1470,
+      "digest": "sha256:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+    }
+  ]
+}
+`,
+			fail: true,
+		},
+
+		// expected failure: layers.digest is not a valid sha256 digest (too short)
+		{
+			manifest: `
+{
+  "schemaVersion": 2,
+  "mediaType" : "application/vnd.oci.image.manifest.v1+json",
+  "config": {
+    "mediaType": "application/vnd.oci.image.config.v1+json",
+    "size": 1470,
+    "digest": "sha256:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+      "size": 1470,
+      "digest": "sha256:c86f7763873b6c0aae22d963bab59b4f"
+    }
+  ]
+}
+`,
+			fail: true,
+		},
+
+		// expected failure: subject.digest is not a valid sha256 digest (too short)
+		{
+			manifest: `
+{
+  "schemaVersion": 2,
+  "mediaType" : "application/vnd.oci.image.manifest.v1+json",
+  "config": {
+    "mediaType": "application/vnd.oci.image.config.v1+json",
+    "size": 1470,
+    "digest": "sha256:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+      "size": 1470,
+      "digest": "sha256:c86f7763873b6c0aae22d963bab59b4f5debbed6685761b5951584f6efb0633b"
+    }
+  ],
+  "subject" : {
+    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+    "size": 1234,
+    "digest": "sha256:220a60ecd4a3c32c282622a625a54db9"
+  }
+}
+`,
+			fail: true,
+		},
 	} {
 		r := strings.NewReader(tt.manifest)
 		err := schema.ValidatorMediaTypeManifest.Validate(r)

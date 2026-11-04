@@ -143,6 +143,23 @@ func validateManifest(buf []byte) error {
 		return fmt.Errorf("manifest format mismatch: %w", err)
 	}
 
+	err = validateDescriptorDigest(header.Config.Digest)
+	if err != nil {
+		return fmt.Errorf("config: %w", err)
+	}
+	for i, layer := range header.Layers {
+		err = validateDescriptorDigest(layer.Digest)
+		if err != nil {
+			return fmt.Errorf("layers[%d]: %w", i, err)
+		}
+	}
+	if header.Subject != nil {
+		err = validateDescriptorDigest(header.Subject.Digest)
+		if err != nil {
+			return fmt.Errorf("subject: %w", err)
+		}
+	}
+
 	return nil
 }
 
@@ -154,7 +171,11 @@ func validateDescriptor(buf []byte) error {
 		return fmt.Errorf("descriptor format mismatch: %w", err)
 	}
 
-	err = header.Digest.Validate()
+	return validateDescriptorDigest(header.Digest)
+}
+
+func validateDescriptorDigest(d digest.Digest) error {
+	err := d.Validate()
 	if errors.Is(err, digest.ErrDigestUnsupported) {
 		// we ignore unsupported algorithms
 		return nil
@@ -168,6 +189,19 @@ func validateIndex(buf []byte) error {
 	err := json.Unmarshal(buf, &header)
 	if err != nil {
 		return fmt.Errorf("index format mismatch: %w", err)
+	}
+
+	for i, manifest := range header.Manifests {
+		err = validateDescriptorDigest(manifest.Digest)
+		if err != nil {
+			return fmt.Errorf("manifests[%d]: %w", i, err)
+		}
+	}
+	if header.Subject != nil {
+		err = validateDescriptorDigest(header.Subject.Digest)
+		if err != nil {
+			return fmt.Errorf("subject: %w", err)
+		}
 	}
 
 	return nil
