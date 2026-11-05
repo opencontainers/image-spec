@@ -305,6 +305,47 @@ func TestImageIndex(t *testing.T) {
 `,
 			fail: true,
 		},
+
+		// expected failure: manifests.digest is not a valid sha256 digest (uppercase characters)
+		{
+			imageIndex: `
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.index.v1+json",
+  "manifests": [
+    {
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "size": 7682,
+      "digest": "sha256:5B0BCABD1ED22E9FB1310CF6C2DEC7CDEF19F0AD69EFA1F392E94A4333501270"
+    }
+  ]
+}
+`,
+			fail: true,
+		},
+
+		// expected failure: subject.digest is not a valid sha256 digest (too short)
+		{
+			imageIndex: `
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.index.v1+json",
+  "manifests": [
+    {
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "size": 7682,
+      "digest": "sha256:5b0bcabd1ed22e9fb1310cf6c2dec7cdef19f0ad69efa1f392e94a4333501270"
+    }
+  ],
+  "subject": {
+    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+    "size": 1234,
+    "digest": "sha256:220a60ecd4a3c32c282622a625a54db9"
+  }
+}
+`,
+			fail: true,
+		},
 	} {
 		r := strings.NewReader(tt.imageIndex)
 		err := schema.ValidatorMediaTypeImageIndex.Validate(r)
