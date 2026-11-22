@@ -14,6 +14,15 @@ Examples of these implementations include:
 - A [runtime implementing the runtime specification][runtime-spec]
 - An implementation using OCI to retrieve and utilize artifacts, e.g.: a WASM runtime
 
+## Image size and layer count
+
+This specification does not prescribe a maximum total image size, number of layers in an image, or number of files in a layer.
+A [manifest](manifest.md) lists layer descriptors, and the [layer format](layer.md) defines how files are represented within a layer.
+When preparing a large image, consider the limits of the archive format, the registry storing the image, and the client and filesystem that will unpack it.
+
+The [OCI Distribution Specification](https://github.com/opencontainers/distribution-spec/blob/v1.1.1/spec.md#pushing-manifests) recommends that clients and registries support manifest pushes of at least 4 megabytes.
+That recommendation concerns the manifest document itself. The layer blobs it references are transferred separately.
+
 ## Canonicalization
 
 - OCI Images are [content-addressable](https://en.wikipedia.org/wiki/Content-addressable_storage). See [descriptors](descriptor.md) for more.
